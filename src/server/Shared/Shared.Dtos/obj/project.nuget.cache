@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "5P6scg42QZZYegXST5ZH24bimdsaeONJ90A4rYP0jlzv/D4tlqF7RAyQjwtBmq1d6zFPHykMeIci9VU6NWRkVw==",
+  "success": true,
+  "projectFilePath": "D:\\Repositories\\Modular\\InmoIT\\src\\server\\Shared\\Shared.Dtos\\Shared.Dtos.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\codewithvlaperchi\\.nuget\\packages\\roslynator.analyzers\\3.3.0\\roslynator.analyzers.3.3.0.nupkg.sha512",
+    "C:\\Users\\codewithvlaperchi\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512"
+  ],
+  "logs": []
+}

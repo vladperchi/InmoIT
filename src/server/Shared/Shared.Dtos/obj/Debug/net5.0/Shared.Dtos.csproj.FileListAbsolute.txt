@@ -1,0 +1,13 @@
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\bin\Debug\net5.0\InmoIT.Shared.DTOs.deps.json
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\bin\Debug\net5.0\InmoIT.Shared.DTOs.dll
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\bin\Debug\net5.0\ref\InmoIT.Shared.DTOs.dll
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\bin\Debug\net5.0\InmoIT.Shared.DTOs.pdb
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\bin\Debug\net5.0\InmoIT.Shared.DTOs.xml
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\Shared.Dtos.csproj.AssemblyReference.cache
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\Shared.Dtos.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\Shared.Dtos.AssemblyInfoInputs.cache
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\Shared.Dtos.AssemblyInfo.cs
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\Shared.Dtos.csproj.CoreCompileInputs.cache
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\InmoIT.Shared.DTOs.dll
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\ref\InmoIT.Shared.DTOs.dll
+D:\Repositories\Modular\InmoIT\src\server\Shared\Shared.Dtos\obj\Debug\net5.0\InmoIT.Shared.DTOs.pdb
