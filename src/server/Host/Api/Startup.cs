@@ -6,27 +6,21 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InmoIT.Api
 {
   public class Startup
   {
-    private readonly IConfiguration _config;
-
-    public Startup(IConfiguration config)
-    {
-      _config = config;
-    }
-
-    public void ConfigureServices(IServiceCollection services)
+    public Startup()
     {
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void ConfigureServices()
+    {
+    }
+
+    public void Configure()
     {
     }
   }

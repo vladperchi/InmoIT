@@ -1,29 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>InmoIT.Api</AssemblyName>
-    <RootNamespace>InmoIT.Api</RootNamespace>
+    <RootNamespace>InmoIT.Shared.Dtos</RootNamespace>
+    <AssemblyName>InmoIT.Shared.Dtos</AssemblyName>
+    <CodeAnalysisRuleSet />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Api.xml</DocumentationFile>
+    <DocumentationFile>InmoIT.Shared.Dtos.xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>InmoIT.Api.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>InmoIT.Shared.Dtos.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire" Version="1.7.27" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -33,6 +27,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Flow\Image\" />
+    <Folder Include="Flow\Trace\" />
+    <Folder Include="Identity\" />
+    <Folder Include="Misc\Document\" />
+    <Folder Include="Misc\DocumentType\" />
+    <Folder Include="Upload\" />
+    <Folder Include="Mails\" />
   </ItemGroup>
 
 </Project>
