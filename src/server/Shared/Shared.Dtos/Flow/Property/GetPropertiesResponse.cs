@@ -6,7 +6,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
+
 namespace InmoIT.Shared.Dtos.Flow.Property
 {
-    public record GetPropertiesResponse();
+    public record GetPropertiesResponse(Guid Id, string InternalName);
 }
