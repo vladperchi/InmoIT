@@ -43,19 +43,19 @@ Modular Architecture is a software design in which a monolith is made better and
 
 ### PRO
 
-- [x] Clear Separation of Concerns
-- [x] Easily Scalable
-- [x] Lower complexity compared to Microservices
-- [x] Low operational / deployment costs.
-- [x] Reusability
-- [x] Organized Dependencies
+- Clear Separation of Concerns
+- Easily Scalable
+- Lower complexity compared to Microservices
+- Low operational / deployment costs.
+- Reusability
+- Organized Dependencies
 
 ### CONTRA
 
-- [x] Not Multi-technology compatible.
-- [x] Horizontal Scaling can be a concern. But this can be managed via load balancers.
-- [x] Since Interprocess Communication is used, messages may be lost during Application Termination. Microservices combat this issue by using external messaging brokers like Kafka, RabbitMQ.
-- [x] We can make use of message agents but no, let's keep it simple.
+- Not Multi-technology compatible.
+- Horizontal Scaling can be a concern. But this can be managed via load balancers.
+- Since Interprocess Communication is used, messages may be lost during Application Termination. Microservices combat this issue by using external messaging brokers like Kafka, RabbitMQ.
+- We can make use of message agents but no, let's keep it simple.
 
 ## Technology Stack
 
@@ -97,6 +97,41 @@ Modular Architecture is a software design in which a monolith is made better and
 - [ ] Dashboard Updates Realtime
 - [ ] Chat - Integrated with Identity
 
+## Project Structure
+
+- src
+  - Host
+    - Api
+  - Modules
+    - Flow
+      - Controllers
+      - Core
+        - Entities
+        - Interfaces
+        - Exceptions
+        - CQRS
+          - Handlers
+          - Commands
+          - Queries
+      - Infrastructure
+        - Context
+        - Migrations
+    - n-Module
+  - Shared
+    - Core
+      - Interfaces
+    - Dtos
+    - Infrastructure
+      - Middlewares
+      - Persistence Registrations
+- tests
+  - FunctionalTests
+    - ControllerApis
+  - IntegrationTests
+    - Data
+  - UnitTests
+    - Core
+
 ## Project Status
 
 - API - `In Progress`
@@ -132,9 +167,6 @@ Clone this repository to your local machine.
 - Twitter - [codewithvlad][twitter-url]
 - Linkedin - [Vladimir][linkedin-url]
 - GitHub - [vladperchi][github-url]
-
-> - Blogs at [codewithvladperchi.com](https://www.codewithvladperchi.com)
-> - Facebook - [codewithvladperchi](https://www.facebook.com/codewithvladperchi)
 
 ## License
 
