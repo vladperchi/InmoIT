@@ -65,24 +65,25 @@ Modular Architecture is a software design in which a monolith is made better and
 
 ## Features
 
+- [x] NET 5.0
 - [x] Modular Architecture
 - [x] Controller Registration
 - [x] Entity Framework Core - Code First
 - [x] Service-Based
+- [x] Serilog
 - [x] Repository Pattern - Generic
 - [x] CQRS using MediatR Library
 - [x] MediatR Logging & Validation
-- [x] Serilog
+- [x] Swagger
 - [x] In-Memory Database
 - [x] Database Seeding
 - [x] Identity Seeding
 - [x] Migrations
-- [x] CRUD Functionalities
+- [x] CRUD Operations
 - [x] AutoMapper
-- [x] Swagger-UI-Documentation
 - [x] API Versioning
 - [x] JWT Authentication
-- [x] Validation Errors
+- [x] Custom Errors
 - [x] Localization
 - [x] Middlewares
 - [x] Dynamic Service Registration
@@ -90,6 +91,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Default User & Role Seeding
 - [x] Registration (Only Admin register new users)
 - [x] User Auditing
+- [x] Docker Support
 - [ ] Document
 - [ ] PDF Downloads
 - [ ] File Upload
@@ -123,7 +125,10 @@ Modular Architecture is a software design in which a monolith is made better and
     - Dtos
     - Infrastructure
       - Middlewares
-      - Persistence Registrations
+      - Persistence
+      - Services
+      - Mappings
+      - Utilities
 - tests
   - FunctionalTests
     - ControllerApis
@@ -159,6 +164,22 @@ Clone this repository to your local machine.
 4. That is all you need to configure the API. Just create and run the API project.
 5. By default, the database is migratedand ready for use.
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
+
+## Docker in Windows
+
+- Install Docker on Windows via `https://docs.docker.com/docker-for-windows/install/`
+- Open up Powershell on Windows and run the following
+  - `cd c:\`
+  - `dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p securePassword123`
+  - `dotnet dev-certs https --trust`
+  - Note - Make sure that you use the same password that has been configured in the `docker-compose.yml` file. By default, `securePassword123` is configured.
+- 5005 & 5006 are the ports setup to run blaInmoITzorHero on Docker, so make sure that these ports are free. You could also change the ports in the `docker-compose.yml` and `Server\Dockerfile` files.
+- Now navigate back to the root of the InmoIT Project on your local machine and run the following via terminal - `docker-compose -f 'docker-compose.yml' up --build`
+- This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image. It's around 500+ Mbs of download.
+- Once that is done, dotnet SDKs and runtimes are downloaded, if not present already. That's almost 200+ more Mbs of download.
+- PS If you find any issues while Docker installs the nuget packages, it is most likely that your ssl certificates are not installed properly. Apart from that I also added the `--disable-parallel` in the `Server\Dockerfile`to ensure network issues don't pop-up. You can remove this option to speed up the build process.
+- That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
+- Browse to https://localhost:5005/ to use your version of InmoIT !
 
 ## Core Developer Contact
 
