@@ -18,7 +18,8 @@
     <a href="https://github.com/vladperchi/InmoIT/issues">Report Bug</a>
     ·
     <a href="https://github.com/vladperchi/InmoIT/issues">Request Feature</a>
-  </p>
+   <br />
+ <br />
 </p>
 
 ## About The Project
