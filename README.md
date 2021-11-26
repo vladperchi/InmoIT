@@ -12,10 +12,10 @@
 <br />
 <p align="center">
   <a href="https://github.com/vladperchi/InmoIT">
-    <img src="https://github.com/vladperchi/InmoIT/blob/master/docs/Evidence/inmoitBanner.jpg" alt="InmoIT">
+    <img src="https://github.com/vladperchi/InmoIT/blob/master/docs/Evidence/InmoIT_Banner.png" alt="InmoIT">
   </a>
   <h3 align="center">InmoIT - WebApi Modular Architecture</h3>
-  <p align="center">Open Sourced Solution built ASP.NET Core 5.0 WebApi
+  <p align="center">Open-Sourced Solution built ASP.NET Core 5.0 WebApi
     <br />
     <br />
     <a href="https://github.com/vladperchi/InmoIT/issues">Report Bug</a>
@@ -67,18 +67,16 @@ Modular Architecture is a software design in which a monolith is made better and
 
 - [x] NET 5.0
 - [x] Modular Architecture
+- [x] Service-Based
+- [x] Repository Pattern - Generic
+- [x] Dynamic Service Registration
 - [x] Controller Registration
 - [x] Entity Framework Core - Code First
-- [x] Service-Based
-- [x] Serilog
-- [x] Repository Pattern - Generic
 - [x] CQRS using MediatR Library
 - [x] MediatR Logging & Validation
+- [x] Serilog
 - [x] Swagger
 - [x] In-Memory Database
-- [x] Database Seeding
-- [x] Identity Seeding
-- [x] Migrations
 - [x] CRUD Operations
 - [x] AutoMapper
 - [x] API Versioning
@@ -86,12 +84,13 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Custom Errors
 - [x] Localization
 - [x] Middlewares
-- [x] Dynamic Service Registration
 - [x] Paginated API Responses
-- [x] Default User & Role Seeding
 - [x] Registration (Only Admin register new users)
 - [x] User Auditing
 - [x] Docker Support
+- [x] Database Seeding
+- [x] Identity Seeding
+- [x] Migrations
 - [ ] Document
 - [ ] PDF Downloads
 - [ ] File Upload
@@ -101,33 +100,35 @@ Modular Architecture is a software design in which a monolith is made better and
 ## Project Structure
 
 - src
-  - Host
-    - Api
-  - Modules
-    - Flow
-      - Controllers
+  - Client
+  - Server
+    - Host
+      - Api
+    - Modules
+      - Flow
+        - Controllers
+        - Core
+          - Entities
+          - Interfaces
+          - Exceptions
+          - CQRS
+            - Handlers
+            - Commands
+            - Queries
+        - Infrastructure
+          - Context
+          - Migrations
+      - n-Module
+    - Shared
       - Core
-        - Entities
         - Interfaces
-        - Exceptions
-        - CQRS
-          - Handlers
-          - Commands
-          - Queries
+      - Dtos
       - Infrastructure
-        - Context
-        - Migrations
-    - n-Module
-  - Shared
-    - Core
-      - Interfaces
-    - Dtos
-    - Infrastructure
-      - Middlewares
-      - Persistence
-      - Services
-      - Mappings
-      - Utilities
+        - Middlewares
+        - Persistence
+        - Services
+        - Mappings
+        - Utilities
 - tests
   - FunctionalTests
     - ControllerApis
@@ -139,11 +140,11 @@ Modular Architecture is a software design in which a monolith is made better and
 ## Project Status
 
 - API - `In Progress`
-- Docker Container - `Coming Soon!`
+- Docker - `In Progress`
 
 ## Getting Started
 
-InmoIT is in it's early development stage.
+Inmo IT is currently under development.
 
 Clone this repository to your local machine.
 
