@@ -36,7 +36,7 @@ Modular Architecture is a software design in which a monolith is made better and
 
 <br />
 <p align="center">
-    <img src="https://github.com/vladperchi/InmoIT/blob/master/docs/Evidence/Digramatic_Modular_Architecture.png" alt="Modular Architecture">
+    <img src="https://github.com/vladperchi/InmoIT/blob/master/docs/Images/Digramatic_Modular_Architecture.png" alt="Modular Architecture">
 </p>
 
 ### PRO
