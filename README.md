@@ -77,7 +77,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] In-Memory Database
 - [x] CRUD Operations
 - [x] AutoMapper
-- [x] API Versioning
+- [x] Versioning API
 - [x] JWT Authentication
 - [x] Custom Errors
 - [x] Localization

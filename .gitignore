@@ -221,6 +221,8 @@ _pkginfo.txt
 !?*.[Cc]ache/
 
 # Others
+**/bin/Debug/
+**/bin/Release/
 ClientBin/
 ~$*
 *~
