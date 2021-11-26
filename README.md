@@ -154,9 +154,7 @@ Clone this repository to your local machine.
 4. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
 5. As for quick DB Management, me love [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15)
 
-# Migration
-
-## Documentation
+## Migrations
 
 InmoIt currently operates with a MSSQL database provider. In future versions Postgres and MySql could be included.
 
@@ -165,7 +163,7 @@ Next, set either to true in appSetting under `PersistenceSettings`.
 
 `"UseMsSql": true,`
 
-### Important
+### Note Important
 
 - Make sure to delete all the migrations, and re-add migrations via the below CLI Command.
 - Make sure that you drop the existing database if any.
