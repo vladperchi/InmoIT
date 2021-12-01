@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="https://github.com/vladperchi/InmoIT">
-    <img src="https://github.com/vladperchi/InmoIT/docs/Evidence/inmoitBanner.jpg" alt="inmoit">
+    <img src="https://raw.githubusercontent.com/vladperchi/InmoIT/master/docs/Evidence/inmoitBanner.jpg?token=ACCOXKYZ3OIBLN4XCCS4RW3BU5T6E" alt="inmoit">
   </a>
   <h3 align="center">InmoIT - Open Source Api Management Solution</h3>
   <p align="center">
