@@ -63,7 +63,7 @@ Clone this repository to your local machine.
 
 ## License
 
-This project is licensed with the [![MIT License][license-shield]][license-url].
+This project is licensed with the [MIT License][license-url].
 
 
 
