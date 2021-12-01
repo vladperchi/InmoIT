@@ -3,7 +3,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
 
 <!--[![MIT License][license-shield]][license-url]-->
 
@@ -61,7 +61,7 @@ Clone this repository to your local machine.
 
 ### The Core Developer
 
-- Vladimir P. CHibás, [GitHub][github-url] - [LinkedIn][linkedin-url]
+- Vladimir P. CHibás, [GitHub][github-url] - [![LinkedIn][linkedin-shield]][linkedin-url]
 
 ## License
 
