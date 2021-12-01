@@ -61,7 +61,7 @@ Clone this repository to your local machine.
 
 ### The Core Developer
 
-- Vladimir P. CHibás, en [GitHub][github-url] y en [LinkedIn][linkedin-url]
+- Vladimir P. CHibás, [GitHub][github-url] - [LinkedIn][linkedin-url]
 
 ## License
 
