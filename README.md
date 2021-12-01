@@ -76,7 +76,7 @@ This project is licensed with the [MIT license][license-url].
 [issues-shield]: https://img.shields.io/github/issues/vladperchi/InmoIT?style=flat-square
 [issues-url]: https://github.com/vladperchi/InmoIT/issues
 [license-shield]: https://img.shields.io/github/license/vladperchi/InmoIT?style=flat-square
-[license-url]: https://github.com/vladperchi/InmoIT/blob/master/LICENSE.md
+[license-url]: https://github.com/vladperchi/InmoIT/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/vladperchi/
 [github-url]: https://github.com/vladperchi/
