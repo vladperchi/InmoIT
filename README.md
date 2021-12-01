@@ -5,8 +5,6 @@
 [![Issues][issues-shield]][issues-url]
 
 
-<!--[![MIT License][license-shield]][license-url]-->
-
 <p align="center">
   <a href="https://github.com/vladperchi/InmoIT">
     <img src="https://raw.githubusercontent.com/vladperchi/InmoIT/master/docs/Evidence/inmoitBanner.jpg?token=ACCOXKYZ3OIBLN4XCCS4RW3BU5T6E" alt="inmoit">
@@ -65,7 +63,9 @@ Clone this repository to your local machine.
 
 ## License
 
-This project is licensed with the [MIT license][license-url].
+This project is licensed with the [![MIT License][license-shield]][license-url].
+
+
 
 [build-shield]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fvladperchi%2FInmoIT%2Fbadge&style=flat-square
 [build-url]: https://github.com/vladperchi/InmoIT/actions
