@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="GetOwnerByIdResponse.cs" company="InmoIT">
+// <copyright file="GetDocumentTypeByIdResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -8,7 +8,7 @@
 
 using System;
 
-namespace InmoIT.Shared.Dtos.Flow.Owner
+namespace InmoIT.Shared.Dtos.File.DocumentTypes
 {
-    public record GetOwnerByIdResponse(Guid Id, string Name, string Address, string Email, string PhoneNumber, string ImageUrl, string Birthday);
+    public record GetDocumentTypeByIdResponse(Guid Id, string Name, string Description);
 }

@@ -1,17 +1,14 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedCustomerFilter.cs" company="InmoIT">
+// <copyright file="GetTraceByIdResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using InmoIT.Shared.Dtos.Filters;
+using System;
 
-namespace InmoIT.Shared.Dtos.Customers
+namespace InmoIT.Shared.Dtos.Flow.Traces
 {
-    public class PaginatedCustomerFilter : PaginatedFilter
-    {
-        public string SearchString { get; set; }
-    }
+    public record GetTraceByIdResponse(Guid Id, string DateSale, string Name, decimal Value, decimal Tax, Guid PropertyId);
 }

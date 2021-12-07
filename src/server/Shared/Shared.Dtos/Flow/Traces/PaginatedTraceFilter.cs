@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="GetPropertiesResponse.cs" company="InmoIT">
+// <copyright file="PaginatedTraceFilter.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -7,8 +7,14 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
+using InmoIT.Shared.Dtos.Filters;
 
-namespace InmoIT.Shared.Dtos.Flow.Property
+namespace InmoIT.Shared.Dtos.Flow.Traces
 {
-    public record GetPropertiesResponse(Guid Id, string Name, string Address, decimal Price, string CodeInternal, int Year, bool IsActive, Guid OwnerId);
+    public class PaginatedTraceFilter : PaginatedFilter
+    {
+        public string SearchString { get; set; }
+
+        public Guid[] PropertyIds { get; set; }
+    }
 }
