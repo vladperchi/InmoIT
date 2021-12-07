@@ -1,20 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedImageFilter.cs" company="InmoIT">
+// <copyright file="FileUploadRequest.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
-using InmoIT.Shared.Dtos.Filters;
-
-namespace InmoIT.Shared.Dtos.Flow.Image
+namespace InmoIT.Shared.Dtos.Upload
 {
-    public class PaginatedImageFilter : PaginatedFilter
+    public class FileUploadRequest
     {
-        public string SearchString { get; set; }
+        public string FileName { get; set; }
 
-        public Guid[] PropertyIds { get; set; }
+        public string Extension { get; set; }
+
+        public UploadStorageType UploadStorageType { get; set; }
+
+        public string Data { get; set; }
     }
 }

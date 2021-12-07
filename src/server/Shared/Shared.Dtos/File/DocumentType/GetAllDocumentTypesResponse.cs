@@ -1,21 +1,14 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="UploadRequest.cs" company="InmoIT">
+// <copyright file="GetAllDocumentTypesResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-namespace InmoIT.Shared.Dtos.Upload
+using System;
+
+namespace InmoIT.Shared.Dtos.File.DocumentType
 {
-    public class UploadRequest
-    {
-        public string FileName { get; set; }
-
-        public string Extension { get; set; }
-
-        public UploadStorageType UploadStorageType { get; set; }
-
-        public string Data { get; set; }
-    }
+    public record GetAllDocumentTypesResponse(Guid Id, string Name, string Description);
 }

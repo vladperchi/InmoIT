@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedImageFilter.cs" company="InmoIT">
+// <copyright file="GetAllDocumentsResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -7,14 +7,8 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using InmoIT.Shared.Dtos.Filters;
 
-namespace InmoIT.Shared.Dtos.Flow.Image
+namespace InmoIT.Shared.Dtos.File.Documents
 {
-    public class PaginatedImageFilter : PaginatedFilter
-    {
-        public string SearchString { get; set; }
-
-        public Guid[] PropertyIds { get; set; }
-    }
+    public record GetAllDocumentsResponse(Guid Id, string Title, string Description, bool IsPublic, string CreatedBy, DateTime CreatedOn, string DocumentUrl, string DocumentTypeName, Guid DocumentTypeId, Guid PropertyId);
 }
