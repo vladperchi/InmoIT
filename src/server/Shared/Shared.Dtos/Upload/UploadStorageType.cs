@@ -12,16 +12,16 @@ namespace InmoIT.Shared.Dtos.Upload
 {
     public enum UploadStorageType
     {
-        [Description(@"Images\Flow\Owners")]
+        [Description(@"Images\Owners")]
         Owner,
 
-        [Description(@"Images\Flow\Properties")]
+        [Description(@"Images\Properties")]
         Property,
 
-        [Description(@"Images\Users")]
-        User,
+        [Description(@"Images\Customers")]
+        Customer,
 
-        [Description(@"Images\Documents")]
+        [Description(@"Documents\Properties")]
         Document
     }
 }

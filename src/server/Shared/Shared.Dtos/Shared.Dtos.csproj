@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Misc\Document\" />
-    <Folder Include="Misc\DocumentType\" />
+    <Folder Include="File\Document\" />
+    <Folder Include="File\DocumentType\" />
   </ItemGroup>
 
 </Project>
