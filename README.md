@@ -32,7 +32,7 @@ The API, ASP.NET Core 5.0 was my obvious choice. The WebAPI application is focus
 
 Modular Architecture is a software design in which a monolith is made better and modular with the importance of reusing components / modules. The same implemented in InmoIT helps to be extended to support and operate with n-modules.
 
-### Digramatic Representation
+### Diagrammatic Representation
 
 <br />
 <p align="center">
