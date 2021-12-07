@@ -1,17 +1,27 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedOwnerFilter.cs" company="InmoIT">
+// <copyright file="LogRequest.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using InmoIT.Shared.Dtos.Filters;
+using System;
 
-namespace InmoIT.Shared.Dtos.Flow.Owner
+namespace InmoIT.Shared.Dtos.Identity.EventLogs
 {
-    public class PaginatedOwnerFilter : PaginatedFilter
+    public class LogRequest
     {
-        public string SearchString { get; set; }
+        public LogRequest()
+        {
+        }
+
+        public string Event { get; set; }
+
+        public string Description { get; set; }
+
+        public string Email { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

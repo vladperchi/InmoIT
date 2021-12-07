@@ -7,13 +7,13 @@
         },
         "documentationRules": {
             "companyName": "InmoIT",
-            "copyrightText": "Copyright (c) {companyName}. All rights reserved.\nThe core team: {vladperchi}.\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
+            "copyrightText": "Copyright (c) {companyName}. All rights reserved.\nDeveloper: {vladperchi}.\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
             "headerDecoration": "--------------------------------------------------------------------------------------------------",
-          "variables": {
-            "licenseName": "MIT",
-            "licenseFile": "LICENSE",
-            "vladperchi": "Vladimir P. CHibás (vladperchi)"
-          }
+            "variables": {
+                "licenseName": "MIT",
+                "licenseFile": "LICENSE",
+                "vladperchi": "Vladimir P. CHibás (vladperchi)"
+            }
         },
         "layoutRules": {
             "newlineAtEndOfFile": "omit"

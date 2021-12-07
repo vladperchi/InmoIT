@@ -1,17 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedOwnerFilter.cs" company="InmoIT">
+// <copyright file="MailRequest.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using InmoIT.Shared.Dtos.Filters;
-
-namespace InmoIT.Shared.Dtos.Flow.Owner
+namespace InmoIT.Shared.Dtos.Mails
 {
-    public class PaginatedOwnerFilter : PaginatedFilter
+    public class MailRequest
     {
-        public string SearchString { get; set; }
+        public string To { get; set; }
+
+        public string Subject { get; set; }
+
+        public string Body { get; set; }
+
+        public string From { get; set; }
     }
 }

@@ -1,17 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedOwnerFilter.cs" company="InmoIT">
+// <copyright file="RoleResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using InmoIT.Shared.Dtos.Filters;
-
-namespace InmoIT.Shared.Dtos.Flow.Owner
+namespace InmoIT.Shared.Dtos.Identity.Roles
 {
-    public class PaginatedOwnerFilter : PaginatedFilter
+    public class RoleResponse
     {
-        public string SearchString { get; set; }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

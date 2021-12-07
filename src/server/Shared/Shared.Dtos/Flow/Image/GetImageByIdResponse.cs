@@ -1,17 +1,14 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedOwnerFilter.cs" company="InmoIT">
+// <copyright file="GetImageByIdResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using InmoIT.Shared.Dtos.Filters;
+using System;
 
-namespace InmoIT.Shared.Dtos.Flow.Owner
+namespace InmoIT.Shared.Dtos.Flow.Image
 {
-    public class PaginatedOwnerFilter : PaginatedFilter
-    {
-        public string SearchString { get; set; }
-    }
+    public record GetImageByIdResponse(Guid Id, string ImageUrl, string Caption, bool Enabled, Guid PropertyId);
 }
