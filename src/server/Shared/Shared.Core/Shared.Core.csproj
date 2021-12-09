@@ -59,7 +59,6 @@
   <ItemGroup>
     <Folder Include="Features\Filters\" />
     <Folder Include="Features\Queries\Validators\" />
-    <Folder Include="Interfaces\Services\Identity\" />
   </ItemGroup>
 
 </Project>
