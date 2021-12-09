@@ -1,27 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="LogRequest.cs" company="InmoIT">
+// <copyright file="PagedListEmptyException.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
+using System.Net;
+using Microsoft.Extensions.Localization;
 
-namespace InmoIT.Shared.Dtos.Identity.EventLogs
+namespace InmoIT.Shared.Core.Exceptions
 {
-    public class LogRequest
+    public class PagedListEmptyException : CustomException
     {
-        public LogRequest()
+        public PagedListEmptyException(IStringLocalizer localizer)
+            : base(localizer["Asyn paged list is empty..."], null, HttpStatusCode.NoContent)
         {
         }
-
-        public string Event { get; set; }
-
-        public string Description { get; set; }
-
-        public string Email { get; set; }
-
-        public Guid UserId { get; set; }
     }
 }

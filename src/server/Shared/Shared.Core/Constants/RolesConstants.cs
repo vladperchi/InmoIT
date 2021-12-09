@@ -1,14 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="GetTracesResponse.cs" company="InmoIT">
+// <copyright file="RolesConstants.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
-
-namespace InmoIT.Shared.Dtos.Flow.Traces
+namespace InmoIT.Shared.Core.Constants
 {
-    public record GetTracesResponse(Guid Id, string DateSale, string Name, decimal Value, decimal Tax, Guid PropertyId);
+    public static class RolesConstants
+    {
+        public const string Admin = "Admin";
+        public const string Basic = "Basic";
+        public const string DefaultPassword = "@Qwerty123#";
+
+        // You can add how many roles you want to handle
+    }
 }

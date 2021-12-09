@@ -1,14 +1,15 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="GetPropertiesResponse.cs" company="InmoIT">
+// <copyright file="ClaimConstants.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
-
-namespace InmoIT.Shared.Dtos.Flow.Properties
+namespace InmoIT.Shared.Core.Constants
 {
-    public record GetPropertiesResponse(Guid Id, string Name, string Address, decimal Price, string CodeInternal, int Year, bool IsActive, Guid OwnerId);
+    public static class ClaimConstants
+    {
+        public const string Permission = "Permission";
+    }
 }

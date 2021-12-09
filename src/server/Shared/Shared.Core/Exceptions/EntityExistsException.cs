@@ -1,14 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="GetOwnersResponse.cs" company="InmoIT">
+// <copyright file="EntityExistsException.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
+using System.Net;
+using Microsoft.Extensions.Localization;
 
-namespace InmoIT.Shared.Dtos.Flow.Owners
+namespace InmoIT.Shared.Core.Exceptions
 {
-    public record GetOwnersResponse(Guid Id, string FirstName, string LastName, string Address, string ImageUrl, string Birthday, string Email, string PhoneNumber);
+    public class EntityExistsException : CustomException
+    {
+        public EntityExistsException(IStringLocalizer localizer)
+            : base(localizer["Entity existence errors have occurred..."], null, HttpStatusCode.BadRequest)
+        {
+        }
+    }
 }

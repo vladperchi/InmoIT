@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="GetPropertyByIdResponse.cs" company="InmoIT">
+// <copyright file="GetAllOwnersResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -8,7 +8,7 @@
 
 using System;
 
-namespace InmoIT.Shared.Dtos.Flow.Properties
+namespace InmoIT.Shared.Dtos.Flow.Owners
 {
-    public record GetPropertyByIdResponse(Guid Id, string Name, string Address, decimal Price, string CodeInternal, int Year, bool IsPublic, Guid OwnerId);
+    public record GetAllOwnersResponse(Guid Id, string FirstName, string LastName, string Address, string ImageUrl, string Birthday, string Email, string PhoneNumber);
 }
