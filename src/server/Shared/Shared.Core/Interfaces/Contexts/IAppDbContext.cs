@@ -6,13 +6,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using Microsoft.EntityFrameworkCore;
 using InmoIT.Shared.Core.Entities;
 using InmoIT.Shared.Core.Logging;
-using Microsoft.EntityFrameworkCore;
 
 namespace InmoIT.Shared.Core.Interfaces.Contexts
 {
-    public interface IApplicationDbContext : IDbContext
+    public interface IAppDbContext
     {
         public DbSet<Logger> Loggers { get; set; }
 
