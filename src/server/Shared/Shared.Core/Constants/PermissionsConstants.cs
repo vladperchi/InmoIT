@@ -42,7 +42,6 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.Images.View";
             public const string ViewAll = "Permissions.Images.ViewAll";
-            public const string Register = "Permissions.Images.Register";
             public const string Update = "Permissions.Images.Update";
             public const string Remove = "Permissions.Images.Remove";
             public const string Export = "Permissions.Images.Export";
