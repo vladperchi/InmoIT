@@ -26,7 +26,7 @@
 
 In reality, there was no real need to implement microservices. InmoIT is intended to help a large Real Estate company provide information on properties in the United States. For this, a well-designed monolithic application would also work without any inconvenience, clearly taking into account that the API and the user interface would be separated to offer better opportunities in the future (Clients).
 
-The API, ASP.NET Core 5.0 was my obvious choice. The WebAPI application is focused on modularity to improve the development experience. Entering the subject, I divided the application into logical modules such as flow, Identity, Documents, Leases, Sales, etc. Each of these modules contains its own controllers / interfaces / dbContext. As for the database providers, mssql will be used as default, as optional would be postgres / mysql `appsettings`. A module cannot communicate directly with another module or modify its table. CrossCutting concerns would use interfaces / events. And yes, domain events are also included in the project using mediatr Handler. Each of the modules follows a clean architecture design.
+The API, ASP.NET Core 5.0 was my obvious choice. The WebAPI application is focused on modularity to improve the development experience. Entering the subject, I divided the application into logical modules such as flow, Identity, Documents, Leases, Sales, etc. Each of these modules contains its own controllers / interfaces / dbContext. As for the database providers, mssql will be used as default, to future would be postgres / mysql `appsettings`. A module cannot communicate directly with another module or modify its table. CrossCutting concerns would use interfaces / events. And yes, domain events are also included in the project using mediatr Handler. Each of the modules follows a clean architecture design.
 
 ## Modular Architecture
 
@@ -59,7 +59,7 @@ Modular Architecture is a software design in which a monolith is made better and
 
 - API - ASP.NET Core 5.0 WebAPI
 - Data Access - [Entity Framework Core 5.0](https://docs.microsoft.com/en-us/ef/core/)
-- DB Providers - MSSQL SERVER (Optional Postgres / MySql)
+- DB Providers - MSSQL SERVER (To future Postgres / MySql)
 
 ## Features
 
@@ -85,15 +85,15 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Paginated API Responses
 - [x] Registration (Only Admin register new users)
 - [x] User Auditing
-- [x] Docker Support
+- [x] Migrations
 - [x] Database Seeding
 - [x] Identity Seeding
-- [x] Migrations
 - [ ] Document
 - [ ] PDF Downloads
 - [ ] File Upload
 - [ ] Export to Excel
 - [ ] Dashboard Updates Realtime
+- [x] Docker Support
 
 ## Project Structure
 
