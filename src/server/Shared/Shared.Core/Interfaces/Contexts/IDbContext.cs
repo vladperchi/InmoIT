@@ -1,21 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="IAppDbContext.cs" company="InmoIT">
+// <copyright file="IDbContext.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using Microsoft.EntityFrameworkCore;
-using InmoIT.Shared.Core.Entities;
-using InmoIT.Shared.Core.Logging;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace InmoIT.Shared.Core.Interfaces.Contexts
 {
-    public interface IAppDbContext : IDbContext
+    public interface IDbContext
     {
-        public DbSet<Logger> Loggers { get; set; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
-        public DbSet<EntityReference> EntityReferences { get; set; }
+        int SaveChanges();
     }
 }
