@@ -1,21 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="SmsSettings.cs" company="InmoIT">
+// <copyright file="IMessagesService.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-namespace InmoIT.Shared.Core.Settings
+using System.Threading.Tasks;
+using InmoIT.Shared.Dtos.Messages;
+
+namespace InmoIT.Shared.Core.Interfaces.Services
 {
-    public class SmsSettings
+    public interface IMessagesService
     {
-        public string SmsIdentification { get; set; }
-
-        public string SmsPassword { get; set; }
-
-        public string SmsFrom { get; set; }
-
-        public bool EnableVerification { get; set; }
+        Task SendAsync(MessagesRequest request);
     }
 }

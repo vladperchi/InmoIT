@@ -1,17 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="SmsRequest.cs" company="InmoIT">
+// <copyright file="MessagesSettings.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-namespace InmoIT.Shared.Dtos.Messages
+namespace InmoIT.Shared.Core.Settings
 {
-    public class SmsRequest
+    public class MessagesSettings
     {
-        public string Number { get; set; }
+        public string MessageIdentification { get; set; }
 
-        public string Message { get; set; }
+        public string MessagePassword { get; set; }
+
+        public string MessageFrom { get; set; }
+
+        public bool MessageEnableVerification { get; set; }
     }
 }

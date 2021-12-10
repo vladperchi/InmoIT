@@ -12,13 +12,19 @@ namespace InmoIT.Shared.Core.Settings
     {
         public bool UseMsSql { get; set; }
 
-        // Declare other database providers example Postgres, MySql
+        public bool UsePostgres { get; set; }
+
+        public bool UseMySql { get; set; }
 
         public PersistenceConnectionStrings ConnectionStrings { get; set; }
 
         public class PersistenceConnectionStrings
         {
             public string MSSQL { get; set; }
+
+            public string UsePostgres { get; set; }
+
+            public string UseMySql { get; set; }
         }
     }
 }
