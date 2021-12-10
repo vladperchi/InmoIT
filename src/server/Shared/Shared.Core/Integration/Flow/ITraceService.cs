@@ -17,6 +17,6 @@ namespace InmoIT.Shared.Core.Integration.Flow
     {
         Task<Result<GetTraceByIdResponse>> GetDetailsAsync(Guid traceId);
 
-        public Task RecordTransaction(Guid propertyId, decimal quantity, string referenceNumber, bool isSale = true);
+        public Task RecordTrace(Guid Id, string DateSale, string Name, decimal Value, decimal Tax, Guid PropertyId, bool isSale = true);
     }
 }
