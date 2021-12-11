@@ -19,7 +19,7 @@ namespace InmoIT.Shared.Infrastructure.Validators
         public PaginatedLogFilterValidator(IStringLocalizer<PaginatedLogFilterValidator> localizer)
             : base(localizer)
         {
-            // Space to override validation rules
+            // Here you can override the validation rules
         }
     }
 }
