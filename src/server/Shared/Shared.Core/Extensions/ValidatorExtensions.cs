@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using InmoIT.Shared.Core.Interfaces.Serialization;
+using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
 using InmoIT.Shared.Core.Mappings.Converters;
 using FluentValidation;
 using Microsoft.Extensions.Localization;

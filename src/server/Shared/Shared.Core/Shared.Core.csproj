@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-      <DocumentationFile>FluentPOS.Shared.Core.xml</DocumentationFile>
+      <DocumentationFile>InmoIT.Shared.Core.xml</DocumentationFile>
       <CodeAnalysisRuleSet>..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
