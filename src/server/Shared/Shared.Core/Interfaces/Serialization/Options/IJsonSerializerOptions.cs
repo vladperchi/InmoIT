@@ -1,17 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="IJsonSerializerSettings.cs" company="InmoIT">
+// <copyright file="IJsonSerializerOptions.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using System.Text.Json;
 
-namespace InmoIT.Shared.Core.Interfaces.Serialization
+namespace InmoIT.Shared.Core.Interfaces.Serialization.Options
 {
-    public interface IJsonSerializerSettings
+    public interface IJsonSerializerOptions
     {
-        public JsonSerializerSettings JsonSerializerSettings { get; }
+        public JsonSerializerOptions JsonSerializerOptions { get; }
     }
 }

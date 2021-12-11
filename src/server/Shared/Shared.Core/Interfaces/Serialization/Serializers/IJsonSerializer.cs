@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="IDocumentTypeService.cs" company="InmoIT">
+// <copyright file="IJsonSerializer.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -7,16 +7,15 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
-using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.File.DocumentTypes;
 
-namespace InmoIT.Shared.Core.Integration.File
+namespace InmoIT.Shared.Core.Interfaces.Serialization.Serializer
 {
-    public interface IDocumentTypeService
+    public interface IJsonSerializer
     {
-        Task<Result<GetDocumentTypeByIdResponse>> GetDetailsAsync(Guid documentTypeId);
+        string Serialize<T>(T obj, IJsonSerializerSettingsOptions settings = null);
 
-        Task<bool> IsDocumentTypeUsed(Guid documentTypeId);
+        string Serialize<T>(T obj, Type type, IJsonSerializerSettingsOptions settings = null);
+
+        T Deserialize<T>(string text, IJsonSerializerSettingsOptions settings = null);
     }
 }
