@@ -14,7 +14,7 @@ namespace InmoIT.Shared.Core.Interfaces.Contexts
 {
     public interface IAppDbContext : IDbContext
     {
-        public DbSet<Logger> Loggers { get; set; }
+        public DbSet<EventLog> EventLogs { get; set; }
 
         public DbSet<EntityReference> EntityReferences { get; set; }
     }

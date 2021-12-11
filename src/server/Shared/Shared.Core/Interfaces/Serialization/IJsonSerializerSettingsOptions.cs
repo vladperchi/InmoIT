@@ -6,6 +6,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using InmoIT.Shared.Core.Interfaces.Serialization.Options;
+using InmoIT.Shared.Core.Interfaces.Serialization.Settings;
+
 namespace InmoIT.Shared.Core.Interfaces.Serialization
 {
     public interface IJsonSerializerSettingsOptions : IJsonSerializerOptions, IJsonSerializerSettings

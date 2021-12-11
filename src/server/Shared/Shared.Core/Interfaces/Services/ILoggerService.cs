@@ -15,7 +15,7 @@ namespace InmoIT.Shared.Core.Interfaces.Services
 {
     public interface ILoggerService
     {
-        Task<PaginatedResult<Logger>> GetAllAsync(GetAllLogsRequest request);
+        Task<PaginatedResult<EventLog>> GetAllAsync(GetAllLogsRequest request);
 
         Task<Result<string>> LogCustomEventAsync(LogRequest request);
     }

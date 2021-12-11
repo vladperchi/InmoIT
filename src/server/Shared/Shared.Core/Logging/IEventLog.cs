@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="ILogger.cs" company="InmoIT">
+// <copyright file="IEventLog.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -11,7 +11,7 @@ using InmoIT.Shared.Core.Domain;
 
 namespace InmoIT.Shared.Core.Logging
 {
-    public interface ILogger
+    public interface IEventLog
     {
         Task SaveAsync<T>(T @event, (string oldValues, string newValues) changes)
             where T : Event;

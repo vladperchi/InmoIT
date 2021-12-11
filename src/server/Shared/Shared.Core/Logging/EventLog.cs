@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="Logger.cs" company="InmoIT">
+// <copyright file="EventLog.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -14,9 +14,9 @@ using InmoIT.Shared.Core.Domain;
 
 namespace InmoIT.Shared.Core.Logging
 {
-    public class Logger : Event, IEntity<Guid>
+    public class EventLog : Event, IEntity<Guid>
     {
-        public Logger(Event eventLog, string data, (string oldValues, string newValues) changes, string email, Guid userId)
+        public EventLog(Event eventLog, string data, (string oldValues, string newValues) changes, string email, Guid userId)
         {
             Id = Guid.NewGuid();
             AddedId = eventLog.AddedId;
@@ -29,7 +29,7 @@ namespace InmoIT.Shared.Core.Logging
             Description = eventLog.Description;
         }
 
-        protected Logger()
+        protected EventLog()
         {
         }
 

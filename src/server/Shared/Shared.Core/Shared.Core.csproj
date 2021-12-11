@@ -56,9 +56,4 @@
     <ProjectReference Include="..\Shared.Dtos\Shared.Dtos.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Filters\" />
-    <Folder Include="Features\Queries\Validators\" />
-  </ItemGroup>
-
 </Project>
