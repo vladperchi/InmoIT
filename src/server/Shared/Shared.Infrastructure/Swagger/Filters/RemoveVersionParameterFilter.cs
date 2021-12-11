@@ -14,6 +14,7 @@ namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
     public class RemoveVersionParameterFilter : IOperationFilter
     {
+        /// <inheritdoc/>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             if (operation.Parameters.Count == 0)
