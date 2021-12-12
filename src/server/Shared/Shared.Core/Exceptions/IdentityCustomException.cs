@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="IdentityException.cs" company="InmoIT">
+// <copyright file="IdentityCustomException.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -12,9 +12,9 @@ using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Shared.Core.Exceptions
 {
-    public class IdentityException : CustomException
+    public class IdentityCustomException : CustomException
     {
-        public IdentityException(IStringLocalizer localizer, List<string> errors)
+        public IdentityCustomException(IStringLocalizer localizer, List<string> errors)
             : base(localizer["Identity errors have occurred..."], errors, HttpStatusCode.InternalServerError)
         {
         }
