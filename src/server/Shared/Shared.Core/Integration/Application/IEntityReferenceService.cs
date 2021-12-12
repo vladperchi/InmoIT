@@ -12,6 +12,6 @@ namespace InmoIT.Shared.Core.Integration.Application
 {
     public interface IEntityReferenceService
     {
-        public Task<string> TrackAsync(string entityName);
+        public Task<string> PropertyTrackAsync(string entityName);
     }
 }
