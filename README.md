@@ -65,35 +65,38 @@ Modular Architecture is a software design in which a monolith is made better and
 
 - [x] NET 5.0
 - [x] Modular Architecture
-- [x] Service-Based
-- [x] Repository Pattern - Generic
-- [x] Dynamic Service Registration
-- [x] Controller Registration
-- [x] Entity Framework Core - Code First
-- [x] CQRS using MediatR Library
-- [x] MediatR Logging & Validation
-- [x] Serilog
-- [x] Swagger
+- [ ] Service-Based
+- [ ] Repository Pattern - Generic
+- [ ] Dynamic Service Registration
+- [ ] Controller Registration
+- [ ] Entity Framework Core - Code First
+- [ ] Migrations
+- [ ] Database Seeding
+- [ ] Identity Seeding
+- [ ] CQRS using MediatR Library
+- [ ] MediatR & Validation
+- [x] Logging
 - [x] In-Memory Database
-- [x] CRUD Operations
-- [x] AutoMapper
-- [x] Versioning API
-- [x] JWT Authentication
+- [ ] CRUD Operations
+- [ ] AutoMapper
 - [x] Custom Errors
 - [x] Localization
-- [x] Middlewares
+- [ ] Middlewares
 - [x] Paginated API Responses
-- [x] Registration (Only Admin register new users)
-- [x] User Auditing
-- [x] Migrations
-- [x] Database Seeding
-- [x] Identity Seeding
+- [ ] Registration (Only Admin register new users)
+- [x] Email Service
+- [ ] JWT Authentication
+- [x] EventLogs
+- [ ] Swagger
+- [ ] Versioning API
+- [ ] Docker Support
 - [ ] Document
 - [ ] PDF Downloads
 - [ ] File Upload
 - [ ] Export to Excel
+- [ ] Hangfire
+- [x] Message Service - Twilio Api
 - [ ] Dashboard Updates Realtime
-- [x] Docker Support
 
 ## Project Structure
 
@@ -120,7 +123,13 @@ Modular Architecture is a software design in which a monolith is made better and
     - Shared
       - Core
         - Interfaces
+        - Exceptions
+        - Logging
+        - Serialization
+        - Wrapper
       - Dtos
+        - Request
+        - Response
       - Infrastructure
         - Middlewares
         - Persistence
