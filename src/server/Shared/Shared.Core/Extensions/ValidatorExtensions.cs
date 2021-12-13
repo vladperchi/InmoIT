@@ -20,32 +20,6 @@ namespace InmoIT.Shared.Core.Extensions
 {
     public static class ValidatorExtensions
     {
-        public static IRuleBuilderOptions<T, string?> MustBeJson<T>(this IRuleBuilderInitial<T, string?> ruleBuilder, IJsonSerializer jsonSerializer)
-            => ruleBuilder
-                .Cascade(CascadeMode.Stop)
-                .NotEmpty()
-                .Must(value =>
-                {
-                    if (value == null)
-                    {
-                        return false;
-                    }
-
-                    bool isJson = true;
-                    value = value.Trim();
-                    try
-                    {
-                        jsonSerializer.Deserialize<object>(value);
-                    }
-                    catch
-                    {
-                        isJson = false;
-                    }
-
-                    return (isJson && value.StartsWith("{") && value.EndsWith("}")) || (value.StartsWith("[") && value.EndsWith("]"));
-                })
-                .WithMessage("'{PropertyName}' must be a valid JSON string.");
-
         public static IRuleBuilderOptions<T, string?> MustContainCorrectOrderingsFor<T>(
             this IRuleBuilderInitial<T, string?> ruleBuilder,
             Type orderedType,
