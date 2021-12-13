@@ -26,5 +26,7 @@ namespace InmoIT.Shared.Core.Settings
 
             public string UseMySql { get; set; }
         }
+
+        // The most used today
     }
 }
