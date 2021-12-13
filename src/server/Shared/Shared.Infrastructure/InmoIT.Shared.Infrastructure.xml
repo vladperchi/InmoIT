@@ -4,5 +4,14 @@
         <name>InmoIT.Shared.Infrastructure</name>
     </assembly>
     <members>
+        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.RemoveVersionParameterFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.ReplaceVersionValueInPathFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerExcludeFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>
