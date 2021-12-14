@@ -65,36 +65,35 @@ Modular Architecture is a software design in which a monolith is made better and
 
 - [x] NET 5.0
 - [x] Modular Architecture
-- [ ] Service-Based
-- [ ] Repository Pattern - Generic
-- [ ] Dynamic Service Registration
-- [ ] Controller Registration
-- [ ] Entity Framework Core - Code First
+- [x] Service-Based
+- [x] Dynamic Service Registration
+- [x] Controller Registration
+- [x] Entity Framework Core - Code First
 - [ ] Migrations
 - [ ] Database Seeding
 - [ ] Identity Seeding
-- [ ] CQRS using MediatR Library
-- [ ] MediatR & Validation
+- [x] CQRS using MediatR Library
+- [x] Validation
 - [x] Logging
 - [x] In-Memory Database
 - [ ] CRUD Operations
 - [ ] AutoMapper
 - [x] Custom Errors
 - [x] Localization
-- [ ] Middlewares
+- [x] Middlewares
 - [x] Paginated API Responses
 - [ ] Registration (Only Admin register new users)
 - [x] Email Service
 - [ ] JWT Authentication
 - [x] EventLogs
-- [ ] Swagger
-- [ ] Versioning API
+- [x] Swagger
+- [x] Versioning API
 - [ ] Docker Support
 - [ ] Document
 - [ ] PDF Downloads
 - [ ] File Upload
 - [ ] Export to Excel
-- [ ] Hangfire
+- [x] Hangfire
 - [x] Message Service - Twilio Api
 - [ ] Dashboard Updates Realtime
 
