@@ -10,7 +10,7 @@ using System;
 
 namespace InmoIT.Shared.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class SwaggerExcludeAttribute : Attribute
     {
     }
