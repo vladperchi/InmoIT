@@ -21,6 +21,7 @@ namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
     public class SwaggerHeaderFilter : IOperationFilter
     {
+        /// <inheritdoc/>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             operation.Parameters ??= new List<OpenApiParameter>();
