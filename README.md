@@ -77,7 +77,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Logging
 - [x] In-Memory Database
 - [ ] CRUD Operations
-- [ ] AutoMapper
+- [x] AutoMapper
 - [x] Custom Errors
 - [x] Localization
 - [x] Middlewares
@@ -92,7 +92,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [ ] Document
 - [ ] PDF Downloads
 - [ ] File Upload
-- [ ] Export to Excel
+- [ ] Export Excel
 - [x] Hangfire
 - [x] Message Service - Twilio Api
 - [ ] Dashboard Updates Realtime
@@ -227,11 +227,9 @@ Navigate terminal to Modules.Document.Infrastructure and run the following.
   - `dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p securePassword123`
   - `dotnet dev-certs https --trust`
   - Note - Make sure that you use the same password that has been configured in the `docker-compose.yml` file. By default, `securePassword123` is configured.
-- 5005 & 5006 are the ports setup to run InmoIT on Docker, so make sure that these ports are free. You could also change the ports in the `docker-compose.yml` and `Server\Dockerfile` files.
+- 5005 is the port setup to run InmoIT on Docker, so make sure that these port is free. You could also change the port in the `docker-compose.yml` and `Server\Dockerfile` files.
 - Now navigate back to the root of the InmoIT Project on your local machine and run the following via terminal - `docker-compose -f 'docker-compose.yml' up --build`
-- This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image. It's around 500+ Mbs of download.
-- Once that is done, dotnet SDKs and runtimes are downloaded, if not present already. That's almost 200+ more Mbs of download.
-- PS If you find any issues while Docker installs the nuget packages, it is most likely that your ssl certificates are not installed properly. Apart from that I also added the `--disable-parallel` in the `Server\Dockerfile`to ensure network issues don't pop-up. You can remove this option to speed up the build process.
+- This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
 - Browse to https://localhost:5005/ to use your version of InmoIT!
 
