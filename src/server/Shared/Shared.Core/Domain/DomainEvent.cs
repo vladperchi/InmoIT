@@ -14,7 +14,7 @@ namespace InmoIT.Shared.Core.Domain
     {
         protected DomainEvent(Guid addedId)
         {
-            AddedId = addedId;
+            AggregateId = addedId;
         }
     }
 }
