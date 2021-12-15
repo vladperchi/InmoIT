@@ -22,9 +22,9 @@ namespace InmoIT.Shared.Core.Settings
         {
             public string MSSQL { get; set; }
 
-            public string UsePostgres { get; set; }
+            public string Postgres { get; set; }
 
-            public string UseMySql { get; set; }
+            public string MySql { get; set; }
         }
 
         // The most used today

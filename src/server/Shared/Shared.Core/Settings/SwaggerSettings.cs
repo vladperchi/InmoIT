@@ -10,6 +10,6 @@
 {
     public class SwaggerSettings
     {
-        public bool EnableSwagger { get; set; }
+        public bool Enable { get; set; }
     }
 }
