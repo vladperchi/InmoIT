@@ -13,5 +13,8 @@
         <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerExcludeFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
             <inheritdoc/>
         </member>
+        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerHeaderFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>
