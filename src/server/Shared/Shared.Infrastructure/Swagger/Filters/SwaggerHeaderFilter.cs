@@ -46,8 +46,10 @@ namespace InmoIT.Shared.Infrastructure.Swagger.Filters
                         ? null
                         : new OpenApiSchema
                         {
-                            Type = "String",
-                            Default = new OpenApiString(attribute.DefaultValue)
+                            Type = "string",
+                            Nullable = true,
+                            Pattern = @"^([0-9]{1}|(?:0[0-9]|1[0-9]|2[0-3])+):([0-5]?[0-9])(?::([0-5]?[0-9])(?:.(\d{1,9}))?)?$",
+                            Example = new OpenApiString("02:00:00")
                         }
                 });
             }
