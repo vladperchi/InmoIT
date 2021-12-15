@@ -19,7 +19,7 @@ namespace InmoIT.Shared.Core.Logging
         public EventLog(Event eventLog, string data, (string oldValues, string newValues) changes, string email, Guid userId)
         {
             Id = Guid.NewGuid();
-            AddedId = eventLog.AddedId;
+            AggregateId = eventLog.AggregateId;
             MessageType = eventLog.MessageType;
             Data = data;
             Email = email;
