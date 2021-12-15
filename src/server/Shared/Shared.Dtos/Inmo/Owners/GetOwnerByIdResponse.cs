@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="GetAllTracesResponse.cs" company="InmoIT">
+// <copyright file="GetOwnerByIdResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -8,7 +8,7 @@
 
 using System;
 
-namespace InmoIT.Shared.Dtos.Flow.Traces
+namespace InmoIT.Shared.Dtos.Inmo.Owners
 {
-    public record GetAllTracesResponse(Guid Id, string DateSale, string Name, decimal Value, decimal Tax, Guid PropertyId);
+    public record GetOwnerByIdResponse(Guid Id, string Name, string Address, string Email, string PhoneNumber, string ImageUrl, string Birthday);
 }

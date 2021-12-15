@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedImageFilter.cs" company="InmoIT">
+// <copyright file="IPropertyService.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -7,14 +7,16 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using InmoIT.Shared.Dtos.Filters;
+using System.Threading.Tasks;
+using InmoIT.Shared.Core.Wrapper;
+using InmoIT.Shared.Dtos.Inmo.Properties;
 
-namespace InmoIT.Shared.Dtos.Flow.Images
+namespace InmoIT.Shared.Core.Integration.Inmo
 {
-    public class PaginatedImageFilter : PaginatedFilter
+    public interface IPropertyService
     {
-        public string SearchString { get; set; }
+        Task<Result<GetPropertyByIdResponse>> GetDetailsAsync(Guid propertyId);
 
-        public Guid[] PropertyIds { get; set; }
+        Task<Result<Guid>> RemovePropertyAsync(Guid propertyId);
     }
 }

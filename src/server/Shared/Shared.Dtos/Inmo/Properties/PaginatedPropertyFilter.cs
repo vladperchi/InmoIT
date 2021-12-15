@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="ITraceService.cs" company="InmoIT">
+// <copyright file="PaginatedPropertyFilter.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -7,16 +7,14 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
-using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Flow.Traces;
+using InmoIT.Shared.Dtos.Filters;
 
-namespace InmoIT.Shared.Core.Integration.Flow
+namespace InmoIT.Shared.Dtos.Inmo.Properties
 {
-    public interface ITraceService
+    public class PaginatedPropertyFilter : PaginatedFilter
     {
-        Task<Result<GetTraceByIdResponse>> GetDetailsAsync(Guid traceId);
+        public string SearchString { get; set; }
 
-        public Task RecordTrace(Guid Id, string DateSale, string Name, decimal Value, decimal Tax, Guid PropertyId, bool isSale = true);
+        public Guid[] OwnerIds { get; set; }
     }
 }

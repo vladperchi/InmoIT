@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PaginatedTraceFilter.cs" company="InmoIT">
+// <copyright file="PaginatedImageFilter.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -9,9 +9,9 @@
 using System;
 using InmoIT.Shared.Dtos.Filters;
 
-namespace InmoIT.Shared.Dtos.Flow.Traces
+namespace InmoIT.Shared.Dtos.Inmo.Images
 {
-    public class PaginatedTraceFilter : PaginatedFilter
+    public class PaginatedImageFilter : PaginatedFilter
     {
         public string SearchString { get; set; }
 

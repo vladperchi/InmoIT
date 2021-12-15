@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="IPropertyService.cs" company="InmoIT">
+// <copyright file="GetAllOwnersResponse.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -7,16 +7,8 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
-using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Flow.Properties;
 
-namespace InmoIT.Shared.Core.Integration.Flow
+namespace InmoIT.Shared.Dtos.Inmo.Owners
 {
-    public interface IPropertyService
-    {
-        Task<Result<GetPropertyByIdResponse>> GetDetailsAsync(Guid propertyId);
-
-        Task<Result<Guid>> RemovePropertyAsync(Guid propertyId);
-    }
+    public record GetAllOwnersResponse(Guid Id, string FirstName, string LastName, string Address, string ImageUrl, string Birthday, string Email, string PhoneNumber);
 }
