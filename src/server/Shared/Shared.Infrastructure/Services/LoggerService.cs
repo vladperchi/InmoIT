@@ -28,12 +28,12 @@ namespace InmoIT.Shared.Infrastructure.Services
     public class LoggerService : ILoggerService
     {
         private readonly IEventLogger _logger;
-        private readonly IAppDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
         private readonly IStringLocalizer<LoggerService> _localizer;
         private readonly IMapper _mapper;
 
         public LoggerService(
-            IAppDbContext dbContext,
+            IApplicationDbContext dbContext,
             IStringLocalizer<LoggerService> localizer,
             IMapper mapper,
             IEventLogger logger)

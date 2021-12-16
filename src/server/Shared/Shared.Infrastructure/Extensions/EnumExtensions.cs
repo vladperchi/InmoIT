@@ -7,7 +7,9 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace InmoIT.Shared.Infrastructure.Extensions
 {
@@ -15,11 +17,20 @@ namespace InmoIT.Shared.Infrastructure.Extensions
     {
         public static string ToDescriptionString(this Enum val)
         {
-            var attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            var attributes = (DescriptionAttribute[])val
+                .GetType()
+                .GetField(val.ToString())?
+                .GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             return attributes is { Length: > 0 }
                  ? attributes[0].Description
                  : val.ToString();
+        }
+
+        public static List<string> GetDescriptionList(this Enum val)
+        {
+            string result = val.ToDescriptionString();
+            return result.Split('|').ToList();
         }
     }
 }

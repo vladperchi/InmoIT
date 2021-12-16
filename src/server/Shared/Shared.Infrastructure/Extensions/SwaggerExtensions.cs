@@ -52,7 +52,6 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 services.AddSwaggerGen(options =>
                 {
                     options.AddSwaggerDocs();
-
                     options.OperationFilter<RemoveVersionParameterFilter>();
                     options.DocumentFilter<ReplaceVersionValueInPathFilter>();
                     options.OperationFilter<SwaggerExcludeFilter>();

@@ -11,26 +11,38 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using InmoIT.Shared.Core.Common;
+using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Dtos.Upload;
 using InmoIT.Shared.Infrastructure.Extensions;
+using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
      public class UploadService : IUploadService
     {
-        public Task<string> UploadAsync(FileUploadRequest request)
+        private readonly IStringLocalizer<UploadService> _localizer;
+
+        public UploadService(IStringLocalizer<UploadService> localizer)
+        {
+            _localizer = localizer;
+        }
+
+        public Task<string> UploadAsync(FileUploadRequest request, FileType supportedFileType)
         {
             if (request.Data == null)
             {
                 return Task.FromResult(string.Empty);
             }
 
+            if (!supportedFileType.GetDescriptionList().Contains(request.Extension))
+                throw new FileFormatInvalidException(_localizer);
+
             string base64Data = Regex.Match(request.Data, "data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
 
-            var streamData = new MemoryStream(Convert.FromBase64String(base64Data));
-            if (streamData.Length > 0)
+            var memoryStream = new MemoryStream(Convert.FromBase64String(base64Data));
+            if (memoryStream.Length > 0)
             {
                 string folder = request.UploadStorageType.ToDescriptionString();
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
@@ -55,8 +67,8 @@ namespace InmoIT.Shared.Infrastructure.Services
                     fullPath = NextAvailableFilename(fullPath);
                 }
 
-                using var stream = new FileStream(fullPath, FileMode.Create);
-                streamData.CopyTo(stream);
+                using var fileStream = new FileStream(fullPath, FileMode.Create);
+                memoryStream.CopyTo(fileStream);
                 return Task.FromResult(dbPath);
             }
             else

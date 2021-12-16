@@ -19,11 +19,11 @@ using InmoIT.Shared.Infrastructure.Interceptors;
 using InmoIT.Shared.Infrastructure.Middlewares;
 using InmoIT.Shared.Infrastructure.Persistence;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
 
 [assembly: InternalsVisibleTo("Api")]
 
@@ -37,8 +37,8 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddPersistenceSettings(config);
             services
-                .AddDatabaseContext<AppDbContext>()
-                .AddScoped<IAppDbContext>(provider => provider.GetService<AppDbContext>());
+                .AddDatabaseContext<ApplicationDbContext>()
+                .AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddScoped<IEventLogger, EventLogger>();
             services.AddApiVersioning(o =>
@@ -77,10 +77,10 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 .Configure<PersistenceSettings>(config.GetSection(nameof(PersistenceSettings)));
         }
 
-        private static IServiceCollection AddApplicationSettings(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddApplicationSettings(this IServiceCollection services, IConfiguration config)
         {
             return services
-                .Configure<ApplicationSettings>(configuration.GetSection(nameof(ApplicationSettings)));
+                .Configure<ApplicationSettings>(config.GetSection(nameof(ApplicationSettings)));
         }
     }
 }

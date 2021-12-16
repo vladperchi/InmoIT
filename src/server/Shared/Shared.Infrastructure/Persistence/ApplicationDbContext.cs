@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="AppDbContext.cs" company="InmoIT">
+// <copyright file="ApplicationDbContext.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -16,14 +16,14 @@ using Microsoft.Extensions.Options;
 
 namespace InmoIT.Shared.Infrastructure.Persistence
 {
-    internal class AppDbContext : DbContext, IAppDbContext
+    internal class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         private readonly PersistenceSettings _persistenceOptions;
 
         protected string Schema => "Application";
 
-        public AppDbContext(
-            DbContextOptions<AppDbContext> options,
+        public ApplicationDbContext(
+            DbContextOptions<ApplicationDbContext> options,
             IOptions<PersistenceSettings> persistenceOptions)
                 : base(options)
         {

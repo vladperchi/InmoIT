@@ -61,7 +61,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - Data Access - [Entity Framework Core 5.0](https://docs.microsoft.com/en-us/ef/core/)
 - DB Providers - MSSQL SERVER (To future Postgres / MySql)
 
-## Features
+## Features & Plus
 
 - [x] NET 5.0
 - [x] Modular Architecture
@@ -70,13 +70,11 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Controller Registration
 - [x] Entity Framework Core - Code First
 - [ ] Migrations
-- [ ] Database Seeding
-- [ ] Identity Seeding
+- [ ] Seeding (Database, Identity)
+- [x] Logging
 - [x] CQRS using MediatR Library
 - [x] Validation
-- [x] Logging
 - [x] In-Memory Database
-- [ ] CRUD Operations
 - [x] AutoMapper
 - [x] Custom Errors
 - [x] Localization
@@ -85,6 +83,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [ ] Registration (Only Admin register new users)
 - [x] Email Service
 - [ ] JWT Authentication
+- [ ] CRUD Operations
 - [x] EventLogs
 - [x] Swagger
 - [x] Versioning API
@@ -190,25 +189,31 @@ Next, set either to true in appSetting under `PersistenceSettings`.
 
 Navigate terminal to Shared.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../../API -o Persistence/Migrations/ --context ApplicationDbContext`
+`dotnet ef migrations add "initial" --startup-project Host/API -o Persistence/Migrations/ --context ApplicationDbContext`
 
 ### Identity
 
 Navigate terminal to Modules.Identity.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../../../API -o Persistence/Migrations/ --context IdentityDbContext`
-
-### Flow
-
-Navigate terminal to Modules.Flow.Infrastructure and run the following.
-
-`dotnet ef migrations add "initial" --startup-project ../../../API -o Persistence/Migrations/ --context FlowDbContext`
+`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context IdentityDbContext`
 
 ### Document
 
 Navigate terminal to Modules.Document.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../../../API -o Persistence/Migrations/ --context DocumentDbContext`
+`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context DocumentDbContext`
+
+### Inmo
+
+Navigate terminal to Modules.Inmo.Infrastructure and run the following.
+
+`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context InmoDbContext`
+
+### Sale
+
+Navigate terminal to Modules.Sale.Infrastructure and run the following.
+
+`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context SaleDbContext`
 
 ## Running the API
 

@@ -1,17 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="SwaggerExcludeAttribute.cs" company="InmoIT">
+// <copyright file="FileFormatInvalidException.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
+using System.Net;
+using Microsoft.Extensions.Localization;
 
-namespace InmoIT.Shared.Core.Attributes
+namespace InmoIT.Shared.Core.Exceptions
 {
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    public class SwaggerExcludeAttribute : Attribute
+    public class FileFormatInvalidException : CustomException
     {
+        public FileFormatInvalidException(IStringLocalizer localizer)
+            : base(localizer["The file format is not valid..."], null, HttpStatusCode.NotAcceptable)
+        {
+        }
     }
 }

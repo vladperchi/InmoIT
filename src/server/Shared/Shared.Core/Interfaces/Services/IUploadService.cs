@@ -7,12 +7,13 @@
 // --------------------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
+using InmoIT.Shared.Core.Common;
 using InmoIT.Shared.Dtos.Upload;
 
 namespace InmoIT.Shared.Core.Interfaces.Services
 {
     public interface IUploadService
     {
-        Task<string> UploadAsync(FileUploadRequest request);
+        Task<string> UploadAsync(FileUploadRequest request, FileType supportedFileType);
     }
 }

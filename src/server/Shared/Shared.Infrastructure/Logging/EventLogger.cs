@@ -18,12 +18,12 @@ namespace InmoIT.Shared.Infrastructure.Logging
     internal class EventLogger : IEventLogger
     {
         private readonly ICurrentUser _user;
-        private readonly IAppDbContext _context;
+        private readonly IApplicationDbContext _context;
         private readonly IJsonSerializer _jsonSerializer;
 
         public EventLogger(
             ICurrentUser user,
-            IAppDbContext context,
+            IApplicationDbContext context,
             IJsonSerializer jsonSerializer)
         {
             _user = user;

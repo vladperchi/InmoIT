@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="CorsExtensions.cs" company="InmoIT">
+// <copyright file="CorsPolicyExtensions.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InmoIT.Shared.Infrastructure.Extensions
 {
-    public static class CorsExtensions
+    public static class CorsPolicyExtensions
     {
         internal static IServiceCollection AddCorsPolicy(this IServiceCollection services)
         {

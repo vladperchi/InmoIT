@@ -16,9 +16,7 @@ namespace InmoIT.Shared.Infrastructure.Services
 {
     public class HangfireService : IJobService
     {
-        public string Enqueue(Expression<Func<Task>> methodCall)
-        {
-            return BackgroundJob.Enqueue(methodCall);
-        }
+        public string Enqueue(Expression<Func<Task>> methodCall) =>
+            BackgroundJob.Enqueue(methodCall);
     }
 }

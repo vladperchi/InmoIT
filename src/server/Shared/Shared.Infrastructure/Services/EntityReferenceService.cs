@@ -19,11 +19,11 @@ namespace InmoIT.Shared.Infrastructure.Services
 {
     public class EntityReferenceService : IEntityReferenceService
     {
-        private readonly IAppDbContext _context;
+        private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<EntityReferenceService> _localizer;
 
         public EntityReferenceService(
-            IAppDbContext context,
+            IApplicationDbContext context,
             IStringLocalizer<EntityReferenceService> localizer)
         {
             _context = context;
