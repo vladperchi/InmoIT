@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace InmoIT.Shared.Dtos.Identity.Users
 {
-    internal class UserRolesResponse
+    public class UserRolesResponse
     {
         public List<UserRoleModel> UserRoles { get; set; } = new();
     }
