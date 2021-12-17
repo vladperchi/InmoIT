@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PermissionsConstants.cs" company="InmoIT">
+// <copyright file="PermissionsConstant.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace InmoIT.Shared.Core.Constants
 {
-    public static class PermissionsConstants
+    public static class PermissionsConstant
     {
         [DisplayName("Owners")]
         [Description("Owners Permissions")]
@@ -53,7 +53,7 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.Traces.View";
             public const string ViewAll = "Permissions.Traces.ViewAll";
-            public const string Register = "Permissions.Traces.Register";
+            public const string Create = "Permissions.Traces.Create";
             public const string Update = "Permissions.Traces.Update";
             public const string Remove = "Permissions.Traces.Remove";
             public const string Export = "Permissions.Traces.Export";
@@ -65,7 +65,7 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.Documents.View";
             public const string ViewAll = "Permissions.Documents.ViewAll";
-            public const string Register = "Permissions.Documents.Register";
+            public const string Create = "Permissions.Documents.Create";
             public const string Update = "Permissions.Documents.Update";
             public const string Remove = "Permissions.Documents.Remove";
         }
@@ -76,7 +76,7 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.DocumentTypes.View";
             public const string ViewAll = "Permissions.DocumentTypes.ViewAll";
-            public const string Register = "Permissions.DocumentTypes.Register";
+            public const string Create = "Permissions.DocumentTypes.Create";
             public const string Update = "Permissions.DocumentTypes.Update";
             public const string Remove = "Permissions.DocumentTypes.Remove";
             public const string Export = "Permissions.DocumentTypes.Export";
@@ -101,7 +101,7 @@ namespace InmoIT.Shared.Core.Constants
             public const string View = "Permissions.Users.View";
             public const string Create = "Permissions.Users.Create";
             public const string Edit = "Permissions.Users.Edit";
-            public const string Delete = "Permissions.Users.Delete";
+            public const string Remove = "Permissions.Users.Remove";
             public const string Export = "Permissions.Users.Export";
         }
 
@@ -112,7 +112,8 @@ namespace InmoIT.Shared.Core.Constants
             public const string View = "Permissions.Roles.View";
             public const string Create = "Permissions.Roles.Create";
             public const string Edit = "Permissions.Roles.Edit";
-            public const string Delete = "Permissions.Roles.Delete";
+            public const string Remove = "Permissions.Roles.Remove";
+            public const string Export = "Permissions.Roles.Export";
         }
 
         [DisplayName("Role Claims")]
@@ -122,7 +123,19 @@ namespace InmoIT.Shared.Core.Constants
             public const string View = "Permissions.RoleClaims.View";
             public const string Create = "Permissions.RoleClaims.Create";
             public const string Edit = "Permissions.RoleClaims.Edit";
-            public const string Delete = "Permissions.RoleClaims.Delete";
+            public const string Remove = "Permissions.RoleClaims.Remove";
+        }
+
+        [DisplayName("Sales")]
+        [Description("Sales Permissions")]
+        public static class Sales
+        {
+            public const string View = "Permissions.Sales.View";
+            public const string ViewAll = "Permissions.Sales.ViewAll";
+            public const string Register = "Permissions.Sales.Register";
+            public const string Update = "Permissions.Sales.Update";
+            public const string Remove = "Permissions.Sales.Remove";
+            public const string Export = "Permissions.Sales.Export";
         }
 
         [DisplayName("Logs")]

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="MessageService.cs" company="InmoIT">
+// <copyright file="MessageTwilioService.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -18,18 +18,18 @@ using Twilio.Types;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
-    public class MessageService : IMessageService
+    public class MessageTwilioService : IMessageTwilioService
     {
-        private readonly MessageSettings _settings;
-        private readonly ILogger<MessageService> _logger;
+        private readonly MessageTwilioSettings _settings;
+        private readonly ILogger<MessageTwilioService> _logger;
 
-        public MessageService(IOptions<MessageSettings> settings, ILogger<MessageService> logger)
+        public MessageTwilioService(IOptions<MessageTwilioSettings> settings, ILogger<MessageTwilioService> logger)
         {
             _settings = settings.Value;
             _logger = logger;
 }
 
-        public Task SendAsync(MessageRequest request)
+        public Task SendAsync(MessageTwilioRequest request)
         {
             try
             {

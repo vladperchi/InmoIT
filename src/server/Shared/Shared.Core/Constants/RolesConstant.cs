@@ -1,17 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="MessageRequest.cs" company="InmoIT">
+// <copyright file="RolesConstant.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-namespace InmoIT.Shared.Dtos.Messages
+namespace InmoIT.Shared.Core.Constants
 {
-    public class MessageRequest
+    public static class RolesConstant
     {
-        public string Number { get; set; }
+        public const string Admin = "Admin";
+        public const string Basic = "Basic";
+        public const string DefaultPassword = "@Qwerty123#";
 
-        public string Message { get; set; }
+        // You can add how many roles you want to handle
     }
 }
