@@ -24,10 +24,10 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             services.AddScoped<IJobService, HangfireService>();
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IMailService, SmtpMailService>();
-            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IMessageTwilioService, MessageTwilioService>();
             services.Configure<MailSettings>(config.GetSection(nameof(MailSettings)));
             services.Configure<CorsSettings>(config.GetSection(nameof(CorsSettings)));
-            services.Configure<MessageSettings>(config.GetSection(nameof(MessageSettings)));
+            services.Configure<MessageTwilioSettings>(config.GetSection(nameof(MessageTwilioSettings)));
             services.Configure<SwaggerSettings>(config.GetSection(nameof(SwaggerSettings)));
 
             return services;
