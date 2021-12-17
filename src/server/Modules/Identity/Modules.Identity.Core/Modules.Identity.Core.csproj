@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -8,12 +8,12 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DocumentationFile>InmoIT.Modules.Identity.Core.xml</DocumentationFile>
-        <CodeAnalysisRuleSet>..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <DocumentationFile>InmoIT.Modules.Identity.Core.xml</DocumentationFile>
-        <CodeAnalysisRuleSet>..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <AdditionalFiles Include="..\..\stylecop.json" />
+    <AdditionalFiles Include="..\..\..\stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
