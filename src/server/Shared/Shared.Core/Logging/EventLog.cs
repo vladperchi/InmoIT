@@ -26,7 +26,7 @@ namespace InmoIT.Shared.Core.Logging
             OldValues = changes.oldValues;
             NewValues = changes.newValues;
             UserId = userId;
-            Description = eventLog.Description;
+            EventDescription = eventLog.EventDescription;
         }
 
         protected EventLog()

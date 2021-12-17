@@ -22,14 +22,14 @@ namespace InmoIT.Shared.Core.Domain
 
         public DateTime Timestamp { get; private set; }
 
-        public string Description { get; set; }
+        public string EventDescription { get; set; }
 
         protected Event(string description = null)
         {
             Timestamp = DateTime.Now;
             if (string.IsNullOrWhiteSpace(description))
             {
-                Description = description;
+                EventDescription = description;
             }
         }
     }
