@@ -81,9 +81,10 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Middlewares
 - [x] Paginated API Responses
 - [ ] Registration (Only Admin register new users)
-- [x] Email Service
+- [x] Claims-Based Authorization
 - [ ] JWT Authentication
 - [ ] CRUD Operations
+- [x] Email Service
 - [x] EventLogs
 - [x] Swagger
 - [x] Versioning API
