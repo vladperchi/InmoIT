@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using InmoIT.Modules.Identity.Api.Extensions;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -29,10 +30,12 @@ namespace InmoIT.Api
             services
                 .AddDistributedMemoryCache()
                 .AddSerialization(_config)
-                .AddSharedInfrastructure(_config);
+                .AddSharedInfrastructure(_config)
+                .AddIdentityModule(_config)
+                .AddSharedApplication(_config);
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSharedInfrastructure(_config);
         }
