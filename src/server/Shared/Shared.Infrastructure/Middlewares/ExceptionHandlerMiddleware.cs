@@ -29,18 +29,15 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
     internal class ExceptionHandlerMiddleware : IMiddleware
     {
         private readonly ILogger<ExceptionHandlerMiddleware> _logger;
-        private readonly ICurrentUser _currentUser;
         private readonly SerializationSettings _serializationSettings;
         private readonly IJsonSerializer _jsonSerializer;
 
         public ExceptionHandlerMiddleware(
             ILogger<ExceptionHandlerMiddleware> logger,
-            ICurrentUser currentUser,
             IOptions<SerializationSettings> serializationSettings,
             IJsonSerializer jsonSerializer)
         {
             _logger = logger;
-            _currentUser = currentUser;
             _serializationSettings = serializationSettings.Value;
             _jsonSerializer = jsonSerializer;
         }
@@ -83,11 +80,8 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                     }
                 }
 
-                string user = !string.IsNullOrEmpty(_currentUser.GetUserEmail()) ? _currentUser.GetUserEmail() : "Anonymous";
-
                 _logger.LogError(
                 $"Exception: {exception.Message}{Environment.NewLine}" +
-                    $"  Request By: {user}{Environment.NewLine}" +
                     $"  RemoteIP: {context.Connection.RemoteIpAddress}{Environment.NewLine}" +
                     $"  Schema: {context.Request.Scheme}{Environment.NewLine}" +
                     $"  Host: {context.Request.Host}{Environment.NewLine}" +
