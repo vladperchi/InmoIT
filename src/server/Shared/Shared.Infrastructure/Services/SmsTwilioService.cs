@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="MessageTwilioService.cs" company="InmoIT">
+// <copyright file="SmsTwilioService.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -18,29 +18,29 @@ using Twilio.Types;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
-    public class MessageTwilioService : IMessageTwilioService
+    public class SmsTwilioService : ISmsTwilioService
     {
-        private readonly MessageTwilioSettings _settings;
-        private readonly ILogger<MessageTwilioService> _logger;
+        private readonly SmsTwilioSettings _smsTwilioSettings;
+        private readonly ILogger<SmsTwilioService> _logger;
 
-        public MessageTwilioService(IOptions<MessageTwilioSettings> settings, ILogger<MessageTwilioService> logger)
+        public SmsTwilioService(IOptions<SmsTwilioSettings> smsTwilioSettings, ILogger<SmsTwilioService> logger)
         {
-            _settings = settings.Value;
+            _smsTwilioSettings = smsTwilioSettings.Value;
             _logger = logger;
 }
 
-        public Task SendAsync(MessageTwilioRequest request)
+        public Task SendAsync(SmsTwilioRequest request)
         {
             try
             {
-                string accountSid = _settings.MessageIdentification;
-                string authToken = _settings.MessagePassword;
+                string accountSid = _smsTwilioSettings.Identification;
+                string authToken = _smsTwilioSettings.Password;
 
                 TwilioClient.Init(accountSid, authToken);
 
                 return MessageResource.CreateAsync(
                     to: new PhoneNumber(request.Number),
-                    from: new PhoneNumber(_settings.MessageFrom),
+                    from: new PhoneNumber(_smsTwilioSettings.From),
                     body: request.Message);
             }
             catch (System.Exception ex)

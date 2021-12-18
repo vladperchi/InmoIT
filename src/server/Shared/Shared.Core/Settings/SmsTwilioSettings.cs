@@ -1,18 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="IMessageTwilioService.cs" company="InmoIT">
+// <copyright file="SmsTwilioSettings.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System.Threading.Tasks;
-using InmoIT.Shared.Dtos.Messages;
-
-namespace InmoIT.Shared.Core.Interfaces.Services
+namespace InmoIT.Shared.Core.Settings
 {
-    public interface IMessageTwilioService
+    public class SmsTwilioSettings
     {
-        Task SendAsync(MessageTwilioRequest request);
+        public string Identification { get; set; }
+
+        public string Password { get; set; }
+
+        public string From { get; set; }
+
+        public bool EnableVerification { get; set; }
     }
 }
