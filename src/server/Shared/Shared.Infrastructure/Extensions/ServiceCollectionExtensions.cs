@@ -9,7 +9,7 @@
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using InmoIT.Shared.Core.Logging;
+using InmoIT.Shared.Core.Entities;
 using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Settings;
@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
+using InmoIT.Shared.Core.Interfaces.Services.Identity;
 
 [assembly: InternalsVisibleTo("Api")]
 

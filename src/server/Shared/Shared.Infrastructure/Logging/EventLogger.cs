@@ -8,7 +8,7 @@
 
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Domain;
-using InmoIT.Shared.Core.Logging;
+using InmoIT.Shared.Core.Entities;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;

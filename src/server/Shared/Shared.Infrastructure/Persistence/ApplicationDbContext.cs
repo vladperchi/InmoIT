@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using InmoIT.Shared.Core.Entities;
-using InmoIT.Shared.Core.Logging;
+using InmoIT.Shared.Core.Entities;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Extensions;

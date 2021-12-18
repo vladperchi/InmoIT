@@ -12,7 +12,7 @@ using System.Linq.Dynamic.Core;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
-using InmoIT.Shared.Core.Logging;
+using InmoIT.Shared.Core.Entities;
 using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Contexts;
