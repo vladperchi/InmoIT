@@ -99,10 +99,18 @@ namespace InmoIT.Shared.Core.Constants
         public static class Users
         {
             public const string View = "Permissions.Users.View";
+            public const string ViewAll = "Permissions.Users.ViewAll";
             public const string Create = "Permissions.Users.Create";
             public const string Edit = "Permissions.Users.Edit";
             public const string Remove = "Permissions.Users.Remove";
             public const string Export = "Permissions.Users.Export";
+        }
+
+        [DisplayName("Identity")]
+        [Description("Identity Permissions")]
+        public static class Identity
+        {
+            public const string Register = "Permissions.Identity.Register";
         }
 
         [DisplayName("Roles")]
@@ -112,7 +120,7 @@ namespace InmoIT.Shared.Core.Constants
             public const string View = "Permissions.Roles.View";
             public const string Create = "Permissions.Roles.Create";
             public const string Edit = "Permissions.Roles.Edit";
-            public const string Remove = "Permissions.Roles.Remove";
+            public const string Delete = "Permissions.Roles.Delete";
             public const string Export = "Permissions.Roles.Export";
         }
 
@@ -123,7 +131,7 @@ namespace InmoIT.Shared.Core.Constants
             public const string View = "Permissions.RoleClaims.View";
             public const string Create = "Permissions.RoleClaims.Create";
             public const string Edit = "Permissions.RoleClaims.Edit";
-            public const string Remove = "Permissions.RoleClaims.Remove";
+            public const string Delete = "Permissions.RoleClaims.Delete";
         }
 
         [DisplayName("Sales")]
