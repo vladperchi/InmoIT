@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InmoIT.Modules.Identity.Api</name>
+    </assembly>
+    <members>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetAllAsync">
+            <summary>
+            Get All Roles (basic, admin etc.)
+            </summary>
+            <returns>Status 200 OK.</returns>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.PostAsync(InmoIT.Shared.Dtos.Identity.Roles.RoleRequest)">
+            <summary>
+            Add a Role.
+            </summary>
+            <returns>Status 200 OK.</returns>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.DeleteAsync(System.String)">
+            <summary>
+            Delete a Role.
+            </summary>
+            <returns>Status 200 OK.</returns>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetPermissionsByRoleIdAsync(System.String)">
+            <summary>
+            Get Permissions By Role Id.
+            </summary>
+            <returns>Status 200 Ok.</returns>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetAllClaimsAsync">
+            <summary>
+            Get All Role Claims.
+            </summary>
+            <returns>Status 200 Ok.</returns>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetClaimByIdAsync(System.Int32)">
+            <summary>
+            Get a Role Claim By Id.
+            </summary>
+            <returns>Status 200 Ok.</returns>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.UpdatePermissionsAsync(InmoIT.Shared.Dtos.Identity.Roles.PermissionRequest)">
+            <summary>
+            Edit a Role Claims.
+            </summary>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.DeleteClaimByIdAsync(System.Int32)">
+            <summary>
+            Delete a Role Claim By Id.
+            </summary>
+            <returns>Status 200 Ok.</returns>
+        </member>
+    </members>
+</doc>

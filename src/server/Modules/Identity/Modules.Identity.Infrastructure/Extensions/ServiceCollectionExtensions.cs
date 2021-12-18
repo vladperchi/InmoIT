@@ -1,0 +1,69 @@
+﻿// --------------------------------------------------------------------------------------------------
+// <copyright file="ServiceCollectionExtensions.cs" company="InmoIT">
+// Copyright (c) InmoIT. All rights reserved.
+// Developer: Vladimir P. CHibás (vladperchi).
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// --------------------------------------------------------------------------------------------------
+
+using System;
+using System.Net;
+using System.Reflection;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using InmoIT.Modules.Identity.Core.Abstractions;
+using InmoIT.Modules.Identity.Core.Entities;
+using InmoIT.Modules.Identity.Core.Exceptions;
+using InmoIT.Modules.Identity.Core.Settings;
+using InmoIT.Modules.Identity.Infrastructure.Permissions;
+using InmoIT.Modules.Identity.Infrastructure.Persistence;
+using InmoIT.Modules.Identity.Infrastructure.Services;
+using InmoIT.Shared.Core.Extensions;
+using InmoIT.Shared.Core.Interfaces.Services;
+using InmoIT.Shared.Core.Interfaces.Services.Identity;
+using InmoIT.Shared.Infrastructure.Extensions;
+using InmoIT.Shared.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+
+namespace InmoIT.Modules.Identity.Infrastructure.Extensions
+{
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection AddIdentityInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services
+                .AddHttpContextAccessor()
+                .AddScoped<ICurrentUser, CurrentUser>()
+                .Configure<JwtSettings>(configuration.GetSection("JwtSettings"))
+                .AddTransient<ITokenService, TokenService>()
+                .AddTransient<IIdentityService, IdentityService>()
+                .AddTransient<IUserService, UserService>()
+                .AddTransient<IRoleService, RoleService>()
+                .AddTransient<IRoleClaimService, RoleClaimService>()
+                .AddDatabaseContext<IdentityDbContext>()
+                .AddScoped<IIdentityDbContext>(provider => provider.GetService<IdentityDbContext>())
+                .AddIdentity<InmoUser, InmoRole>(options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.User.RequireUniqueEmail = true;
+                })
+                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddDefaultTokenProviders();
+            services.AddTransient<IDbSeeder, IdentityDbSeeder>();
+            services.AddPermissions(configuration);
+            services.AddJwtAuthentication(configuration);
+            return services;
+        }
+    }
+}

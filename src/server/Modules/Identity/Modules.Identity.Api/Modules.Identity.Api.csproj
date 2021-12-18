@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>InmoIT.Modules.Identity.Api</RootNamespace>
+        <AssemblyName>InmoIT.Modules.Identity.Api</AssemblyName>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>InmoIT.Modules.Identity.Api.xml</DocumentationFile>
+        <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>InmoIT.Modules.Identity.Api.xml</DocumentationFile>
+        <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    
+  <ItemGroup>
+    <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <AdditionalFiles Include="..\..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Identity.Core\Modules.Identity.Core.csproj" />
+    <ProjectReference Include="..\Modules.Identity.Infrastructure\Modules.Identity.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

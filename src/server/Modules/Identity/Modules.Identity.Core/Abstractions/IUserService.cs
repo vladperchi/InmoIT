@@ -17,7 +17,7 @@ namespace InmoIT.Modules.Identity.Core.Abstractions
     {
         Task<Result<List<UserResponse>>> GetAllAsync();
 
-        Task<IResult<UserResponse>> GetAsync(string userId);
+        Task<IResult<UserResponse>> GetByIdAsync(string userId);
 
         Task<IResult<UserRolesResponse>> GetRolesAsync(string userId);
 

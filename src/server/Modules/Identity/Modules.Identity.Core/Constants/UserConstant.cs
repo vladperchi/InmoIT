@@ -10,6 +10,11 @@ namespace InmoIT.Modules.Identity.Core.Constants
 {
     public static class UserConstant
     {
-        public const string DefaultPassword = "@Qwerty123#";
+        public const string SuperAdminPassword = "@SuperAdminP4$$w0rd#";
+        public const string AdminPassword = "@AdminP4$$w0rd#";
+        public const string ManagerPassword = "@ManagerP4$$w0rd#";
+        public const string SupervisorPassword = "@SupervisorP4$$w0rd#";
+        public const string StaffPassword = "@StaffP4$$w0rd#";
+        public const string DefaultPassword = "@BasicP4$$w0rd#";
     }
 }
