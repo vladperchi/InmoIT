@@ -9,7 +9,7 @@
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Domain;
 
-namespace InmoIT.Shared.Core.Logging
+namespace InmoIT.Shared.Core.Entities
 {
     public interface IEventLogger
     {

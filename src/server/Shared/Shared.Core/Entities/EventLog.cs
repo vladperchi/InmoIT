@@ -7,12 +7,10 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Domain;
 
-namespace InmoIT.Shared.Core.Logging
+namespace InmoIT.Shared.Core.Entities
 {
     public class EventLog : Event, IEntity<Guid>
     {
