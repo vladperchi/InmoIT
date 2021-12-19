@@ -26,7 +26,7 @@
 
 In reality, there was no real need to implement microservices. InmoIT is intended to help a large Real Estate company provide information on properties in the United States. For this, a well-designed monolithic application would also work without any inconvenience, clearly taking into account that the API and the user interface would be separated to offer better opportunities in the future (Clients).
 
-The API, ASP.NET Core 5.0 was my obvious choice. The WebAPI application is focused on modularity to improve the development experience. Entering the subject, I divided the application into logical modules such as flow, Identity, Documents, Leases, Sales, etc. Each of these modules contains its own controllers / interfaces / dbContext. As for the database providers, mssql will be used as default, to future would be postgres / mysql `appsettings`. A module cannot communicate directly with another module or modify its table. CrossCutting concerns would use interfaces / events. And yes, domain events are also included in the project using mediatr Handler. Each of the modules follows a clean architecture design.
+The API, ASP.NET Core 5.0 was my obvious choice. The WebAPI application is focused on modularity to improve the development experience. Entering the subject, I divided the application into logical modules such as flow, Identity, Documents, Leases, Sales, etc. Each of these modules contains its own `controllers / interfaces / dbContext`. As for the database providers, mssql will be used as default `appsettings`. A module cannot communicate directly with another module or modify its table. CrossCutting concerns would use `interfaces / events`. And yes, domain events are also included in the project using mediatr Handler. Each of the modules follows a clean architecture design.
 
 ## Modular Architecture
 
@@ -59,12 +59,12 @@ Modular Architecture is a software design in which a monolith is made better and
 
 - API - ASP.NET Core 5.0 WebAPI
 - Data Access - [Entity Framework Core 5.0](https://docs.microsoft.com/en-us/ef/core/)
-- DB Providers - MSSQL SERVER (To future Postgres / MySql)
+- DB Providers - MSSQL SERVER
 
 ## Features & Plus
 
-- [x] NET 5.0
 - [x] Modular Architecture
+- [x] NET 5.0
 - [x] Service-Based
 - [x] Dynamic Service Registration
 - [x] Controller Registration
@@ -99,12 +99,12 @@ Modular Architecture is a software design in which a monolith is made better and
 
 ## Project Structure
 
-- src
-  - Client
-  - Server
-    - Host
+- `src`
+  - `Client`
+  - `Server`
+    - `Host`
       - Api
-    - Modules
+    - `Modules`
       - Flow
         - Controllers
         - Core
@@ -119,28 +119,28 @@ Modular Architecture is a software design in which a monolith is made better and
           - Context
           - Migrations
       - n-Module
-    - Shared
-      - Core
+    - `Shared`
+      - `Core`
         - Interfaces
         - Exceptions
         - Logging
         - Serialization
         - Wrapper
-      - Dtos
+      - `Dtos`
         - Request
         - Response
-      - Infrastructure
+      - `Infrastructure`
         - Middlewares
         - Persistence
         - Services
         - Mappings
         - Utilities
-- tests
-  - FunctionalTests
+- `tests`
+  - `FunctionalTests`
     - ControllerApis
-  - IntegrationTests
+  - `IntegrationTests`
     - Data
-  - UnitTests
+  - `UnitTests`
     - Core
 
 ## Project Status
@@ -191,30 +191,35 @@ Next, set either to true in appSetting under `PersistenceSettings`.
 Navigate terminal to Shared.Infrastructure and run the following.
 
 `add-migration Initial -context ApplicationDbContext -o Persistence/Migrations/`
+`update-database -context ApplicationDbContext`
 
 ### Identity
 
 Navigate terminal to Modules.Identity.Infrastructure and run the following.
 
 `add-migration Initial -context IdentityDbContext -o Persistence/Migrations/`
+`update-database -context IdentityDbContext`
 
 ### Inmo
 
 Navigate terminal to Modules.Inmo.Infrastructure and run the following.
 
 `add-migration Initial -context InmoDbContext -o Persistence/Migrations/`
+`update-database -context InmoDbContext`
 
 ### Document
 
 Navigate terminal to Modules.Document.Infrastructure and run the following.
 
 `add-migration Initial -context DocumentDbContext -o Persistence/Migrations/`
+`update-database -context DocumentDbContext`
 
 ### Sale
 
 Navigate terminal to Modules.Sale.Infrastructure and run the following.
 
 `add-migration Initial -context SaleDbContext -o Persistence/Migrations/`
+`update-database -context SaleDbContext`
 
 ## Running the API
 
