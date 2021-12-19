@@ -105,25 +105,28 @@ Modular Architecture is a software design in which a monolith is made better and
     - `Host`
       - Api
     - `Modules`
-      - Flow
-        - Controllers
-        - Core
+      - `Inmo`
+        - `Api`
+          - Controllers
+          - Extensions
+        - `Core`
           - Entities
           - Interfaces
           - Exceptions
-          - CQRS
-            - Handlers
-            - Commands
-            - Queries
-        - Infrastructure
+          - Handlers
+          - Commands
+          - Queries
+        - `Infrastructure`
           - Context
-          - Migrations
-      - n-Module
+          - Persistence
     - `Shared`
       - `Core`
+        - Domain
+        - Features
         - Interfaces
         - Exceptions
         - Logging
+        - Services
         - Serialization
         - Wrapper
       - `Dtos`
@@ -135,6 +138,7 @@ Modular Architecture is a software design in which a monolith is made better and
         - Services
         - Mappings
         - Utilities
+        - Swagger
 - `tests`
   - `FunctionalTests`
     - ControllerApis
@@ -190,36 +194,36 @@ Next, set either to true in appSetting under `PersistenceSettings`.
 
 Navigate terminal to Shared.Infrastructure and run the following.
 
-`add-migration Initial -context ApplicationDbContext -o Persistence/Migrations/`
-`update-database -context ApplicationDbContext`
+- `add-migration Initial -context ApplicationDbContext -o Persistence/Migrations/`
+- `update-database -context ApplicationDbContext`
 
 ### Identity
 
 Navigate terminal to Modules.Identity.Infrastructure and run the following.
 
-`add-migration Initial -context IdentityDbContext -o Persistence/Migrations/`
-`update-database -context IdentityDbContext`
+- `add-migration Initial -context IdentityDbContext -o Persistence/Migrations/`
+- `update-database -context IdentityDbContext`
 
 ### Inmo
 
 Navigate terminal to Modules.Inmo.Infrastructure and run the following.
 
-`add-migration Initial -context InmoDbContext -o Persistence/Migrations/`
-`update-database -context InmoDbContext`
+- `add-migration Initial -context InmoDbContext -o Persistence/Migrations/`
+- `update-database -context InmoDbContext`
 
 ### Document
 
 Navigate terminal to Modules.Document.Infrastructure and run the following.
 
-`add-migration Initial -context DocumentDbContext -o Persistence/Migrations/`
-`update-database -context DocumentDbContext`
+- `add-migration Initial -context DocumentDbContext -o Persistence/Migrations/`
+- `update-database -context DocumentDbContext`
 
 ### Sale
 
 Navigate terminal to Modules.Sale.Infrastructure and run the following.
 
-`add-migration Initial -context SaleDbContext -o Persistence/Migrations/`
-`update-database -context SaleDbContext`
+- `add-migration Initial -context SaleDbContext -o Persistence/Migrations/`
+- `update-database -context SaleDbContext`
 
 ## Running the API
 
