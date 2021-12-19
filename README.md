@@ -230,7 +230,7 @@ Navigate terminal to Modules.Sale.Infrastructure and run the following.
 1. Open up `InmoIT.sln` in Visual Studio 2019, preferably VS2022.
 2. Navigate to appSettings.json under `src/Host/Api/appsettings.json`
 3. Add you MsSql connection string under `PersistenceSettings`. The default connection string:
-   - `"mssql": "Data Source=.;Initial Catalog=InmoIT;Integrated Security=True;MultipleActiveResultSets=True"`
+   - "mssql": "Data Source=.;Initial Catalog=InmoIT;Integrated Security=True;MultipleActiveResultSets=True"
 4. That is all you need to configure the API. Just create and run the API project.
 5. By default, the database is migratedand ready for use.
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
