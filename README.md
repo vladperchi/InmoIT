@@ -105,7 +105,7 @@ Modular Architecture is a software design in which a monolith is made better and
     - `Host`
       - Api
     - `Modules`
-      - `Inmo`
+      - Inmo
         - `Api`
           - Controllers
           - Extensions
