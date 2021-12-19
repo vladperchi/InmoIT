@@ -229,7 +229,8 @@ Navigate terminal to Modules.Sale.Infrastructure and run the following.
 
 1. Open up `InmoIT.sln` in Visual Studio 2019, preferably VS2022.
 2. Navigate to appSettings.json under `src/Host/Api/appsettings.json`
-3. Add you MsSql connection string under `PersistenceSettings`. The default connection string is `"mssql": "Data Source=.;Initial Catalog=InmoIT;Integrated Security=True;MultipleActiveResultSets=True"`
+3. Add you MsSql connection string under `PersistenceSettings`. The default connection string:
+   - `"mssql": "Data Source=.;Initial Catalog=InmoIT;Integrated Security=True;MultipleActiveResultSets=True"`
 4. That is all you need to configure the API. Just create and run the API project.
 5. By default, the database is migratedand ready for use.
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
@@ -243,8 +244,10 @@ Navigate terminal to Modules.Sale.Infrastructure and run the following.
   - `dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p securePassword123`
   - `dotnet dev-certs https --trust`
   - Note - Make sure that you use the same password that has been configured in the `docker-compose.yml` file. By default, `securePassword123` is configured.
-- 5005 is the port setup to run InmoIT on Docker, so make sure that these port is free. You could also change the port in the `docker-compose.yml` and `Server\Dockerfile` files.
-- Now navigate back to the root of the InmoIT Project on your local machine and run the following via terminal - `docker-compose -f 'docker-compose.yml' up --build`
+- 5005 is the port setup to run InmoIT on Docker, so make sure that these port is free. You could also change the port in the
+  - `docker-compose.yml` and `Server\Dockerfile` files.
+- Now navigate back to the root of the InmoIT Project on your local machine and run the following via terminal
+  - `docker-compose -f 'docker-compose.yml' up --build`
 - This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
 - Browse to https://localhost:5005/ to use your version of InmoIT!
