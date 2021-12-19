@@ -31,6 +31,16 @@ namespace InmoIT.Modules.Identity.Core.Entities
 
         public DateTime RefreshTokenExpiryTime { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
+        public string LastModifiedBy { get; set; }
+
+        public DateTime? LastModifiedOn { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
+
+        public DateTime? DeletedOn { get; set; }
+
         private List<Event> _domainEvents;
 
         public IReadOnlyCollection<Event> DomainEvents => _domainEvents?.AsReadOnly();
