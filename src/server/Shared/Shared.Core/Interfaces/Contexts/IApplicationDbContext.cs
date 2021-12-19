@@ -8,7 +8,6 @@
 
 using Microsoft.EntityFrameworkCore;
 using InmoIT.Shared.Core.Entities;
-using InmoIT.Shared.Core.Entities;
 
 namespace InmoIT.Shared.Core.Interfaces.Contexts
 {
