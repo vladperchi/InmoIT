@@ -69,7 +69,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Dynamic Service Registration
 - [x] Controller Registration
 - [x] Entity Framework Core - Code First
-- [ ] Migrations
+- [x] Migrations
 - [ ] Seeding (Database, Identity)
 - [x] Logging
 - [x] CQRS using MediatR Library
@@ -80,9 +80,9 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Localization
 - [x] Middlewares
 - [x] Paginated API Responses
-- [ ] Registration (Only Admin register new users)
+- [ ] Registration
 - [x] Claims-Based Authorization
-- [ ] JWT Authentication
+- [x] JWT Authentication
 - [ ] CRUD Operations
 - [x] Email Service
 - [x] EventLogs
@@ -190,40 +190,41 @@ Next, set either to true in appSetting under `PersistenceSettings`.
 
 Navigate terminal to Shared.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project Host/API -o Persistence/Migrations/ --context ApplicationDbContext`
+`add-migration Initial -context ApplicationDbContext -o Persistence/Migrations/`
 
 ### Identity
 
 Navigate terminal to Modules.Identity.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context IdentityDbContext`
-
-### Document
-
-Navigate terminal to Modules.Document.Infrastructure and run the following.
-
-`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context DocumentDbContext`
+`add-migration Initial -context IdentityDbContext -o Persistence/Migrations/`
 
 ### Inmo
 
 Navigate terminal to Modules.Inmo.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context InmoDbContext`
+`add-migration Initial -context InmoDbContext -o Persistence/Migrations/`
+
+### Document
+
+Navigate terminal to Modules.Document.Infrastructure and run the following.
+
+`add-migration Initial -context DocumentDbContext -o Persistence/Migrations/`
 
 ### Sale
 
 Navigate terminal to Modules.Sale.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../Host/API -o Persistence/Migrations/ --context SaleDbContext`
+`add-migration Initial -context SaleDbContext -o Persistence/Migrations/`
 
 ## Running the API
 
 1. Open up `InmoIT.sln` in Visual Studio 2019, preferably VS2022.
 2. Navigate to appSettings.json under `src/Host/Api/appsettings.json`
-3. Add you MsSql connection string under `PersistenceSettings`. The default connection string is `"mssql": "Data Source=.;Initial Catalog=InmoITDB;Integrated Security=True;MultipleActiveResultSets=True"`
+3. Add you MsSql connection string under `PersistenceSettings`. The default connection string is `"mssql": "Data Source=.;Initial Catalog=InmoIT;Integrated Security=True;MultipleActiveResultSets=True"`
 4. That is all you need to configure the API. Just create and run the API project.
 5. By default, the database is migratedand ready for use.
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
+7. Browse to https://localhost:5001/ to Api InmoIT!
 
 ## Docker in Windows
 
