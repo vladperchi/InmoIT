@@ -6,30 +6,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
-using System.Net;
 using System.Reflection;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
-using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Settings;
-using InmoIT.Modules.Identity.Infrastructure.Permissions;
 using InmoIT.Modules.Identity.Infrastructure.Persistence;
 using InmoIT.Modules.Identity.Infrastructure.Services;
-using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
-using InmoIT.Shared.Infrastructure.Extensions;
 using InmoIT.Shared.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Extensions
 {

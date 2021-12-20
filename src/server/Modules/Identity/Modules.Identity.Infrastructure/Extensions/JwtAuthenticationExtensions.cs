@@ -7,8 +7,6 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
@@ -17,8 +15,6 @@ using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Settings;
 using InmoIT.Shared.Core.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;

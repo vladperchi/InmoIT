@@ -12,9 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-
-using Hangfire;
-
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
@@ -23,7 +20,6 @@ using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Identity;
 using InmoIT.Shared.Dtos.Identity.Users;
 using InmoIT.Shared.Dtos.Mails;
 using InmoIT.Shared.Dtos.Messages;

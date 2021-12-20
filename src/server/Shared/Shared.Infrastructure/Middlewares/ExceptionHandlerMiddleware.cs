@@ -15,13 +15,13 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
-using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Core.Serialization;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Core.Wrapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using Newtonsoft.Json.Serialization;
 
 namespace InmoIT.Shared.Infrastructure.Middlewares
