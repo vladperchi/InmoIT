@@ -24,6 +24,7 @@ namespace InmoIT.Modules.Identity.Core.Events
             Timestamp = DateTime.Now;
             AggregateId = userId;
             RelatedEntities = new[] { typeof(InmoUser) };
+            EventDescription = "Logged User Event.";
         }
     }
 }
