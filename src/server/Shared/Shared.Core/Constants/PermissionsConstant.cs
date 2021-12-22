@@ -134,6 +134,28 @@ namespace InmoIT.Shared.Core.Constants
             public const string Delete = "Permissions.RoleClaims.Delete";
         }
 
+        [DisplayName("Carts")]
+        [Description("Carts Permissions")]
+        public static class Carts
+        {
+            public const string View = "Permissions.Carts.View";
+            public const string ViewAll = "Permissions.Carts.ViewAll";
+            public const string Create = "Permissions.Carts.Create";
+            public const string Remove = "Permissions.Carts.Remove";
+            public const string Clear = "Permissions.Carts.Clear";
+        }
+
+        [DisplayName("Cart Items")]
+        [Description("Cart Items Permissions")]
+        public static class CartItems
+        {
+            public const string View = "Permissions.CartItems.View";
+            public const string ViewAll = "Permissions.CartItems.ViewAll";
+            public const string Add = "Permissions.CartItems.Add";
+            public const string Update = "Permissions.CartItems.Update";
+            public const string Remove = "Permissions.CartItems.Remove";
+        }
+
         [DisplayName("Sales")]
         [Description("Sales Permissions")]
         public static class Sales
