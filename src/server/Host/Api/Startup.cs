@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using InmoIT.Modules.Identity.Api.Extensions;
+using InmoIT.Modules.Person.Api.Extensions;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -32,7 +33,8 @@ namespace InmoIT.Api
                 .AddSerialization(_config)
                 .AddSharedInfrastructure(_config)
                 .AddIdentityModule(_config)
-                .AddSharedApplication(_config);
+                .AddSharedApplication(_config)
+                .AddCustomerModule(_config);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
