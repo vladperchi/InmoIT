@@ -28,14 +28,15 @@ namespace InmoIT.Modules.Identity.Core.Features.RoleClaims.Events
 
         public RoleClaimUpdatedEvent(InmoRoleClaim roleClaim)
         {
+            Id = roleClaim.Id;
             RoleId = roleClaim.RoleId;
             Group = roleClaim.Group;
             ClaimType = roleClaim.ClaimType;
             ClaimValue = roleClaim.ClaimValue;
             Description = roleClaim.Description;
-            Id = roleClaim.Id;
             AggregateId = Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoRoleClaim) };
+            EventDescription = "Updated RoleClaim.";
         }
     }
 }

@@ -28,16 +28,15 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
 
         public UserRegisteredEvent(InmoUser user)
         {
+            Id = user.Id;
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
             UserName = user.UserName;
             PhoneNumber = user.PhoneNumber;
-            Id = user.Id;
-            AggregateId = Guid.TryParse(user.Id, out var aggregateId)
-                ? aggregateId
-                : Guid.NewGuid();
+            AggregateId = Guid.TryParse(user.Id, out var aggregateId) ? aggregateId : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoUser) };
+            EventDescription = "Registered User.";
         }
     }
 }

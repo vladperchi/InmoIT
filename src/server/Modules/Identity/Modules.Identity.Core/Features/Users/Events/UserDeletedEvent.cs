@@ -19,10 +19,9 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
         public UserDeletedEvent(string id)
         {
             Id = id;
-            AggregateId = Guid.TryParse(id, out var aggregateId)
-                ? aggregateId
-                : Guid.NewGuid();
+            AggregateId = Guid.TryParse(id, out var aggregateId) ? aggregateId : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoUser) };
+            EventDescription = "Deleted User.";
         }
     }
 }

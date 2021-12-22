@@ -6,7 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using InmoIT.Modules.Identity.Infrastructure.Permissions;
+using InmoIT.Shared.Infrastructure.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;

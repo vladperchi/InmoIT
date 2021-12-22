@@ -16,6 +16,18 @@ namespace InmoIT.Modules.Identity.Core.Entities
 {
     public class InmoRoleClaim : IdentityRoleClaim<string>, IBaseEntity
     {
+        public InmoRoleClaim()
+            : base()
+        {
+        }
+
+        public InmoRoleClaim(string roleClaimDescription = null, string roleClaimGroup = null)
+            : base()
+        {
+            Description = roleClaimDescription;
+            Group = roleClaimGroup;
+        }
+
         public string Description { get; set; }
 
         public string Group { get; set; }
@@ -40,18 +52,6 @@ namespace InmoIT.Modules.Identity.Core.Entities
         public void ClearDomainEvents()
         {
             _domainEvents?.Clear();
-        }
-
-        public InmoRoleClaim()
-            : base()
-        {
-        }
-
-        public InmoRoleClaim(string roleClaimDescription = null, string roleClaimGroup = null)
-            : base()
-        {
-            Description = roleClaimDescription;
-            Group = roleClaimGroup;
         }
     }
 }

@@ -13,7 +13,7 @@ using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Infrastructure.Extensions;
 using InmoIT.Shared.Core.Domain;
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Extensions;
 using MediatR;

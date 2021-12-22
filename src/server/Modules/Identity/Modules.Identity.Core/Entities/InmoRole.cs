@@ -15,6 +15,19 @@ namespace InmoIT.Modules.Identity.Core.Entities
 {
     public class InmoRole : IdentityRole, IEntity<string>, IBaseEntity
     {
+        public InmoRole()
+            : base()
+        {
+            RoleClaims = new HashSet<InmoRoleClaim>();
+        }
+
+        public InmoRole(string roleName, string roleDescription = null)
+            : base(roleName)
+        {
+            RoleClaims = new HashSet<InmoRoleClaim>();
+            Description = roleDescription;
+        }
+
         public string Description { get; set; }
 
         public virtual ICollection<InmoRoleClaim> RoleClaims { get; set; }
@@ -37,19 +50,6 @@ namespace InmoIT.Modules.Identity.Core.Entities
         public void ClearDomainEvents()
         {
             _domainEvents?.Clear();
-        }
-
-        public InmoRole()
-            : base()
-        {
-            RoleClaims = new HashSet<InmoRoleClaim>();
-        }
-
-        public InmoRole(string roleName, string roleDescription = null)
-            : base(roleName)
-        {
-            RoleClaims = new HashSet<InmoRoleClaim>();
-            Description = roleDescription;
         }
     }
 }

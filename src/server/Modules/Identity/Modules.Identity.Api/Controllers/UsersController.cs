@@ -8,7 +8,7 @@
 
 using System.Threading.Tasks;
 using InmoIT.Modules.Identity.Core.Abstractions;
-using InmoIT.Modules.Identity.Infrastructure.Permissions;
+using InmoIT.Shared.Infrastructure.Permissions;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Dtos.Identity.Users;
 using Microsoft.AspNetCore.Mvc;

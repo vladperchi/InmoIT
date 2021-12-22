@@ -21,6 +21,7 @@ namespace InmoIT.Modules.Identity.Core.Features.RoleClaims.Events
             Id = id;
             AggregateId = Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoRoleClaim) };
+            EventDescription = "Deleted RoleClaim.";
         }
     }
 }

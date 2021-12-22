@@ -25,20 +25,20 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
     internal class IdentityDbSeeder : IDbSeeder
     {
         private readonly ILogger<IdentityDbSeeder> _logger;
-        private readonly IIdentityDbContext _db;
+        private readonly IIdentityDbContext _context;
         private readonly UserManager<InmoUser> _userManager;
         private readonly IStringLocalizer<IdentityDbSeeder> _localizer;
         private readonly RoleManager<InmoRole> _roleManager;
 
         public IdentityDbSeeder(
             ILogger<IdentityDbSeeder> logger,
-            IIdentityDbContext db,
+            IIdentityDbContext context,
             RoleManager<InmoRole> roleManager,
             UserManager<InmoUser> userManager,
             IStringLocalizer<IdentityDbSeeder> localizer)
         {
             _logger = logger;
-            _db = db;
+            _context = context;
             _roleManager = roleManager;
             _userManager = userManager;
             _localizer = localizer;
@@ -46,20 +46,25 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
 
         public void Initialize()
         {
-            AddDefaultRoles();
-            AddSuperAdmin();
-            AddAdmin();
-            AddManager();
-            AddStaff();
-            AddBasicUser();
-            _db.SaveChanges();
+            try
+            {
+                AddDefaultRoles();
+                AddSuperAdmin();
+                AddAdmin();
+                AddBasic();
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                _logger.LogError(_localizer["An error occurred while seeding Identity Data."]);
+            }
         }
 
         private void AddDefaultRoles()
         {
             Task.Run(async () =>
             {
-                var roleList = new List<string> { RolesConstant.SuperAdmin, RolesConstant.Admin,  RolesConstant.Manager, RolesConstant.Staff, RolesConstant.Basic };
+                var roleList = new List<string> { RolesConstant.SuperAdmin, RolesConstant.Admin, RolesConstant.Basic };
                 foreach (string roleName in roleList)
                 {
                     var role = new InmoRole(roleName);
@@ -103,7 +108,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     var result = await _userManager.AddToRoleAsync(superUser, RolesConstant.SuperAdmin);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation(_localizer["Seeded Default User with SuperAdmin Role."]);
+                        _logger.LogInformation(_localizer["Seeded default user with SuperAdmin Role."]);
                     }
                     else
                     {
@@ -139,7 +144,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     FirstName = "Camilo",
                     LastName = "Soto",
                     Email = "camilosoto@inmoit.com",
-                    UserName = "admin",
+                    UserName = "admincamilo",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     IsActive = true
@@ -152,7 +157,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     var result = await _userManager.AddToRoleAsync(adminUser, RolesConstant.Admin);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation(_localizer["Seeded Default User with Admin Role."]);
+                        _logger.LogInformation(_localizer["Seeded default user with Admin Role."]);
                     }
                     else
                     {
@@ -165,93 +170,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
             }).GetAwaiter().GetResult();
         }
 
-        private void AddManager()
-        {
-            Task.Run(async () =>
-            {
-                var managerRole = new InmoRole(RolesConstant.Manager, _localizer["Manager role with default permissions"]);
-                var managerRoleInDb = await _roleManager.FindByNameAsync(RolesConstant.Manager);
-                if (managerRoleInDb == null)
-                {
-                    await _roleManager.CreateAsync(managerRole);
-                    managerRoleInDb = await _roleManager.FindByNameAsync(RolesConstant.Manager);
-                    _logger.LogInformation(_localizer["Seeded Manager Role."]);
-                }
-
-                var managerUser = new InmoUser
-                {
-                    FirstName = "Alejo",
-                    LastName = "Sierna",
-                    Email = "alejosierna@inmoit.com",
-                    UserName = "manager",
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
-                    IsActive = true
-                };
-                var managerUserInDb = await _userManager.FindByEmailAsync(managerUser.Email);
-                if (managerUserInDb == null)
-                {
-                    await _userManager.CreateAsync(managerUser, UserConstant.ManagerPassword);
-                    var result = await _userManager.AddToRoleAsync(managerUser, RolesConstant.Manager);
-                    if (result.Succeeded)
-                    {
-                        _logger.LogInformation(_localizer["Seeded Default User with Manager Role."]);
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            _logger.LogError(error.Description);
-                        }
-                    }
-                }
-            }).GetAwaiter().GetResult();
-        }
-
-        private void AddStaff()
-        {
-            Task.Run(async () =>
-            {
-                var staffRole = new InmoRole(RolesConstant.Staff, _localizer["Staff role with default permissions"]);
-                var staffRoleInDb = await _roleManager.FindByNameAsync(RolesConstant.Staff);
-                if (staffRoleInDb == null)
-                {
-                    await _roleManager.CreateAsync(staffRole);
-                    staffRoleInDb = await _roleManager.FindByNameAsync(RolesConstant.Staff);
-                    _logger.LogInformation(_localizer["Seeded Staff Role."]);
-                }
-
-                var staffUser = new InmoUser
-                {
-                    FirstName = "David",
-                    LastName = "Vanegas",
-                    Email = "davidvanegas@inmoit.com",
-                    UserName = "staff",
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
-                    IsActive = true
-                };
-                var staffUserInDb = await _userManager.FindByEmailAsync(staffUser.Email);
-                if (staffUserInDb == null)
-                {
-                    await _userManager.CreateAsync(staffUser, UserConstant.StaffPassword);
-                    var result = await _userManager.AddToRoleAsync(staffUser, RolesConstant.Staff);
-                    if (result.Succeeded)
-                    {
-                        _logger.LogInformation(_localizer["Seeded Default User with Staff Role."]);
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            _logger.LogError(error.Description);
-                        }
-                    }
-                }
-            }).GetAwaiter().GetResult();
-        }
-
-        private void AddBasicUser()
+        private void AddBasic()
         {
             Task.Run(async () =>
             {
@@ -266,10 +185,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
 
                 var basicUser = new InmoUser
                 {
-                    FirstName = "Mario",
-                    LastName = "Lopez",
-                    Email = "mariolopez@inmoit.com",
-                    UserName = "basic",
+                    FirstName = "David",
+                    LastName = "Vanegas",
+                    Email = "davidvanegas@inmoit.com",
+                    UserName = "basicdavid",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     IsActive = true,
@@ -282,7 +201,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     var result = await _userManager.AddToRoleAsync(basicUser, RolesConstant.Basic);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation(_localizer["Seeded Default User with Basic Role."]);
+                        _logger.LogInformation(_localizer["Seeded default user with Basic Role."]);
                     }
                     else
                     {

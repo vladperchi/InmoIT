@@ -39,11 +39,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
                 .AddScoped<IIdentityDbContext>(provider => provider.GetService<IdentityDbContext>())
                 .AddIdentity<InmoUser, InmoRole>(options =>
                 {
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
                     options.User.RequireUniqueEmail = true;
                 })
                 .AddEntityFrameworkStores<IdentityDbContext>()
