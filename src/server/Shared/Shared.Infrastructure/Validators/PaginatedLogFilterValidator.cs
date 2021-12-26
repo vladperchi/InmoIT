@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Dtos.Identity.Logging;
 using InmoIT.Shared.Core.Features.Queries.Validators;
 using Microsoft.Extensions.Localization;

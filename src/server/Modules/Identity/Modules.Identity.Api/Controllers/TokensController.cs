@@ -28,16 +28,14 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetTokenAsync(TokenRequest request)
         {
-            var token = await _tokenService.GetTokenAsync(request, GenerateIPAddress());
-            return Ok(token);
+            return Ok(await _tokenService.GetTokenAsync(request, GenerateIPAddress()));
         }
 
         [HttpPost("refresh")]
         [AllowAnonymous]
         public async Task<ActionResult> RefreshAsync(RefreshTokenRequest request)
         {
-            var response = await _tokenService.RefreshTokenAsync(request, GenerateIPAddress());
-            return Ok(response);
+            return Ok(await _tokenService.RefreshTokenAsync(request, GenerateIPAddress()));
         }
 
         private string GenerateIPAddress()

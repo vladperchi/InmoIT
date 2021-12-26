@@ -29,7 +29,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
     {
         private readonly RoleManager<InmoRole> _roleManager;
         private readonly UserManager<InmoUser> _userManager;
-        private readonly ICurrentUser _currentUserService;
+        private readonly ICurrentUser _currentUser;
         private readonly IStringLocalizer<RoleClaimService> _localizer;
         private readonly IMapper _mapper;
         private readonly IIdentityDbContext _db;
@@ -44,7 +44,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             _roleManager = roleManager;
             _userManager = userManager;
-            _currentUserService = currentUserService;
+            _currentUser = currentUserService;
             _localizer = localizer;
             _mapper = mapper;
             _db = db;
@@ -232,7 +232,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 {
                     if (role.Name == RolesConstant.SuperAdmin)
                     {
-                        var currentUser = await _userManager.Users.SingleAsync(x => x.Id == _currentUserService.GetUserId().ToString());
+                        var currentUser = await _userManager.Users.SingleAsync(x => x.Id == _currentUser.GetUserId().ToString());
                         if (!await _userManager.IsInRoleAsync(currentUser, RolesConstant.SuperAdmin))
                         {
                             return await Result<string>.FailAsync(_localizer["Not allowed to modify Permissions for this Role."]);

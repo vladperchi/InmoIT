@@ -88,6 +88,6 @@ namespace InmoIT.Shared.Core.Extensions
 
                     return result;
                 })
-                .WithMessage(_ => localizer["The {PropertyName} property must contain correct comma separated orderings: '<property1> <direction>,<property2> <direction>'."]);
+                .WithMessage(_ => localizer["{PropertyName} must contain correct comma separated orderings: '<property1> <direction>,<property2> <direction>'."]);
     }
 }

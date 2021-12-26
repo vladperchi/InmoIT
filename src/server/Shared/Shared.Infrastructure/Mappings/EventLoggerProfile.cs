@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using AutoMapper;
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Mappings.Converters;
 using InmoIT.Shared.Dtos.Identity.Logging;
 

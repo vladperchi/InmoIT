@@ -8,7 +8,6 @@
 
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Identity;
 using InmoIT.Shared.Dtos.Identity.Users;
 
 namespace InmoIT.Modules.Identity.Core.Abstractions
@@ -24,5 +23,9 @@ namespace InmoIT.Modules.Identity.Core.Abstractions
         Task<IResult> ForgotPasswordAsync(ForgotPasswordRequest request, string origin);
 
         Task<IResult> ResetPasswordAsync(ResetPasswordRequest request);
+
+        Task<IResult<string>> GetUserPictureAsync(string userId);
+
+        Task<IResult<string>> UpdateUserPictureAsync(UpdateUserPictureRequest request, string userId);
     }
 }

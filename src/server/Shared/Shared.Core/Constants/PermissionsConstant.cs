@@ -44,7 +44,6 @@ namespace InmoIT.Shared.Core.Constants
             public const string ViewAll = "Permissions.Images.ViewAll";
             public const string Update = "Permissions.Images.Update";
             public const string Remove = "Permissions.Images.Remove";
-            public const string Export = "Permissions.Images.Export";
         }
 
         [DisplayName("Traces")]
@@ -79,7 +78,6 @@ namespace InmoIT.Shared.Core.Constants
             public const string Create = "Permissions.DocumentTypes.Create";
             public const string Update = "Permissions.DocumentTypes.Update";
             public const string Remove = "Permissions.DocumentTypes.Remove";
-            public const string Export = "Permissions.DocumentTypes.Export";
         }
 
         [DisplayName("Customers")]
@@ -121,7 +119,6 @@ namespace InmoIT.Shared.Core.Constants
             public const string Create = "Permissions.Roles.Create";
             public const string Edit = "Permissions.Roles.Edit";
             public const string Delete = "Permissions.Roles.Delete";
-            public const string Export = "Permissions.Roles.Export";
         }
 
         [DisplayName("Role Claims")]
@@ -134,47 +131,12 @@ namespace InmoIT.Shared.Core.Constants
             public const string Delete = "Permissions.RoleClaims.Delete";
         }
 
-        [DisplayName("Carts")]
-        [Description("Carts Permissions")]
-        public static class Carts
-        {
-            public const string View = "Permissions.Carts.View";
-            public const string ViewAll = "Permissions.Carts.ViewAll";
-            public const string Create = "Permissions.Carts.Create";
-            public const string Remove = "Permissions.Carts.Remove";
-            public const string Clear = "Permissions.Carts.Clear";
-        }
-
-        [DisplayName("Cart Items")]
-        [Description("Cart Items Permissions")]
-        public static class CartItems
-        {
-            public const string View = "Permissions.CartItems.View";
-            public const string ViewAll = "Permissions.CartItems.ViewAll";
-            public const string Add = "Permissions.CartItems.Add";
-            public const string Update = "Permissions.CartItems.Update";
-            public const string Remove = "Permissions.CartItems.Remove";
-        }
-
-        [DisplayName("Sales")]
-        [Description("Sales Permissions")]
-        public static class Sales
-        {
-            public const string View = "Permissions.Sales.View";
-            public const string ViewAll = "Permissions.Sales.ViewAll";
-            public const string Register = "Permissions.Sales.Register";
-            public const string Update = "Permissions.Sales.Update";
-            public const string Remove = "Permissions.Sales.Remove";
-            public const string Export = "Permissions.Sales.Export";
-        }
-
         [DisplayName("Logs")]
         [Description("Logs Permissions")]
         public static class Logs
         {
             public const string ViewAll = "Permissions.Logs.ViewAll";
             public const string Create = "Permissions.Logs.Create";
-            public const string Export = "Permissions.Logs.Export";
         }
 
         [DisplayName("Dashboards")]

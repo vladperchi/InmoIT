@@ -24,5 +24,9 @@ namespace InmoIT.Modules.Identity.Core.Abstractions
         Task<IResult<string>> UpdateAsync(UpdateUserRequest request);
 
         Task<IResult<string>> UpdateUserRolesAsync(string userId, UserRolesRequest request);
+
+        Task<string> ExportToExcelAsync(string searchString = "");
+
+        Task<int> GetCountAsync();
     }
 }

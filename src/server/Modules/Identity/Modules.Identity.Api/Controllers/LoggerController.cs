@@ -32,16 +32,14 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginatedLogFilter filter)
         {
             var request = Mapper.Map<GetAllLogsRequest>(filter);
-            var eventLogs = await _eventLog.GetAllAsync(request);
-            return Ok(eventLogs);
+            return Ok(await _eventLog.GetAllAsync(request));
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> LogCustomEventAsync(LogRequest request)
         {
-            var result = await _eventLog.LogCustomEventAsync(request);
-            return Ok(result);
+            return Ok(await _eventLog.LogCustomEventAsync(request));
         }
     }
 }

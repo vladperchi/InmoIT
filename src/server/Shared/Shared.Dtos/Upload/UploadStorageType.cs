@@ -18,10 +18,13 @@ namespace InmoIT.Shared.Dtos.Upload
         [Description(@"Images\Properties")]
         Property,
 
-        [Description(@"Images\Profiles")]
-        Profile,
+        [Description(@"Images\Customers")]
+        Customer,
 
-        [Description(@"Documents")]
-        Document
+        [Description(@"Documents\Required")]
+        Required,
+
+        [Description(@"Documents\Contracts")]
+        Contract
     }
 }

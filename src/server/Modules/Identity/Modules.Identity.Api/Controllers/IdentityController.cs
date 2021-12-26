@@ -12,7 +12,6 @@ using InmoIT.Shared.Infrastructure.Permissions;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Dtos.Identity.Users;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,13 +23,11 @@ namespace InmoIT.Modules.Identity.Api.Controllers
     {
         private readonly ICurrentUser _currentUser;
         private readonly IIdentityService _identityService;
-        private readonly IUserService _userService;
 
-        public IdentityController(IIdentityService identityService, ICurrentUser currentUser, IUserService userService)
+        public IdentityController(IIdentityService identityService, ICurrentUser currentUser)
         {
             _currentUser = currentUser;
             _identityService = identityService;
-            _userService = userService;
         }
 
         [HttpPost("register")]
@@ -39,6 +36,22 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         {
             var origin = Request.Headers["origin"];
             return Ok(await _identityService.RegisterAsync(request, origin));
+        }
+
+        [HttpGet("user-picture/{userId}")]
+        [AllowAnonymous]
+        [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
+        public async Task<IActionResult> GetUserPictureAsync(string userId)
+        {
+            return Ok(await _identityService.GetUserPictureAsync(userId));
+        }
+
+        [HttpPost("user-picture/{userId}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateUserPictureAsync(UpdateUserPictureRequest request)
+        {
+            string userId = _currentUser.GetUserId().ToString();
+            return Ok(await _identityService.UpdateUserPictureAsync(request, userId));
         }
 
         [HttpGet("confirm-email")]

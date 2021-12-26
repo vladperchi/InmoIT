@@ -20,8 +20,9 @@ namespace InmoIT.Modules.Identity.Api.Controllers
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService)
-        {
+        public UsersController(
+            IUserService userService)
+{
             _userService = userService;
         }
 
@@ -29,40 +30,42 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         [HavePermission(PermissionsConstant.Users.ViewAll)]
         public async Task<IActionResult> GetAllAsync()
         {
-            var users = await _userService.GetAllAsync();
-            return Ok(users);
+            return Ok(await _userService.GetAllAsync());
         }
 
         [HttpGet("{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
         public async Task<IActionResult> GetByIdAsync(string id)
         {
-            var user = await _userService.GetByIdAsync(id);
-            return Ok(user);
+            return Ok(await _userService.GetByIdAsync(id));
         }
 
         [HttpPut]
         [HavePermission(PermissionsConstant.Users.Edit)]
         public async Task<IActionResult> UpdateAsync(UpdateUserRequest request)
         {
-            var user = await _userService.UpdateAsync(request);
-            return Ok(user);
+            return Ok(await _userService.UpdateAsync(request));
         }
 
         [HttpGet("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
         public async Task<IActionResult> GetRolesAsync(string id)
         {
-            var userRoles = await _userService.GetRolesAsync(id);
-            return Ok(userRoles);
+            return Ok(await _userService.GetRolesAsync(id));
         }
 
         [HttpPut("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.Edit)]
         public async Task<IActionResult> UpdateUserRolesAsync(string id, UserRolesRequest request)
         {
-            var result = await _userService.UpdateUserRolesAsync(id, request);
-            return Ok(result);
+            return Ok(await _userService.UpdateUserRolesAsync(id, request));
+        }
+
+        [HttpGet("export")]
+        [HavePermission(PermissionsConstant.Users.Export)]
+        public async Task<IActionResult> Export(string searchString = "")
+        {
+            return Ok(await _userService.ExportToExcelAsync(searchString));
         }
     }
 }

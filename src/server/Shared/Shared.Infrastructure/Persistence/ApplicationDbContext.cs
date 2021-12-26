@@ -6,12 +6,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using InmoIT.Shared.Core.Entities;
 
 namespace InmoIT.Shared.Infrastructure.Persistence
 {

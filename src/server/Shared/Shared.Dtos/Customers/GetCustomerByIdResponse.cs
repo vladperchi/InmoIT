@@ -10,5 +10,5 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Customers
 {
-    public record GetCustomerByIdResponse(Guid Id, string Name, string PhoneNumber, string Email, string ImageUrl);
+    public record GetCustomerByIdResponse(Guid Id, string Name, string SurName, string PhoneNumber, string Gender, string Group, string Email, string ImageUrl);
 }

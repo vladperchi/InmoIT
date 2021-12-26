@@ -8,7 +8,7 @@
 
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Domain;
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
@@ -17,7 +17,7 @@ namespace InmoIT.Shared.Infrastructure.Logging
 {
     internal class EventLogger : IEventLogger
     {
-        private readonly ICurrentUser _user;
+        private readonly ICurrentUser _currentUser;
         private readonly IApplicationDbContext _context;
         private readonly IJsonSerializer _jsonSerializer;
 
@@ -26,7 +26,7 @@ namespace InmoIT.Shared.Infrastructure.Logging
             IApplicationDbContext context,
             IJsonSerializer jsonSerializer)
         {
-            _user = user;
+            _currentUser = user;
             _context = context;
             _jsonSerializer = jsonSerializer;
         }
@@ -43,13 +43,13 @@ namespace InmoIT.Shared.Infrastructure.Logging
             {
                 string serializedData = _jsonSerializer.Serialize(@event, @event.GetType());
 
-                string userEmail = _user.GetUserEmail();
+                string userEmail = _currentUser.GetUserEmail();
                 if (string.IsNullOrWhiteSpace(userEmail))
                 {
                     userEmail = "Anonymous";
                 }
 
-                var userId = _user.GetUserId();
+                var userId = _currentUser.GetUserId();
                 var thisEventLog = new EventLog(
                     @event,
                     serializedData,

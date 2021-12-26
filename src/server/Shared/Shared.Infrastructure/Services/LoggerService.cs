@@ -12,13 +12,14 @@ using System.Linq.Dynamic.Core;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Mappings.Converters;
 using InmoIT.Shared.Core.Wrapper;
+using InmoIT.Shared.Core.Common;
 using InmoIT.Shared.Dtos.Identity.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -79,7 +80,7 @@ namespace InmoIT.Shared.Infrastructure.Services
                 .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
             if (eventLogList == null)
             {
-                throw new EventLogListNotFound(_localizer);
+                throw new EventLogListEmptyException(_localizer);
             }
 
             return eventLogList;

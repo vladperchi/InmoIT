@@ -23,6 +23,7 @@
  <ItemGroup>
    <PackageReference Include="AutoMapper" Version="10.1.1" />
    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+   <PackageReference Include="EPPlus" Version="5.8.4" />
    <PackageReference Include="FluentValidation" Version="10.3.6" />
    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
    <PackageReference Include="Hangfire" Version="1.7.27" />

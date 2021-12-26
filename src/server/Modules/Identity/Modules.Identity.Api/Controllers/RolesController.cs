@@ -27,99 +27,60 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _roleClaimService = roleClaimService;
         }
 
-        /// <summary>
-        /// Get All Roles (basic, admin etc.)
-        /// </summary>
-        /// <returns>Status 200 OK.</returns>
         [HttpGet]
         [HavePermission(PermissionsConstant.Roles.View)]
         public async Task<IActionResult> GetAllAsync()
         {
-            var roles = await _roleService.GetAllAsync();
-            return Ok(roles);
+            return Ok(await _roleService.GetAllAsync());
         }
 
-        /// <summary>
-        /// Add a Role.
-        /// </summary>
-        /// <returns>Status 200 OK.</returns>
         [HttpPost]
         [HavePermission(PermissionsConstant.Roles.Create)]
         public async Task<IActionResult> PostAsync(RoleRequest request)
         {
-            var response = await _roleService.SaveAsync(request);
-            return Ok(response);
+            return Ok(await _roleService.SaveAsync(request));
         }
 
-        /// <summary>
-        /// Delete a Role.
-        /// </summary>
-        /// <returns>Status 200 OK.</returns>
         [HttpDelete("{id}")]
         [HavePermission(PermissionsConstant.Roles.Delete)]
         public async Task<IActionResult> DeleteAsync(string id)
         {
-            var response = await _roleService.DeleteAsync(id);
-            return Ok(response);
+            return Ok(await _roleService.DeleteAsync(id));
         }
 
-        /// <summary>
-        /// Get Permissions By Role Id.
-        /// </summary>
-        /// <returns>Status 200 Ok.</returns>
         [HttpGet("permissions/byrole/{roleId}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
         public async Task<IActionResult> GetPermissionsByRoleIdAsync([FromRoute] string roleId)
         {
-            var response = await _roleClaimService.GetAllPermissionsAsync(roleId);
-            return Ok(response);
+            return Ok(await _roleClaimService.GetAllPermissionsAsync(roleId));
         }
 
-        /// <summary>
-        /// Get All Role Claims.
-        /// </summary>
-        /// <returns>Status 200 Ok.</returns>
         [HttpGet("permissions")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
         public async Task<IActionResult> GetAllClaimsAsync()
         {
-            var response = await _roleClaimService.GetAllAsync();
-            return Ok(response);
+            return Ok(await _roleClaimService.GetAllAsync());
         }
 
-        /// <summary>
-        /// Get a Role Claim By Id.
-        /// </summary>
-        /// <returns>Status 200 Ok.</returns>
         [HttpGet("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
         public async Task<IActionResult> GetClaimByIdAsync([FromRoute] int id)
         {
-            var response = await _roleClaimService.GetByIdAsync(id);
-            return Ok(response);
+            return Ok(await _roleClaimService.GetByIdAsync(id));
         }
 
-        /// <summary>
-        /// Edit a Role Claims.
-        /// </summary>
         [HttpPut("permissions/update")]
         [HavePermission(PermissionsConstant.RoleClaims.Edit)]
         public async Task<IActionResult> UpdatePermissionsAsync(PermissionRequest request)
         {
-            var response = await _roleClaimService.UpdatePermissionsAsync(request);
-            return Ok(response);
+            return Ok(await _roleClaimService.UpdatePermissionsAsync(request));
         }
 
-        /// <summary>
-        /// Delete a Role Claim By Id.
-        /// </summary>
-        /// <returns>Status 200 Ok.</returns>
         [HttpDelete("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.Delete)]
         public async Task<IActionResult> DeleteClaimByIdAsync([FromRoute] int id)
         {
-            var response = await _roleClaimService.DeleteAsync(id);
-            return Ok(response);
+            return Ok(await _roleClaimService.DeleteAsync(id));
         }
     }
 }

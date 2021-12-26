@@ -96,9 +96,9 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
 
                 switch (exception)
                 {
-                    case CustomException e:
-                        response.StatusCode = responseModel.ErrorCode = (int)e.StatusCode;
-                        responseModel.Messages = e.ErrorMessages;
+                    case CustomException ex:
+                        response.StatusCode = responseModel.ErrorCode = (int)ex.StatusCode;
+                        responseModel.Messages = ex.ErrorMessages;
                         break;
 
                     case KeyNotFoundException:

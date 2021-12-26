@@ -43,7 +43,9 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             app.UseAuthorization();
             app.UseHangfireDashboard("/jobs", new DashboardOptions
             {
-                DashboardTitle = "InmoIT Jobs"
+                DashboardTitle = "InmoIT Jobs",
+
+                // Authorization = new[] { new HangfireAuthorizationFilter() }
             });
             app.UseEndpoints(endpoints =>
             {

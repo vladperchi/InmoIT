@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Logging;
 

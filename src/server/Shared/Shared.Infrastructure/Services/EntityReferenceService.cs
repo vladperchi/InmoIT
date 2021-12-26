@@ -9,11 +9,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using InmoIT.Shared.Core.Entities;
 using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Integration.Application;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using Microsoft.Extensions.Localization;
+using InmoIT.Shared.Core.Entities;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {

@@ -16,6 +16,10 @@
         <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="Services\RoleClaimService.cs~RF1aa9756.TMP" />
+    </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.13" />
     <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">

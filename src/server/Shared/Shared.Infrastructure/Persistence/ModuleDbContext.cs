@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Domain;
-using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Extensions;
 using MediatR;

@@ -6,17 +6,25 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+
 using AutoMapper;
+
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Features.Users.Events;
+using InmoIT.Modules.Identity.Infrastructure.Specifications;
 using InmoIT.Shared.Core.Constants;
+using InmoIT.Shared.Core.Extensions;
+using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Users;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -29,17 +37,20 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly RoleManager<InmoRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<UserService> _localizer;
+        private readonly IExcelService _excelService;
 
         public UserService(
             UserManager<InmoUser> userManager,
             RoleManager<InmoRole> roleManager,
             IMapper mapper,
-            IStringLocalizer<UserService> localizer)
+            IStringLocalizer<UserService> localizer,
+            IExcelService excelService)
         {
             _userManager = userManager;
             _mapper = mapper;
             _roleManager = roleManager;
             _localizer = localizer;
+            _excelService = excelService;
         }
 
         public async Task<Result<List<UserResponse>>> GetAllAsync()
@@ -144,6 +155,38 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
 
             return await Result<string>.SuccessAsync(userId, string.Format(_localizer["User Roles Updated Successfully."]));
+        }
+
+        public async Task<string> ExportToExcelAsync(string searchString = "")
+        {
+            var userFilterSpec = new UserFilterSpecification(searchString);
+            var users = await _userManager.Users
+                .Specify(userFilterSpec)
+                .OrderByDescending(a => a.CreatedOn)
+                .ToListAsync();
+            string result = await _excelService.ExportAsync(users, sheetName: _localizer["Users"],
+                mappers: new Dictionary<string, Func<InmoUser, object>>
+                {
+                    { _localizer["Id"], item => item.Id },
+                    { _localizer["FirstName"], item => item.FirstName },
+                    { _localizer["LastName"], item => item.LastName },
+                    { _localizer["UserName"], item => item.UserName },
+                    { _localizer["Email"], item => item.Email },
+                    { _localizer["EmailConfirmed"], item => item.EmailConfirmed },
+                    { _localizer["PhoneNumber"], item => item.PhoneNumber },
+                    { _localizer["PhoneNumberConfirmed"], item => item.PhoneNumberConfirmed },
+                    { _localizer["IsActive"], item => item.IsActive },
+                    { _localizer["CreatedOn (Local)"], item => DateTime.SpecifyKind(item.CreatedOn, DateTimeKind.Utc).ToLocalTime().ToString("G", CultureInfo.CurrentCulture) },
+                    { _localizer["CreatedOn (UTC)"], item => item.CreatedOn.ToString("G", CultureInfo.CurrentCulture) },
+                    { _localizer["ImageUrl"], item => item.ImageUrl },
+                });
+
+            return result;
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _userManager.Users.CountAsync();
         }
     }
 }

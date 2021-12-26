@@ -16,6 +16,7 @@ using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Features.Users.Events;
+using InmoIT.Shared.Core.Common;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Settings;
@@ -23,6 +24,8 @@ using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Users;
 using InmoIT.Shared.Dtos.Mails;
 using InmoIT.Shared.Dtos.Messages;
+using InmoIT.Shared.Infrastructure.Services;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -40,9 +43,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly ISmsTwilioService _smsTwilioService;
         private readonly SmsTwilioSettings _smsTwilioSettings;
         private readonly IStringLocalizer<IdentityService> _localizer;
+        private readonly IUploadService _uploadService;
 
         public IdentityService(
             UserManager<InmoUser> userManager,
+            IUploadService uploadService,
             IJobService jobService,
             IMailService mailService,
             IOptions<MailSettings> mailSettings,
@@ -51,6 +56,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             IStringLocalizer<IdentityService> localizer)
         {
             _userManager = userManager;
+            _uploadService = uploadService;
             _jobService = jobService;
             _mailService = mailService;
             _mailSettings = mailSettings.Value;
@@ -142,6 +148,39 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
         }
 
+        public async Task<IResult<string>> GetUserPictureAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return await Result<string>.FailAsync(_localizer["User Not Found"]);
+            }
+
+            return await Result<string>.SuccessAsync(data: user.ImageUrl);
+        }
+
+        public async Task<IResult<string>> UpdateUserPictureAsync(UpdateUserPictureRequest request, string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return await Result<string>.FailAsync(message: _localizer["User Not Found"]);
+            }
+
+            if (request != null)
+            {
+                request.FileName = $"U-{user.FirstName}{user.LastName}.{request.Extension}";
+                user.ImageUrl = await _uploadService.UploadAsync(request, FileType.Image);
+            }
+
+            string filePath = user.ImageUrl;
+            var identityResult = await _userManager.UpdateAsync(user);
+            var errors = identityResult.Errors.Select(e => _localizer[e.Description].ToString()).ToList();
+            return identityResult.Succeeded
+                ? await Result<string>.SuccessAsync(data: filePath)
+                : await Result<string>.FailAsync(errors);
+        }
+
         private async Task<string> GetEmailVerificationUriAsync(InmoUser user, string origin)
         {
             string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -149,8 +188,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             string route = "api/v1/identity/confirm-email/";
             var endpointUri = new Uri(string.Concat($"{origin}/", route));
             string verificationUri = QueryHelpers.AddQueryString(endpointUri.ToString(), "userId", user.Id);
-            verificationUri = QueryHelpers.AddQueryString(verificationUri, "code", code);
-            return verificationUri;
+            return QueryHelpers.AddQueryString(verificationUri, "code", code);
         }
 
         private async Task<string> GetPhoneVerificationCodeAsync(InmoUser user)
@@ -249,7 +287,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
             else
             {
-                throw new IdentityCustomException(_localizer, null);
+                throw new IdentityException(_localizer["An error occurred while password reset."]);
             }
         }
     }

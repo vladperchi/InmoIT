@@ -8,10 +8,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Domain;
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace InmoIT.Modules.Identity.Core.Entities
 {
@@ -23,6 +26,7 @@ namespace InmoIT.Modules.Identity.Core.Entities
 
         public string CreatedBy { get; set; }
 
+        [Column(TypeName = "text")]
         public string ImageUrl { get; set; }
 
         public bool IsActive { get; set; }
