@@ -1,0 +1,202 @@
+[
+  {
+    "Id": "0bd317ca-afa6-4077-9493-791834e705dc",
+    "Name": "Paula",
+    "SurName": "Prado Rivera",
+    "Gender": "Female",
+    "Group": "VIP",
+    "PhoneNumber": "+573053607020",
+    "Email": "paulaprado@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "a6ac3ec0-b94d-4a6c-ade5-d24fd1270efe",
+    "Name": "Janelle",
+    "SurName": "Janelle Bold",
+    "Gender": "Female",
+    "Group": "Normal",
+    "PhoneNumber": "+573053617121",
+    "Email": "janellejanelle@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "9d6d0fb5-48ed-4d3d-a79a-87673043f6b5",
+    "Name": "Ana Maria",
+    "SurName": "Rivera Rocco",
+    "Gender": "Female",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053627222",
+    "Email": "anarivera@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "3d94ccf0-a433-45f5-a8cd-e681ff2c0a0b",
+    "Name": "Luis Andre",
+    "SurName": "Mozquera Santos",
+    "Gender": "Male",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053637323",
+    "Email": "luismozquera@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "340e9f0c-8be2-4ab8-9265-afcdf6e835a0",
+    "Name": "Roberto",
+    "SurName": "Martinez Rivera",
+    "Gender": "Male",
+    "Group": "Normal",
+    "PhoneNumber": "+573053647424",
+    "Email": "robertorivera@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "30036277-2400-4323-8c3b-b3586154824f",
+    "Name": "Rafael",
+    "SurName": "Rivera Puyol",
+    "Gender": "Male",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053657525",
+    "Email": "rafaelpuyol@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "562e69aa-0e0b-45c2-9a24-deecc15da630",
+    "Name": "Hector",
+    "SurName": "Velez Gonzalez",
+    "Gender": "Male",
+    "Group": "VIP",
+    "PhoneNumber": "+573053667626",
+    "Email": "hectorvelez@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "c6d11b64-99f7-4a2a-989c-b65dc6fd2a93",
+    "Name": "Anastasia",
+    "SurName": "Guzman Vedolla",
+    "Gender": "Female",
+    "Group": "Normal",
+    "PhoneNumber": "+573053677727",
+    "Email": "anastasiaguzman@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "2d636523-0b14-4312-9abb-de879dc28c1a",
+    "Name": "Ana Lorena",
+    "SurName": "Dominit Urrutia",
+    "Gender": "Female",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053687828",
+    "Email": "anadominit@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "5fc39f81-5c56-4ab5-b2dd-bebb6e1512d8",
+    "Name": "Lissette",
+    "SurName": "Padron Vizcaino",
+    "Gender": "Female",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053697929",
+    "Email": "lissettepadron@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "081eafab-248b-42fb-b06f-509c1eb279fd",
+    "Name": "Angel Danilo",
+    "SurName": "Prieto Cordova",
+    "Gender": "Male",
+    "Group": "Normal",
+    "PhoneNumber": "+573053718131",
+    "Email": "daniloprieto@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "063b137c-2d3f-4029-9e35-4937562572b0",
+    "Name": "Johanna",
+    "SurName": "Rivera Rodriguez",
+    "Gender": "Female",
+    "Group": "VIP",
+    "PhoneNumber": "+573053728232",
+    "Email": "johannarivera@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "1bb7cc08-a3a0-413b-89da-2639660ecde8",
+    "Name": "Luisa Maria",
+    "SurName": "Ordoñez Nalvae",
+    "Gender": "Female",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053738333",
+    "Email": "luisaordonez@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "36b8f863-75c2-4a98-b44e-b0b17a7550b0",
+    "Name": "Estela",
+    "SurName": "Ramirez Vanegas",
+    "Gender": "Female",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053748434",
+    "Email": "estelaramirez@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "7c8035e4-9015-48c8-9503-5764e5625e4e",
+    "Name": "Rosalda Fania",
+    "SurName": "Ruedas Echeverri",
+    "Gender": "Male",
+    "Group": "Normal",
+    "PhoneNumber": "+573053758535",
+    "Email": "rosaldaruedas@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "5cf09b6e-fb84-471e-b5a5-2a74ed6068e1",
+    "Name": "Orlando",
+    "SurName": "Silva Leon",
+    "Gender": "Male",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053768636",
+    "Email": "orlandosilva@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "94099f6a-e244-4dc9-b3f3-64ada57dde2a",
+    "Name": "Omaira",
+    "SurName": "Rivera Ordoñez",
+    "Gender": "Female",
+    "Group": "VIP",
+    "PhoneNumber": "+573053778737",
+    "Email": "omairarivera@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "558852a0-4c71-43c3-84a0-2e4d50badcc0",
+    "Name": "Kevin Manuel",
+    "SurName": "Ruiz Rivera",
+    "Gender": "Male",
+    "Group": "Normal",
+    "PhoneNumber": "+573053788838",
+    "Email": "kevinruiz@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "260f527a-5977-4299-944c-abaaa8d34d73",
+    "Name": "Olivia",
+    "SurName": "Martinez Diaz",
+    "Gender": "Female",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053798939",
+    "Email": "oliviamartinez@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  },
+  {
+    "Id": "a44866e8-7fef-4f24-aca1-2d32873f8d24",
+    "Name": "Alejandro",
+    "SurName": "Ruedas Poll",
+    "Gender": "Male",
+    "Group": "Ordinary",
+    "PhoneNumber": "+573053809040",
+    "Email": "alejandroruedas@gmail.com",
+    "ImageUrl": "Files\\Images\\Customers\\default.png"
+  }
+]
