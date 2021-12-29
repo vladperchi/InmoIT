@@ -104,13 +104,6 @@ namespace InmoIT.Shared.Core.Constants
             public const string Export = "Permissions.Users.Export";
         }
 
-        [DisplayName("Identity")]
-        [Description("Identity Permissions")]
-        public static class Identity
-        {
-            public const string Register = "Permissions.Identity.Register";
-        }
-
         [DisplayName("Roles")]
         [Description("Roles Permissions")]
         public static class Roles
