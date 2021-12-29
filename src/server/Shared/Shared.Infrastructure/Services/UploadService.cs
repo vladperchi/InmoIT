@@ -23,6 +23,7 @@ namespace InmoIT.Shared.Infrastructure.Services
      public class UploadService : IUploadService
     {
         private readonly IStringLocalizer<UploadService> _localizer;
+        private static string numberPattern = " ({0})";
 
         public UploadService(IStringLocalizer<UploadService> localizer)
         {
@@ -76,8 +77,6 @@ namespace InmoIT.Shared.Infrastructure.Services
                 return Task.FromResult(string.Empty);
             }
         }
-
-        private static string numberPattern = " ({0})";
 
         private static string NextAvailableFilename(string path)
         {
