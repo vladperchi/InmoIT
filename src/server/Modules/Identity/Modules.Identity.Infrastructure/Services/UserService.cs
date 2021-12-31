@@ -10,10 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
-
 using AutoMapper;
-
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
@@ -24,10 +23,11 @@ using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Users;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -56,21 +56,50 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<List<UserResponse>>> GetAllAsync()
         {
             var users = await _userManager.Users.AsNoTracking().ToListAsync();
-            var result = _mapper.Map<List<UserResponse>>(users);
-            return await Result<List<UserResponse>>.SuccessAsync(result);
+            if (users == null)
+            {
+                throw new UserListEmptyException(_localizer);
+            }
+
+            try
+            {
+                var mapperUsers = _mapper.Map<List<UserResponse>>(users);
+                return await Result<List<UserResponse>>.SuccessAsync(mapperUsers);
+            }
+            catch (Exception)
+            {
+                throw new IdentityCustomException(_localizer, null);
+            }
         }
 
         public async Task<IResult<UserResponse>> GetByIdAsync(string userId)
         {
-            var user = await _userManager.Users.AsNoTracking().Where(u => u.Id == userId).FirstOrDefaultAsync();
-            var result = _mapper.Map<UserResponse>(user);
-            return await Result<UserResponse>.SuccessAsync(result);
+            var user = await _userManager.Users.AsNoTracking().Where(x => x.Id == userId).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new UserNotFoundException(_localizer);
+            }
+
+            try
+            {
+                var mapperUser = _mapper.Map<UserResponse>(user);
+                return await Result<UserResponse>.SuccessAsync(mapperUser);
+            }
+            catch (Exception)
+            {
+                throw new IdentityCustomException(_localizer, null);
+            }
         }
 
         public async Task<IResult<UserRolesResponse>> GetRolesAsync(string userId)
         {
             var viewModel = new List<UserRoleModel>();
             var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new UserNotFoundException(_localizer);
+            }
+
             var roles = await _roleManager.Roles.AsNoTracking().ToListAsync();
             foreach (var role in roles)
             {
@@ -97,11 +126,21 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public async Task<IResult<string>> UpdateAsync(UpdateUserRequest request)
         {
+            if (!string.IsNullOrWhiteSpace(request.PhoneNumber))
+            {
+                var userWithPhoneNumber = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
+                if (userWithPhoneNumber != null)
+                {
+                    throw new IdentityException(string.Format(_localizer["Phone number {0} is registered."], request.PhoneNumber));
+                }
+            }
+
             var user = await _userManager.FindByIdAsync(request.Id);
 
-            if (user == null) throw new IdentityException(string.Format(_localizer["User Id {0} is not found."], request.Id));
-
-            _mapper.Map<UpdateUserRequest, InmoUser>(request, user);
+            if (user == null)
+            {
+                throw new IdentityException(string.Format(_localizer["User Id {0} is not found."], request.Id));
+            }
 
             user.AddDomainEvent(new UserUpdatedEvent(user));
 
@@ -114,7 +153,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (result.Succeeded)
             {
-                return await Result<string>.SuccessAsync(user.Id, _localizer["User Updated Succesffully."]);
+                return await Result<string>.SuccessAsync(user.Id, _localizer["User Updated Succesffull."]);
             }
             else
             {
@@ -128,7 +167,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var user = await _userManager.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
-                return await Result<string>.FailAsync(_localizer["User Not Found."]);
+                throw new UserNotFoundException(_localizer);
             }
 
             if (await _userManager.IsInRoleAsync(user, RolesConstant.SuperAdmin))
@@ -154,7 +193,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 }
             }
 
-            return await Result<string>.SuccessAsync(userId, string.Format(_localizer["User Roles Updated Successfully."]));
+            return await Result<string>.SuccessAsync(userId, string.Format(_localizer["User Roles Updated Successfull."]));
         }
 
         public async Task<string> ExportToExcelAsync(string searchString = "")
@@ -164,6 +203,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 .Specify(userFilterSpec)
                 .OrderByDescending(a => a.CreatedOn)
                 .ToListAsync();
+            if (users == null)
+            {
+                throw new UserListEmptyException(_localizer);
+            }
+
             string result = await _excelService.ExportAsync(users, sheetName: _localizer["Users"],
                 mappers: new Dictionary<string, Func<InmoUser, object>>
                 {
