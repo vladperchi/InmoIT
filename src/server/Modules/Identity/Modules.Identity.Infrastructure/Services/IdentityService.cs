@@ -24,8 +24,6 @@ using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Users;
 using InmoIT.Shared.Dtos.Mails;
 using InmoIT.Shared.Dtos.Messages;
-using InmoIT.Shared.Infrastructure.Services;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -67,8 +65,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public async Task<IResult> RegisterAsync(RegisterRequest request, string origin)
         {
-            var userWithSameUserName = await _userManager.FindByNameAsync(request.UserName);
-            if (userWithSameUserName != null)
+            var userWithUserName = await _userManager.FindByNameAsync(request.UserName);
+            if (userWithUserName != null)
             {
                 throw new IdentityException(string.Format(_localizer["Username {0} is in use."], request.UserName));
             }
@@ -88,15 +86,15 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (!string.IsNullOrWhiteSpace(request.PhoneNumber))
             {
-                var userWithSamePhoneNumber = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
-                if (userWithSamePhoneNumber != null)
+                var userWithPhoneNumber = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
+                if (userWithPhoneNumber != null)
                 {
                     throw new IdentityException(string.Format(_localizer["Phone number {0} is registered."], request.PhoneNumber));
                 }
             }
 
-            var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
-            if (userWithSameEmail == null)
+            var userWithEmail = await _userManager.FindByEmailAsync(request.Email);
+            if (userWithEmail == null)
             {
                 user.AddDomainEvent(new UserRegisteredEvent(user));
                 var result = await _userManager.CreateAsync(user, request.Password);
@@ -119,7 +117,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                             Body = string.Format(_localizer["Please confirm your InmoIT account by <a href='{0}'>clicking here</a>."], emailVerificationUri)
                         };
                         _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
-                        messages.Add(_localizer["Please check your Mailbox to verify!"]);
+                        messages.Add(_localizer["Please check your Mailbox to verify"]);
                     }
 
                     if (_smsTwilioSettings.EnableVerification)
@@ -210,11 +208,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             {
                 if (user.PhoneNumberConfirmed || !_smsTwilioSettings.EnableVerification)
                 {
-                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Email {0} Confirmed. Use the /api/identity/token endpoint to generate JWT."], user.Email));
+                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Email {0} Confirmed. Use the /api/v1/identity/token endpoint to generate JWT."], user.Email));
                 }
                 else
                 {
-                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Email {0} Confirmed. Confirm your phone number before using the /api/identity/token endpoint to generate JWT."], user.Email));
+                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Email {0} Confirmed. Confirm your phone number before using the /api/v1/identity/token endpoint to generate JWT."], user.Email));
                 }
             }
             else
@@ -236,11 +234,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             {
                 if (user.EmailConfirmed)
                 {
-                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Confirmed for Phone Number {0}. Use the /api/identity/token endpoint to generate JWT."], user.PhoneNumber));
+                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Confirmed for Phone Number {0}. Use the /api/v1/identity/token endpoint to generate JWT."], user.PhoneNumber));
                 }
                 else
                 {
-                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Confirmed for Phone Number {0}. Confirm your E-mail before using the /api/identity/token endpoint to generate JWT."], user.PhoneNumber));
+                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Confirmed for Phone Number {0}. Confirm your E-mail before using the /api/v1/identity/token endpoint to generate JWT."], user.PhoneNumber));
                 }
             }
             else
@@ -259,7 +257,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             string code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            string route = "account/reset-password";
+            string route = "api/v1/identity/reset-password";
             var endpointUri = new Uri(string.Concat($"{origin}/", route));
             string passwordResetUrl = QueryHelpers.AddQueryString(endpointUri.ToString(), "Token", code);
             var mailRequest = new MailRequest
