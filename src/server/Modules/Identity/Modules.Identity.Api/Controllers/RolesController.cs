@@ -12,6 +12,9 @@ using InmoIT.Shared.Infrastructure.Permissions;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Dtos.Identity.Roles;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using InmoIT.Shared.Core.Attributes;
+using Microsoft.AspNetCore.Http;
 
 namespace InmoIT.Modules.Identity.Api.Controllers
 {
@@ -27,60 +30,114 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _roleClaimService = roleClaimService;
         }
 
+        /// <response code="200">Return all roles.</response>
+        /// <response code="204">Roles not content.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Roles.View)]
+        [SwaggerOperation(Summary = "Get All Roles.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAllAsync()
         {
-            return Ok(await _roleService.GetAllAsync());
+            var response = await _roleService.GetAllAsync();
+            return Ok(response);
         }
 
+        /// <response code="200">Return add or update rol.</response>
+        /// <response code="400">Role exists.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.Roles.Create)]
-        public async Task<IActionResult> PostAsync(RoleRequest request)
+        [SwaggerHeader("Id, Name, Description", "Input data required to validate in API", "", true)]
+        [SwaggerOperation(Summary = "Add Or Update Rol.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddOrUpdateAsync(RoleRequest request)
         {
-            return Ok(await _roleService.SaveAsync(request));
+            var response = await _roleService.SaveAsync(request);
+            return Ok(response);
         }
 
+        /// <response code="200">Return deleted rol.</response>
+        /// <response code="404">Role not found.</response>
         [HttpDelete("{id}")]
         [HavePermission(PermissionsConstant.Roles.Delete)]
+        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerOperation(Summary = "Deleted Rol.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAsync(string id)
         {
-            return Ok(await _roleService.DeleteAsync(id));
+            var response = await _roleService.DeleteAsync(id);
+            return Ok(response);
         }
 
+        /// <response code="200">Return list permission by rol.</response>
+        /// <response code="404">Role not exists.</response>
         [HttpGet("permissions/byrole/{roleId}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
+        [SwaggerHeader("roleId", "Input data required to validate in API", "", true)]
+        [SwaggerOperation(Summary = "Get List Permission By Rol.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPermissionsByRoleIdAsync([FromRoute] string roleId)
         {
-            return Ok(await _roleClaimService.GetAllPermissionsAsync(roleId));
+            var response = await _roleClaimService.GetAllPermissionsAsync(roleId);
+            return Ok(response);
         }
 
+        /// <response code="200">Return all role claims.</response>
+        /// <response code="204">Role claims not content.</response>
         [HttpGet("permissions")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
+        [SwaggerOperation(Summary = "Get All Role Claims.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAllClaimsAsync()
         {
-            return Ok(await _roleClaimService.GetAllAsync());
+            var response = await _roleClaimService.GetAllAsync();
+            return Ok(response);
         }
 
+        /// <response code="200">Return role claims.</response>
+        /// <response code="404">Role Claim not found.</response>
         [HttpGet("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
+        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerOperation(Summary = "Get Role Claims.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetClaimByIdAsync([FromRoute] int id)
         {
-            return Ok(await _roleClaimService.GetByIdAsync(id));
+            var response = await _roleClaimService.GetByIdAsync(id);
+            return Ok(response);
         }
 
+        /// <response code="200">Return permissions updated.</response>
+        /// <response code="404">Role does not exist.</response>
         [HttpPut("permissions/update")]
         [HavePermission(PermissionsConstant.RoleClaims.Edit)]
+        [SwaggerHeader("RoleId, RoleClaims", "Input data required to validate in API", "", true)]
+        [SwaggerOperation(Summary = "Permissions Updated.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdatePermissionsAsync(PermissionRequest request)
         {
-            return Ok(await _roleClaimService.UpdatePermissionsAsync(request));
+            var response = await _roleClaimService.UpdatePermissionsAsync(request);
+            return Ok(response);
         }
 
+        /// <response code="200">Return deleted role claims.</response>
+        /// <response code="404">Role Claim does not exist.</response>
         [HttpDelete("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.Delete)]
+        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerOperation(Summary = "Deleted Role Claims.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteClaimByIdAsync([FromRoute] int id)
         {
-            return Ok(await _roleClaimService.DeleteAsync(id));
+            var response = await _roleClaimService.DeleteAsync(id);
+            return Ok(response);
         }
     }
 }
