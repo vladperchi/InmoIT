@@ -46,7 +46,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             return Ok(await _identityService.RegisterAsync(request, origin));
         }
 
-        /// <response code="200">Return image user.</response>
+        /// <response code="200">Return image user by id.</response>
         /// <response code="404">User was not found.</response>
         [HttpGet("user-picture/{userId}")]
         [AllowAnonymous]

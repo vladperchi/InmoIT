@@ -33,7 +33,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="204">Log not content.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Logs.ViewAll)]
-        [SwaggerHeader("userId", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("filter", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Get All Logs User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -48,7 +48,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="400">Log errors have occurred.</response>
         [HttpPost]
         [Authorize]
-        [SwaggerHeader("Event, Description, Email, userId", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Created Log User.")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
