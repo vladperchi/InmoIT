@@ -239,12 +239,12 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                         }
                     }
 
-                    var deSelectedClaims = request.RoleClaims.Where(a => !a.Selected).ToList();
+                    var selectedClaims = request.RoleClaims.Where(a => !a.Selected).ToList();
                     if (role.Name == RolesConstant.SuperAdmin)
                     {
-                        if (deSelectedClaims.Any(x => x.Value == PermissionsConstant.Roles.View) ||
-                            deSelectedClaims.Any(x => x.Value == PermissionsConstant.RoleClaims.View) ||
-                            deSelectedClaims.Any(x => x.Value == PermissionsConstant.RoleClaims.Edit))
+                        if (selectedClaims.Any(x => x.Value == PermissionsConstant.Roles.View) ||
+                            selectedClaims.Any(x => x.Value == PermissionsConstant.RoleClaims.View) ||
+                            selectedClaims.Any(x => x.Value == PermissionsConstant.RoleClaims.Edit))
                         {
                             return await Result<string>.FailAsync(string.Format(
                                 _localizer["Not allowed to deselect {0} or {1} or {2} for this Role."],
@@ -254,7 +254,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                         }
                     }
 
-                    foreach (var claim in deSelectedClaims)
+                    foreach (var claim in selectedClaims)
                     {
                         if (claim.Id != 0)
                         {
