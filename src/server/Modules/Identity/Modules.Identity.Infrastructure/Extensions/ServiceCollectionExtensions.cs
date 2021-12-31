@@ -42,7 +42,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
                     options.Password.RequiredLength = 8;
                     options.Password.RequireDigit = true;
                     options.Password.RequireLowercase = true;
-                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = true;
                     options.User.RequireUniqueEmail = true;
                 })
