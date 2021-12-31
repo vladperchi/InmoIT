@@ -28,6 +28,8 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
+using Twilio.Http;
+
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
     public class TokenService : ITokenService
@@ -87,13 +89,20 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 throw new IdentityException(_localizer["Invalid Credentials."], statusCode: HttpStatusCode.Unauthorized);
             }
 
-            user.RefreshToken = GenerateRefreshToken();
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
-            await _userManager.UpdateAsync(user);
-            string token = await GenerateJwtAsync(user, ipAddress);
-            var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
-            await _eventLog.LogCustomEventAsync(new() { Description = $"Generated Tokens for {user.Email}.", Email = user.Email });
-            return await Result<TokenResponse>.SuccessAsync(response);
+            try
+            {
+                user.RefreshToken = GenerateRefreshToken();
+                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
+                await _userManager.UpdateAsync(user);
+                string token = await GenerateJwtAsync(user, ipAddress);
+                var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
+                await _eventLog.LogCustomEventAsync(new() { Description = $"Generated Tokens for {user.Email}.", Email = user.Email });
+                return await Result<TokenResponse>.SuccessAsync(response);
+            }
+            catch (Exception)
+            {
+                throw new IdentityCustomException(_localizer, null);
+            }
         }
 
         public async Task<IResult<TokenResponse>> RefreshTokenAsync(RefreshTokenRequest request, string ipAddress)
@@ -116,12 +125,19 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 throw new IdentityException(_localizer["Invalid Client Token."], statusCode: HttpStatusCode.Unauthorized);
             }
 
-            string token = GenerateEncryptedToken(GetSigningCredentials(), await GetClaimsAsync(user, ipAddress));
-            user.RefreshToken = GenerateRefreshToken();
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
-            await _userManager.UpdateAsync(user);
-            var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
-            return await Result<TokenResponse>.SuccessAsync(response);
+            try
+            {
+                string token = GenerateEncryptedToken(GetSigningCredentials(), await GetClaimsAsync(user, ipAddress));
+                user.RefreshToken = GenerateRefreshToken();
+                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
+                await _userManager.UpdateAsync(user);
+                var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
+                return await Result<TokenResponse>.SuccessAsync(response);
+            }
+            catch (Exception)
+            {
+                throw new IdentityCustomException(_localizer, null);
+            }
         }
 
         private async Task<string> GenerateJwtAsync(InmoUser user, string ipAddress)
