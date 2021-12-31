@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Swagger.Filters;
@@ -140,6 +141,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 Version = "v1",
                 Title = "InmoIT.API",
                 Description = "Modular Clean Architecture built in ASP.NET Core 5.0 WebAPI.",
+                TermsOfService = new Uri("https://example.com/terms"),
                 Contact = new OpenApiContact
                 {
                     Name = "Vladimir P. CHibás",
@@ -153,7 +155,10 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 }
             });
 
-            // Here you can set future versions
+            // Set the comments path for the Swagger JSON
+            string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            options.IncludeXmlComments(xmlPath);
         }
     }
 }
