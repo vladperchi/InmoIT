@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 using AutoMapper;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
@@ -56,7 +57,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var existingRole = await _roleManager.FindByIdAsync(id);
             if (existingRole == null)
             {
-                throw new IdentityException("Role Not Found", statusCode: System.Net.HttpStatusCode.NotFound);
+                throw new IdentityException("Role Not Found", statusCode: HttpStatusCode.NotFound);
             }
 
             if (DefaultRoles().Contains(existingRole.Name))
@@ -107,7 +108,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 var existingRole = await _roleManager.FindByNameAsync(request.Name);
                 if (existingRole != null)
                 {
-                    throw new IdentityException(_localizer["Similar Role exists."], statusCode: System.Net.HttpStatusCode.BadRequest);
+                    throw new IdentityException(_localizer["Similar Role exists."], statusCode: HttpStatusCode.BadRequest);
                 }
 
                 var newRole = new InmoRole(request.Name, request.Description);
