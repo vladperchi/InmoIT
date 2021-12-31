@@ -58,8 +58,13 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
         public async Task<Result<Guid>> Handle(RegisterCustomerCommand command, CancellationToken cancellationToken)
         {
             var customer = await _context.Customers.Where(c => c.Name == command.Name && c.SurName == command.SurName && c.PhoneNumber == command.PhoneNumber && c.Email == command.Email)
-                .AsNoTracking().FirstOrDefaultAsync(cancellationToken);
-            if (customer != null) throw new EntityAlreadyExistsException(_localizer);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(cancellationToken);
+            if (customer != null)
+            {
+                throw new CustomerAlreadyExistsException(_localizer);
+            }
+
             customer = _mapper.Map<Customer>(command);
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
