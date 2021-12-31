@@ -10,7 +10,7 @@ using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Modules.Inmo.Core.Abstractions
+namespace InmoIT.Modules.Inmo.Core.Abstractions
 {
     public interface IInmoDbContext : IDbContext
     {
