@@ -1,8 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>InmoIT.Modules.Inmo.Core</RootNamespace>
+        <AssemblyName>InmoIT.Modules.Inmo.Core</AssemblyName>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>InmoIT.Modules.Inmo.Core.xml</DocumentationFile>
+        <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>InmoIT.Modules.Inmo.Core.xml</DocumentationFile>
+        <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
@@ -13,10 +25,21 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <AdditionalFiles Include="..\..\..\stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Shared.Core\Shared.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Images\" />
+    <Folder Include="Features\Documents\" />
+    <Folder Include="Features\DocumentTypes\" />
+    <Folder Include="Features\Owners\Commands\Validators\" />
+    <Folder Include="Features\Traces\" />
+    <Folder Include="Features\Properties\" />
+    <Folder Include="Mappings\" />
   </ItemGroup>
 
 </Project>

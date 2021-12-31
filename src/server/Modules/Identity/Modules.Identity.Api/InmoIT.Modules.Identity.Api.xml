@@ -4,5 +4,109 @@
         <name>InmoIT.Modules.Identity.Api</name>
     </assembly>
     <members>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.IdentityController.RegisterAsync(InmoIT.Shared.Dtos.Identity.Users.RegisterRequest)">
+            <response code="201">Return created user.</response>
+            <response code="400">User is null.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.IdentityController.GetUserPictureAsync(System.String)">
+            <response code="200">Return image user by id.</response>
+            <response code="404">User was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.IdentityController.UpdateUserPictureAsync(InmoIT.Shared.Dtos.Identity.Users.UpdateUserPictureRequest)">
+            <response code="200">Return updated image user.</response>
+            <response code="404">User was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.IdentityController.ConfirmEmailAsync(System.String,System.String)">
+            <response code="200">Return account email confirmed user.</response>
+            <response code="404">User was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.IdentityController.ConfirmPhoneNumberAsync(System.String,System.String)">
+            <response code="200">Return account confirmed for phone Number user.</response>
+            <response code="404">User was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.IdentityController.ForgotPasswordAsync(InmoIT.Shared.Dtos.Identity.Users.ForgotPasswordRequest)">
+            <response code="200">Return forgot password user.</response>
+            <response code="500">Identity errors have occurred.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.IdentityController.ResetPasswordAsync(InmoIT.Shared.Dtos.Identity.Users.ResetPasswordRequest)">
+            <response code="200">Return reset password user.</response>
+            <response code="500">Identity errors have occurred.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.LoggerController.GetAllAsync(InmoIT.Shared.Dtos.Identity.Logging.PaginatedLogFilter)">
+            <response code="200">Return all log list user.</response>
+            <response code="204">Log not content.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.LoggerController.LogCustomEventAsync(InmoIT.Shared.Dtos.Identity.Logging.LogRequest)">
+            <response code="201">Return created log user.</response>
+            <response code="400">Log errors have occurred.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetAllAsync">
+            <response code="200">Return all roles.</response>
+            <response code="204">Roles not content.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.AddOrUpdateAsync(InmoIT.Shared.Dtos.Identity.Roles.RoleRequest)">
+            <response code="200">Return add or update rol.</response>
+            <response code="400">Role exists.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.DeleteAsync(System.String)">
+            <response code="200">Return deleted rol.</response>
+            <response code="404">Role not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetPermissionsByRoleIdAsync(System.String)">
+            <response code="200">Return list permission by rol.</response>
+            <response code="404">Role not exists.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetAllClaimsAsync">
+            <response code="200">Return all role claims.</response>
+            <response code="204">Role claims not content.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetClaimByIdAsync(System.Int32)">
+            <response code="200">Return role claims by id.</response>
+            <response code="404">Role Claim not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.UpdatePermissionsAsync(InmoIT.Shared.Dtos.Identity.Roles.PermissionRequest)">
+            <response code="200">Return edit a role claims.</response>
+            <response code="404">Role does not exist.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.DeleteClaimByIdAsync(System.Int32)">
+            <response code="200">Return deleted role claims by id.</response>
+            <response code="404">Role Claim does not exist.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.TokensController.GetTokenAsync(InmoIT.Shared.Dtos.Identity.Tokens.TokenRequest)">
+            <response code="200">Return token user.</response>
+            <response code="401">Unauthorized.</response>
+            <response code="500">Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.TokensController.RefreshAsync(InmoIT.Shared.Dtos.Identity.Tokens.RefreshTokenRequest)">
+            <response code="200">Return token user.</response>
+            <response code="401">Unauthorized.</response>
+            <response code="500">Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.GetAllAsync">
+            <response code="200">Return list users.</response>
+            <response code="204">User not content.</response>
+            <response code="500">Identity Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.GetByIdAsync(System.String)">
+            <response code="200">Return user.</response>
+            <response code="404">User was not found.</response>
+            <response code="500">Identity Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.UpdateAsync(InmoIT.Shared.Dtos.Identity.Users.UpdateUserRequest)">
+            <response code="200">Return updated user.</response>
+            <response code="404">User was not found.</response>
+            <response code="500">Identity Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.GetRolesAsync(System.String)">
+            <response code="200">Return roles user.</response>
+            <response code="404">User was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.UpdateUserRolesAsync(System.String,InmoIT.Shared.Dtos.Identity.Users.UserRolesRequest)">
+            <response code="200">Return user roles.</response>
+            <response code="404">User was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.Export(System.String)">
+            <response code="200">Return export users to excel.</response>
+        </member>
     </members>
 </doc>
