@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using InmoIT.Modules.Person.Core.Abstractions;
 using InmoIT.Modules.Person.Core.Entities;
+using InmoIT.Modules.Person.Core.Exceptions;
 using InmoIT.Modules.Person.Core.Specifications;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Services;
@@ -55,7 +56,12 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
             var customers = await _context.Customers.AsNoTracking().AsQueryable()
                 .Specify(customerFilterSpec)
                 .ToListAsync(cancellationToken);
-            string data = await _excelService.ExportAsync(customers, mappers: new Dictionary<string, Func<Customer, object>>
+            if (customers == null)
+            {
+                throw new CustomerListEmptyException(_localizer);
+            }
+
+            string result = await _excelService.ExportAsync(customers, mappers: new Dictionary<string, Func<Customer, object>>
             {
                 { _localizer["Id"], item => item.Id },
                 { _localizer["Name"], item => item.Name },
@@ -66,7 +72,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
                 { _localizer["Email"], item => item.Email }
             }, sheetName: _localizer["Customers"]);
 
-            return await Result<string>.SuccessAsync(data: data);
+            return await Result<string>.SuccessAsync(data: result);
         }
     }
 }
