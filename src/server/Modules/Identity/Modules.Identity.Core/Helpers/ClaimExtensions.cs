@@ -62,14 +62,5 @@ namespace InmoIT.Modules.Identity.Core.Helpers
 
             return IdentityResult.Failed();
         }
-
-        public static async Task AddCustomPermissionClaimAsync(this RoleManager<InmoRole> roleManager, InmoRole role, string permission)
-        {
-            var allClaims = await roleManager.GetClaimsAsync(role);
-            if (!allClaims.Any(a => a.Type == ClaimConstant.Permission && a.Value == permission))
-            {
-                await roleManager.AddClaimAsync(role, new(ClaimConstant.Permission, permission));
-            }
-        }
     }
 }
