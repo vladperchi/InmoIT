@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
             Id = id;
             AggregateId = id;
             RelatedEntities = new[] { typeof(Owner) };
-            EventDescription = "Owner deleted.";
+            EventDescription = $"Deleted Owner Id {id}.";
         }
     }
 }
