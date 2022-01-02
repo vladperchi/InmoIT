@@ -25,5 +25,9 @@ namespace InmoIT.Modules.Inmo.Core.Entities
         public string PhoneNumber { get; set; }
 
         public string Birthday { get; set; }
+
+        public string Gender { get; set; }
+
+        public string Group { get; set; }
     }
 }
