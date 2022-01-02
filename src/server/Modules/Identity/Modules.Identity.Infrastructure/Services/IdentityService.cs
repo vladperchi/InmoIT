@@ -100,7 +100,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 var result = await _userManager.CreateAsync(user, request.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, RolesConstant.Basic);
+                    await _userManager.AddToRoleAsync(user, RolesConstant.Staff);
                     if (!_mailSettings.EnableVerification && !_smsTwilioSettings.EnableVerification)
                     {
                         return await Result<string>.SuccessAsync(user.Id, message: string.Format(_localizer["User {0} Registered."], user.UserName));
