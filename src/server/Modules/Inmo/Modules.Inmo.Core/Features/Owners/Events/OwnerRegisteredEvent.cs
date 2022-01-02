@@ -30,6 +30,10 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
 
         public string Birthday { get; set; }
 
+        public string Gender { get; set; }
+
+        public string Group { get; set; }
+
         public OwnerRegisteredEvent(Owner owner)
         {
             Id = owner.Id;
@@ -40,9 +44,11 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
             Email = owner.Email;
             PhoneNumber = owner.PhoneNumber;
             Birthday = owner.Birthday;
+            Gender = owner.Gender;
+            Group = owner.Group;
             AggregateId = owner.Id;
             RelatedEntities = new[] { typeof(Owner) };
-            EventDescription = $"Owner {Name} {SurName} registered.";
+            EventDescription = $"Registered Owner Id {owner.Id}.";
         }
     }
 }
