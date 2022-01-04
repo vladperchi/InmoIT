@@ -10,7 +10,6 @@ using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -25,7 +24,6 @@ using MediatR;
 using Microsoft.Extensions.Localization;
 using Microsoft.EntityFrameworkCore;
 using InmoIT.Modules.Inmo.Core.Specifications;
-using InmoIT.Shared.Dtos.Customers;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
 {
@@ -50,7 +48,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
 
         public async Task<PaginatedResult<GetAllOwnersResponse>> Handle(GetAllOwnersQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Owner, GetAllOwnersResponse>> expression = e => new GetAllOwnersResponse(e.Id, e.Name, e.SurName, e.Address, e.ImageUrl, e.Birthday, e.Email, e.PhoneNumber);
+            Expression<Func<Owner, GetAllOwnersResponse>> expression = e => new GetAllOwnersResponse(e.Id, e.Name, e.SurName, e.Address, e.ImageUrl, e.Birthday, e.Gender, e.Group, e.Email, e.PhoneNumber);
             var queryable = _context.Owners.AsNoTracking().AsQueryable();
 
             string ordering = new OrderByConverter().Convert(request.OrderBy);

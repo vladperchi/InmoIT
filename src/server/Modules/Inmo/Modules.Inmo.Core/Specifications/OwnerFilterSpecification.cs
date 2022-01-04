@@ -17,7 +17,13 @@ namespace InmoIT.Modules.Inmo.Core.Specifications
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                Criteria = p => !string.IsNullOrWhiteSpace(p.Email) && (p.Name.Contains(searchString) || p.SurName.Contains(searchString) || p.Address.Contains(searchString) || p.PhoneNumber.Contains(searchString));
+                Criteria = p => !string.IsNullOrWhiteSpace(p.Email)
+                && (p.Name.Contains(searchString)
+                || p.SurName.Contains(searchString)
+                || p.PhoneNumber.Contains(searchString)
+                || p.Birthday.Contains(searchString)
+                || p.Gender.Contains(searchString)
+                || p.Group.Contains(searchString));
             }
             else
             {
