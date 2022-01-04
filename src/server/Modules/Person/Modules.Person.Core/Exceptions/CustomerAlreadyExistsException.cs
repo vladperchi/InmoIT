@@ -8,7 +8,6 @@
 
 using System.Net;
 using InmoIT.Shared.Core.Exceptions;
-
 using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Modules.Person.Core.Exceptions
