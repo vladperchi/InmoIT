@@ -9,10 +9,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Domain;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
