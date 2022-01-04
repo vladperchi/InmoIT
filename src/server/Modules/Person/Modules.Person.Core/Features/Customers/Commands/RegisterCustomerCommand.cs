@@ -31,6 +31,6 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public FileUploadRequest FileUploadRequest { get; set; }
 
-        public string FullName => $"{Name}{SurName}";
+        public string FileFullName => $"{Name}-{SurName}";
     }
 }
