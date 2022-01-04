@@ -114,7 +114,7 @@ namespace InmoIT.Shared.Core.Constants
             public const string Delete = "Permissions.Roles.Delete";
         }
 
-        [DisplayName("Role Claims")]
+        [DisplayName("RoleClaims")]
         [Description("Role Claims Permissions")]
         public static class RoleClaims
         {
