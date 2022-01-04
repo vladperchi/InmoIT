@@ -17,7 +17,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands.Validators
         public UpdateCustomerCommandValidator(IStringLocalizer<UpdateCustomerCommandValidator> localizer)
         {
             RuleFor(c => c.Id)
-                  .NotEqual(Guid.Empty).WithMessage(x => localizer["{PropertyName} cannot be empty."]);
+                  .NotEqual(Guid.Empty).WithMessage(_ => localizer["{PropertyName} cannot be empty."]);
             RuleFor(c => c.Name)
                 .NotEmpty().WithMessage(localizer["{PropertyName} cannot be empty."])
                 .Length(8, 150).WithMessage(localizer["{PropertyName} must have between 8 and 150 characters."]);
