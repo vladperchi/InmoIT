@@ -16,6 +16,7 @@ namespace InmoIT.Shared.Core.Mappings.Converters
         IValueConverter<string, string[]>,
         IValueConverter<string[], string>
     {
+        /// <inheritdoc/>
         public string[] Convert(string orderBy, ResolutionContext context = null)
         {
             if (!string.IsNullOrWhiteSpace(orderBy))
@@ -29,6 +30,7 @@ namespace InmoIT.Shared.Core.Mappings.Converters
             return Array.Empty<string>();
         }
 
+        /// <inheritdoc/>
         public string Convert(string[] orderBy, ResolutionContext context = null) => orderBy?.Any() == true ? string.Join(",", orderBy) : null;
     }
 }
