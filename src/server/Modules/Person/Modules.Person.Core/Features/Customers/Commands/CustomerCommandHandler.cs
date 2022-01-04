@@ -12,18 +12,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using InmoIT.Modules.Person.Core.Abstractions;
-using InmoIT.Modules.Person.Core.Constants;
 using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Core.Exceptions;
 using InmoIT.Modules.Person.Core.Features.Customers.Events;
 using InmoIT.Shared.Core.Common;
 using InmoIT.Shared.Core.Constants;
-using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
-
 using MediatR;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
@@ -69,12 +65,12 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"C-{command.FullName}.{fileUploadRequest.Extension}";
+                fileUploadRequest.FileName = $"C-{command.FileFullName}.{fileUploadRequest.Extension}";
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            customer.Gender = customer.Gender.NullToString() ?? CustomersType.GenderType.Male;
-            customer.Group = customer.Group.NullToString() ?? CustomersType.GroupType.Normal;
+            customer.Gender = customer.Gender.NullToString() ?? GenderConstant.GenderType.Male;
+            customer.Group = customer.Group.NullToString() ?? GroupConstant.GroupType.Normal;
             try
             {
                 customer.AddDomainEvent(new CustomerRegisteredEvent(customer));
@@ -100,12 +96,12 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"C-{command.FullName}{fileUploadRequest.Extension}";
+                fileUploadRequest.FileName = $"C-{command.FileFullName}{fileUploadRequest.Extension}";
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            customer.Gender = customer.Gender.NullToString() ?? CustomersType.GenderType.Male;
-            customer.Group = customer.Group.NullToString() ?? CustomersType.GroupType.Normal;
+            customer.Gender = customer.Gender.NullToString() ?? GenderConstant.GenderType.Male;
+            customer.Group = customer.Group.NullToString() ?? GroupConstant.GroupType.Normal;
             try
             {
                 customer.AddDomainEvent(new CustomerUpdatedEvent(customer));
