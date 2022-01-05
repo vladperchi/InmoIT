@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using InmoIT.Modules.Identity.Core.Abstractions;
@@ -26,8 +25,6 @@ using InmoIT.Shared.Dtos.Identity.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-
-using static InmoIT.Shared.Core.Constants.PermissionsConstant;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
