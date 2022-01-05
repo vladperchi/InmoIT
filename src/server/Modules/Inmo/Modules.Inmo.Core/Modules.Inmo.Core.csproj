@@ -34,8 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Images\" />
-    <Folder Include="Features\Documents\" />
-    <Folder Include="Features\DocumentTypes\" />
     <Folder Include="Features\Traces\" />
     <Folder Include="Features\Properties\" />
   </ItemGroup>
