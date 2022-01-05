@@ -86,31 +86,31 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(UpdateOwnerCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _context.Owners.Where(c => c.Id == command.Id)
+            var owner = await _context.Owners.Where(c => c.Id == command.Id)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
-            if (customer == null)
+            if (owner == null)
             {
                 throw new OwnerNotFoundException(_localizer);
             }
 
-            customer = _mapper.Map<Owner>(command);
+            owner = _mapper.Map<Owner>(command);
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"C-{command.FileFullName}{fileUploadRequest.Extension}";
-                customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
+                fileUploadRequest.FileName = $"O-{command.FileFullName}{fileUploadRequest.Extension}";
+                owner.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            customer.Gender = customer.Gender.NullToString() ?? GenderConstant.GenderType.Male;
-            customer.Group = customer.Group.NullToString() ?? GroupConstant.GroupType.Normal;
+            owner.Gender = owner.Gender.NullToString() ?? GenderConstant.GenderType.Male;
+            owner.Group = owner.Group.NullToString() ?? GroupConstant.GroupType.Normal;
             try
             {
-                customer.AddDomainEvent(new OwnerUpdatedEvent(customer));
-                _context.Owners.Update(customer);
+                owner.AddDomainEvent(new OwnerUpdatedEvent(owner));
+                _context.Owners.Update(owner);
                 await _context.SaveChangesAsync(cancellationToken);
                 await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, Owner>(command.Id), cancellationToken);
-                return await Result<Guid>.SuccessAsync(customer.Id, _localizer["Customer Updated"]);
+                return await Result<Guid>.SuccessAsync(owner.Id, _localizer["Customer Updated"]);
             }
             catch (Exception)
             {
@@ -120,19 +120,19 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(RemoveOwnerCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _context.Owners.FirstOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
-            if (customer == null)
+            var owner = await _context.Owners.FirstOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
+            if (owner == null)
             {
                 throw new OwnerNotFoundException(_localizer);
             }
 
             try
             {
-                customer.AddDomainEvent(new OwnerRemovedEvent(customer.Id));
-                _context.Owners.Remove(customer);
+                owner.AddDomainEvent(new OwnerRemovedEvent(owner.Id));
+                _context.Owners.Remove(owner);
                 await _context.SaveChangesAsync(cancellationToken);
                 await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, Owner>(command.Id), cancellationToken);
-                return await Result<Guid>.SuccessAsync(customer.Id, _localizer["Owner Deleted"]);
+                return await Result<Guid>.SuccessAsync(owner.Id, _localizer["Owner Deleted"]);
             }
             catch (Exception)
             {
