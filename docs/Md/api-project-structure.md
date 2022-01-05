@@ -1,6 +1,4 @@
-# Project
-
-## Structure
+# Structure
 
 - `src`
   - `Client`

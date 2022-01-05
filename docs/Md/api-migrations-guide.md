@@ -1,4 +1,4 @@
-# Documentation
+# Migrations - Guide
 
 InmoIt currently operates with a MSSQL database provider. In future versions Postgres and MySql could be included.
 
