@@ -25,7 +25,7 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
         private readonly PersistenceSettings _persistenceOptions;
         private readonly IJsonSerializer _jsonSerializer;
 
-        protected override string Schema => "Customer";
+        protected override string Schema => "Person";
 
         public CustomerDbContext(
             DbContextOptions<CustomerDbContext> options,
