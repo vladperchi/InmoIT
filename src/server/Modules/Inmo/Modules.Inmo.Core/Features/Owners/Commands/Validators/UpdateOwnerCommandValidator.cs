@@ -7,10 +7,8 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-
 using FluentValidation;
 using Microsoft.Extensions.Localization;
-;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands.Validators
 {

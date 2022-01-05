@@ -21,9 +21,5 @@ namespace InmoIT.Modules.Inmo.Core.Abstractions
         public DbSet<PropertyImage> PropertyImages { get; set; }
 
         public DbSet<PropertyTrace> PropertyTraces { get; set; }
-
-        public DbSet<PropertyDocument> PropertyDocuments { get; set; }
-
-        public DbSet<DocumentType> DocumentTypes { get; set; }
     }
 }

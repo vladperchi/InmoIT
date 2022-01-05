@@ -4,5 +4,11 @@
         <name>InmoIT.Shared.Core</name>
     </assembly>
     <members>
+        <member name="M:InmoIT.Shared.Core.Mappings.Converters.OrderByConverter.Convert(System.String,AutoMapper.ResolutionContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:InmoIT.Shared.Core.Mappings.Converters.OrderByConverter.Convert(System.String[],AutoMapper.ResolutionContext)">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>
