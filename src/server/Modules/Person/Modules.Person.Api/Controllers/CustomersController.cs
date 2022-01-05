@@ -42,7 +42,7 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="200">Return customer.</response>
+        /// <response code="200">Return customer by id .</response>
         /// <response code="404">Customer was not found.</response>
         [HttpGet("{id}")]
         [HavePermission(PermissionsConstant.Customers.View)]
