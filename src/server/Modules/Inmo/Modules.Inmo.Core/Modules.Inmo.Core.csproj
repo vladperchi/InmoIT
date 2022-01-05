@@ -36,7 +36,6 @@
     <Folder Include="Features\Images\" />
     <Folder Include="Features\Documents\" />
     <Folder Include="Features\DocumentTypes\" />
-    <Folder Include="Features\Owners\Commands\Validators\" />
     <Folder Include="Features\Traces\" />
     <Folder Include="Features\Properties\" />
     <Folder Include="Mappings\" />
