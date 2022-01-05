@@ -1,4 +1,4 @@
-# Migration
+# Migrations
 
 ## Documentation
 
@@ -9,7 +9,7 @@ Next, set either to true in appSetting under `PersistenceSettings`.
 
 `"UseMsSql": true,`
 
-### Important
+### Note Important
 
 - Make sure to delete all the migrations, and re-add migrations via the below CLI Command.
 - Make sure that you drop the existing database if any.
@@ -28,22 +28,33 @@ Next, set either to true in appSetting under `PersistenceSettings`.
 
 Navigate terminal to Shared.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../../API -o Persistence/Migrations/ --context ApplicationDbContext`
+- `add-migration Initial -context ApplicationDbContext -o Persistence/Migrations/`
+- `update-database -context ApplicationDbContext`
 
 ### Identity
 
 Navigate terminal to Modules.Identity.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../../../API -o Persistence/Migrations/ --context IdentityDbContext`
+- `add-migration Initial -context IdentityDbContext -o Persistence/Migrations/`
+- `update-database -context IdentityDbContext`
 
-### Flow
+### Inmo
 
-Navigate terminal to Modules.Flow.Infrastructure and run the following.
+Navigate terminal to Modules.Inmo.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../../../API -o Persistence/Migrations/ --context FlowDbContext`
+- `add-migration Initial -context InmoDbContext -o Persistence/Migrations/`
+- `update-database -context InmoDbContext`
 
 ### Document
 
 Navigate terminal to Modules.Document.Infrastructure and run the following.
 
-`dotnet ef migrations add "initial" --startup-project ../../../API -o Persistence/Migrations/ --context DocumentDbContext`
+- `add-migration Initial -context DocumentDbContext -o Persistence/Migrations/`
+- `update-database -context DocumentDbContext`
+
+### Sale
+
+Navigate terminal to Modules.Sale.Infrastructure and run the following.
+
+- `add-migration Initial -context SaleDbContext -o Persistence/Migrations/`
+- `update-database -context SaleDbContext`

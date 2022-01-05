@@ -68,22 +68,25 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Service-Based
 - [x] Controller Registration
 - [x] Entity Framework Core - Code First
-- [ ] Migrations
+- [ ] Auto DB Migrations
 - [ ] Seeding (Database, Identity)
 - [x] Logging
 - [x] CQRS using MediatR at API Level
 - [x] Validation
 - [x] In-Memory Database
 - [x] AutoMapper
+- [x] Custom API Response
 - [x] Custom Errors
 - [x] Localization
 - [x] Middlewares
 - [x] Paginated API Responses
-- [x] Role
-- [x] User-Role
+- [x] Specification Pattern
+- [x] Default User & Role Seeding
 - [ ] Registration
+- [x] Refresh Tokens
 - [x] Claims-Based Authorization
 - [x] JWT Authentication
+- [x] HTTP Interceptor
 - [ ] CRUD Operations
 - [x] Email Service
 - [x] EventLogs
@@ -99,53 +102,7 @@ Modular Architecture is a software design in which a monolith is made better and
 
 ## Project Structure
 
-- `src`
-  - `Client`
-  - `Server`
-    - `Host`
-      - Api
-    - `Modules`
-      - Inmo
-        - `Api`
-          - Controllers
-          - Extensions
-        - `Core`
-          - Entities
-          - Interfaces
-          - Exceptions
-          - Handlers
-          - Commands
-          - Queries
-        - `Infrastructure`
-          - Context
-          - Persistence
-    - `Shared`
-      - `Core`
-        - Domain
-        - Features
-        - Interfaces
-        - Exceptions
-        - Logging
-        - Services
-        - Serialization
-        - Wrapper
-      - `Dtos`
-        - Request
-        - Response
-      - `Infrastructure`
-        - Middlewares
-        - Persistence
-        - Services
-        - Mappings
-        - Utilities
-        - Swagger
-- `tests`
-  - `FunctionalTests`
-    - ControllerApis
-  - `IntegrationTests`
-    - Data
-  - `UnitTests`
-    - Core
+- Take a look at the [structure][structure-url] of the solution
 
 ## Project Status
 
@@ -166,65 +123,6 @@ Clone this repository to your local machine.
 4. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
 5. As for quick DB Management, me love [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15)
 
-## Migrations
-
-InmoIt currently operates with a MSSQL database provider. In future versions Postgres and MySql could be included.
-
-Firstly, you need to make sure that valid connection strings are mentioned in the appSetting.json
-Next, set either to true in appSetting under `PersistenceSettings`.
-
-`"UseMsSql": true,`
-
-### Note Important
-
-- Make sure to delete all the migrations, and re-add migrations via the below CLI Command.
-- Make sure that you drop the existing database if any.
-
-## Steps
-
-- Navigate to each of the Infrastructure project per module and shared(Shared.Infrastructure)
-- Open the directory in terminal mode. You just have to right the Infrastructure project in Visual Studio and select `Open in Terminal`.
-
-![image](https://user-images.githubusercontent.com/31455818/122291148-1d211380-cf12-11eb-9f28-35e5ec0989e5.png)
-
-- Run the EF commands. You can find the EF Commands below in the next section with additional steps ;)
-- That's it!
-
-### Application
-
-Navigate terminal to Shared.Infrastructure and run the following.
-
-- `add-migration Initial -context ApplicationDbContext -o Persistence/Migrations/`
-- `update-database -context ApplicationDbContext`
-
-### Identity
-
-Navigate terminal to Modules.Identity.Infrastructure and run the following.
-
-- `add-migration Initial -context IdentityDbContext -o Persistence/Migrations/`
-- `update-database -context IdentityDbContext`
-
-### Inmo
-
-Navigate terminal to Modules.Inmo.Infrastructure and run the following.
-
-- `add-migration Initial -context InmoDbContext -o Persistence/Migrations/`
-- `update-database -context InmoDbContext`
-
-### Document
-
-Navigate terminal to Modules.Document.Infrastructure and run the following.
-
-- `add-migration Initial -context DocumentDbContext -o Persistence/Migrations/`
-- `update-database -context DocumentDbContext`
-
-### Sale
-
-Navigate terminal to Modules.Sale.Infrastructure and run the following.
-
-- `add-migration Initial -context SaleDbContext -o Persistence/Migrations/`
-- `update-database -context SaleDbContext`
-
 ## Running the API
 
 1. Open up `InmoIT.sln` in Visual Studio 2019, preferably VS2022.
@@ -232,7 +130,7 @@ Navigate terminal to Modules.Sale.Infrastructure and run the following.
 3. Add you MsSql connection string under `PersistenceSettings`. The default connection string:
    `"mssql": "Data Source=.;Initial Catalog=InmoIT;Integrated Security=True;MultipleActiveResultSets=True"`
 4. That is all you need to configure the API. Just create and run the API project.
-5. By default, the database is migratedand ready for use.
+5. By default, the database is migrated. Take a look at the [migrations][migrations-url] of the solution
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
 7. Browse to https://localhost:5001/ to Api InmoIT!
 
@@ -264,6 +162,8 @@ Navigate terminal to Modules.Sale.Infrastructure and run the following.
 
 This project is licensed with the [MIT License][license-url].
 
+[structure-url]: https://github.com/vladperchi/InmoIT/blob/master/docs/Md/api-project-structure.md
+[migrations-url]: https://github.com/vladperchi/InmoIT/blob/master/docs/Md/api-migrations-guide.md
 [build-shield]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fvladperchi%2FInmoIT%2Fbadge&style=flat-square
 [build-url]: https://github.com/vladperchi/InmoIT/actions
 [contributors-shield]: https://img.shields.io/github/contributors/vladperchi/InmoIT.svg?style=flat-square
