@@ -8,8 +8,6 @@
 
 using System.Threading.Tasks;
 using InmoIT.Modules.Identity.Core.Abstractions;
-using InmoIT.Shared.Infrastructure.Permissions;
-using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Dtos.Identity.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -65,7 +63,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">User was not found.</response>
         [HttpPost("user-picture/{userId}")]
         [AllowAnonymous]
-        [SwaggerHeader("FileName, Extension, UploadStorageType, Data", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Update Image User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -107,7 +105,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Identity errors have occurred.</response>
         [HttpPost("forgot-password")]
         [AllowAnonymous]
-        [SwaggerHeader("Email, Password, Token", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Forgot Password User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -121,7 +119,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Identity errors have occurred.</response>
         [HttpPost("reset-password")]
         [AllowAnonymous]
-        [SwaggerHeader("Email, Password, Token", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Reset Password User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

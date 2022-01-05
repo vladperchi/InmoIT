@@ -7,7 +7,6 @@
 // --------------------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-
 using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Dtos.Identity.Tokens;
@@ -33,7 +32,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Internal Server Error.</response>
         [HttpPost]
         [AllowAnonymous]
-        [SwaggerHeader("Email, Password", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Get Token.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -49,7 +48,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Internal Server Error.</response>
         [HttpPost("refresh")]
         [AllowAnonymous]
-        [SwaggerHeader("Token, RefreshToken", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Get Token.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

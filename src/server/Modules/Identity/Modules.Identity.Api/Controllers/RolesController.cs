@@ -47,7 +47,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="400">Role exists.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.Roles.Create)]
-        [SwaggerHeader("Id, Name, Description", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Add Or Update Rol.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -116,7 +116,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">Role does not exist.</response>
         [HttpPut("permissions/update")]
         [HavePermission(PermissionsConstant.RoleClaims.Edit)]
-        [SwaggerHeader("RoleId, RoleClaims", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Role Claims Updated.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
