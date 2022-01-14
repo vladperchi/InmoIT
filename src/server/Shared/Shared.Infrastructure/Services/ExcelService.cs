@@ -32,7 +32,7 @@ namespace InmoIT.Shared.Infrastructure.Services
             Dictionary<string, Func<TData, object>> mappers,
             string sheetName)
         {
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using var p = new ExcelPackage();
             p.Workbook.Properties.Author = "InmoIT";
             p.Workbook.Worksheets.Add(_localizer["Event Logs"]);
@@ -56,9 +56,9 @@ namespace InmoIT.Shared.Infrastructure.Services
 
                 var border = cell.Style.Border;
                 border.Bottom.Style =
-                    border.Top.Style =
-                        border.Left.Style =
-                            border.Right.Style = ExcelBorderStyle.Thin;
+                border.Top.Style =
+                border.Left.Style =
+                border.Right.Style = ExcelBorderStyle.Thin;
 
                 cell.Value = header;
 

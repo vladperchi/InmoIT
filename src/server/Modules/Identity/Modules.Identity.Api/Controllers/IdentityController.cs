@@ -34,7 +34,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="400">User is null.</response>
         [HttpPost("register")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Created User.")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -49,7 +49,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         [HttpGet("user-picture/{userId}")]
         [AllowAnonymous]
         [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
-        [SwaggerHeader("userId", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("userId", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get Image User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -63,7 +63,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">User was not found.</response>
         [HttpPost("user-picture/{userId}")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Update Image User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -78,7 +78,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">User was not found.</response>
         [HttpGet("confirm-email")]
         [AllowAnonymous]
-        [SwaggerHeader("userId, code", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("userId, code", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Confirm Email User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -92,7 +92,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">User was not found.</response>
         [HttpGet("confirm-phone-number")]
         [AllowAnonymous]
-        [SwaggerHeader("userId, code", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("userId, code", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Confirm Phone Number User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -105,7 +105,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Identity errors have occurred.</response>
         [HttpPost("forgot-password")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Forgot Password User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -119,7 +119,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Identity errors have occurred.</response>
         [HttpPost("reset-password")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Reset Password User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -9,13 +9,16 @@
 using System;
 using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Shared.Core.Features.Queries.Validators;
-using InmoIT.Shared.Dtos.Customers;
+using InmoIT.Shared.Dtos.Person.Customers;
 using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Validators
 {
     public class PaginatedCustomerFilterValidator : PaginatedFilterValidator<Guid, Customer, PaginatedCustomerFilter>
     {
+        /// <summary>
+        /// You can override the validation rules here.
+        /// </summary>
         public PaginatedCustomerFilterValidator(IStringLocalizer<PaginatedCustomerFilterValidator> localizer)
             : base(localizer)
         {

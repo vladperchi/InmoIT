@@ -38,6 +38,8 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _userService.GetAllAsync();
@@ -49,11 +51,13 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Identity Internal Server Error.</response>
         [HttpGet("{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
-        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("id", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "User By Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetByIdAsync(string id)
         {
             var response = await _userService.GetByIdAsync(id);
@@ -65,11 +69,13 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Identity Internal Server Error.</response>
         [HttpPut]
         [HavePermission(PermissionsConstant.Users.Edit)]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Update User.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateAsync(UpdateUserRequest request)
         {
             var response = await _userService.UpdateAsync(request);
@@ -80,10 +86,12 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">User was not found.</response>
         [HttpGet("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
-        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
-        [SwaggerOperation(Summary = "Get Roles User.")]
+        [SwaggerHeader("id", "Input data required in API", "", true)]
+        [SwaggerOperation(Summary = "Get Roles User.", Description = "")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetRolesAsync(string id)
         {
             var response = await _userService.GetRolesAsync(id);
@@ -94,10 +102,12 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">User was not found.</response>
         [HttpPut("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.Edit)]
-        [SwaggerHeader("id, request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("id, request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get User Roles.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateUserRolesAsync(string id, UserRolesRequest request)
         {
             var response = await _userService.UpdateUserRolesAsync(id, request);
@@ -107,12 +117,15 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="200">Return export users to excel.</response>
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Users.Export)]
-        [SwaggerHeader("searchString", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("searchString", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Export Users To Excel.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Export(string searchString = "")
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> ExportUserAsync(string searchString = "")
         {
-            return Ok(await _userService.ExportToExcelAsync(searchString));
+            return Ok(await _userService.ExportUserAsync(searchString));
         }
     }
 }

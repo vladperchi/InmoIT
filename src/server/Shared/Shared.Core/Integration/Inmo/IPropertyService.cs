@@ -15,7 +15,7 @@ namespace InmoIT.Shared.Core.Integration.Inmo
 {
     public interface IPropertyService
     {
-        Task<Result<GetPropertyByIdResponse>> GetDetailsAsync(Guid propertyId);
+        Task<Result<GetPropertyByIdResponse>> GetDetailsPropertyAsync(Guid propertyId);
 
         Task<Result<Guid>> RemovePropertyAsync(Guid propertyId);
     }

@@ -7,6 +7,8 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 using InmoIT.Shared.Core.Domain;
 
 namespace InmoIT.Modules.Inmo.Core.Entities
@@ -17,16 +19,23 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public string Address { get; set; }
 
+        public string Description { get; set; }
+
         public decimal Price { get; set; }
+
+        public decimal Tax { get; set; }
 
         public string CodeInternal { get; set; }
 
         public int Year { get; set; }
 
-        public bool IsPublic { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public Guid OwnerId { get; set; }
 
         public virtual Owner Owner { get; set; }
+
+        [NotMapped]
+        public decimal Tolal => Price + Tax;
     }
 }

@@ -6,6 +6,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using InmoIT.Shared.Core.Domain;
 
 namespace InmoIT.Modules.Inmo.Core.Entities
@@ -24,10 +26,15 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public string PhoneNumber { get; set; }
 
-        public string Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
         public string Gender { get; set; }
 
         public string Group { get; set; }
+
+        public bool IsActive { get; set; } = true;
+
+        [NotMapped]
+        public string FullName => $"{Name} {SurName}";
     }
 }

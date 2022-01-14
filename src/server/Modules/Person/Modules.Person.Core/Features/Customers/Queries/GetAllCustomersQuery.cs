@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Customers;
+using InmoIT.Shared.Dtos.Person.Customers;
 using MediatR;
 
 namespace InmoIT.Modules.Person.Core.Features.Customers.Queries

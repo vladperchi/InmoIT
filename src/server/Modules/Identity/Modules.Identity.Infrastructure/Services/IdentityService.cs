@@ -117,7 +117,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                             Body = string.Format(_localizer["Please confirm your InmoIT account by <a href='{0}'>clicking here</a>."], emailVerificationUri)
                         };
                         _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
-                        messages.Add(_localizer["Please check your Mailbox to verify"]);
+                        messages.Add(_localizer["Please check your Email to verify"]);
                     }
 
                     if (_smsTwilioSettings.EnableVerification)

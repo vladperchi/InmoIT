@@ -4,5 +4,20 @@
         <name>InmoIT.Modules.Person.Core</name>
     </assembly>
     <members>
+        <member name="M:InmoIT.Modules.Person.Core.Features.CartItems.Queries.Validators.PaginatedCartItemFilterValidator.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{InmoIT.Modules.Person.Core.Features.CartItems.Queries.Validators.PaginatedCartItemFilterValidator})">
+            <summary>
+            You can override the validation rules here.
+            </summary>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Core.Features.Carts.Queries.Validators.PaginatedCartFilterValidator.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{InmoIT.Modules.Person.Core.Features.Carts.Queries.Validators.PaginatedCartFilterValidator})">
+            <summary>
+            You can override the validation rules here.
+            </summary>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Core.Features.Customers.Queries.Validators.PaginatedCustomerFilterValidator.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{InmoIT.Modules.Person.Core.Features.Customers.Queries.Validators.PaginatedCustomerFilterValidator})">
+            <summary>
+            You can override the validation rules here.
+            </summary>
+        </member>
     </members>
 </doc>

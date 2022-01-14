@@ -15,8 +15,8 @@ namespace InmoIT.Shared.Core.Integration.Inmo
 {
     public interface ITraceService
     {
-        Task<Result<GetPropertyTraceByIdResponse>> GetDetailsAsync(Guid traceId);
+        Task<Result<GetPropertyTraceByIdResponse>> GetPropertyTraceDetailsAsync(Guid traceId);
 
-        public Task RecordTrace(Guid Id, string DateSale, string Name, decimal Value, decimal Tax, Guid PropertyId, bool isSale = true);
+        public Task RecordTrace(Guid Id, string DateSale, string Name, decimal Value, decimal Tax, Guid PropertyId, string referenceNumber, bool isSale = true);
     }
 }

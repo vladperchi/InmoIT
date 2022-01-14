@@ -33,9 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Images\" />
+    <Folder Include="Features\Images\Commands\Validators\" />
+    <Folder Include="Features\Images\Events\" />
+    <Folder Include="Features\Images\Queries\Validators\" />
     <Folder Include="Features\Traces\" />
-    <Folder Include="Features\Properties\" />
   </ItemGroup>
 
 </Project>

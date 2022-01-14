@@ -193,7 +193,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             return await Result<string>.SuccessAsync(userId, string.Format(_localizer["User Roles Updated Successfull."]));
         }
 
-        public async Task<string> ExportToExcelAsync(string searchString = "")
+        public async Task<string> ExportUserAsync(string searchString = "")
         {
             var userFilterSpec = new UserFilterSpecification(searchString);
             var users = await _userManager.Users

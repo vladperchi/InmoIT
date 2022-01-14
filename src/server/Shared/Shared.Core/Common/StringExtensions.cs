@@ -8,10 +8,22 @@
 
 #nullable enable
 
+using System;
+using System.Linq;
+
 namespace InmoIT.Shared.Core.Common
 {
     public static class StringExtensions
     {
+        private static readonly Random Random = new Random();
+
         public static string NullToString(this object? Value) => Value?.ToString() ?? string.Empty;
+
+        public static string GenerateCode(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat("INMO" + chars, length)
+              .Select(s => s[Random.Next(s.Length)]).ToArray());
+        }
     }
 }

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using InmoIT.Modules.Person.Core.Entities;
+using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
 using InmoIT.Shared.Core.Interfaces.Services;
 using Microsoft.Extensions.Localization;
@@ -59,7 +60,7 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
                 string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 if (!_context.Customers.Any())
                 {
-                    string customerData = await File.ReadAllTextAsync(path + @"/Persistence/SeedData/CustomersData.json");
+                    string customerData = await File.ReadAllTextAsync(path + SeedsConstant.Customer.CustomersData);
                     var customers = _jsonSerializer.Deserialize<List<Customer>>(customerData);
 
                     if (customers != null)

@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Events
             Id = id;
             AggregateId = id;
             RelatedEntities = new[] { typeof(Customer) };
-            EventDescription = "Removed customer.";
+            EventDescription = "Removed Customer.";
         }
     }
 }

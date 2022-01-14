@@ -10,5 +10,5 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Inmo.Properties
 {
-    public record GetPropertyByIdResponse(Guid Id, string Name, string Address, decimal Price, string CodeInternal, int Year, bool IsPublic, Guid OwnerId);
+    public record GetPropertyByIdResponse(Guid Id, string Name, string Address, string Description, decimal Price, decimal Tax, string CodeInternal, int Year, bool IsActive, Guid OwnerId);
 }

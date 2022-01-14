@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System.Linq;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
@@ -13,23 +14,40 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands.Validators
 {
     public class RegisterCustomerCommandValidator : AbstractValidator<RegisterCustomerCommand>
     {
-        public RegisterCustomerCommandValidator(IStringLocalizer<RegisterCustomerCommandValidator> localizer)
+        public RegisterCustomerCommandValidator(
+            IStringLocalizer<RegisterCustomerCommandValidator> localizer)
         {
-            RuleFor(c => c.Name)
-                .NotEmpty().WithMessage(localizer["{PropertyName} cannot be empty."])
-                .Length(8, 150).WithMessage(localizer["{PropertyName} must have between 8 and 150 characters."]);
-            RuleFor(c => c.SurName)
-                .NotEmpty().WithMessage(localizer["{PropertyName} cannot be empty."])
-                .Length(8, 150).WithMessage(localizer["{PropertyName} must have between 8 and 150 characters."]);
-            RuleFor(c => c.PhoneNumber)
-                .NotEmpty().WithMessage(localizer["{PropertyName} cannot be empty."])
-                .Length(8, 30).WithMessage(localizer["{PropertyName} must have between 8 and 30 characters."]);
-            RuleFor(c => c.Gender)
-                .NotEmpty().WithMessage(localizer["{PropertyName} cannot be empty."]);
-            RuleFor(c => c.Group)
-                .NotEmpty().WithMessage(localizer["{PropertyName} cannot be empty."]);
-            RuleFor(c => c.Email)
-                .NotEmpty().WithMessage(localizer["{PropertyName} cannot be empty."]);
+            RuleFor(x => x.Name)
+               .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
+               .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
+               .NotEqual(x => x.SurName).WithMessage(localizer["{PropertyName} cannot be equal to Surname."])
+               .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."]);
+            RuleFor(x => x.SurName)
+                .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
+                .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
+                .NotEqual(x => x.Name).WithMessage(localizer["{PropertyName} cannot be equal to Name."])
+                .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."]);
+            RuleFor(x => x.PhoneNumber)
+                .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
+                .Length(8, 30).WithMessage(localizer["{PropertyName} must have between 8 and 30 characters."])
+                .Must(IsOnlyNumber).WithMessage(localizer["{PropertyName} should be all numbers."]);
+            RuleFor(x => x.Gender)
+                .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
+            RuleFor(x => x.Group)
+                .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
+            RuleFor(x => x.Email)
+              .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
+              .EmailAddress().WithMessage(localizer["{PropertyName} must be a valid email accounts."]);
+        }
+
+        private bool IsOnlyLetter(string propertyValue)
+        {
+            return propertyValue.All(char.IsLetter);
+        }
+
+        private bool IsOnlyNumber(string propertyValue)
+        {
+            return propertyValue.All(char.IsNumber);
         }
     }
 }

@@ -1,0 +1,28 @@
+[
+  {
+    "Id": null,
+    "Name": null,
+    "SurName": null,
+    "Address": null,
+    "Email": null,
+    "PhoneNumber": "0013053607020",
+    "Birthday": "1976-12-10T13:45:00.000Z",
+    "Gender": "Male",
+    "Group": "Normal",
+    "IsActive": true,
+    "ImageUrl": "Files\\Images\\Owners\\default.png"
+  },
+  {
+    "Id": null,
+    "Name": null,
+    "SurName": null,
+    "Address": null,
+    "Email": null,
+    "PhoneNumber": "0013053607020",
+    "Birthday": "1976-12-10T13:45:00.000Z",
+    "Gender": "Male",
+    "Group": "Normal",
+    "IsActive": true,
+    "ImageUrl": "Files\\Images\\Owners\\default.png"
+  }
+]

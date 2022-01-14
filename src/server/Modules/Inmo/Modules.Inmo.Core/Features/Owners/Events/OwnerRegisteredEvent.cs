@@ -10,6 +10,8 @@ using System;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Domain;
 
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
 {
     public class OwnerRegisteredEvent : Event
@@ -28,11 +30,13 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
 
         public string PhoneNumber { get; set; }
 
-        public string Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
         public string Gender { get; set; }
 
         public string Group { get; set; }
+
+        public bool IsActive { get; set; }
 
         public OwnerRegisteredEvent(Owner owner)
         {
@@ -46,9 +50,10 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
             Birthday = owner.Birthday;
             Gender = owner.Gender;
             Group = owner.Group;
+            IsActive = owner.IsActive;
             AggregateId = owner.Id;
             RelatedEntities = new[] { typeof(Owner) };
-            EventDescription = $"Registered Owner Id {owner.Id}.";
+            EventDescription = $"Registered Owner {owner.Name} {owner.SurName} with Id {owner.Id}.";
         }
     }
 }

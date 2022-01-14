@@ -6,16 +6,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 using InmoIT.Shared.Core.Domain;
 
 namespace InmoIT.Modules.Person.Core.Entities
 {
     public class Customer : BaseEntity
     {
-        public Customer()
-        {
-        }
-
         public string Name { get; set; }
 
         public string SurName { get; set; }
@@ -29,5 +27,10 @@ namespace InmoIT.Modules.Person.Core.Entities
         public string Email { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public bool IsActive { get; set; } = true;
+
+        [NotMapped]
+        public string FullName => $"{Name} {SurName}";
     }
 }

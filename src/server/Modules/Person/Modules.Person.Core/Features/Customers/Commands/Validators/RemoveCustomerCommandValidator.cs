@@ -14,10 +14,11 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands.Validators
 {
     public class RemoveCustomerCommandValidator : AbstractValidator<RemoveCustomerCommand>
     {
-        public RemoveCustomerCommandValidator(IStringLocalizer<RemoveCustomerCommandValidator> localizer)
+        public RemoveCustomerCommandValidator(
+            IStringLocalizer<RemoveCustomerCommandValidator> localizer)
         {
             RuleFor(c => c.Id)
-                .NotEqual(Guid.Empty).WithMessage(x => localizer["{PropertyName} cannot be empty."]);
+                .NotEqual(Guid.Empty).WithMessage(_ => localizer["{PropertyName} must not be empty."]);
         }
     }
 }

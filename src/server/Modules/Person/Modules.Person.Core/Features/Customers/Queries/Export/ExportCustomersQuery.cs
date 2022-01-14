@@ -53,23 +53,21 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
         public async Task<Result<string>> Handle(ExportCustomersQuery request, CancellationToken cancellationToken)
         {
             var customerFilterSpec = new CustomerFilterSpecification(request.SearchString);
-            var customers = await _context.Customers.AsNoTracking().AsQueryable()
+            var customerList = await _context.Customers.AsNoTracking().AsQueryable()
                 .Specify(customerFilterSpec)
                 .ToListAsync(cancellationToken);
-            if (customers == null)
+            if (customerList == null)
             {
                 throw new CustomerListEmptyException(_localizer);
             }
 
-            string result = await _excelService.ExportAsync(customers, mappers: new Dictionary<string, Func<Customer, object>>
+            string result = await _excelService.ExportAsync(customerList, mappers: new Dictionary<string, Func<Customer, object>>
             {
-                { _localizer["Id"], item => item.Id },
-                { _localizer["Name"], item => item.Name },
-                { _localizer["SurName"], item => item.SurName },
+                { _localizer["Name"], item => item.FullName },
                 { _localizer["PhoneNumber"], item => item.PhoneNumber },
+                { _localizer["Email"], item => item.Email },
                 { _localizer["Gender"], item => item.Gender },
-                { _localizer["Group"], item => item.Group },
-                { _localizer["Email"], item => item.Email }
+                { _localizer["Group"], item => item.Group }
             }, sheetName: _localizer["Customers"]);
 
             return await Result<string>.SuccessAsync(data: result);

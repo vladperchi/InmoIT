@@ -7,7 +7,6 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Queries;

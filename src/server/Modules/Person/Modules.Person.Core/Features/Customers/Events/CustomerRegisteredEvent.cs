@@ -30,6 +30,8 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Events
 
         public string ImageUrl { get; }
 
+        public bool IsActive { get; set; }
+
         public CustomerRegisteredEvent(Customer customer)
         {
             Id = customer.Id;
@@ -40,9 +42,10 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Events
             Group = customer.Group;
             Email = customer.Email;
             ImageUrl = customer.ImageUrl;
+            IsActive = customer.IsActive;
             AggregateId = customer.Id;
             RelatedEntities = new[] { typeof(Customer) };
-            EventDescription = $"Registered Customer Id {customer.Id}.";
+            EventDescription = $"Registered Customer {customer.Name} {customer.SurName} with Id {customer.Id}.";
         }
     }
 }

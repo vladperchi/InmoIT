@@ -16,6 +16,9 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Validators
 {
     public class PaginatedOwnerFilterValidator : PaginatedFilterValidator<Guid, Owner, PaginatedOwnerFilter>
     {
+        /// <summary>
+        /// You can override the validation rules here.
+        /// </summary>
         public PaginatedOwnerFilterValidator(IStringLocalizer<PaginatedOwnerFilterValidator> localizer)
             : base(localizer)
         {

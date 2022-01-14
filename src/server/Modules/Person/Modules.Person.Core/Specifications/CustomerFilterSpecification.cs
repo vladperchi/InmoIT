@@ -9,6 +9,8 @@
 using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Shared.Core.Interfaces.Specifications;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace InmoIT.Modules.Person.Core.Specifications
 {
     public class CustomerFilterSpecification : Specification<Customer>
@@ -17,16 +19,15 @@ namespace InmoIT.Modules.Person.Core.Specifications
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                Criteria = p => !string.IsNullOrWhiteSpace(p.Email)
-                && (p.Name.Contains(searchString)
-                || p.SurName.Contains(searchString)
-                || p.PhoneNumber.Contains(searchString)
-                || p.Gender.Contains(searchString)
-                || p.Group.Contains(searchString));
+                Criteria = x => !string.IsNullOrWhiteSpace(x.Email)
+                && (EF.Functions.Like(x.Name.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.SurName.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.PhoneNumber.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.Email.ToLower(), $"%{searchString.ToLower()}%"));
             }
             else
             {
-                Criteria = p => !string.IsNullOrWhiteSpace(p.Email);
+                Criteria = x => !string.IsNullOrWhiteSpace(x.Email);
             }
         }
     }

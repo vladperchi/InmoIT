@@ -34,7 +34,9 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="204">Roles not content.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Roles.View)]
-        [SwaggerOperation(Summary = "Get List Roles (SuperAdmin, Admin, Basic, etc.).", Description = "Description Of Get List Roles")]
+        [SwaggerOperation(
+            Summary = "Get List Roles (SuperAdmin, Admin, Basic, etc.).",
+            Description = "Description Get List Roles")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAllAsync()
@@ -47,7 +49,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="400">Role exists.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.Roles.Create)]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Add Or Update Rol.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -61,7 +63,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">Role not found.</response>
         [HttpDelete("{id}")]
         [HavePermission(PermissionsConstant.Roles.Delete)]
-        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("id", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Deleted Rol.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -75,7 +77,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">Role not exists.</response>
         [HttpGet("permissions/byrole/{roleId}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
-        [SwaggerHeader("roleId", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("roleId", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get List Permission By Rol Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -102,7 +104,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">Role Claim not found.</response>
         [HttpGet("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
-        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("id", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get Role Claims By Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -116,7 +118,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">Role does not exist.</response>
         [HttpPut("permissions/update")]
         [HavePermission(PermissionsConstant.RoleClaims.Edit)]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Role Claims Updated.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -130,7 +132,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="404">Role Claim does not exist.</response>
         [HttpDelete("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.Delete)]
-        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("id", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Deleted Role Claims By Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

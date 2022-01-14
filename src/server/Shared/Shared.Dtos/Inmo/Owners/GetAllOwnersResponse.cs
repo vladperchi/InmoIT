@@ -10,5 +10,5 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Inmo.Owners
 {
-    public record GetAllOwnersResponse(Guid Id, string Name, string SurName, string Address, string ImageUrl, string Birthday, string Email, string PhoneNumber, string Gender, string Group);
+    public record GetAllOwnersResponse(Guid Id, string Name, string SurName, string Address, string ImageUrl, DateTime Birthday, string Email, string PhoneNumber, string Gender, string Group);
 }

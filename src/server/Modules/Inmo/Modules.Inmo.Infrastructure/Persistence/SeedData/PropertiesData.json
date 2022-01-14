@@ -1,0 +1,38 @@
+[
+  {
+    "Id": null,
+    "Name": null,
+    "Address": null,
+    "Description": null,
+    "Price": null,
+    "Tax": null,
+    "CodeInternal": "INMO00001",
+    "Year": 2010,
+    "IsActive": true,
+    "OwnerId": null
+  },
+  {
+    "Id": null,
+    "Name": null,
+    "Address": null,
+    "Description": null,
+    "Price": null,
+    "Tax": null,
+    "CodeInternal": "INMO00001",
+    "Year": 2010,
+    "IsActive": true,
+    "OwnerId": null
+  },
+  {
+    "Id": null,
+    "Name": null,
+    "Address": null,
+    "Description": null,
+    "Price": null,
+    "Tax": null,
+    "CodeInternal": "INMO00001",
+    "Year": 2010,
+    "IsActive": true,
+    "OwnerId": null
+  }
+]

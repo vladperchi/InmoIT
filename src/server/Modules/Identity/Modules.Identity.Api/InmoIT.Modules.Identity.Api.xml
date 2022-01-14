@@ -105,7 +105,7 @@
             <response code="200">Return user roles.</response>
             <response code="404">User was not found.</response>
         </member>
-        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.Export(System.String)">
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.UsersController.ExportUserAsync(System.String)">
             <response code="200">Return export users to excel.</response>
         </member>
     </members>

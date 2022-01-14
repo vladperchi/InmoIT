@@ -28,11 +28,13 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
 
         public string PhoneNumber { get; set; }
 
-        public string Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
         public string Gender { get; set; }
 
         public string Group { get; set; }
+
+        public bool IsActive { get; set; }
 
         public OwnerUpdatedEvent(Owner owner)
 {
@@ -46,9 +48,10 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
             Birthday = owner.Birthday;
             Gender = owner.Gender;
             Group = owner.Group;
+            IsActive = owner.IsActive;
             AggregateId = owner.Id;
             RelatedEntities = new[] { typeof(Owner) };
-            EventDescription = $" Updated Owner Id {owner.Id}.";
+            EventDescription = $"Updated Owner {owner.Name} {owner.SurName} with Id {owner.Id}.";
         }
     }
 }

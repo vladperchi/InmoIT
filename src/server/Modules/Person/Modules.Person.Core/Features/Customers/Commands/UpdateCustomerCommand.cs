@@ -33,6 +33,6 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public FileUploadRequest FileUploadRequest { get; set; }
 
-        public string FileFullName => $"{Name}-{SurName}";
+        public string FileName => $"{Name}{PhoneNumber}";
     }
 }

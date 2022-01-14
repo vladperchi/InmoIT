@@ -32,7 +32,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Internal Server Error.</response>
         [HttpPost]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get Token.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -48,7 +48,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="500">Internal Server Error.</response>
         [HttpPost("refresh")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("request", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get Token.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -4,12 +4,57 @@
         <name>InmoIT.Modules.Person.Api</name>
     </assembly>
     <members>
-        <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.GetAllAsync(InmoIT.Shared.Dtos.Customers.PaginatedCustomerFilter)">
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartItemsController.GetCartItemsAsync(InmoIT.Shared.Dtos.Person.CartItems.PaginatedCartItemFilter)">
+            <response code="200">Return list cart items.</response>
+            <response code="204">List Cart Items not content.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartItemsController.GetCartItemByIdAsync(InmoIT.Shared.Core.Features.Filters.GetByIdCacheableFilter{System.Guid,InmoIT.Modules.Person.Core.Entities.CartItem})">
+            <response code="200">Return cart items by id.</response>
+            <response code="404">Cart Items was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartItemsController.AddCartItemAsync(InmoIT.Modules.Person.Core.Features.CartItems.Commands.AddCartItemCommand)">
+            <response code="201">Return add cart items.</response>
+            <response code="400">Cart Items already exists.</response>
+            <response code="500">Cart Items Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartItemsController.UpdateCartItemAsync(InmoIT.Modules.Person.Core.Features.CartItems.Commands.UpdateCartItemCommand)">
+            <response code="200">Return updated cart items.</response>
+            <response code="404">Cart Items was not found.</response>
+            <response code="500">Cart Items Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartItemsController.RemoveCartItemAsync(System.Guid)">
+            <response code="200">Return remove cart items.</response>
+            <response code="404">Cart Items was not found.</response>
+            <response code="500">Cart Items Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartsController.GetAllAsync(InmoIT.Shared.Dtos.Person.Carts.PaginatedCartFilter)">
+            <response code="200">Return list carts.</response>
+            <response code="204">List carts not content.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartsController.GetByIdAsync(InmoIT.Shared.Core.Features.Filters.GetByIdCacheableFilter{System.Guid,InmoIT.Modules.Person.Core.Entities.Cart})">
+            <response code="200">Return cart by id.</response>
+            <response code="404">Cart was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartsController.CreateAsync(InmoIT.Modules.Person.Core.Features.Carts.Commands.CreateCartCommand)">
+            <response code="201">Return created cart.</response>
+            <response code="400">Cart already exists.</response>
+            <response code="500">Cart Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartsController.RemoveAsync(System.Guid)">
+            <response code="200">Return remove cart.</response>
+            <response code="404">Cart was not found.</response>
+            <response code="500">Cart Internal Server Error.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CartsController.ClearAsync(System.Guid)">
+            <response code="200">Return clear cart.</response>
+            <response code="404">Cart was not found.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.GetAllAsync(InmoIT.Shared.Dtos.Person.Customers.PaginatedCustomerFilter)">
             <response code="200">Return list customers.</response>
             <response code="204">List customers not content.</response>
         </member>
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.GetByIdAsync(InmoIT.Shared.Core.Features.Filters.GetByIdCacheableFilter{System.Guid,InmoIT.Modules.Person.Core.Entities.Customer})">
-            <response code="200">Return customer by id .</response>
+            <response code="200">Return customer by id.</response>
             <response code="404">Customer was not found.</response>
         </member>
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.RegisterAsync(InmoIT.Modules.Person.Core.Features.Customers.Commands.RegisterCustomerCommand)">
@@ -27,7 +72,7 @@
             <response code="404">Customer was not found.</response>
             <response code="500">Customer Internal Server Error.</response>
         </member>
-        <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.Export(System.String)">
+        <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.ExportAsync(System.String)">
             <response code="200">Return export customers to excel.</response>
         </member>
     </members>

@@ -17,7 +17,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands.Validators
         public RemoveOwnerCommandValidator(IStringLocalizer<RemoveOwnerCommandValidator> localizer)
         {
             RuleFor(c => c.Id)
-                .NotEqual(Guid.Empty).WithMessage(_ => localizer["{PropertyName} cannot be empty."]);
+                .NotEqual(Guid.Empty).WithMessage(_ => localizer["{PropertyName} must not be empty."]);
         }
     }
 }

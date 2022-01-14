@@ -53,7 +53,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(RegisterOwnerCommand command, CancellationToken cancellationToken)
         {
-            var owner = await _context.Owners.Where(c => c.Name == command.Name && c.SurName == command.SurName && c.Address == command.Address && c.Email == command.Email && c.PhoneNumber == command.PhoneNumber && c.Birthday == command.Birthday)
+            var owner = await _context.Owners.Where(c => c.Email == command.Email && c.PhoneNumber == command.PhoneNumber)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
             if (owner != null)
@@ -65,12 +65,12 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"O-{command.FileFullName}.{fileUploadRequest.Extension}";
+                fileUploadRequest.FileName = $"O-{command.FileName}.{fileUploadRequest.Extension}";
                 owner.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            owner.Gender = owner.Gender.NullToString() ?? GenderConstant.GenderType.Male;
-            owner.Group = owner.Group.NullToString() ?? GroupConstant.GroupType.Normal;
+            owner.Gender = owner.Gender.NullToString() ?? GendersConstant.GenderType.Male;
+            owner.Group = owner.Group.NullToString() ?? GroupsConstant.GroupType.Normal;
             try
             {
                 owner.AddDomainEvent(new OwnerRegisteredEvent(owner));
@@ -98,12 +98,12 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"O-{command.FileFullName}{fileUploadRequest.Extension}";
+                fileUploadRequest.FileName = $"O-{command.FileName}{fileUploadRequest.Extension}";
                 owner.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            owner.Gender = owner.Gender.NullToString() ?? GenderConstant.GenderType.Male;
-            owner.Group = owner.Group.NullToString() ?? GroupConstant.GroupType.Normal;
+            owner.Gender = owner.Gender.NullToString() ?? GendersConstant.GenderType.Male;
+            owner.Group = owner.Group.NullToString() ?? GroupsConstant.GroupType.Normal;
             try
             {
                 owner.AddDomainEvent(new OwnerUpdatedEvent(owner));

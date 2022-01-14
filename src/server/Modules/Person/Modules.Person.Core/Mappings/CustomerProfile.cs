@@ -13,7 +13,7 @@ using InmoIT.Modules.Person.Core.Features.Customers.Commands;
 using InmoIT.Modules.Person.Core.Features.Customers.Queries;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Core.Mappings.Converters;
-using InmoIT.Shared.Dtos.Customers;
+using InmoIT.Shared.Dtos.Person.Customers;
 
 namespace InmoIT.Modules.Person.Core.Mappings
 {
@@ -24,8 +24,8 @@ namespace InmoIT.Modules.Person.Core.Mappings
             CreateMap<RegisterCustomerCommand, Customer>().ReverseMap();
             CreateMap<UpdateCustomerCommand, Customer>().ReverseMap();
             CreateMap<GetByIdCacheableFilter<Guid, Customer>, GetCustomerByIdQuery>();
-            CreateMap<GetCustomerByIdResponse, Customer>().ReverseMap();
             CreateMap<GetAllCustomersResponse, Customer>().ReverseMap();
+            CreateMap<GetCustomerByIdResponse, Customer>().ReverseMap();
             CreateMap<PaginatedCustomerFilter, GetAllCustomersQuery>()
                 .ForMember(dest => dest.OrderBy, opt => opt.ConvertUsing<string>(new OrderByConverter()));
         }

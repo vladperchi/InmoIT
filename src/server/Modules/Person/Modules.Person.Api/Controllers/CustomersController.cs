@@ -15,7 +15,7 @@ using InmoIT.Modules.Person.Core.Features.Customers.Queries.Export;
 using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
-using InmoIT.Shared.Dtos.Customers;
+using InmoIT.Shared.Dtos.Person.Customers;
 using InmoIT.Shared.Infrastructure.Permissions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +30,7 @@ namespace InmoIT.Modules.Person.Api.Controllers
         /// <response code="204">List customers not content.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Customers.ViewAll)]
-        [SwaggerHeader("filter", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("filter", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get List Customers.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -41,11 +41,11 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="200">Return customer by id .</response>
+        /// <response code="200">Return customer by id.</response>
         /// <response code="404">Customer was not found.</response>
         [HttpGet("{id}")]
         [HavePermission(PermissionsConstant.Customers.View)]
-        [SwaggerHeader("filter", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("filter", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Get Customer By Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -61,7 +61,7 @@ namespace InmoIT.Modules.Person.Api.Controllers
         /// <response code="500">Customer Internal Server Error.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.Customers.Register)]
-        [SwaggerHeader("command", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("command", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Created Customer.")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +77,7 @@ namespace InmoIT.Modules.Person.Api.Controllers
         /// <response code="500">Customer Internal Server Error.</response>
         [HttpPut]
         [HavePermission(PermissionsConstant.Customers.Update)]
-        [SwaggerHeader("command", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("command", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Update Customer.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -93,7 +93,7 @@ namespace InmoIT.Modules.Person.Api.Controllers
         /// <response code="500">Customer Internal Server Error.</response>
         [HttpDelete("{id}")]
         [HavePermission(PermissionsConstant.Customers.Remove)]
-        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("id", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Remove Customer.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -107,10 +107,10 @@ namespace InmoIT.Modules.Person.Api.Controllers
         /// <response code="200">Return export customers to excel.</response>
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Customers.Export)]
-        [SwaggerHeader("searchString", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("searchString", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Export Customers To Excel.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Export(string searchString = "")
+        public async Task<IActionResult> ExportAsync(string searchString = "")
         {
             return Ok(await Mediator.Send(new ExportCustomersQuery(searchString)));
         }

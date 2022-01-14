@@ -15,5 +15,9 @@ namespace InmoIT.Modules.Person.Core.Abstractions
     public interface ICustomerDbContext : IDbContext
     {
         public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }
