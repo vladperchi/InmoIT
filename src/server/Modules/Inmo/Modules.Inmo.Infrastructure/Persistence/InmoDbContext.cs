@@ -49,7 +49,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyCatalogConfiguration(_persistenceOptions);
+            modelBuilder.ApplyInmoConfiguration(_persistenceOptions);
         }
     }
 }
