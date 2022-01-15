@@ -6,15 +6,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System.Reflection;
 using InmoIT.Modules.Person.Core.Abstractions;
 using InmoIT.Modules.Person.Infrastructure.Persistence;
 using InmoIT.Modules.Person.Infrastructure.Services;
 using InmoIT.Shared.Core.Integration.Person;
 using InmoIT.Shared.Core.Interfaces.Services;
-using InmoIT.Shared.Infrastructure.Extensions;
 using InmoIT.Shared.Infrastructure.Persistence;
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InmoIT.Modules.Person.Infrastructure.Extensions
