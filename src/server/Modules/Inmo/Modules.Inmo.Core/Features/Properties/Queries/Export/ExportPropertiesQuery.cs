@@ -71,7 +71,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Export
                 { _localizer["Address"], item => item.Address },
                 { _localizer["Description"], item => item.Description },
                 { _localizer["Year"], item => item.Year },
-                { _localizer["Total"], item => item.Tolal }
+                { _localizer["Price"], item => item.Tolal }
             }, sheetName: _localizer["Properties"]);
 
             return await Result<string>.SuccessAsync(data: result);
