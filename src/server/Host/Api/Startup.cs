@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using InmoIT.Modules.Identity.Api.Extensions;
+using InmoIT.Modules.Inmo.Api.Extensions;
 using InmoIT.Modules.Person.Api.Extensions;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Infrastructure.Extensions;
@@ -32,8 +33,9 @@ namespace InmoIT.Api
                 .AddDistributedMemoryCache()
                 .AddSerialization(_config)
                 .AddSharedInfrastructure(_config)
-                .AddIdentityModule(_config)
                 .AddSharedApplication(_config)
+                .AddIdentityModule(_config)
+                .AddInmoModule(_config)
                 .AddCustomerModule(_config);
         }
 
