@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddCatalogInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInmoInfrastructure(this IServiceCollection services)
         {
             services
                 .AddDatabaseContext<InmoDbContext>()
@@ -32,9 +32,9 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
             return services;
         }
 
-        public static IServiceCollection AddCatalogValidation(this IServiceCollection services)
+        public static IServiceCollection AddInmoValidation(this IServiceCollection services)
         {
-            services.AddControllers().AddCatalogValidation();
+            services.AddControllers().AddInmoValidation();
             return services;
         }
     }
