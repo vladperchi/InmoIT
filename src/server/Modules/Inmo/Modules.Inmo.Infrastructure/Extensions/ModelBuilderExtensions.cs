@@ -15,7 +15,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
 {
     public static class ModelBuilderExtensions
     {
-        public static void ApplyCatalogConfiguration(this ModelBuilder builder, PersistenceSettings persistenceOptions)
+        public static void ApplyInmoConfiguration(this ModelBuilder builder, PersistenceSettings persistenceOptions)
         {
             if (persistenceOptions.UseMsSql)
             {
