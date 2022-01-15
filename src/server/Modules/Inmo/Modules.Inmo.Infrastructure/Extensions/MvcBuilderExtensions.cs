@@ -15,7 +15,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
 {
     internal static class MvcBuilderExtensions
     {
-        internal static IMvcBuilder AddCatalogValidation(this IMvcBuilder builder)
+        internal static IMvcBuilder AddInmoValidation(this IMvcBuilder builder)
         {
             return builder.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetAssembly(typeof(IInmoDbContext))));
         }
