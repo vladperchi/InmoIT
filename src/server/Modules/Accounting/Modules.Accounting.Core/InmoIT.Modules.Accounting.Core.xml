@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InmoIT.Modules.Accounting.Core</name>
+    </assembly>
+    <members>
+        <member name="M:InmoIT.Modules.Accounting.Core.Features.Traces.Queries.Validators.PaginatedTraceFilterValidator.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{InmoIT.Modules.Accounting.Core.Features.Traces.Queries.Validators.PaginatedTraceFilterValidator})">
+            <summary>
+            You can override the validation rules here.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InmoIT.Modules.Accounting.Api</name>
+    </assembly>
+    <members>
+        <member name="M:InmoIT.Modules.Accounting.Api.Controllers.TracesController.GetAllAsync(InmoIT.Shared.Dtos.Inmo.Traces.PaginatedTraceFilter)">
+            <response code="200">Return property trace list.</response>
+            <response code="204">Property trace list not content.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Accounting.Api.Controllers.TracesController.ExportAsync(System.String)">
+            <response code="200">Return export property traces to excel.</response>
+            <response code="404">Trace was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+    </members>
+</doc>
