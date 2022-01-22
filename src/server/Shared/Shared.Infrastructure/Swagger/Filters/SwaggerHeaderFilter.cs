@@ -42,6 +42,7 @@ namespace InmoIT.Shared.Infrastructure.Swagger.Filters
                     In = ParameterLocation.Header,
                     Description = attribute.Description,
                     Required = attribute.IsRequired,
+
                     Schema = string.IsNullOrEmpty(attribute.DefaultValue)
                         ? null
                         : new OpenApiSchema
