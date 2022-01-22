@@ -10,11 +10,13 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Infrastructure.Middlewares;
+using InmoIT.Shared.Infrastructure.Filters;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 [assembly: InternalsVisibleTo("InmoIT.Api")]
 
@@ -36,7 +38,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Files")),
-                RequestPath = "/files"
+                RequestPath = new PathString("/Files")
             });
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
@@ -44,8 +46,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             app.UseHangfireDashboard("/jobs", new DashboardOptions
             {
                 DashboardTitle = "InmoIT Jobs",
-
-                // Authorization = new[] { new HangfireAuthorizationFilter() }
+                Authorization = new[] { new HangfireAuthorizationFilter() },
             });
             app.UseEndpoints(endpoints =>
             {
@@ -60,9 +61,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         internal static IApplicationBuilder Initialize(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
-
             var initializers = serviceScope.ServiceProvider.GetServices<IDbSeeder>();
-
             foreach (var initializer in initializers)
             {
                 initializer.Initialize();

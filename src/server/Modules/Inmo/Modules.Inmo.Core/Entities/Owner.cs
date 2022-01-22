@@ -32,7 +32,7 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public string Group { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         [NotMapped]
         public string FullName => $"{Name} {SurName}";

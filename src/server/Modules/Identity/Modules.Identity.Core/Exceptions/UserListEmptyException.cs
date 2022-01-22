@@ -15,7 +15,7 @@ namespace InmoIT.Modules.Identity.Core.Exceptions
     public class UserListEmptyException : CustomException
     {
         public UserListEmptyException(IStringLocalizer localizer)
-            : base(localizer["User List is empty..."], null, HttpStatusCode.NoContent)
+            : base(localizer["User list is empty..."], null, HttpStatusCode.NoContent)
         {
         }
     }

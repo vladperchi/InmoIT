@@ -16,13 +16,13 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
 {
     public class GetAllCartsQuery : IRequest<PaginatedResult<GetAllCartsResponse>>
     {
+        public string SearchString { get; private set; }
+
         public int PageNumber { get; private set; }
 
         public int PageSize { get; private set; }
 
         public string[] OrderBy { get; private set; }
-
-        public string SearchString { get; private set; }
 
         public Guid? CustomerId { get; private set; }
     }

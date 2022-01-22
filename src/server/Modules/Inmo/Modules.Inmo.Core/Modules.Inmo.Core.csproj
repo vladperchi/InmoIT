@@ -34,9 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Images\Commands\Validators\" />
-    <Folder Include="Features\Images\Events\" />
-    <Folder Include="Features\Images\Queries\Validators\" />
-    <Folder Include="Features\Traces\" />
   </ItemGroup>
 
 </Project>

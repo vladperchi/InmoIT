@@ -50,11 +50,7 @@ namespace InmoIT.Shared.Core.Constants
         [Description("Traces Permissions")]
         public static class Traces
         {
-            public const string View = "Permissions.Traces.View";
             public const string ViewAll = "Permissions.Traces.ViewAll";
-            public const string Create = "Permissions.Traces.Create";
-            public const string Update = "Permissions.Traces.Update";
-            public const string Remove = "Permissions.Traces.Remove";
             public const string Export = "Permissions.Traces.Export";
         }
 

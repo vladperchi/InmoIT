@@ -9,6 +9,8 @@
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Shared.Core.Interfaces.Specifications;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace InmoIT.Modules.Identity.Infrastructure.Specifications
 {
     public class UserFilterSpecification : Specification<InmoUser>
@@ -17,15 +19,15 @@ namespace InmoIT.Modules.Identity.Infrastructure.Specifications
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                Criteria = p => p.FirstName.Contains(searchString)
-                || p.LastName.Contains(searchString)
-                || p.Email.Contains(searchString)
-                || p.PhoneNumber.Contains(searchString)
-                || p.UserName.Contains(searchString);
+                Criteria = x => EF.Functions.Like(x.FirstName.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.LastName.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.Email.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.PhoneNumber.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.UserName.ToLower(), $"%{searchString.ToLower()}%");
             }
             else
             {
-                Criteria = p => true;
+                Criteria = _ => true;
             }
         }
     }

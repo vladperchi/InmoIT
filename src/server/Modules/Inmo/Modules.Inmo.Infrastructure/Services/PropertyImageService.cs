@@ -29,7 +29,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
 
         public async Task<Result<GetPropertyImageByIdResponse>> GetDetailsPropertyImageAsync(Guid propertyId)
         {
-            return await _mediator.Send(new GetPropertyImageByIdQuery(propertyId));
+            return await _mediator.Send(new GetImageByIdQuery(propertyId));
         }
     }
 }

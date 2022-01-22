@@ -30,19 +30,19 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Events
 
         public Task Handle(CustomerRegisteredEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CustomerRegisteredEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(CustomerRegisteredEvent)} High. Registered {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(CustomerUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CustomerUpdatedEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(CustomerUpdatedEvent)} High. Updated {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(CustomerRemovedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CustomerRemovedEvent)} High. {notification.Id} Removed."]);
+            _logger.LogInformation(_localizer[$"{nameof(CustomerRemovedEvent)} High. Removed {notification.Id}."]);
             return Task.CompletedTask;
         }
     }

@@ -53,7 +53,9 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
         public async Task<Result<string>> Handle(ExportCustomersQuery request, CancellationToken cancellationToken)
         {
             var customerFilterSpec = new CustomerFilterSpecification(request.SearchString);
-            var customerList = await _context.Customers.AsNoTracking().AsQueryable()
+            var customerList = await _context.Customers
+                .AsNoTracking()
+                .AsQueryable()
                 .Specify(customerFilterSpec)
                 .ToListAsync(cancellationToken);
             if (customerList == null)

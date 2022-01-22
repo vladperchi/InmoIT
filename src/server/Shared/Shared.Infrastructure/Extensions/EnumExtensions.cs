@@ -15,16 +15,19 @@ namespace InmoIT.Shared.Infrastructure.Extensions
 {
     public static class EnumExtensions
     {
-        public static string ToDescriptionString(this Enum val)
+        public static string ToDescriptionString(this Enum value)
         {
-            var attributes = (DescriptionAttribute[])val
+            var type = value.GetType();
+            if (!type.IsEnum) throw new ArgumentException($"Type '{type}' is not Enum");
+
+            var attributes = (DescriptionAttribute[])value
                 .GetType()
-                .GetField(val.ToString())?
+                .GetField(value.ToString())?
                 .GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             return attributes is { Length: > 0 }
                  ? attributes[0].Description
-                 : val.ToString();
+                 : value.ToString();
         }
 
         public static List<string> GetDescriptionList(this Enum val)

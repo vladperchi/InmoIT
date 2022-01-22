@@ -32,19 +32,19 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
 
         public Task Handle(UserRegisteredEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(UserRegisteredEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(UserRegisteredEvent)} High. Registered {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(UserUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(UserUpdatedEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(UserUpdatedEvent)} High. Updated {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(UserDeletedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(UserDeletedEvent)} High. {notification.Id} Deleted."]);
+            _logger.LogInformation(_localizer[$"{nameof(UserDeletedEvent)} High. Deleted {notification.Id}."]);
             return Task.CompletedTask;
         }
     }

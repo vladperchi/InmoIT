@@ -32,19 +32,19 @@ namespace InmoIT.Modules.Identity.Core.Features.RoleClaims.Events
 
         public Task Handle(RoleClaimAddedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(RoleClaimAddedEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(RoleClaimAddedEvent)} High. Added {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(RoleClaimUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(RoleClaimUpdatedEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(RoleClaimUpdatedEvent)} High. Updated {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(RoleClaimDeletedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(RoleClaimDeletedEvent)} High. {notification.Id} Deleted."]);
+            _logger.LogInformation(_localizer[$"{nameof(RoleClaimDeletedEvent)} High. Deleted {notification.Id}."]);
             return Task.CompletedTask;
         }
     }

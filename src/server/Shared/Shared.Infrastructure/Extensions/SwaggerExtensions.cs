@@ -155,10 +155,19 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 }
             });
 
-            // Set the comments path for the Swagger JSON
-            string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            options.IncludeXmlComments(xmlPath);
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if (!assembly.IsDynamic)
+                {
+                    string xmlFile = $"{assembly.GetName().Name}.xml";
+                    string xmlPath = Path.Combine(baseDirectory, xmlFile);
+                    if (File.Exists(xmlPath))
+                    {
+                        options.IncludeXmlComments(xmlPath);
+                    }
+                }
+            }
         }
     }
 }

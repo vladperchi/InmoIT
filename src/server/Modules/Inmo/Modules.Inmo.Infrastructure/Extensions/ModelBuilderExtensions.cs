@@ -37,19 +37,6 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
                         .HasColumnType("decimal(23, 2)");
                 }
             });
-
-            builder.Entity<PropertyTrace>(entity =>
-            {
-                entity.ToTable(name: "PropertyTraces");
-
-                if (persistenceOptions.UseMsSql)
-                {
-                    entity.Property(p => p.Value)
-                        .HasColumnType("decimal(23, 2)");
-                    entity.Property(p => p.Tax)
-                        .HasColumnType("decimal(23, 2)");
-                }
-            });
         }
     }
 }

@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using InmoIT.Modules.Accounting.Api.Extensions;
 using InmoIT.Modules.Identity.Api.Extensions;
 using InmoIT.Modules.Inmo.Api.Extensions;
 using InmoIT.Modules.Person.Api.Extensions;
@@ -36,7 +37,8 @@ namespace InmoIT.Api
                 .AddSharedApplication(_config)
                 .AddIdentityModule(_config)
                 .AddInmoModule(_config)
-                .AddCustomerModule(_config);
+                .AddCustomerModule(_config)
+                .AddAccountingModule(_config);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

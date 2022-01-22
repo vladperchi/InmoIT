@@ -59,10 +59,14 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
 
                             return Task.CompletedTask;
                         },
-                        OnForbidden = context =>
+                        OnAuthenticationFailed = _ =>
+                        {
+                            throw new IdentityException("Authentication Failed.", statusCode: HttpStatusCode.Unauthorized);
+                        },
+                        OnForbidden = _ =>
                         {
                             throw new IdentityException("You are not authorized to access this resource.", statusCode: HttpStatusCode.Forbidden);
-                        },
+                        }
                     };
                 });
             return services;

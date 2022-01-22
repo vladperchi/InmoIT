@@ -52,28 +52,41 @@
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.GetAllAsync(InmoIT.Shared.Dtos.Person.Customers.PaginatedCustomerFilter)">
             <response code="200">Return list customers.</response>
             <response code="204">List customers not content.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.GetByIdAsync(InmoIT.Shared.Core.Features.Filters.GetByIdCacheableFilter{System.Guid,InmoIT.Modules.Person.Core.Entities.Customer})">
             <response code="200">Return customer by id.</response>
             <response code="404">Customer was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.RegisterAsync(InmoIT.Modules.Person.Core.Features.Customers.Commands.RegisterCustomerCommand)">
             <response code="201">Return created customer.</response>
             <response code="400">Customer already exists.</response>
             <response code="500">Customer Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.UpdateAsync(InmoIT.Modules.Person.Core.Features.Customers.Commands.UpdateCustomerCommand)">
             <response code="200">Return updated customer.</response>
             <response code="404">Customer was not found.</response>
             <response code="500">Customer Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.RemoveAsync(System.Guid)">
             <response code="200">Return remove customer.</response>
             <response code="404">Customer was not found.</response>
             <response code="500">Customer Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Person.Api.Controllers.CustomersController.ExportAsync(System.String)">
             <response code="200">Return export customers to excel.</response>
+            <response code="404">Customer was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
     </members>
 </doc>

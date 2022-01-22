@@ -32,6 +32,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [SwaggerOperation(Summary = "Get List Cart Items.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetCartItemsAsync([FromQuery] PaginatedCartItemFilter filter)
         {
             var request = Mapper.Map<GetAllCartItemsQuery>(filter);
@@ -47,6 +49,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [SwaggerOperation(Summary = "Get Cart Items By Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetCartItemByIdAsync([FromQuery] GetByIdCacheableFilter<Guid, CartItem> filter)
         {
             var request = Mapper.Map<GetCartItemByIdQuery>(filter);
@@ -64,6 +68,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> AddCartItemAsync(AddCartItemCommand command)
         {
             var response = await Mediator.Send(command);
@@ -80,6 +86,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateCartItemAsync(UpdateCartItemCommand command)
         {
             var response = await Mediator.Send(command);
@@ -96,6 +104,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> RemoveCartItemAsync(Guid id)
         {
             var response = await Mediator.Send(new RemoveCartItemCommand(id));

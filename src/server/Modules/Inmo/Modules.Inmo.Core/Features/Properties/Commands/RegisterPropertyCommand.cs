@@ -7,11 +7,8 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Upload;
-
 using MediatR;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
@@ -32,14 +29,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
         public int Year { get; set; }
 
-        public bool IsActive { get; set; } = true;
-
         public Guid OwnerId { get; set; }
 
         public virtual Owner Owner { get; set; }
-
-        public FileUploadRequest FileUploadRequest { get; set; }
-
-        public string FileName => $"{CodeInternal}{Year}";
     }
 }

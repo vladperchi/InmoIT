@@ -33,7 +33,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public string Group { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public FileUploadRequest FileUploadRequest { get; set; }
 

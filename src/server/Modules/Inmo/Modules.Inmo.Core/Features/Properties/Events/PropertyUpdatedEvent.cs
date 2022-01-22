@@ -48,7 +48,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Events
             OwnerId = property.OwnerId;
             AggregateId = property.Id;
             RelatedEntities = new[] { typeof(Property) };
-            EventDescription = $"Updated Property {property.Name} with Id {property.Id}.";
+            EventDescription = $"Updated Property Name: {property.Name} with Id: {property.Id}.";
         }
     }
 }

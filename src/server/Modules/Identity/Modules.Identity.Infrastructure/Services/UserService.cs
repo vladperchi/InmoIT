@@ -193,22 +193,22 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             return await Result<string>.SuccessAsync(userId, string.Format(_localizer["User Roles Updated Successfull."]));
         }
 
-        public async Task<string> ExportUserAsync(string searchString = "")
+        public async Task<Result<string>> ExportUsersAsync(string searchString = "")
         {
             var userFilterSpec = new UserFilterSpecification(searchString);
-            var users = await _userManager.Users
+            var userList = await _userManager.Users
+                .AsNoTracking()
+                .AsQueryable()
                 .Specify(userFilterSpec)
                 .OrderByDescending(a => a.CreatedOn)
                 .ToListAsync();
-            if (users == null)
+            if (userList == null)
             {
                 throw new UserListEmptyException(_localizer);
             }
 
-            string result = await _excelService.ExportAsync(users, sheetName: _localizer["Users"],
-                mappers: new Dictionary<string, Func<InmoUser, object>>
+            string result = await _excelService.ExportAsync(userList, mappers: new Dictionary<string, Func<InmoUser, object>>
                 {
-                    { _localizer["Id"], item => item.Id },
                     { _localizer["FirstName"], item => item.FirstName },
                     { _localizer["LastName"], item => item.LastName },
                     { _localizer["UserName"], item => item.UserName },
@@ -217,12 +217,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     { _localizer["PhoneNumber"], item => item.PhoneNumber },
                     { _localizer["PhoneNumberConfirmed"], item => item.PhoneNumberConfirmed },
                     { _localizer["IsActive"], item => item.IsActive },
-                    { _localizer["CreatedOn (Local)"], item => DateTime.SpecifyKind(item.CreatedOn, DateTimeKind.Utc).ToLocalTime().ToString("G", CultureInfo.CurrentCulture) },
-                    { _localizer["CreatedOn (UTC)"], item => item.CreatedOn.ToString("G", CultureInfo.CurrentCulture) },
-                    { _localizer["ImageUrl"], item => item.ImageUrl },
-                });
+                    { _localizer["CreatedOn"], item => item.CreatedOn.ToString("G", CultureInfo.CurrentCulture) }
+                }, sheetName: _localizer["Users"]);
 
-            return result;
+            return await Result<string>.SuccessAsync(data: result);
         }
 
         public async Task<int> GetCountAsync()

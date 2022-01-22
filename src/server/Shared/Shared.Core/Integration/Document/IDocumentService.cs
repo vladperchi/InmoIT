@@ -15,6 +15,6 @@ namespace InmoIT.Shared.Core.Integration.Document
 {
     public interface IDocumentService
     {
-        Task<Result<GetDocumentByIdResponse>> GetDetailsAsync(Guid documentId);
+        Task<Result<GetDocumentByIdResponse>> GetDetailsPropertyDocumentAsync(Guid propertyId);
     }
 }

@@ -34,8 +34,4 @@
     <ProjectReference Include="..\Modules.Inmo.Infrastructure\Modules.Inmo.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

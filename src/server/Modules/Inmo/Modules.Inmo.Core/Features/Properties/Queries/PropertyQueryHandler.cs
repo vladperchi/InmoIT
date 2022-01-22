@@ -80,13 +80,13 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
             var result = _mapper.Map<PaginatedResult<GetAllPropertiesResponse>>(data);
             foreach (var item in result.Data)
             {
-                var propertyImage = await _propertyImageService.GetDetailsPropertyImageAsync(item.Id);
-                if (propertyImage.Succeeded)
+                var image = await _propertyImageService.GetDetailsPropertyImageAsync(item.Id);
+                if (image.Succeeded)
                 {
-                    if (propertyImage.Data.Enabled)
+                    if (image.Data.Enabled)
                     {
-                        item.PropertyImageCaption = propertyImage.Data.Caption;
-                        item.PropertyImageUrl = propertyImage.Data.ImageUrl;
+                        item.PropertyImageCaption = image.Data.Caption;
+                        item.PropertyImageUrl = image.Data.ImageUrl;
                     }
                 }
             }

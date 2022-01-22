@@ -15,7 +15,5 @@ namespace InmoIT.Shared.Dtos.Inmo.Properties
         public string PropertyImageCaption { get; set; }
 
         public string PropertyImageUrl { get; set; }
-
-        public bool PropertyImageEnabled { get; set; }
     }
 }

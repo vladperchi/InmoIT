@@ -8,7 +8,6 @@
 
 using System;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -49,7 +48,8 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
 
         public async Task<Result<Guid>> Handle(CreateCartCommand command, CancellationToken cancellationToken)
         {
-            if (!await _context.Customers.AnyAsync(p => p.Id == command.CustomerId, cancellationToken))
+            if (!await _context.Customers
+                .AnyAsync(x => x.Id == command.CustomerId, cancellationToken))
             {
                 throw new CustomerNotFoundException(_localizer);
             }
@@ -70,7 +70,8 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
 
         public async Task<Result<Guid>> Handle(RemoveCartCommand command, CancellationToken cancellationToken)
         {
-            var cart = await _context.Carts.FirstOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
+            var cart = await _context.Carts
+                .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
             if (cart == null)
             {
                 throw new CartNotFoundException(_localizer);
@@ -92,13 +93,16 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
 
         public async Task<Result<Guid>> Handle(ClearCartCommand command, CancellationToken cancellationToken)
         {
-            var cart = await _context.Carts.FirstOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
+            var cart = await _context.Carts
+                .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
             if (cart == null)
             {
                 throw new CartNotFoundException(_localizer);
             }
 
-            var cartItems = await _context.CartItems.Where(a => a.CartId == command.Id).ToListAsync();
+            var cartItems = await _context.CartItems
+                .Where(x => x.CartId == command.Id)
+                .ToListAsync();
             if (cartItems.Count > 0)
             {
                 _context.CartItems.RemoveRange(cartItems);

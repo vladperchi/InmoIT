@@ -10,6 +10,8 @@ using System;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Shared.Core.Domain;
 
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
+
 namespace InmoIT.Modules.Identity.Core.Features.RoleClaims.Events
 {
     public class RoleClaimDeletedEvent : Event
@@ -17,9 +19,11 @@ namespace InmoIT.Modules.Identity.Core.Features.RoleClaims.Events
         public int Id { get; }
 
         public RoleClaimDeletedEvent(int id)
-        {
+{
             Id = id;
-            AggregateId = Guid.NewGuid();
+            AggregateId = Guid.TryParse(id.ToString(), out var aggregateId)
+                ? aggregateId
+                : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoRoleClaim) };
             EventDescription = "Deleted RoleClaim.";
         }

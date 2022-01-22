@@ -29,7 +29,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public string ImageUrl { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public FileUploadRequest FileUploadRequest { get; set; }
 

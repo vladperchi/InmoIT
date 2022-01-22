@@ -25,11 +25,6 @@ namespace InmoIT.Shared.Core.Constants
             public const string PropertyImagesData = "/Persistence/SeedData/PropertyImagesData.json";
         }
 
-        public static class Trace
-        {
-            public const string PropertyTracesData = "/Persistence/SeedData/PropertyTracesData.json";
-        }
-
         public static class Customer
         {
             public const string CustomersData = "/Persistence/SeedData/CustomersData.json";

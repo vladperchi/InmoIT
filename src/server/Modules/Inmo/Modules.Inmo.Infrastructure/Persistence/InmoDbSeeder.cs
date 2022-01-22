@@ -47,7 +47,6 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                 AddOwners();
                 AddProperties();
                 AddPropertyImages();
-                AddPropertyTraces();
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -124,30 +123,6 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
 
                     await _context.SaveChangesAsync();
                     _logger.LogInformation(_localizer["Seeded Property Images Successfully."]);
-                }
-            }).GetAwaiter().GetResult();
-        }
-
-        private void AddPropertyTraces()
-        {
-            Task.Run(async () =>
-            {
-                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                if (!_context.PropertyTraces.Any())
-                {
-                    string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.Trace.PropertyTracesData);
-                    var data = _jsonSerializer.Deserialize<List<PropertyTrace>>(dataJSON);
-
-                    if (data != null)
-                    {
-                        foreach (var item in data)
-                        {
-                            await _context.PropertyTraces.AddAsync(item);
-                        }
-                    }
-
-                    await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Property Traces Successfully."]);
                 }
             }).GetAwaiter().GetResult();
         }

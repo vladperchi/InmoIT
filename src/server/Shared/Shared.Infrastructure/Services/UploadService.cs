@@ -11,11 +11,13 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InmoIT.Shared.Core.Common;
+using InmoIT.Shared.Core.Common.Enums;
+using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Dtos.Upload;
 using InmoIT.Shared.Infrastructure.Extensions;
+using InmoIT.Shared.Infrastructure.Helpers;
 using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Shared.Infrastructure.Services
@@ -23,7 +25,6 @@ namespace InmoIT.Shared.Infrastructure.Services
      public class UploadService : IUploadService
     {
         private readonly IStringLocalizer<UploadService> _localizer;
-        private static string numberPattern = " ({0})";
 
         public UploadService(IStringLocalizer<UploadService> localizer)
         {
@@ -40,9 +41,8 @@ namespace InmoIT.Shared.Infrastructure.Services
             if (!supportedFileType.GetDescriptionList().Contains(request.Extension))
                 throw new FileFormatInvalidException(_localizer);
 
-            string base64Data = Regex.Match(request.Data, "data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
-
-            var memoryStream = new MemoryStream(Convert.FromBase64String(base64Data));
+            byte[] data = request.Data.ToByteArray();
+            var memoryStream = new MemoryStream(data);
             if (memoryStream.Length > 0)
             {
                 string folder = request.UploadStorageType.ToDescriptionString();
@@ -87,10 +87,10 @@ namespace InmoIT.Shared.Infrastructure.Services
 
             if (Path.HasExtension(path))
             {
-                return GetNextFilename(path.Insert(path.LastIndexOf(Path.GetExtension(path), StringComparison.Ordinal), numberPattern));
+                return GetNextFilename(path.Insert(path.LastIndexOf(Path.GetExtension(path), StringComparison.Ordinal), PatternConstant.Number));
             }
 
-            return GetNextFilename(path + numberPattern);
+            return GetNextFilename(path + PatternConstant.Number);
         }
 
         private static string GetNextFilename(string pattern)

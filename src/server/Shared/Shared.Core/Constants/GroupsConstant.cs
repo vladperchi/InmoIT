@@ -6,14 +6,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System.ComponentModel;
-
 namespace InmoIT.Shared.Core.Constants
 {
     public static class GroupsConstant
     {
-        [DisplayName("GroupType")]
-        [Description("Group Type Users")]
         public static class GroupType
         {
             public const string VIP = "VIP";

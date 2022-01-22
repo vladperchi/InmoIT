@@ -6,14 +6,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System.ComponentModel;
-
 namespace InmoIT.Shared.Core.Constants
 {
     public static class GendersConstant
     {
-        [DisplayName("GenderType")]
-        [Description("Gender Type Users")]
         public static class GenderType
         {
             public const string Female = "Female";

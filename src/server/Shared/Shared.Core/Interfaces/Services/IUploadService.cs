@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using InmoIT.Shared.Core.Common;
+using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Dtos.Upload;
 
 namespace InmoIT.Shared.Core.Interfaces.Services

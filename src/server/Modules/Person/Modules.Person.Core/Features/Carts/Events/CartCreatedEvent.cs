@@ -22,12 +22,12 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Events
 
         public CartCreatedEvent(Cart cart)
         {
-            CustomerId = cart.CustomerId;
-            Timestamp = cart.Timestamp;
-            Id = cart.Id;
-            AggregateId = cart.Id;
-            RelatedEntities = new[] { typeof(Cart) };
-            EventDescription = $"Created Cart Id {cart.Id} of Customer Id {cart.CustomerId}.";
+           Id = cart.Id;
+           CustomerId = cart.CustomerId;
+           Timestamp = cart.Timestamp;
+           AggregateId = cart.Id;
+           RelatedEntities = new[] { typeof(Cart) };
+           EventDescription = $"Created Cart Id {cart.Id} of Customer Id {cart.CustomerId}.";
         }
     }
 }

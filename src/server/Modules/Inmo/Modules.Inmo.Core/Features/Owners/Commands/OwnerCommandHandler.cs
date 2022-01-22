@@ -8,6 +8,7 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -15,7 +16,8 @@ using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Exceptions;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Events;
-using InmoIT.Shared.Core.Common;
+using InmoIT.Shared.Core.Common.Enums;
+using InmoIT.Shared.Core.Common.Extensions;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
@@ -52,16 +54,15 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
         }
 
         public async Task<Result<Guid>> Handle(RegisterOwnerCommand command, CancellationToken cancellationToken)
-        {
-            var owner = await _context.Owners.Where(c => c.Email == command.Email && c.PhoneNumber == command.PhoneNumber)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(cancellationToken);
-            if (owner != null)
+{
+            if (await _context.Owners
+                .Where(x => x.Email == command.Email)
+                .AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
             {
                 throw new OwnerAlreadyExistsException(_localizer);
             }
 
-            owner = _mapper.Map<Owner>(command);
+            var owner = _mapper.Map<Owner>(command);
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
@@ -69,8 +70,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
                 owner.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            owner.Gender = owner.Gender.NullToString() ?? GendersConstant.GenderType.Male;
-            owner.Group = owner.Group.NullToString() ?? GroupsConstant.GroupType.Normal;
+            owner.Gender ??= GendersConstant.GenderType.Male;
+            owner.Group ??= GroupsConstant.GroupType.Normal;
             try
             {
                 owner.AddDomainEvent(new OwnerRegisteredEvent(owner));
@@ -86,15 +87,14 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(UpdateOwnerCommand command, CancellationToken cancellationToken)
         {
-            var owner = await _context.Owners.Where(c => c.Id == command.Id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(cancellationToken);
-            if (owner == null)
+            if (!await _context.Owners
+                .Where(x => x.Id == command.Id)
+                .AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
             {
                 throw new OwnerNotFoundException(_localizer);
             }
 
-            owner = _mapper.Map<Owner>(command);
+            var owner = _mapper.Map<Owner>(command);
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
@@ -102,8 +102,15 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
                 owner.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            owner.Gender = owner.Gender.NullToString() ?? GendersConstant.GenderType.Male;
-            owner.Group = owner.Group.NullToString() ?? GroupsConstant.GroupType.Normal;
+            owner.Name = command.Name ?? owner.Name;
+            owner.SurName = command.SurName ?? owner.Name;
+            owner.Address = command.Address ?? owner.Address;
+            owner.Email = command.Email ?? owner.Email;
+            owner.PhoneNumber = command.PhoneNumber ?? owner.PhoneNumber;
+            owner.Gender = command.Gender ?? owner.Gender;
+            owner.Group = command.Group ?? owner.Group;
+            owner.IsActive = command.IsActive || owner.IsActive;
+
             try
             {
                 owner.AddDomainEvent(new OwnerUpdatedEvent(owner));
@@ -120,7 +127,9 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(RemoveOwnerCommand command, CancellationToken cancellationToken)
         {
-            var owner = await _context.Owners.FirstOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
+            var owner = await _context.Owners
+                .Where(x => x.Id == command.Id)
+                .FirstOrDefaultAsync(cancellationToken);
             if (owner == null)
             {
                 throw new OwnerNotFoundException(_localizer);

@@ -26,11 +26,11 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
 
         public TimeSpan? Expiration { get; protected set; }
 
-        public GetImageByIdQuery(Guid propertyImageId, bool skipCache = false, TimeSpan? expiration = null)
+        public GetImageByIdQuery(Guid propertyId, bool skipCache = false, TimeSpan? expiration = null)
         {
-            Id = propertyImageId;
+            Id = propertyId;
             SkipCache = skipCache;
-            CacheKey = CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyImage>(propertyImageId);
+            CacheKey = CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyImage>(propertyId);
             Expiration = expiration;
         }
     }

@@ -48,7 +48,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
 
         public async Task<PaginatedResult<GetAllOwnersResponse>> Handle(GetAllOwnersQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Owner, GetAllOwnersResponse>> expression = e => new GetAllOwnersResponse(e.Id, e.Name, e.SurName, e.Address, e.ImageUrl, e.Birthday, e.Gender, e.Group, e.Email, e.PhoneNumber);
+            Expression<Func<Owner, GetAllOwnersResponse>> expression = x => new GetAllOwnersResponse(x.Id, x.Name, x.SurName, x.Address, x.ImageUrl, x.Birthday, x.Gender, x.Group, x.Email, x.PhoneNumber);
             var sourse = _context.Owners
                 .Where(x => x.IsActive)
                 .AsNoTracking()
@@ -56,7 +56,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
                 ? sourse.OrderBy(ordering)
-                : sourse.OrderBy(o => o.Id);
+                : sourse.OrderBy(x => x.Id);
             var filterSpec = new OwnerFilterSpecification(request.SearchString);
             var data = await sourse
                 .Specify(filterSpec)

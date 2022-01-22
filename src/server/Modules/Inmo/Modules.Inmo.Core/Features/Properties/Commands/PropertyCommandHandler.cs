@@ -8,7 +8,6 @@
 
 using System;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -16,7 +15,6 @@ using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Exceptions;
 using InmoIT.Modules.Inmo.Core.Features.Properties.Events;
-using InmoIT.Shared.Core.Common.Extensions;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
@@ -39,39 +37,30 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
         private readonly IStringLocalizer<PropertyCommandHandler> _localizer;
 
         public PropertyCommandHandler(
+            IDistributedCache cache,
             IInmoDbContext context,
             IMapper mapper,
             IUploadService uploadService,
-            IStringLocalizer<PropertyCommandHandler> localizer,
-            IDistributedCache cache)
+            IStringLocalizer<PropertyCommandHandler> localizer)
         {
+            _cache = cache;
             _context = context;
             _mapper = mapper;
             _uploadService = uploadService;
             _localizer = localizer;
-            _cache = cache;
         }
 
         public async Task<Result<Guid>> Handle(RegisterPropertyCommand command, CancellationToken cancellationToken)
         {
-            command.CodeInternal = StringExtensions.GenerateCode(10);
             if (await _context.Properties
-                .AnyAsync(p => p.CodeInternal == command.CodeInternal, cancellationToken))
+                .AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
             {
                 throw new PropertyAlreadyExistsException(_localizer);
             }
 
-            var property = _mapper.Map<Property>(command);
-            var fileUploadRequest = command.FileUploadRequest;
-            if (fileUploadRequest != null)
-            {
-                fileUploadRequest.FileName = $"P-{command.FileName}.{fileUploadRequest.Extension}";
-
-                // Upload ImageUrl In PropertyImage
-            }
-
             try
             {
+                var property = _mapper.Map<Property>(command);
                 property.AddDomainEvent(new PropertyRegisteredEvent(property));
                 await _context.Properties.AddAsync(property, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -86,23 +75,15 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
         public async Task<Result<Guid>> Handle(UpdatePropertyCommand command, CancellationToken cancellationToken)
         {
             if (!await _context.Properties
-                .Where(p => p.Id == command.Id)
+                .Where(x => x.Id == command.Id)
                 .AnyAsync(cancellationToken))
             {
                 throw new PropertyNotFoundException(_localizer);
             }
 
-            var property = _mapper.Map<Property>(command);
-            var fileUploadRequest = command.FileUploadRequest;
-            if (fileUploadRequest != null)
-            {
-                fileUploadRequest.FileName = $"P-{command.FileName}.{fileUploadRequest.Extension}";
-
-                // Upload ImageUrl In PropertyImage
-            }
-
             try
             {
+                var property = _mapper.Map<Property>(command);
                 property.AddDomainEvent(new PropertyUpdatedEvent(property));
                 _context.Properties.Update(property);
                 await _context.SaveChangesAsync(cancellationToken);

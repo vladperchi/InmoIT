@@ -29,35 +29,36 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
         IRequestHandler<UpdateCartItemCommand, Result<Guid>>,
         IRequestHandler<RemoveCartItemCommand, Result<Guid>>
     {
+        private readonly IDistributedCache _cache;
         private readonly ICustomerDbContext _context;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<CartItemCommandHandler> _localizer;
-        private readonly IDistributedCache _cache;
 
         public CartItemCommandHandler(
+            IDistributedCache cache,
             ICustomerDbContext context,
             IMapper mapper,
-            IStringLocalizer<CartItemCommandHandler> localizer,
-            IDistributedCache cache)
+            IStringLocalizer<CartItemCommandHandler> localizer)
         {
+            _cache = cache;
             _context = context;
             _mapper = mapper;
             _localizer = localizer;
-            _cache = cache;
         }
 
         public async Task<Result<Guid>> Handle(AddCartItemCommand command, CancellationToken cancellationToken)
         {
             var cart = await _context.Carts
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(b => b.Id == command.CartId, cancellationToken);
+                .Include(x => x.CartItems)
+                .FirstOrDefaultAsync(x => x.Id == command.CartId, cancellationToken);
 
             if (cart == null)
             {
                 throw new CartNotFoundException(_localizer);
             }
 
-            if (cart.CartItems.Any(i => i.PropertyId == command.PropertyId))
+            if (cart.CartItems
+                .Any(x => x.PropertyId == command.PropertyId))
             {
                 throw new CartItemAlreadyAddedException(_localizer);
             }
@@ -79,7 +80,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
         public async Task<Result<Guid>> Handle(UpdateCartItemCommand command, CancellationToken cancellationToken)
         {
             var cartItem = await _context.CartItems
-                .Where(i => i.Id == command.Id)
+                .Where(x => x.Id == command.Id)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
             if (cartItem == null)
@@ -90,9 +91,9 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
             if (await _context.CartItems
                 .AsNoTracking()
                 .AnyAsync(
-                    i => i.Id != command.Id
-                      && i.CartId == command.CartId
-                      && i.PropertyId == command.PropertyId, cancellationToken))
+                    x => x.Id != command.Id
+                      && x.CartId == command.CartId
+                      && x.PropertyId == command.PropertyId, cancellationToken))
             {
                 throw new CartItemAlreadyAddedException(_localizer);
             }
@@ -115,7 +116,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
         public async Task<Result<Guid>> Handle(RemoveCartItemCommand command, CancellationToken cancellationToken)
         {
             var cartItem = await _context.CartItems
-                .FirstOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
             if (cartItem == null)
             {
                 throw new CartItemNotFoundException(_localizer);

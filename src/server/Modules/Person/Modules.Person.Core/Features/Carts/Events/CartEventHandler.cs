@@ -29,13 +29,13 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Events
 
         public Task Handle(CartCreatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CartCreatedEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(CartCreatedEvent)} High. Created {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(CartRemovedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CartRemovedEvent)} High. {notification.Id} Removed."]);
+            _logger.LogInformation(_localizer[$"{nameof(CartRemovedEvent)} High. Removed {notification.Id}."]);
             return Task.CompletedTask;
         }
     }

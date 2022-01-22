@@ -32,6 +32,8 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="200">Return list users.</response>
         /// <response code="204">User not content.</response>
         /// <response code="500">Identity Internal Server Error.</response>
+        /// <response code="401">Without authorization to access.</response>
+        /// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Users.ViewAll)]
         [SwaggerOperation(Summary = "Get List Users.")]
@@ -49,6 +51,8 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="200">Return user.</response>
         /// <response code="404">User was not found.</response>
         /// <response code="500">Identity Internal Server Error.</response>
+        /// <response code="401">Without authorization to access.</response>
+        /// <response code="403">No permission to access.</response>
         [HttpGet("{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
         [SwaggerHeader("id", "Input data required in API", "", true)]
@@ -67,6 +71,8 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         /// <response code="200">Return updated user.</response>
         /// <response code="404">User was not found.</response>
         /// <response code="500">Identity Internal Server Error.</response>
+        /// <response code="401">Without authorization to access.</response>
+        /// <response code="403">No permission to access.</response>
         [HttpPut]
         [HavePermission(PermissionsConstant.Users.Edit)]
         [SwaggerHeader("request", "Input data required in API", "", true)]
@@ -84,6 +90,8 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         /// <response code="200">Return roles user.</response>
         /// <response code="404">User was not found.</response>
+        /// <response code="401">Without authorization to access.</response>
+        /// <response code="403">No permission to access.</response>
         [HttpGet("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
         [SwaggerHeader("id", "Input data required in API", "", true)]
@@ -100,6 +108,8 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         /// <response code="200">Return user roles.</response>
         /// <response code="404">User was not found.</response>
+        /// <response code="401">Without authorization to access.</response>
+        /// <response code="403">No permission to access.</response>
         [HttpPut("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.Edit)]
         [SwaggerHeader("id, request", "Input data required in API", "", true)]
@@ -115,6 +125,9 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         }
 
         /// <response code="200">Return export users to excel.</response>
+        /// <response code="404">User was not found.</response>
+        /// <response code="401">Without authorization to access.</response>
+        /// <response code="403">No permission to access.</response>
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Users.Export)]
         [SwaggerHeader("searchString", "Input data required in API", "", true)]
@@ -123,9 +136,9 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> ExportUserAsync(string searchString = "")
+        public async Task<IActionResult> ExportAsync(string searchString = "")
         {
-            return Ok(await _userService.ExportUserAsync(searchString));
+            return Ok(await _userService.ExportUsersAsync(searchString));
         }
     }
 }

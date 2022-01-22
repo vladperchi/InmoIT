@@ -34,7 +34,9 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
             Email = user.Email;
             UserName = user.UserName;
             PhoneNumber = user.PhoneNumber;
-            AggregateId = Guid.TryParse(user.Id, out var aggregateId) ? aggregateId : Guid.NewGuid();
+            AggregateId = Guid.TryParse(user.Id, out var aggregateId)
+                ? aggregateId
+                : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoUser) };
             EventDescription = "Registered User.";
         }

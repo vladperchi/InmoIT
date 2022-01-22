@@ -40,14 +40,8 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands.Validators
               .EmailAddress().WithMessage(localizer["{PropertyName} must be a valid email accounts."]);
         }
 
-        private bool IsOnlyLetter(string propertyValue)
-        {
-            return propertyValue.All(char.IsLetter);
-        }
+        private bool IsOnlyLetter(string value) => value.All(char.IsLetter);
 
-        private bool IsOnlyNumber(string propertyValue)
-        {
-            return propertyValue.All(char.IsNumber);
-        }
+        private bool IsOnlyNumber(string value) => value.All(char.IsNumber);
     }
 }

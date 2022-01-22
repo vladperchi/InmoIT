@@ -16,7 +16,7 @@ using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Features.Users.Events;
-using InmoIT.Shared.Core.Common;
+using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Settings;

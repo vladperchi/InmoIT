@@ -32,19 +32,19 @@ namespace InmoIT.Modules.Identity.Core.Features.Roles.Events
 
         public Task Handle(RoleAddedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(RoleAddedEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(RoleAddedEvent)} High. Added {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(RoleUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(RoleUpdatedEvent)} High."]);
+            _logger.LogInformation(_localizer[$"{nameof(RoleUpdatedEvent)} High. Updated {notification.Id}."]);
             return Task.CompletedTask;
         }
 
         public Task Handle(RoleDeletedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(RoleDeletedEvent)} High. {notification.Id} Deleted."]);
+            _logger.LogInformation(_localizer[$"{nameof(RoleDeletedEvent)} High. Deleted {notification.Id}."]);
             return Task.CompletedTask;
         }
     }

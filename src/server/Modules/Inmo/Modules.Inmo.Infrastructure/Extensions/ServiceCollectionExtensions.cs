@@ -12,7 +12,6 @@ using InmoIT.Modules.Inmo.Infrastructure.Persistence;
 using InmoIT.Modules.Inmo.Infrastructure.Services;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Integration.Inmo;
-using InmoIT.Shared.Infrastructure.Extensions;
 using InmoIT.Shared.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

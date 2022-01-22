@@ -29,7 +29,7 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public int Year { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public Guid OwnerId { get; set; }
 

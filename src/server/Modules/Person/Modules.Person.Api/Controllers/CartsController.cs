@@ -34,6 +34,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [SwaggerOperation(Summary = "Get List Carts.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginatedCartFilter filter)
         {
             var request = Mapper.Map<GetAllCartsQuery>(filter);
@@ -49,6 +51,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [SwaggerOperation(Summary = "Get Cart By Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetByIdAsync([FromQuery] GetByIdCacheableFilter<Guid, Cart> filter)
         {
             var request = Mapper.Map<GetCartByIdQuery>(filter);
@@ -66,6 +70,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> CreateAsync(CreateCartCommand command)
         {
             return Ok(await Mediator.Send(command));
@@ -81,6 +87,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> RemoveAsync(Guid id)
         {
             return Ok(await Mediator.Send(new RemoveCartCommand(id)));
@@ -94,6 +102,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
         [SwaggerOperation(Summary = "Clear Cart.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> ClearAsync(Guid id)
         {
             return Ok(await Mediator.Send(new ClearCartCommand(id)));

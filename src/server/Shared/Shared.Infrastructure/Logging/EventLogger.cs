@@ -41,15 +41,14 @@ namespace InmoIT.Shared.Infrastructure.Logging
             }
             else
             {
-                string serializedData = _jsonSerializer.Serialize(@event, @event.GetType());
-
+                var userId = _currentUser.GetUserId();
                 string userEmail = _currentUser.GetUserEmail();
+                string serializedData = _jsonSerializer.Serialize(@event, @event.GetType());
                 if (string.IsNullOrWhiteSpace(userEmail))
                 {
                     userEmail = "Anonymous";
                 }
 
-                var userId = _currentUser.GetUserId();
                 var thisEventLog = new EventLog(
                     @event,
                     serializedData,

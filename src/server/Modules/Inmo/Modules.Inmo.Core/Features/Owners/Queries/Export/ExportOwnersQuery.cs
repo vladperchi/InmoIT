@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -69,7 +70,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Export
                 { _localizer["PhoneNumber"], item => item.PhoneNumber },
                 { _localizer["Email"], item => item.Email },
                 { _localizer["Address"], item => item.Address },
-                { _localizer["Birthday"], item => item.Birthday },
+                { _localizer["Birthday"], item => item.Birthday.ToString("G", CultureInfo.CurrentCulture) },
                 { _localizer["Gender"], item => item.Gender },
                 { _localizer["Group"], item => item.Group }
             }, sheetName: _localizer["Owners"]);

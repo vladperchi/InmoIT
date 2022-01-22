@@ -15,7 +15,8 @@ using InmoIT.Modules.Person.Core.Abstractions;
 using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Core.Exceptions;
 using InmoIT.Modules.Person.Core.Features.Customers.Events;
-using InmoIT.Shared.Core.Common;
+using InmoIT.Shared.Core.Common.Extensions;
+using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
@@ -53,15 +54,14 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public async Task<Result<Guid>> Handle(RegisterCustomerCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _context.Customers.Where(c => c.PhoneNumber == command.PhoneNumber && c.Email == command.Email)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(cancellationToken);
-            if (customer != null)
+            if (await _context.Customers
+                .Where(x => x.Email == command.Email)
+                .AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
             {
                 throw new CustomerAlreadyExistsException(_localizer);
             }
 
-            customer = _mapper.Map<Customer>(command);
+            var customer = _mapper.Map<Customer>(command);
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
@@ -69,8 +69,8 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            customer.Gender = customer.Gender.NullToString() ?? GendersConstant.GenderType.Male;
-            customer.Group = customer.Group.NullToString() ?? GroupsConstant.GroupType.Normal;
+            customer.Gender ??= GendersConstant.GenderType.Male;
+            customer.Group ??= GroupsConstant.GroupType.Normal;
             try
             {
                 customer.AddDomainEvent(new CustomerRegisteredEvent(customer));
@@ -86,13 +86,14 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public async Task<Result<Guid>> Handle(UpdateCustomerCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _context.Customers.Where(c => c.Id == command.Id).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
-            if (customer == null)
+            if (!await _context.Customers
+                .Where(x => x.Id == command.Id)
+                .AnyAsync(cancellationToken))
             {
                 throw new CustomerNotFoundException(_localizer);
             }
 
-            customer = _mapper.Map<Customer>(command);
+            var customer = _mapper.Map<Customer>(command);
             var fileUploadRequest = command.FileUploadRequest;
             if (fileUploadRequest != null)
             {
@@ -100,8 +101,14 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            customer.Gender = customer.Gender.NullToString() ?? GendersConstant.GenderType.Male;
-            customer.Group = customer.Group.NullToString() ?? GroupsConstant.GroupType.Normal;
+            customer.Name = command.Name ?? customer.Name;
+            customer.SurName = command.SurName ?? customer.SurName;
+            customer.Email = command.Email ?? customer.Email;
+            customer.PhoneNumber = command.PhoneNumber ?? customer.PhoneNumber;
+            customer.Gender = command.Gender ?? customer.Gender;
+            customer.Group = command.Group ?? customer.Group;
+            customer.IsActive = command.IsActive || customer.IsActive;
+
             try
             {
                 customer.AddDomainEvent(new CustomerUpdatedEvent(customer));
@@ -118,7 +125,9 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public async Task<Result<Guid>> Handle(RemoveCustomerCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _context.Customers.FirstOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
+            var customer = await _context.Customers
+                 .Where(x => x.Id == command.Id)
+                 .FirstOrDefaultAsync(cancellationToken);
             if (customer == null)
             {
                 throw new CustomerNotFoundException(_localizer);

@@ -31,12 +31,6 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
         public int Year { get; set; }
 
-        public bool IsActive { get; set; } = true;
-
         public Guid OwnerId { get; set; }
-
-        public FileUploadRequest FileUploadRequest { get; set; }
-
-        public string FileName => $"{CodeInternal}{Year}";
     }
 }

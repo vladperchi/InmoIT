@@ -7,28 +7,41 @@
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.GetAllAsync(InmoIT.Shared.Dtos.Inmo.Owners.PaginatedOwnerFilter)">
             <response code="200">Return list owners.</response>
             <response code="204">List owners not content.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.GetByIdAsync(InmoIT.Shared.Core.Features.Filters.GetByIdCacheableFilter{System.Guid,InmoIT.Modules.Inmo.Core.Entities.Owner})">
             <response code="200">Return owner by id.</response>
             <response code="404">Owner was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.RegisterAsync(InmoIT.Modules.Inmo.Core.Features.Owners.Commands.RegisterOwnerCommand)">
             <response code="201">Return created owner.</response>
             <response code="400">Owner already exists.</response>
             <response code="500">Owner Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.UpdateAsync(InmoIT.Modules.Inmo.Core.Features.Owners.Commands.UpdateOwnerCommand)">
             <response code="200">Return updated owner.</response>
             <response code="404">Owner was not found.</response>
             <response code="500">Owner Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.RemoveAsync(System.Guid)">
             <response code="200">Return remove owner.</response>
             <response code="404">Owner was not found.</response>
             <response code="500">Owner Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.ExportAsync(System.String)">
             <response code="200">Return export owners to excel.</response>
+            <response code="404">Owner was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
         </member>
     </members>
 </doc>

@@ -15,6 +15,6 @@ namespace InmoIT.Shared.Dtos.Inmo.Images
     {
         public string SearchString { get; set; }
 
-        public Guid[] PropertyIds { get; set; }
+        public Guid? PropertyId { get; set; }
     }
 }

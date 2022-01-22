@@ -27,7 +27,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Events
             PropertyId = cartItem.PropertyId;
             AggregateId = cartItem.Id;
             RelatedEntities = new[] { typeof(CartItem) };
-            EventDescription = $"Added Item {cartItem.PropertyId} to cart.";
+            EventDescription = $"Added Item Id: {cartItem.PropertyId} to cart.";
         }
     }
 }

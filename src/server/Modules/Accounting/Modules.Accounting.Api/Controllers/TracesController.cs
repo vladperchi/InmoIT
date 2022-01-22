@@ -1,4 +1,4 @@
-﻿    // --------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------
 // <copyright file="TracesController.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
@@ -28,7 +28,7 @@ namespace InmoIT.Modules.Accounting.Api.Controllers
         /// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Traces.ViewAll)]
-        [SwaggerHeader("filter", "Input data required to validate in API", true)]
+        [SwaggerHeader("filter", "Input data required to validate in API", "", true)]
         [SwaggerOperation(Summary = "Get Property Trace List.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -47,7 +47,7 @@ namespace InmoIT.Modules.Accounting.Api.Controllers
         /// <response code="403">No permission to access.</response>
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Traces.Export)]
-        [SwaggerHeader("searchString", "Input data required in API", true)]
+        [SwaggerHeader("searchString", "Input data required in API", "", true)]
         [SwaggerOperation(Summary = "Export Property Traces To Excel.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

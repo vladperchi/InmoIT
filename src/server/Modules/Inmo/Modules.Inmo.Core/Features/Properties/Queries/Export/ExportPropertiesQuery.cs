@@ -66,12 +66,13 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Export
 
             string result = await _excelService.ExportAsync(propertyList, mappers: new Dictionary<string, Func<Property, object>>
             {
-                { _localizer["CodeInternal"], item => item.CodeInternal },
+                { _localizer["CodeInternal"], item => item.CodeInternal.ToUpper() },
                 { _localizer["Name"], item => item.Name },
                 { _localizer["Address"], item => item.Address },
                 { _localizer["Description"], item => item.Description },
                 { _localizer["Year"], item => item.Year },
-                { _localizer["Price"], item => item.Tolal }
+                { _localizer["Price"], item => item.Tolal.ToString("C") },
+                { _localizer["Available"], item => item.IsActive ? "Yes" : "No" },
             }, sheetName: _localizer["Properties"]);
 
             return await Result<string>.SuccessAsync(data: result);
