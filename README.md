@@ -68,8 +68,8 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Service-Based
 - [x] Controller Registration
 - [x] Entity Framework Core - Code First
-- [ ] Auto DB Migrations
-- [ ] Seeding (Database, Identity)
+- [x] Auto DB Migrations
+- [x] Seeding (Database, Identity)
 - [x] Logging
 - [x] CQRS using MediatR at API Level
 - [x] Validation
@@ -82,12 +82,12 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Paginated API Responses
 - [x] Specification Pattern
 - [x] Default User & Role Seeding
-- [ ] Registration
+- [x] Registration
 - [x] Refresh Tokens
 - [x] Claims-Based Authorization
 - [x] JWT Authentication
 - [x] HTTP Interceptor
-- [ ] CRUD Operations
+- [x] CRUD Operations
 - [x] Email Service
 - [x] EventLogs
 - [x] Swagger
@@ -132,7 +132,7 @@ Clone this repository to your local machine.
 4. That is all you need to configure the API. Just create and run the API project.
 5. By default, the database is migrated. Take a look at the [migrations][migrations-url] of the solution
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
-7. Browse to https://localhost:5001/ to Api InmoIT!
+7. Browse to https://localhost:5000/ to Api InmoIT!
 
 ## Docker in Windows
 
@@ -148,7 +148,7 @@ Clone this repository to your local machine.
   - `docker-compose -f 'docker-compose.yml' up --build`
 - This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
-- Browse to https://localhost:5005/ to use your version of InmoIT!
+- Browse to https://localhost:5001/ to use your version of InmoIT!
 
 ## Core Developer Contact
 
