@@ -46,6 +46,12 @@ Navigate terminal to Modules.Person.Infrastructure and run the following.
 
 - `Add-Migration Initial -context CustomerDbContext -o Persistence/Migrations/`
 
+### Document
+
+Navigate terminal to Modules.Document.Infrastructure and run the following.
+
+- `Add-Migration Initial -context DocumentDbContext -o Persistence/Migrations/`
+
 ### Accounting
 
 Navigate terminal to Modules.Accounting.Infrastructure and run the following.
