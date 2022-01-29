@@ -148,7 +148,7 @@ Clone this repository to your local machine.
   - `docker-compose -f 'docker-compose.yml' up --build`
 - This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
-- Browse to https://localhost:5001/ to use your version of InmoIT!
+- Browse to https://localhost:5005/ to use your version of InmoIT!
 
 ## Core Developer Contact
 
