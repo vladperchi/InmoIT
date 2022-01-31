@@ -150,8 +150,7 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
   - `dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p securePassword123`
   - `dotnet dev-certs https --trust`
   - Note - Make sure that you use the same password that has been configured in the `docker-compose.yml` file. By default, `securePassword123` is configured.
-- 5005 is the port setup to run InmoIT on Docker, so make sure that these port is free. You could also change the port in the
-  - `docker-compose.yml` and `Server\Dockerfile` files.
+- 5005 is the port setup to run InmoIT on Docker, so make sure that these port is free. You could also change the port in the `docker-compose.yml` and `Server\Dockerfile` files.
 - Now navigate back to the root of the InmoIT Project on your local machine and run the following via terminal
   - `docker-compose -f 'docker-compose.yml' up --build`
 - This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
