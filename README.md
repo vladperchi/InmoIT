@@ -132,7 +132,15 @@ Clone this repository to your local machine.
 4. That is all you need to configure the API. Just create and run the API project.
 5. By default, the database is migrated. Take a look at the [migrations][migrations-url] of the solution
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
-7. Browse to https://localhost:5000/ to Api InmoIT!
+7. Browse to https://localhost:5001/ to Api InmoIT!
+
+## Default Credentials
+
+- `SuperAdmin` - User: vlaperchiwon@inmoit.com / Pass: @SuperAdminP4$$w0rd#
+- `Admin` - User: camilosoto@inmoit.com / Pass: @AdminP4$$w0rd#
+- `Staff` - User: davidvanegas@inmoit.com / Pass: @BasicP4$$w0rd#
+
+You can use these credentials to generate JWT tokens in the `api/identity/tokens` endpoint.
 
 ## Docker in Windows
 
