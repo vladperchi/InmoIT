@@ -22,7 +22,7 @@
  <br />
 </p>
 
-## About The Project
+## About This Project
 
 In reality, there was no real need to implement microservices. InmoIT is intended to help a large Real Estate company provide information on properties in the United States. For this, a well-designed monolithic application would also work without any inconvenience, clearly taking into account that the API and the user interface would be separated to offer better opportunities in the future (Clients).
 
