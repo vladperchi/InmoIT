@@ -8,23 +8,15 @@
 
 using Hangfire.Dashboard;
 using InmoIT.Shared.Core.Constants;
-using InmoIT.Shared.Core.Interfaces.Services.Identity;
 
 namespace InmoIT.Shared.Infrastructure.Filters
 {
     public class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
     {
-        private readonly ICurrentUser _user;
-
-        public HangfireAuthorizationFilter(
-            ICurrentUser user)
-        {
-            _user = user;
-        }
-
         public bool Authorize(DashboardContext context)
         {
-           return _user.IsAuthenticated() && _user.IsInRole(PermissionsConstant.Hangfire.View);
+           var currentUser = context.GetHttpContext().User;
+           return currentUser.Identity.IsAuthenticated && currentUser.IsInRole(PermissionsConstant.Hangfire.View);
         }
     }
 }
