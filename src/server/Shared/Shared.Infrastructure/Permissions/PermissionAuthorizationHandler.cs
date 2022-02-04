@@ -15,10 +15,6 @@ namespace InmoIT.Shared.Infrastructure.Permissions
 {
     public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
-        public PermissionAuthorizationHandler()
-        {
-        }
-
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
             if (context.User == null)
