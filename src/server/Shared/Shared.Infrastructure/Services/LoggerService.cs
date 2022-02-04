@@ -9,7 +9,6 @@
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using InmoIT.Shared.Core.Logging;
@@ -19,7 +18,6 @@ using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Mappings.Converters;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Core.Common;
 using InmoIT.Shared.Dtos.Identity.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -47,7 +45,9 @@ namespace InmoIT.Shared.Infrastructure.Services
 
         public async Task<PaginatedResult<EventLog>> GetAllAsync(GetAllLogsRequest request)
         {
-            var queryable = _dbContext.EventLogs.AsNoTracking().AsQueryable();
+            var queryable = _dbContext.EventLogs
+                .AsNoTracking()
+                .AsQueryable();
 
             if (request.UserId != Guid.Empty)
             {
@@ -70,14 +70,14 @@ namespace InmoIT.Shared.Infrastructure.Services
             if (!string.IsNullOrEmpty(request.SearchString))
             {
                 string lowerSearchString = request.SearchString.ToLower();
-                queryable = queryable.Where(x => (!string.IsNullOrWhiteSpace(x.Data) && EF.Functions.Like(x.Data.ToLower(), $"%{lowerSearchString}%"))
-                                                 || (!string.IsNullOrWhiteSpace(x.OldValues) && EF.Functions.Like(x.OldValues.ToLower(), $"%{lowerSearchString}%"))
-                                                 || (!string.IsNullOrWhiteSpace(x.NewValues) && EF.Functions.Like(x.NewValues.ToLower(), $"%{lowerSearchString}%"))
-                                                 || EF.Functions.Like(x.Id.ToString().ToLower(), $"%{lowerSearchString}%"));
+                queryable = queryable.Where(x => (!string.IsNullOrWhiteSpace(x.Data)
+                && EF.Functions.Like(x.Data.ToLower(), $"%{lowerSearchString}%")) || (!string.IsNullOrWhiteSpace(x.OldValues)
+                && EF.Functions.Like(x.OldValues.ToLower(), $"%{lowerSearchString}%")) || (!string.IsNullOrWhiteSpace(x.NewValues)
+                && EF.Functions.Like(x.NewValues.ToLower(), $"%{lowerSearchString}%")) || EF.Functions.Like(x.Id.ToString().ToLower(), $"%{lowerSearchString}%"));
             }
 
             var eventLogList = await queryable
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (eventLogList == null)
             {
                 throw new EventLogListEmptyException(_localizer);
