@@ -216,7 +216,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     { _localizer["EmailConfirmed"], item => item.EmailConfirmed },
                     { _localizer["PhoneNumber"], item => item.PhoneNumber },
                     { _localizer["PhoneNumberConfirmed"], item => item.PhoneNumberConfirmed },
-                    { _localizer["IsActive"], item => item.IsActive },
+                    { _localizer["IsActive"], item => item.IsActive ? "Yes" : "No" },
                     { _localizer["CreatedOn"], item => item.CreatedOn.ToString("G", CultureInfo.CurrentCulture) }
                 }, sheetName: _localizer["Users"]);
 

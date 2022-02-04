@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,11 +16,12 @@ using InmoIT.Modules.Person.Core.Abstractions;
 using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Core.Exceptions;
 using InmoIT.Modules.Person.Core.Features.Customers.Events;
-using InmoIT.Shared.Core.Common.Extensions;
 using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Constants;
+using InmoIT.Shared.Core.Integration.Person;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
+using InmoIT.Shared.Dtos.Upload;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -35,18 +37,21 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
         private readonly IDistributedCache _cache;
         private readonly ICustomerDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ICustomerService _customerService;
         private readonly IUploadService _uploadService;
         private readonly IStringLocalizer<CustomerCommandHandler> _localizer;
 
         public CustomerCommandHandler(
             ICustomerDbContext context,
             IMapper mapper,
+            ICustomerService customerService,
             IUploadService uploadService,
             IStringLocalizer<CustomerCommandHandler> localizer,
             IDistributedCache cache)
         {
             _context = context;
             _mapper = mapper;
+            _customerService = customerService;
             _uploadService = uploadService;
             _localizer = localizer;
             _cache = cache;
@@ -62,13 +67,20 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
             }
 
             var customer = _mapper.Map<Customer>(command);
-            var fileUploadRequest = command.FileUploadRequest;
-            if (fileUploadRequest != null)
+            if (command.FileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"C-{command.FileName}.{fileUploadRequest.Extension}";
+                var fileUploadRequest = new FileUploadRequest
+                {
+                    Data = command.FileUploadRequest?.Data,
+                    Extension = Path.GetExtension(command.FileUploadRequest.FileName),
+                    UploadStorageType = UploadStorageType.Customer
+                };
+                string fileName = await _customerService.GenerateFileName(10);
+                fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
+            customer.IsActive = true;
             customer.Gender ??= GendersConstant.GenderType.Male;
             customer.Group ??= GroupsConstant.GroupType.Normal;
             try
@@ -94,21 +106,20 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
             }
 
             var customer = _mapper.Map<Customer>(command);
-            var fileUploadRequest = command.FileUploadRequest;
-            if (fileUploadRequest != null)
+            if (command.FileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"C-{command.FileName}{fileUploadRequest.Extension}";
+                var fileUploadRequest = new FileUploadRequest
+                {
+                    Data = command.FileUploadRequest?.Data,
+                    Extension = Path.GetExtension(command.FileUploadRequest.FileName),
+                    UploadStorageType = UploadStorageType.Customer
+                };
+                string fileName = await _customerService.GenerateFileName(10);
+                fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            customer.Name = command.Name ?? customer.Name;
-            customer.SurName = command.SurName ?? customer.SurName;
-            customer.Email = command.Email ?? customer.Email;
-            customer.PhoneNumber = command.PhoneNumber ?? customer.PhoneNumber;
-            customer.Gender = command.Gender ?? customer.Gender;
-            customer.Group = command.Group ?? customer.Group;
             customer.IsActive = command.IsActive || customer.IsActive;
-
             try
             {
                 customer.AddDomainEvent(new CustomerUpdatedEvent(customer));

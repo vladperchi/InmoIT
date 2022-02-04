@@ -10,5 +10,5 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Inmo.Images
 {
-    public record GetAllPropertyImagesResponse(Guid Id, string ImageUrl, string Caption, bool Enabled, Guid PropertyId);
+    public record GetAllPropertyImagesResponse(Guid Id, string ImageUrl, string Caption, bool Enabled, string CodeImage, Guid PropertyId);
 }

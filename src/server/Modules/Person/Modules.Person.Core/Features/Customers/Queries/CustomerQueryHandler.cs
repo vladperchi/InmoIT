@@ -48,7 +48,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries
 
         public async Task<PaginatedResult<GetAllCustomersResponse>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Customer, GetAllCustomersResponse>> expression = e => new GetAllCustomersResponse(e.Id, e.Name, e.SurName, e.PhoneNumber, e.Gender, e.Group, e.Email, e.ImageUrl);
+            Expression<Func<Customer, GetAllCustomersResponse>> expression = e => new GetAllCustomersResponse(e.Id, e.Name, e.SurName, e.PhoneNumber, e.Birthday, e.Gender, e.Group, e.Email, e.ImageUrl);
             var source = _context.Customers
                 .Where(x => x.IsActive)
                 .AsNoTracking()
@@ -62,7 +62,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries
                 .AsNoTracking()
                 .Specify(filterSpec)
                 .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new CustomerListEmptyException(_localizer);
@@ -93,6 +93,10 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries
                 .Where(c => c.Id == request.Id)
                 .Select(a => a.ImageUrl)
                 .FirstOrDefaultAsync(cancellationToken);
+            if (result == null)
+            {
+                throw new CustomerNotFoundException(_localizer);
+            }
 
             return await Result<string>.SuccessAsync(data: result);
         }

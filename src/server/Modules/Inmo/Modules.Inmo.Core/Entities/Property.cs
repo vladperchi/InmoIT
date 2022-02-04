@@ -8,7 +8,6 @@
 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-
 using InmoIT.Shared.Core.Domain;
 
 namespace InmoIT.Modules.Inmo.Core.Entities
@@ -21,13 +20,25 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
+        public int SquareMeter { get; set; }
 
-        public decimal Tax { get; set; }
+        public int NumberRooms { get; set; }
+
+        public int NumberBathrooms { get; set; }
+
+        public decimal SalePrice { get; set; }
+
+        public decimal RentPrice { get; set; }
+
+        public decimal SaleTax { get; set; }
+
+        public decimal IncomeTax { get; set; }
 
         public string CodeInternal { get; set; }
 
         public int Year { get; set; }
+
+        public bool HasParking { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -35,7 +46,17 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public virtual Owner Owner { get; set; }
 
+        public Guid PropertyTypeId { get; set; }
+
+        public virtual PropertyType PropertyType { get; set; }
+
         [NotMapped]
-        public decimal Tolal => Price + Tax;
+        public decimal TolalSale => SalePrice + SaleTax;
+
+        public decimal TotalRent => RentPrice + IncomeTax;
+
+        public string PropertyTypeName => $"{PropertyType.Name}";
+
+        public string OwnerName => $"{Owner.Name} {Owner.SurName}";
     }
 }

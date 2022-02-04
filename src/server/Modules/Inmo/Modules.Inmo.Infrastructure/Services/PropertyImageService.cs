@@ -13,6 +13,7 @@ using InmoIT.Modules.Inmo.Core.Features.Images.Queries;
 using InmoIT.Shared.Core.Integration.Inmo;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Inmo.Images;
+using InmoIT.Shared.Infrastructure.Common;
 
 using MediatR;
 
@@ -27,9 +28,14 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
             _mediator = mediator;
         }
 
-        public async Task<Result<GetPropertyImageByIdResponse>> GetDetailsPropertyImageAsync(Guid propertyId)
+        public async Task<Result<GetPropertyImageByPropertyIdResponse>> GetDetailsPropertyImageAsync(Guid propertyId)
         {
-            return await _mediator.Send(new GetImageByIdQuery(propertyId));
+            return await _mediator.Send(new GetImageByPropertyIdQuery(propertyId));
+        }
+
+        public async Task<string> GenerateFileName(int length)
+        {
+            return await Utilities.GenerateCode("P", length);
         }
     }
 }

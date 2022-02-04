@@ -18,5 +18,7 @@ namespace InmoIT.Shared.Core.Integration.Inmo
         Task<Result<GetPropertyByIdResponse>> GetDetailsPropertyAsync(Guid propertyId);
 
         Task<Result<Guid>> RemovePropertyAsync(Guid propertyId);
+
+        Task<int> GetCountAsync();
     }
 }

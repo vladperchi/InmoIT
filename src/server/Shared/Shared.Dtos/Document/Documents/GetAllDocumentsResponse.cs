@@ -10,5 +10,5 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Document.Documents
 {
-    public record GetAllDocumentsResponse(Guid Id, string Title, string Description, bool IsPublic, string CreatedBy, DateTime CreatedOn, string FileUrl, string DocumentTypeName, Guid DocumentTypeId, Guid PropertyId);
+    public record GetAllDocumentsResponse(Guid Id, string Title, string Description, bool IsPublic, string FileUrl, string DocumentTypeName, Guid DocumentTypeId, Guid PropertyId);
 }

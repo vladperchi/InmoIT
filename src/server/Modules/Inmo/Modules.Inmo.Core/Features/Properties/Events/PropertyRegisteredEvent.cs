@@ -22,17 +22,31 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Events
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
+        public int SquareMeter { get; set; }
 
-        public decimal Tax { get; set; }
+        public int NumberRooms { get; set; }
+
+        public int NumberBathrooms { get; set; }
+
+        public decimal SalePrice { get; set; }
+
+        public decimal RentalPrice { get; set; }
+
+        public decimal SalesTax { get; set; }
+
+        public decimal IncomeTax { get; set; }
 
         public string CodeInternal { get; set; }
 
         public int Year { get; set; }
 
+        public bool HasParking { get; set; }
+
         public bool IsActive { get; set; }
 
         public Guid OwnerId { get; set; }
+
+        public Guid PropertyTypeId { get; set; }
 
         public PropertyRegisteredEvent(Property property)
         {
@@ -40,12 +54,19 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Events
             Name = property.Name;
             Address = property.Address;
             Description = property.Description;
-            Price = property.Price;
-            Tax = property.Tax;
+            SquareMeter = property.SquareMeter;
+            NumberRooms = property.NumberRooms;
+            NumberBathrooms = property.NumberBathrooms;
+            SalePrice = property.SalePrice;
+            SalesTax = property.SaleTax;
+            RentalPrice = property.RentPrice;
+            IncomeTax = property.IncomeTax;
             CodeInternal = property.CodeInternal;
             Year = property.Year;
+            HasParking = property.HasParking;
             IsActive = property.IsActive;
             OwnerId = property.OwnerId;
+            PropertyTypeId = property.PropertyTypeId;
             AggregateId = property.Id;
             RelatedEntities = new[] { typeof(Property) };
             EventDescription = $"Registered Property Name: {property.Name} with Id: {property.Id}.";

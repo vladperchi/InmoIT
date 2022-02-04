@@ -4,7 +4,7 @@
         <name>InmoIT.Modules.Accounting.Api</name>
     </assembly>
     <members>
-        <member name="M:InmoIT.Modules.Accounting.Api.Controllers.TracesController.GetAllAsync(InmoIT.Shared.Dtos.Inmo.Traces.PaginatedTraceFilter)">
+        <member name="M:InmoIT.Modules.Accounting.Api.Controllers.TracesController.GetAllAsync(InmoIT.Shared.Dtos.Accounting.Traces.PaginatedTraceFilter)">
             <response code="200">Return property trace list.</response>
             <response code="204">Property trace list not content.</response>
             <response code="401">Without authorization to access.</response>

@@ -28,6 +28,9 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
             services.AddTransient<IDbSeeder, InmoDbSeeder>();
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient<IPropertyService, PropertyService>();
+            services.AddTransient<IPropertyImageService, PropertyImageService>();
+            services.AddTransient<IPropertyTypeService, PropertyTypeService>();
+            services.AddTransient<IOwnerService, OwnerService>();
             return services;
         }
 

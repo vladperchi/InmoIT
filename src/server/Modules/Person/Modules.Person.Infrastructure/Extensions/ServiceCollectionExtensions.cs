@@ -25,6 +25,7 @@ namespace InmoIT.Modules.Person.Infrastructure.Extensions
                  .AddScoped<ICustomerDbContext>(provider => provider.GetService<CustomerDbContext>());
             services.AddTransient<IDbSeeder, CustomerDbSeeder>();
             services.AddTransient<ICartService, CartService>();
+            services.AddTransient<ICustomerService, CustomerService>();
             return services;
         }
 

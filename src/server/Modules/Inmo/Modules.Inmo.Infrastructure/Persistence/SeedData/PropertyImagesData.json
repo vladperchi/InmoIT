@@ -1,23 +1,1346 @@
 [
   {
-    "Id": null,
-    "Caption": null,
+    "Id": "", //Added Guid
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
     "Enabled": true,
-    "PropertyId": null,
-    "ImageUrl": "Files\\Images\\Properties\\default.png"
+    "PropertyId": "", //Added Guid Property
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
   },
   {
-    "Id": null,
-    "Caption": null,
+    "Id": "", //Added Guid
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
     "Enabled": true,
-    "PropertyId": null,
-    "ImageUrl": "Files\\Images\\Properties\\default.png"
+    "PropertyId": "", //Added Guid Property
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
   },
   {
-    "Id": null,
-    "Caption": null,
+    "Id": "", //Added Guid
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
     "Enabled": true,
-    "PropertyId": null,
-    "ImageUrl": "Files\\Images\\Properties\\default.png"
+    "PropertyId": "", //Added Guid Property
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "", //Added Guid
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "", //Added Guid Property
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "", //Added Guid
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "", //Added Guid
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
+  },
+  {
+    "Id": "",
+    "CodeImage": "P-IMG00001",
+    "Caption": "Caption-00001-Sample-Data",
+    "Enabled": true,
+    "PropertyId": "",
+    "ImageUrl": "Files\\Images\\Inmo\\Properties\\default.png"
   }
 ]

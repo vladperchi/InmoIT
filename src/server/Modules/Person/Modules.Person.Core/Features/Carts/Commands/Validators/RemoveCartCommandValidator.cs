@@ -17,7 +17,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands.Validators
         public RemoveCartCommandValidator(
             IStringLocalizer<RemoveCartCommandValidator> localizer)
         {
-            RuleFor(c => c.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty).WithMessage(_ => localizer["{PropertyName} must not be empty."]);
         }
     }

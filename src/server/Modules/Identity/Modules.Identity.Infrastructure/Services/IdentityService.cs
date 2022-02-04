@@ -8,10 +8,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
@@ -24,6 +26,9 @@ using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Users;
 using InmoIT.Shared.Dtos.Mails;
 using InmoIT.Shared.Dtos.Messages;
+using InmoIT.Shared.Dtos.Upload;
+using InmoIT.Shared.Infrastructure.Common;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -167,8 +172,15 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (request != null)
             {
-                request.FileName = $"U-{user.FirstName}{user.LastName}.{request.Extension}";
-                user.ImageUrl = await _uploadService.UploadAsync(request, FileType.Image);
+                var fileUploadRequest = new FileUploadRequest
+                {
+                    Data = request?.Data,
+                    Extension = Path.GetExtension(request.FileName),
+                    UploadStorageType = UploadStorageType.Staff
+                };
+                string fileName = await GenerateFileName(10);
+                fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
+                user.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
             string filePath = user.ImageUrl;
@@ -192,6 +204,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private async Task<string> GetPhoneVerificationCodeAsync(InmoUser user)
         {
             return await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+        }
+
+        private async Task<string> GenerateFileName(int length)
+        {
+            return await Utilities.GenerateCode("S", length);
         }
 
         public async Task<IResult<string>> ConfirmEmailAsync(string userId, string code)

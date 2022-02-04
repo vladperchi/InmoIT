@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Wrapper;
-using Microsoft.Extensions.Localization;
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Interfaces.Specifications;
 
@@ -19,12 +18,12 @@ namespace InmoIT.Shared.Core.Extensions
 {
     public static class QueryableExtensions
     {
-        public static async Task<PaginatedResult<T>> ToPaginatedListAsync<T>(this IQueryable<T> source, int pageNumber, int pageSize, IStringLocalizer localizer)
+        public static async Task<PaginatedResult<T>> ToPaginatedListAsync<T>(this IQueryable<T> source, int pageNumber, int pageSize)
             where T : class
         {
             if (source == null)
             {
-                throw new PagedListEmptyException(localizer);
+                throw new PagedListEmptyException();
             }
 
             pageNumber = pageNumber == 0 ? 1 : pageNumber;

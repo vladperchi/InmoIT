@@ -7,9 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Upload;
 using MediatR;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
@@ -18,7 +16,9 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
     {
         public Guid Id { get; set; }
 
-        public string ImageUrl { get; set; }
+        public Guid PropertyId { get; set; }
+
+        public string FileName { get; set; }
 
         public string Caption { get; set; }
 
@@ -26,10 +26,6 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 
         public string CodeImage { get; set; }
 
-        public Guid PropertyId { get; set; }
-
-        public List<string> ImageData { get; set; }
-
-        public FileUploadRequest FileUploadRequest { get; set; }
+        public string ImageData { get; set; }
     }
 }

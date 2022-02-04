@@ -9,6 +9,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
+
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Domain;
 using Microsoft.AspNetCore.Identity;
@@ -62,5 +64,8 @@ namespace InmoIT.Modules.Identity.Core.Entities
         {
             _domainEvents?.Clear();
         }
+
+        [NotMapped]
+        public string FileName => $"{FirstName}{LastName}";
     }
 }

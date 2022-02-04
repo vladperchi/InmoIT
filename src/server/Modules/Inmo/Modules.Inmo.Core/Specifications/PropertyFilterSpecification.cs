@@ -17,17 +17,19 @@ namespace InmoIT.Modules.Inmo.Core.Specifications
         public PropertyFilterSpecification(string searchString)
         {
             Includes.Add(x => x.Owner);
+            Includes.Add(x => x.PropertyType);
             if (!string.IsNullOrEmpty(searchString))
             {
-                Criteria = x => !string.IsNullOrWhiteSpace(x.CodeInternal)
+                Criteria = x => !string.IsNullOrWhiteSpace(x.CodeInternal) && x.IsActive
                 && (EF.Functions.Like(x.Name.ToLower(), $"%{searchString.ToLower()}%")
                 || EF.Functions.Like(x.Description.ToLower(), $"%{searchString.ToLower()}%")
                 || EF.Functions.Like(x.CodeInternal.ToLower(), $"%{searchString.ToLower()}%")
-                || EF.Functions.Like(x.Owner.FullName.ToLower(), $"%{searchString.ToLower()}%"));
+                || EF.Functions.Like(x.Owner.FullName.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.PropertyType.Name.ToLower(), $"%{searchString.ToLower()}%"));
             }
             else
             {
-                Criteria = x => !string.IsNullOrWhiteSpace(x.CodeInternal);
+                Criteria = x => !string.IsNullOrWhiteSpace(x.CodeInternal) && x.IsActive;
             }
         }
     }

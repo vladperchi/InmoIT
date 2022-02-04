@@ -23,6 +23,8 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public string PhoneNumber { get; set; }
 
+        public DateTime Birthday { get; set; }
+
         public string Gender { get; set; }
 
         public string Group { get; set; }
@@ -34,7 +36,5 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
         public bool IsActive { get; set; }
 
         public FileUploadRequest FileUploadRequest { get; set; }
-
-        public string FileName => $"{Name}{PhoneNumber}";
     }
 }

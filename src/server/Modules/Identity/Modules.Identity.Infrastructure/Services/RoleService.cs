@@ -47,57 +47,17 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _localizer = localizer;
         }
 
-        private static List<string> DefaultRoles()
-        {
-            return typeof(RolesConstant).GetAllConstantValues<string>();
-        }
-
-        public async Task<Result<string>> DeleteAsync(string id)
-        {
-            var existingRole = await _roleManager.FindByIdAsync(id);
-            if (existingRole == null)
-            {
-                throw new IdentityException("Role Not Found", statusCode: HttpStatusCode.NotFound);
-            }
-
-            if (DefaultRoles().Contains(existingRole.Name))
-            {
-                return await Result<string>.FailAsync(string.Format(_localizer["Not allowed to delete {0} Role."], existingRole.Name));
-            }
-
-            bool roleIsNotUsed = true;
-            var allUsers = await _userManager.Users.ToListAsync();
-            foreach (var user in allUsers)
-            {
-                if (await _userManager.IsInRoleAsync(user, existingRole.Name))
-                {
-                    roleIsNotUsed = false;
-                }
-            }
-
-            if (roleIsNotUsed)
-            {
-                existingRole.AddDomainEvent(new RoleDeletedEvent(id));
-                await _roleManager.DeleteAsync(existingRole);
-                return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
-            }
-            else
-            {
-                return await Result<string>.FailAsync(string.Format(_localizer["Not allowed to delete {0} Role as it is being used."], existingRole.Name));
-            }
-        }
-
         public async Task<Result<List<RoleResponse>>> GetAllAsync()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
-            var result = _mapper.Map<List<RoleResponse>>(roles);
+            var data = await _roleManager.Roles.ToListAsync();
+            var result = _mapper.Map<List<RoleResponse>>(data);
             return await Result<List<RoleResponse>>.SuccessAsync(result);
         }
 
         public async Task<Result<RoleResponse>> GetByIdAsync(string id)
         {
-            var roles = await _roleManager.Roles.SingleOrDefaultAsync(x => x.Id == id);
-            var result = _mapper.Map<RoleResponse>(roles);
+            var data = await _roleManager.Roles.SingleOrDefaultAsync(x => x.Id == id);
+            var result = _mapper.Map<RoleResponse>(data);
             return await Result<RoleResponse>.SuccessAsync(result);
         }
 
@@ -108,7 +68,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 var existingRole = await _roleManager.FindByNameAsync(request.Name);
                 if (existingRole != null)
                 {
-                    throw new IdentityException(_localizer["Similar Role exists."], statusCode: HttpStatusCode.BadRequest);
+                    throw new RoleAlreadyExistsException(_localizer);
                 }
 
                 var newRole = new InmoRole(request.Name, request.Description);
@@ -144,6 +104,46 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 await _roleManager.UpdateAsync(existingRole);
                 return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Updated."], existingRole.Name));
             }
+        }
+
+        public async Task<Result<string>> DeleteAsync(string id)
+        {
+            var existingRole = await _roleManager.FindByIdAsync(id);
+            if (existingRole == null)
+            {
+                throw new RoleNotFoundException(_localizer);
+            }
+
+            if (DefaultRoles().Contains(existingRole.Name))
+            {
+                return await Result<string>.FailAsync(string.Format(_localizer["Not allowed to delete {0} Role."], existingRole.Name));
+            }
+
+            bool roleIsNotUsed = true;
+            var allUsers = await _userManager.Users.ToListAsync();
+            foreach (var user in allUsers)
+            {
+                if (await _userManager.IsInRoleAsync(user, existingRole.Name))
+                {
+                    roleIsNotUsed = false;
+                }
+            }
+
+            if (roleIsNotUsed)
+            {
+                existingRole.AddDomainEvent(new RoleDeletedEvent(id));
+                await _roleManager.DeleteAsync(existingRole);
+                return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
+            }
+            else
+            {
+                return await Result<string>.FailAsync(string.Format(_localizer["Not allowed to delete {0} Role as it is being used."], existingRole.Name));
+            }
+        }
+
+        private static List<string> DefaultRoles()
+        {
+            return typeof(RolesConstant).GetAllConstantValues<string>();
         }
 
         public async Task<int> GetCountAsync()

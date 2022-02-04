@@ -42,7 +42,8 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.Images.View";
             public const string ViewAll = "Permissions.Images.ViewAll";
-            public const string Update = "Permissions.Images.Update";
+            public const string Add = "Permissions.Images.Add";
+            public const string Edit = "Permissions.Images.Edit";
             public const string Remove = "Permissions.Images.Remove";
         }
 

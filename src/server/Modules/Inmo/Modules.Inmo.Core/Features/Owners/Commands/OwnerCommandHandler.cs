@@ -7,8 +7,8 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
+using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,10 +17,11 @@ using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Exceptions;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Events;
 using InmoIT.Shared.Core.Common.Enums;
-using InmoIT.Shared.Core.Common.Extensions;
 using InmoIT.Shared.Core.Constants;
+using InmoIT.Shared.Core.Integration.Inmo;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
+using InmoIT.Shared.Dtos.Upload;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -36,18 +37,21 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
         private readonly IDistributedCache _cache;
         private readonly IInmoDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IOwnerService _ownerService;
         private readonly IUploadService _uploadService;
         private readonly IStringLocalizer<OwnerCommandHandler> _localizer;
 
         public OwnerCommandHandler(
             IInmoDbContext context,
             IMapper mapper,
+            IOwnerService ownerService,
             IUploadService uploadService,
             IStringLocalizer<OwnerCommandHandler> localizer,
             IDistributedCache cache)
         {
             _context = context;
             _mapper = mapper;
+            _ownerService = ownerService;
             _uploadService = uploadService;
             _localizer = localizer;
             _cache = cache;
@@ -63,13 +67,20 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
             }
 
             var owner = _mapper.Map<Owner>(command);
-            var fileUploadRequest = command.FileUploadRequest;
-            if (fileUploadRequest != null)
+            if (command.FileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"O-{command.FileName}.{fileUploadRequest.Extension}";
+                var fileUploadRequest = new FileUploadRequest
+                {
+                    Data = command.FileUploadRequest?.Data,
+                    Extension = Path.GetExtension(command.FileName),
+                    UploadStorageType = UploadStorageType.Owner
+                };
+                string fileName = await _ownerService.GenerateFileName(10);
+                fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 owner.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
+            owner.IsActive = true;
             owner.Gender ??= GendersConstant.GenderType.Male;
             owner.Group ??= GroupsConstant.GroupType.Normal;
             try
@@ -95,22 +106,20 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
             }
 
             var owner = _mapper.Map<Owner>(command);
-            var fileUploadRequest = command.FileUploadRequest;
-            if (fileUploadRequest != null)
+            if (command.FileUploadRequest != null)
             {
-                fileUploadRequest.FileName = $"O-{command.FileName}{fileUploadRequest.Extension}";
+                var fileUploadRequest = new FileUploadRequest
+                {
+                    Data = command.FileUploadRequest?.Data,
+                    Extension = Path.GetExtension(command.FileUploadRequest.FileName),
+                    UploadStorageType = UploadStorageType.Owner
+                };
+                string fileName = await _ownerService.GenerateFileName(10);
+                fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 owner.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            owner.Name = command.Name ?? owner.Name;
-            owner.SurName = command.SurName ?? owner.Name;
-            owner.Address = command.Address ?? owner.Address;
-            owner.Email = command.Email ?? owner.Email;
-            owner.PhoneNumber = command.PhoneNumber ?? owner.PhoneNumber;
-            owner.Gender = command.Gender ?? owner.Gender;
-            owner.Group = command.Group ?? owner.Group;
             owner.IsActive = command.IsActive || owner.IsActive;
-
             try
             {
                 owner.AddDomainEvent(new OwnerUpdatedEvent(owner));

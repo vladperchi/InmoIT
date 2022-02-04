@@ -16,5 +16,7 @@ namespace InmoIT.Shared.Dtos.Inmo.Properties
         public string SearchString { get; set; }
 
         public Guid[] OwnerIds { get; set; }
+
+        public Guid[] PropertyTypeIds { get; set; }
     }
 }

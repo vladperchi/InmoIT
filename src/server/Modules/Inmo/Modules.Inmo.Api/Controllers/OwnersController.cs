@@ -17,6 +17,7 @@ using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Inmo.Owners;
 using InmoIT.Shared.Infrastructure.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -26,14 +27,14 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
     [ApiVersion("1")]
     internal sealed class OwnersController : BaseController
     {
-        /// <response code="200">Return list owners.</response>
-        /// <response code="204">List owners not content.</response>
+        /// <response code="200">Return owner list.</response>
+        /// <response code="204">Owner list not content.</response>
         /// <response code="401">Without authorization to access.</response>
         /// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Owners.ViewAll)]
-        [SwaggerHeader("filter", "Input data required to validate in API", "", true)]
-        [SwaggerOperation(Summary = "Get List Owners.")]
+        [SwaggerHeader("filter", "Input data required", "", true)]
+        [SwaggerOperation(Summary = "Get Owners List.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -49,9 +50,9 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
         /// <response code="404">Owner was not found.</response>
         /// <response code="401">Without authorization to access.</response>
         /// <response code="403">No permission to access.</response>
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Owners.View)]
-        [SwaggerHeader("filter", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("filter", "Input data required", "", true)]
         [SwaggerOperation(Summary = "Get Owner By Id.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -64,15 +65,32 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="201">Return created owner.</response>
+        /// <response code="200">Return image owner by id.</response>
+        /// <response code="404">Owner was not found.</response>
+        /// <response code="403">No permission to access.</response>
+        [HttpGet("{ownerId:guid}")]
+        [AllowAnonymous]
+        [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
+        [SwaggerHeader("request", "Input data required", "", true)]
+        [SwaggerOperation(Summary = "Get Image Owner.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> GetPictureAsync(GetOwnerImageQuery request)
+        {
+            var response = await Mediator.Send(request);
+            return Ok(response);
+        }
+
+        /// <response code="201">Return registered owner.</response>
         /// <response code="400">Owner already exists.</response>
         /// <response code="500">Owner Internal Server Error.</response>
         /// <response code="401">Without authorization to access.</response>
         /// <response code="403">No permission to access.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.Owners.Register)]
-        [SwaggerHeader("command", "Input data required to validate in API", "", true)]
-        [SwaggerOperation(Summary = "Created Owner.")]
+        [SwaggerHeader("command", "Input data required", "", true)]
+        [SwaggerOperation(Summary = "Registered Owner.")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -91,7 +109,7 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
         /// <response code="403">No permission to access.</response>
         [HttpPut]
         [HavePermission(PermissionsConstant.Owners.Update)]
-        [SwaggerHeader("command", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(Summary = "Update Owner.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -109,9 +127,9 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
         /// <response code="500">Owner Internal Server Error.</response>
         /// <response code="401">Without authorization to access.</response>
         /// <response code="403">No permission to access.</response>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Owners.Remove)]
-        [SwaggerHeader("id", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(Summary = "Remove Owner.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -125,12 +143,12 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
         }
 
         /// <response code="200">Return export owners to excel.</response>
-        /// <response code="404">Owner was not found.</response>
+        /// <response code="404">Owners was not found.</response>
         /// <response code="401">Without authorization to access.</response>
         /// <response code="403">No permission to access.</response>
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Owners.Export)]
-        [SwaggerHeader("searchString", "Input data required to validate in API", "", true)]
+        [SwaggerHeader("searchString", "Input data required", "", false)]
         [SwaggerOperation(Summary = "Export Owners To Excel.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

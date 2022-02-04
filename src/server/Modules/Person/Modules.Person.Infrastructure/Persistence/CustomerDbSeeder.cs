@@ -19,6 +19,8 @@ using InmoIT.Shared.Core.Interfaces.Services;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace InmoIT.Modules.Person.Infrastructure.Persistence
 {
     public class CustomerDbSeeder : IDbSeeder
@@ -60,12 +62,12 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
                 string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 if (!_context.Customers.Any())
                 {
-                    string customerData = await File.ReadAllTextAsync(path + SeedsConstant.Customer.CustomersData);
-                    var customers = _jsonSerializer.Deserialize<List<Customer>>(customerData);
+                    string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.Customer.CustomersData);
+                    var dataDeserialize = _jsonSerializer.Deserialize<List<Customer>>(dataJSON);
 
-                    if (customers != null)
+                    if (dataDeserialize != null)
                     {
-                        foreach (var customer in customers)
+                        foreach (var customer in dataDeserialize)
                         {
                             await _context.Customers.AddAsync(customer);
                         }

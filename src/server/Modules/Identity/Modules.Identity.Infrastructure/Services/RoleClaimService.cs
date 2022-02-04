@@ -52,32 +52,27 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public async Task<Result<List<RoleClaimResponse>>> GetAllAsync()
         {
-            var roleClaims = await _db.RoleClaims.AsNoTracking().ToListAsync();
-            var roleClaimsResponse = _mapper.Map<List<RoleClaimResponse>>(roleClaims);
-            return await Result<List<RoleClaimResponse>>.SuccessAsync(roleClaimsResponse);
-        }
-
-        public async Task<int> GetCountAsync()
-        {
-            return await _db.RoleClaims.AsNoTracking().CountAsync();
+            var data = await _db.RoleClaims.AsNoTracking().ToListAsync();
+            var result = _mapper.Map<List<RoleClaimResponse>>(data);
+            return await Result<List<RoleClaimResponse>>.SuccessAsync(result);
         }
 
         public async Task<Result<RoleClaimResponse>> GetByIdAsync(int id)
         {
-            var roleClaim = await _db.RoleClaims.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
-            var roleClaimResponse = _mapper.Map<RoleClaimResponse>(roleClaim);
-            return await Result<RoleClaimResponse>.SuccessAsync(roleClaimResponse);
+            var data = await _db.RoleClaims.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+            var result = _mapper.Map<RoleClaimResponse>(data);
+            return await Result<RoleClaimResponse>.SuccessAsync(result);
         }
 
         public async Task<Result<List<RoleClaimResponse>>> GetAllByRoleIdAsync(string roleId)
         {
-            var roleClaims = await _db.RoleClaims
+            var data = await _db.RoleClaims
                 .AsNoTracking()
                 .Include(x => x.Role)
                 .Where(x => x.RoleId == roleId)
                 .ToListAsync();
-            var roleClaimsResponse = _mapper.Map<List<RoleClaimResponse>>(roleClaims);
-            return await Result<List<RoleClaimResponse>>.SuccessAsync(roleClaimsResponse);
+            var result = _mapper.Map<List<RoleClaimResponse>>(data);
+            return await Result<List<RoleClaimResponse>>.SuccessAsync(result);
         }
 
         public async Task<Result<string>> SaveAsync(RoleClaimRequest request)
@@ -291,6 +286,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             {
                 return await Result<string>.FailAsync(ex.Message);
             }
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _db.RoleClaims.AsNoTracking().CountAsync();
         }
     }
 }

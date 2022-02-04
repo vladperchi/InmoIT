@@ -10,11 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace InmoIT.Shared.Infrastructure.Common
 {
     public static class Utilities
     {
+        private static readonly Random Random = new Random();
+
         public static List<T> GetAllConstantValues<T>(this Type type)
         {
             return type
@@ -37,6 +40,15 @@ namespace InmoIT.Shared.Infrastructure.Common
             }
 
             return values;
+        }
+
+        public static Task<string> GenerateCode(string letter, int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return Task.FromResult(new string(Enumerable
+                .Repeat($"{letter.ToUpper()}-{chars}INMO", length)
+                .Select(s => s[Random.Next(s.Length)])
+                .ToArray()));
         }
     }
 }

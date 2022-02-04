@@ -19,5 +19,7 @@ namespace InmoIT.Modules.Inmo.Core.Abstractions
         public DbSet<Property> Properties { get; set; }
 
         public DbSet<PropertyImage> PropertyImages { get; set; }
+
+        public DbSet<PropertyType> PropertyTypes { get; set; }
     }
 }

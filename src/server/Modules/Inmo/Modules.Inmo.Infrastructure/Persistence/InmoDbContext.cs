@@ -44,6 +44,8 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
 
         public DbSet<PropertyImage> PropertyImages { get; set; }
 
+        public DbSet<PropertyType> PropertyTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

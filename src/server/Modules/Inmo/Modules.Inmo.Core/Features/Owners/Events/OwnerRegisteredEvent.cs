@@ -10,8 +10,6 @@ using System;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Domain;
 
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
 namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
 {
     public class OwnerRegisteredEvent : Event

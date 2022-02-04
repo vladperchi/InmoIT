@@ -7,6 +7,8 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,8 +19,10 @@ using InmoIT.Modules.Inmo.Core.Exceptions;
 using InmoIT.Modules.Inmo.Core.Features.Images.Events;
 using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Constants;
+using InmoIT.Shared.Core.Integration.Inmo;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
+using InmoIT.Shared.Dtos.Upload;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -27,7 +31,7 @@ using Microsoft.Extensions.Localization;
 namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 {
     public class ImageCommandHandler :
-        IRequestHandler<AddImageCommand, Result<Guid>>,
+        IRequestHandler<AddImageCommand, Result<List<Guid>>>,
         IRequestHandler<UpdateImageCommand, Result<Guid>>,
         IRequestHandler<RemoveImageCommand, Result<Guid>>
     {
@@ -35,6 +39,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
         private readonly IInmoDbContext _context;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<ImageCommandHandler> _localizer;
+        private readonly IPropertyImageService _propertyImageService;
         private readonly IUploadService _uploadService;
 
         public ImageCommandHandler(
@@ -42,16 +47,18 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
             IInmoDbContext context,
             IMapper mapper,
             IStringLocalizer<ImageCommandHandler> localizer,
+            IPropertyImageService propertyImageService,
             IUploadService uploadService)
         {
             _cache = cache;
             _context = context;
             _mapper = mapper;
             _localizer = localizer;
+            _propertyImageService = propertyImageService;
             _uploadService = uploadService;
         }
 
-        public async Task<Result<Guid>> Handle(AddImageCommand command, CancellationToken cancellationToken)
+        public async Task<Result<List<Guid>>> Handle(AddImageCommand command, CancellationToken cancellationToken)
         {
             if (!await _context.Properties
                 .Where(x => x.Id == command.PropertyId)
@@ -60,126 +67,106 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
                 throw new PropertyNotFoundException(_localizer);
             }
 
-            var data = await _context.PropertyImages
-                .Where(x => x.PropertyId == command.PropertyId)
-                .ToListAsync(cancellationToken);
+            var result = new Result<List<Guid>>();
 
-            if (data.Count == 0)
+            foreach (var item in command.PropertyImageList)
             {
-                throw new ImageListEmptyException(_localizer);
-            }
-
-            if (await _context.PropertyImages
-                .Where(x => x.PropertyId == command.PropertyId)
-                .AnyAsync(x => x.CodeImage == command.CodeImage, cancellationToken))
-            {
-                throw new ImageAlreadyExistsException(_localizer);
-            }
-
-            var result = new Result<Guid>();
-            var image = _mapper.Map<PropertyImage>(command);
-            var fileUploadRequest = command.FileUploadRequest;
-            try
-            {
-                if (fileUploadRequest != null && command.ImageData.Count > 0)
+                if (await _context.PropertyImages
+                    .Where(x => x.PropertyId == command.PropertyId)
+                    .AnyAsync(x => x.CodeImage == item.CodeImage, cancellationToken))
                 {
-                    foreach (string item in command.ImageData)
-                    {
-                        fileUploadRequest.Data = item[0].ToString();
-                        fileUploadRequest.FileName = $"P-{command.CodeImage}.{fileUploadRequest.Extension}";
-                        image.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
-                        image.AddDomainEvent(new ImageAddedEvent(image));
-                        await _context.PropertyImages.AddAsync(image, cancellationToken);
-                        await _context.SaveChangesAsync(cancellationToken);
-                        result = await Result<Guid>.SuccessAsync(image.Id, _localizer["Added Image Property"]);
-                    }
+                    throw new ImageAlreadyExistsException(_localizer);
                 }
 
-                return result;
+                var image = _mapper.Map<PropertyImage>(item);
+                image.CodeImage.ToUpper();
+                if (!string.IsNullOrWhiteSpace(item.ImageData)
+                    && !string.IsNullOrWhiteSpace(item.FileName))
+                {
+                    var fileUploadRequest = new FileUploadRequest
+                    {
+                        Data = item.ImageData,
+                        Extension = Path.GetExtension(item.FileName),
+                        UploadStorageType = UploadStorageType.Property
+                    };
+                    string fileName = await _propertyImageService.GenerateFileName(10);
+                    fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
+                    image.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
+                }
+
+                try
+                {
+                    image.AddDomainEvent(new ImageAddedEvent(image));
+                    await _context.PropertyImages.AddAsync(image, cancellationToken);
+                    await _context.SaveChangesAsync(cancellationToken);
+                    result.Data.Add(image.Id);
+                }
+                catch (Exception)
+                {
+                    throw new ImageCustomException(_localizer, null);
+                }
             }
-            catch (Exception)
-            {
-                throw new ImageCustomException(_localizer, null);
-            }
+
+            return await Result<List<Guid>>.SuccessAsync(result.Data, _localizer["Added Property Images"]);
         }
 
         public async Task<Result<Guid>> Handle(UpdateImageCommand command, CancellationToken cancellationToken)
         {
-            var data = await _context.PropertyImages
-                .Where(x => x.PropertyId == command.PropertyId)
-                .ToListAsync(cancellationToken);
-
-            if (data.Count == 0)
+            if (!await _context.PropertyImages
+                .Where(x => x.Id == command.Id)
+                .AnyAsync(x => x.CodeImage == command.CodeImage, cancellationToken))
             {
-                throw new ImageListEmptyException(_localizer);
+                throw new ImageNotFoundException(_localizer);
             }
 
-            if (await _context.PropertyImages
-                .AsNoTracking()
-                .AnyAsync(x => x.Id != command.Id && x.CodeImage == command.CodeImage && x.PropertyId == command.PropertyId, cancellationToken))
-            {
-                throw new ImageAlreadyAddedException(_localizer);
-            }
-
-            var result = new Result<Guid>();
             var image = _mapper.Map<PropertyImage>(command);
-            var fileUploadRequest = command.FileUploadRequest;
+            image.CodeImage.ToUpper();
+            if (!string.IsNullOrWhiteSpace(command.ImageData) &&
+                        !string.IsNullOrWhiteSpace(command.FileName))
+            {
+                var fileUploadRequest = new FileUploadRequest
+                {
+                    Data = command.ImageData,
+                    Extension = Path.GetExtension(command.FileName),
+                    UploadStorageType = UploadStorageType.Property
+                };
+                string fileName = await _propertyImageService.GenerateFileName(10);
+                fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
+                image.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
+            }
+
             try
             {
-                if (fileUploadRequest != null && command.ImageData.Count > 0)
-                {
-                    foreach (string item in command.ImageData)
-                    {
-                        fileUploadRequest.Data = item[0].ToString();
-                        fileUploadRequest.FileName = $"P-{command.CodeImage}.{fileUploadRequest.Extension}";
-                        image.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
-                        image.AddDomainEvent(new ImageUpdatedEvent(image));
-                        _context.PropertyImages.Update(image);
-                        await _context.SaveChangesAsync(cancellationToken);
-                        await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyImage>(command.Id), cancellationToken);
-                        result = await Result<Guid>.SuccessAsync(image.Id, _localizer["Updated Image Property"]);
-                    }
-                }
-
-                return result;
+                image.AddDomainEvent(new ImageUpdatedEvent(image));
+                _context.PropertyImages.Update(image);
+                await _context.SaveChangesAsync(cancellationToken);
+                await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyImage>(command.Id), cancellationToken);
             }
             catch (Exception)
             {
                 throw new ImageCustomException(_localizer, null);
             }
+
+            return await Result<Guid>.SuccessAsync(image.Id, _localizer["Updated Property Image"]);
         }
 
         public async Task<Result<Guid>> Handle(RemoveImageCommand command, CancellationToken cancellationToken)
         {
-            if (!await _context.Properties
-               .Where(x => x.Id == command.Id)
-               .AnyAsync(cancellationToken))
+            var image = await _context.PropertyImages
+                .Where(x => x.Id == command.Id)
+                .FirstOrDefaultAsync(cancellationToken);
+            if (image == null)
             {
-                throw new PropertyNotFoundException(_localizer);
+                throw new ImageNotFoundException(_localizer);
             }
 
-            var data = await _context.PropertyImages
-                .Where(x => x.PropertyId == command.Id)
-                .ToListAsync(cancellationToken);
-
-            if (data.Count == 0)
-            {
-                throw new ImageListEmptyException(_localizer);
-            }
-
-            var result = new Result<Guid>();
             try
             {
-                foreach (var item in data)
-                {
-                    item.AddDomainEvent(new ImageRemovedEvent(item.Id));
-                    _context.PropertyImages.RemoveRange(data);
-                    await _context.SaveChangesAsync(cancellationToken);
-                    await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyImage>(command.Id), cancellationToken);
-                    result = await Result<Guid>.SuccessAsync(item.Id, _localizer["Deleted Image Property"]);
-                }
-
-                return result;
+                image.AddDomainEvent(new ImageRemovedEvent(image.Id));
+                _context.PropertyImages.RemoveRange(image);
+                await _context.SaveChangesAsync(cancellationToken);
+                await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyImage>(command.Id), cancellationToken);
+                return await Result<Guid>.SuccessAsync(image.Id, _localizer["Deleted Property Image"]);
             }
             catch (Exception)
             {

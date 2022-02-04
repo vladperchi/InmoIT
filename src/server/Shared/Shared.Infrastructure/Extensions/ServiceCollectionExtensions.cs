@@ -41,10 +41,10 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 .AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddScoped<IEventLogger, EventLogger>();
-            services.AddApiVersioning(o =>
+            services.AddApiVersioning(options =>
             {
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
             });
             services.AddControllers()
                 .ConfigureApplicationPartManager(manager =>
@@ -68,6 +68,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             services.AddSwaggerDocumentation();
             services.AddCorsPolicy();
             services.AddApplicationSettings(config);
+            services.AddDockerSettings(config);
             return services;
         }
 
@@ -81,6 +82,12 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         {
             return services
                 .Configure<ApplicationSettings>(config.GetSection(nameof(ApplicationSettings)));
+        }
+
+        private static IServiceCollection AddDockerSettings(this IServiceCollection services, IConfiguration config)
+        {
+            return services
+                .Configure<DockerSettings>(config.GetSection(nameof(DockerSettings)));
         }
     }
 }

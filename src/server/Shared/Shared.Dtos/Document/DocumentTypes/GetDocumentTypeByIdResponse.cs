@@ -10,5 +10,5 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Document.DocumentTypes
 {
-    public record GetDocumentTypeByIdResponse(Guid Id, string Name, string Description);
+    public record GetDocumentTypeByIdResponse(Guid Id, string Name, string Description, bool IsActive);
 }

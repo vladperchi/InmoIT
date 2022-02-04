@@ -10,5 +10,14 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Person.CartItems
 {
-    public record GetCartItemByIdResponse(Guid Id, Guid CartId, Guid PropertyId);
+    public record GetCartItemByIdResponse(Guid Id, Guid CartId, Guid PropertyId)
+    {
+        public string PropertyCode { get; set; }
+
+        public string PropertyName { get; set; }
+
+        public string PropertyDetail { get; set; }
+
+        public decimal PropertyPrice { get; set; }
+    }
 }

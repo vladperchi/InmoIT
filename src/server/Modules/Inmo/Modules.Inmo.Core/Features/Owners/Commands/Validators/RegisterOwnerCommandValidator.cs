@@ -22,15 +22,19 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands.Validators
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
                 .NotEqual(x => x.SurName).WithMessage(localizer["{PropertyName} cannot be equal to Surname."])
+                .NotEqual(x => x.Address).WithMessage(localizer["{PropertyName} cannot be equal to Address."])
                 .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."]);
             RuleFor(x => x.SurName)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
                 .NotEqual(x => x.Name).WithMessage(localizer["{PropertyName} cannot be equal to Name."])
+                .NotEqual(x => x.Address).WithMessage(localizer["{PropertyName} cannot be equal to Address."])
                 .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."]);
             RuleFor(x => x.Address)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
-                .Length(20, 150).WithMessage(localizer["{PropertyName} must have between 20 and 150 characters."]);
+                .Length(20, 150).WithMessage(localizer["{PropertyName} must have between 20 and 150 characters."])
+                .NotEqual(x => x.Name).WithMessage(localizer["{PropertyName} cannot be equal to Name."])
+                .NotEqual(x => x.SurName).WithMessage(localizer["{PropertyName} cannot be equal to Surname."]);
             RuleFor(x => x.Email)
                .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                .EmailAddress().WithMessage(localizer["{PropertyName} must be a valid email accounts."]);
@@ -42,10 +46,6 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands.Validators
                 .NotNull().WithMessage(localizer["{PropertyName} must not be empty."])
                 .LessThan(DateTime.MaxValue).WithMessage(localizer["{PropertyName} should be less than max value"])
                 .Must(YouOverMore18).WithMessage(localizer["{PropertyName} you must be of legal age to register."]);
-            RuleFor(x => x.Gender)
-               .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
-            RuleFor(x => x.Group)
-                .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
         }
 
         private bool IsOnlyLetter(string value) => value.All(char.IsLetter);

@@ -18,7 +18,7 @@ namespace InmoIT.Modules.Inmo.Core.Specifications
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                Criteria = x => !string.IsNullOrWhiteSpace(x.Email)
+                Criteria = x => !string.IsNullOrWhiteSpace(x.Email) && x.IsActive
                 && (EF.Functions.Like(x.Name.ToLower(), $"%{searchString.ToLower()}%")
                 || EF.Functions.Like(x.SurName.ToLower(), $"%{searchString.ToLower()}%")
                 || EF.Functions.Like(x.PhoneNumber.ToLower(), $"%{searchString.ToLower()}%")
@@ -26,7 +26,7 @@ namespace InmoIT.Modules.Inmo.Core.Specifications
             }
             else
             {
-                Criteria = x => !string.IsNullOrWhiteSpace(x.Email);
+                Criteria = x => !string.IsNullOrWhiteSpace(x.Email) && x.IsActive;
             }
         }
     }

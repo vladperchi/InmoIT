@@ -14,5 +14,10 @@
             You can override the validation rules here.
             </summary>
         </member>
+        <member name="M:InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries.Validators.PaginatedPropertyTypeFilterValidator.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries.Validators.PaginatedPropertyTypeFilterValidator})">
+            <summary>
+            You can override the validation rules here.
+            </summary>
+        </member>
     </members>
 </doc>

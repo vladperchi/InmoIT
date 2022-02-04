@@ -9,25 +9,15 @@
 using System;
 using System.Collections.Generic;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Upload;
+using InmoIT.Shared.Dtos.Inmo.Images;
 using MediatR;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 {
-    public class AddImageCommand : IRequest<Result<Guid>>
+    public class AddImageCommand : IRequest<Result<List<Guid>>>
     {
-        public string ImageUrl { get; set; }
-
-        public string Caption { get; set; }
-
-        public bool Enabled { get; set; }
-
-        public string CodeImage { get; set; }
-
         public Guid PropertyId { get; set; }
 
-        public List<string> ImageData { get; set; }
-
-        public FileUploadRequest FileUploadRequest { get; set; }
+        public List<PropertyImageRequest> PropertyImageList { get; set; }
     }
 }

@@ -13,8 +13,8 @@ namespace InmoIT.Shared.Core.Exceptions
 {
     public class PagedListEmptyException : CustomException
     {
-        public PagedListEmptyException(IStringLocalizer localizer)
-            : base(localizer["Asyn paged list is empty..."], null, HttpStatusCode.NoContent)
+        public PagedListEmptyException()
+            : base("Asyn paged list is empty...", null, HttpStatusCode.NoContent)
         {
         }
     }

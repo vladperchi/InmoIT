@@ -11,7 +11,7 @@ using InmoIT.Modules.Accounting.Core.Features.Traces.Queries;
 using InmoIT.Modules.Accounting.Core.Features.Traces.Queries.Export;
 using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
-using InmoIT.Shared.Dtos.Inmo.Traces;
+using InmoIT.Shared.Dtos.Accounting.Traces;
 using InmoIT.Shared.Infrastructure.Permissions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

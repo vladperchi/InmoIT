@@ -6,17 +6,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
 using System.Threading.Tasks;
-using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Document.DocumentTypes;
+using System;
 
 namespace InmoIT.Shared.Core.Integration.Document
 {
     public interface IDocumentTypeService
     {
-        Task<Result<GetDocumentTypeByIdResponse>> GetDetailsAsync(Guid documentTypeId);
-
-        Task<bool> IsDocumentTypeUsed(Guid documentTypeId);
+        Task<bool> IsDocumentTypeUsed(Guid id);
     }
 }

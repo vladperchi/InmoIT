@@ -27,14 +27,14 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _tokenService = tokenService;
         }
 
-        /// <response code="200">Return token user.</response>
-        /// <response code="500">Internal Server Error.</response>
-        /// <response code="401">Without authorization to access.</response>
-        /// <response code="403">No permission to access.</response>
         [HttpPost]
         [AllowAnonymous]
         [SwaggerHeader("request", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Get Token.")]
+        [SwaggerOperation(Summary = "Get Token.", Description = "Submit Credentials to generate valid Access Token.")]
+        [SwaggerResponse(200, "Return token user.")]
+        [SwaggerResponse(500, "Internal Server Error.")]
+        [SwaggerResponse(401, "Without authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -45,14 +45,14 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="200">Return token user.</response>
-        /// <response code="500">Internal Server Error.</response>
-        /// <response code="401">Without authorization to access.</response>
-        /// <response code="403">No permission to access.</response>
         [HttpPost("refresh")]
         [AllowAnonymous]
         [SwaggerHeader("request", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Get Token.")]
+        [SwaggerOperation(Summary = "Refresh Token.", Description = "Recovery of the access token every time it expires.")]
+        [SwaggerResponse(200, "Return recovery token user.")]
+        [SwaggerResponse(500, "Internal Server Error.")]
+        [SwaggerResponse(401, "Without authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

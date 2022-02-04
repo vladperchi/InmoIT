@@ -21,9 +21,14 @@ namespace InmoIT.Modules.Inmo.Core.Mappings
     {
         public PropertyProfile()
         {
+            CreateMap<RegisterPropertyCommand, Property>().ReverseMap();
+            CreateMap<UpdatePropertyCommand, Property>().ReverseMap();
             CreateMap<GetByIdCacheableFilter<Guid, Property>, GetPropertyByIdQuery>();
             CreateMap<GetAllPropertiesResponse, Property>().ReverseMap();
             CreateMap<GetPropertyByIdResponse, Property>().ReverseMap();
+            CreateMap<Property, GetAllPropertiesResponse>()
+                .ForMember(x => x.OwnerName, o => o.MapFrom(s => $"{s.Owner.Name} {s.Owner.SurName}"))
+                .ForMember(x => x.TypeName, o => o.MapFrom(s => $"{s.PropertyType.Name}"));
             CreateMap<PaginatedPropertyFilter, GetAllPropertiesQuery>()
                 .ForMember(dest => dest.OrderBy, opt => opt.ConvertUsing<string>(new OrderByConverter()));
         }

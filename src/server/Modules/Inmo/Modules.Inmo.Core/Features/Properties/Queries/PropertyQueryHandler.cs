@@ -51,7 +51,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
 
         public async Task<PaginatedResult<GetAllPropertiesResponse>> Handle(GetAllPropertiesQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Property, GetAllPropertiesResponse>> expression = e => new GetAllPropertiesResponse(e.Id, e.Name, e.Address, e.Description, e.Price, e.Tax, e.CodeInternal, e.Year, e.IsActive, e.OwnerId);
+            Expression<Func<Property, GetAllPropertiesResponse>> expression = e => new GetAllPropertiesResponse(e.Id, e.Name, e.Address, e.Description, e.SquareMeter, e.NumberRooms, e.NumberBathrooms, e.SalePrice, e.RentPrice, e.SaleTax, e.IncomeTax, e.CodeInternal, e.Year, e.HasParking, e.IsActive, e.OwnerName, e.OwnerId, e.PropertyTypeName, e.PropertyTypeId);
             var source = _context.Properties
                 .Where(x => x.IsActive)
                 .AsNoTracking()
@@ -59,6 +59,11 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
             if (request.OwnerIds.Length > 0)
             {
                 source = source.Where(x => request.OwnerIds.Contains(x.OwnerId));
+            }
+
+            if (request.PropertyTypeIds.Length > 0)
+            {
+                source = source.Where(x => request.PropertyTypeIds.Contains(x.PropertyTypeId));
             }
 
             string ordering = new OrderByConverter().Convert(request.OrderBy);
@@ -71,7 +76,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
                 .AsNoTracking()
                 .Specify(filterSpec)
                 .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new PropertyListEmptyException(_localizer);
@@ -87,6 +92,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
                     {
                         item.PropertyImageCaption = image.Data.Caption;
                         item.PropertyImageUrl = image.Data.ImageUrl;
+                        item.PropertyImageCode = image.Data.CodeImage;
                     }
                 }
             }
@@ -107,6 +113,17 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
             }
 
             var result = _mapper.Map<GetPropertyByIdResponse>(data);
+            var image = await _propertyImageService.GetDetailsPropertyImageAsync(result.Id);
+            if (image.Succeeded)
+            {
+                if (image.Data.Enabled)
+                {
+                    result.PropertyImageCaption = image.Data.Caption;
+                    result.PropertyImageUrl = image.Data.ImageUrl;
+                    result.PropertyImageCode = image.Data.CodeImage;
+                }
+            }
+
             return await Result<GetPropertyByIdResponse>.SuccessAsync(result);
         }
     }

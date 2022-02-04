@@ -5,8 +5,8 @@
     </assembly>
     <members>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.GetAllAsync(InmoIT.Shared.Dtos.Inmo.Owners.PaginatedOwnerFilter)">
-            <response code="200">Return list owners.</response>
-            <response code="204">List owners not content.</response>
+            <response code="200">Return owner list.</response>
+            <response code="204">Owner list not content.</response>
             <response code="401">Without authorization to access.</response>
             <response code="403">No permission to access.</response>
         </member>
@@ -16,8 +16,13 @@
             <response code="401">Without authorization to access.</response>
             <response code="403">No permission to access.</response>
         </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.GetPictureAsync(InmoIT.Modules.Inmo.Core.Features.Owners.Queries.GetOwnerImageQuery)">
+            <response code="200">Return image owner by id.</response>
+            <response code="404">Owner was not found.</response>
+            <response code="403">No permission to access.</response>
+        </member>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.RegisterAsync(InmoIT.Modules.Inmo.Core.Features.Owners.Commands.RegisterOwnerCommand)">
-            <response code="201">Return created owner.</response>
+            <response code="201">Return registered owner.</response>
             <response code="400">Owner already exists.</response>
             <response code="500">Owner Internal Server Error.</response>
             <response code="401">Without authorization to access.</response>
@@ -39,7 +44,81 @@
         </member>
         <member name="M:InmoIT.Modules.Inmo.Api.Controllers.OwnersController.ExportAsync(System.String)">
             <response code="200">Return export owners to excel.</response>
-            <response code="404">Owner was not found.</response>
+            <response code="404">Owners was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertiesController.GetAllAsync(InmoIT.Shared.Dtos.Inmo.Properties.PaginatedPropertyFilter)">
+            <response code="200">Return list properties.</response>
+            <response code="204">List properties not content.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertiesController.GetByIdAsync(InmoIT.Shared.Core.Features.Filters.GetByIdCacheableFilter{System.Guid,InmoIT.Modules.Inmo.Core.Entities.Property})">
+            <response code="200">Return property by id.</response>
+            <response code="404">Property was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertiesController.RegisterAsync(InmoIT.Modules.Inmo.Core.Features.Properties.Commands.RegisterPropertyCommand)">
+            <response code="201">Return registered property.</response>
+            <response code="400">Property already exists.</response>
+            <response code="500">Property Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertiesController.UpdateAsync(InmoIT.Modules.Inmo.Core.Features.Properties.Commands.UpdatePropertyCommand)">
+            <response code="200">Return updated property.</response>
+            <response code="404">Property was not found.</response>
+            <response code="500">Property Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertiesController.RemoveAsync(System.Guid)">
+            <response code="200">Return remove property.</response>
+            <response code="404">Property was not found.</response>
+            <response code="500">Property Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertiesController.ExportAsync(System.String)">
+            <response code="200">Return export properties to excel.</response>
+            <response code="404">Properties was not found.</response>
+            <response code="500">Export Properties Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertyImagesController.GetAllAsync(InmoIT.Shared.Dtos.Inmo.Images.PaginatedPropertyImageFilter)">
+            <response code="200">Return list property images.</response>
+            <response code="204">List property images not content.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertyImagesController.GetByIdAsync(InmoIT.Shared.Core.Features.Filters.GetByIdCacheableFilter{System.Guid,InmoIT.Modules.Inmo.Core.Entities.PropertyImage})">
+            <response code="200">Return property image by id.</response>
+            <response code="404">Property Image was not found.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertyImagesController.AddAsync(InmoIT.Modules.Inmo.Core.Features.Images.Commands.AddImageCommand)">
+            <response code="201">Return added list property images.</response>
+            <response code="404">Property was not found.</response>
+            <response code="400">Property Image already exists.</response>
+            <response code="500">Property Image Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertyImagesController.EditAsync(InmoIT.Modules.Inmo.Core.Features.Images.Commands.UpdateImageCommand)">
+            <response code="200">Return updated property image.</response>
+            <response code="404">Property Image was not found.</response>
+            <response code="500">Property Image Internal Server Error.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Inmo.Api.Controllers.PropertyImagesController.RemoveAsync(System.Guid)">
+            <response code="200">Return remove property image.</response>
+            <response code="404">Property Image was not found.</response>
+            <response code="500">Property Image Internal Server Error.</response>
             <response code="401">Without authorization to access.</response>
             <response code="403">No permission to access.</response>
         </member>

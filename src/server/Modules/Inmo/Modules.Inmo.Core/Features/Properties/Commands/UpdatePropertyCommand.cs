@@ -8,7 +8,6 @@
 
 using System;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Upload;
 using MediatR;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
@@ -23,14 +22,30 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
+        public int SquareMeter { get; set; }
 
-        public decimal Tax { get; set; }
+        public int NumberRooms { get; set; }
+
+        public int NumberBathrooms { get; set; }
+
+        public decimal SalePrice { get; set; }
+
+        public decimal RentPrice { get; set; }
+
+        public decimal SaleTax { get; set; }
+
+        public decimal IncomeTax { get; set; }
 
         public string CodeInternal { get; set; }
 
         public int Year { get; set; }
 
+        public bool HasParking { get; set; }
+
+        public bool IsActive { get; set; }
+
         public Guid OwnerId { get; set; }
+
+        public Guid PropertyTypeId { get; set; }
     }
 }

@@ -49,19 +49,26 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
                     };
                     bearer.Events = new JwtBearerEvents
                     {
-                        OnChallenge = context =>
+                        OnAuthenticationFailed = x =>
                         {
-                            context.HandleResponse();
-                            if (!context.Response.HasStarted)
+                            if (x.Exception is SecurityTokenExpiredException)
+                            {
+                                throw new IdentityException("The Token is expired.", statusCode: HttpStatusCode.Unauthorized);
+                            }
+                            else
+                            {
+                                throw new IdentityException("An unhandled error has occurred.", statusCode: HttpStatusCode.InternalServerError);
+                            }
+                        },
+                        OnChallenge = x =>
+                        {
+                            x.HandleResponse();
+                            if (!x.Response.HasStarted)
                             {
                                 throw new IdentityException("You are not Authorized.", statusCode: HttpStatusCode.Unauthorized);
                             }
 
                             return Task.CompletedTask;
-                        },
-                        OnAuthenticationFailed = _ =>
-                        {
-                            throw new IdentityException("Authentication Failed.", statusCode: HttpStatusCode.Unauthorized);
                         },
                         OnForbidden = _ =>
                         {

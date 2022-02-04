@@ -32,15 +32,13 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _roleClaimService = roleClaimService;
         }
 
-        /// <response code="200">Return all roles.</response>
-        /// <response code="204">Roles not content.</response>
+        /// <response code="200">Return role list.</response>
+        /// <response code="204">Role list not content.</response>
         /// <response code="401">Without authorization to access.</response>
         /// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Roles.View)]
-        [SwaggerOperation(
-            Summary = "Get List Roles (SuperAdmin, Admin, Basic, etc.).",
-            Description = "Description Get List Roles")]
+        [SwaggerOperation(Summary = "Get Role List.", Description = "SuperAdmin, Admin, Basic and more.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -48,6 +46,24 @@ namespace InmoIT.Modules.Identity.Api.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _roleService.GetAllAsync();
+            return Ok(response);
+        }
+
+        /// <response code="200">Return role by id.</response>
+        /// <response code="404">Role not found.</response>
+        /// <response code="401">Without authorization to access.</response>
+        /// <response code="403">No permission to access.</response>
+        [HttpGet("{id}")]
+        [HavePermission(PermissionsConstant.Roles.View)]
+        [SwaggerHeader("id", "Input data required", "", true)]
+        [SwaggerOperation(Summary = "Get Role By Id.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> GetByIdAsync([FromRoute] string id)
+        {
+            var response = await _roleService.GetByIdAsync(id);
             return Ok(response);
         }
 
@@ -105,13 +121,13 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="200">Return all role claims.</response>
-        /// <response code="204">Role claims not content.</response>
+        /// <response code="200">Return role claim list.</response>
+        /// <response code="204">Role claim list not content.</response>
         /// <response code="401">Without authorization to access.</response>
         /// <response code="403">No permission to access.</response>
         [HttpGet("permissions")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
-        [SwaggerOperation(Summary = "Get List Role Claims.")]
+        [SwaggerOperation(Summary = "Get Role Claim List.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -65,7 +65,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Queries
 
             var data = await sourse
                 .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new CartItemListEmptyException(_localizer);
@@ -100,6 +100,15 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Queries
             }
 
             var result = _mapper.Map<GetCartItemByIdResponse>(data);
+            var detailsProperty = await _propertyService.GetDetailsPropertyAsync(result.PropertyId);
+            if (detailsProperty.Succeeded)
+            {
+                result.PropertyCode = detailsProperty.Data.CodeInternal;
+                result.PropertyName = detailsProperty.Data.Name;
+                result.PropertyDetail = detailsProperty.Data.Description;
+                result.PropertyPrice = detailsProperty.Data.Price + detailsProperty.Data.Tax;
+            }
+
             return await Result<GetCartItemByIdResponse>.SuccessAsync(result);
         }
     }

@@ -45,13 +45,14 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
             try
             {
                 AddOwners();
+                AddPropertyTypes();
                 AddProperties();
                 AddPropertyImages();
                 _context.SaveChanges();
             }
             catch (Exception)
             {
-                _logger.LogError(_localizer["An error occurred while seeding Inmo Data."]);
+                _logger.LogError(_localizer["An error occurred while seeding Accounting Data."]);
             }
         }
 
@@ -63,11 +64,11 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                 if (!_context.Owners.Any())
                 {
                     string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.Owner.OwnersData);
-                    var data = _jsonSerializer.Deserialize<List<Owner>>(dataJSON);
+                    var dataDeserialize = _jsonSerializer.Deserialize<List<Owner>>(dataJSON);
 
-                    if (data != null)
+                    if (dataDeserialize != null)
                     {
-                        foreach (var item in data)
+                        foreach (var item in dataDeserialize)
                         {
                             await _context.Owners.AddAsync(item);
                         }
@@ -79,26 +80,26 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
             }).GetAwaiter().GetResult();
         }
 
-        private void AddProperties()
+        private void AddPropertyTypes()
         {
             Task.Run(async () =>
             {
                 string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                if (!_context.Properties.Any())
+                if (!_context.PropertyImages.Any())
                 {
-                    string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.Property.PropertiesData);
-                    var data = _jsonSerializer.Deserialize<List<Property>>(dataJSON);
+                    string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.PropertyType.PropertyTypesData);
+                    var dataDeserialize = _jsonSerializer.Deserialize<List<PropertyType>>(dataJSON);
 
-                    if (data != null)
+                    if (dataDeserialize != null)
                     {
-                        foreach (var item in data)
+                        foreach (var item in dataDeserialize)
                         {
-                            await _context.Properties.AddAsync(item);
+                            await _context.PropertyTypes.AddAsync(item);
                         }
                     }
 
                     await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Properties Successfully."]);
+                    _logger.LogInformation(_localizer["Seeded Property Types Successfully."]);
                 }
             }).GetAwaiter().GetResult();
         }
@@ -111,11 +112,11 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                 if (!_context.PropertyImages.Any())
                 {
                     string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.Image.PropertyImagesData);
-                    var data = _jsonSerializer.Deserialize<List<PropertyImage>>(dataJSON);
+                    var dataDeserialize = _jsonSerializer.Deserialize<List<PropertyImage>>(dataJSON);
 
-                    if (data != null)
+                    if (dataDeserialize != null)
                     {
-                        foreach (var item in data)
+                        foreach (var item in dataDeserialize)
                         {
                             await _context.PropertyImages.AddAsync(item);
                         }
@@ -123,6 +124,30 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
 
                     await _context.SaveChangesAsync();
                     _logger.LogInformation(_localizer["Seeded Property Images Successfully."]);
+                }
+            }).GetAwaiter().GetResult();
+        }
+
+        private void AddProperties()
+        {
+            Task.Run(async () =>
+            {
+                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                if (!_context.Properties.Any())
+                {
+                    string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.Property.PropertiesData);
+                    var datadataDeserialize = _jsonSerializer.Deserialize<List<Property>>(dataJSON);
+
+                    if (datadataDeserialize != null)
+                    {
+                        foreach (var item in datadataDeserialize)
+                        {
+                            await _context.Properties.AddAsync(item);
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation(_localizer["Seeded Properties Successfully."]);
                 }
             }).GetAwaiter().GetResult();
         }

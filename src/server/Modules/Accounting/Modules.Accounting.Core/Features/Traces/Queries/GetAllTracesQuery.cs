@@ -9,7 +9,7 @@
 using System;
 
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Inmo.Traces;
+using InmoIT.Shared.Dtos.Accounting.Traces;
 using MediatR;
 
 namespace InmoIT.Modules.Accounting.Core.Features.Traces.Queries

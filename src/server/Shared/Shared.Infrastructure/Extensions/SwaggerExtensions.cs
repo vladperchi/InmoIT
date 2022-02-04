@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Swagger.Filters;
@@ -76,16 +75,16 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                             .ToList();
 
                         return versions?.Any(v => $"v{v}" == version) == true
-                               && (!maps.Any() || maps.Any(v => $"v{v}" == version));
+                               && (maps.Count == 0 || maps.Any(v => $"v{v}" == version));
                     });
 
-                    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+                    var currentDomain = AppDomain.CurrentDomain;
+                    foreach (var assembly in currentDomain.GetAssemblies())
                     {
                         if (!assembly.IsDynamic)
                         {
                             string xmlFile = $"{assembly.GetName().Name}.xml";
-                            string xmlPath = Path.Combine(baseDirectory, xmlFile);
+                            string xmlPath = Path.Combine(currentDomain.BaseDirectory, xmlFile);
                             if (File.Exists(xmlPath))
                             {
                                 options.IncludeXmlComments(xmlPath);
@@ -127,6 +126,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                         Pattern = @"^([0-9]{1}|(?:0[0-9]|1[0-9]|2[0-3])+):([0-5]?[0-9])(?::([0-5]?[0-9])(?:.(\d{1,9}))?)?$",
                         Example = new OpenApiString("02:00:00")
                     });
+                    options.EnableAnnotations();
                     options.OperationFilter<SwaggerHeaderFilter>();
                 });
             }
@@ -154,20 +154,6 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                     Url = new Uri("https://github.com/vladperchi/InmoIT/blob/master/LICENSE"),
                 }
             });
-
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                if (!assembly.IsDynamic)
-                {
-                    string xmlFile = $"{assembly.GetName().Name}.xml";
-                    string xmlPath = Path.Combine(baseDirectory, xmlFile);
-                    if (File.Exists(xmlPath))
-                    {
-                        options.IncludeXmlComments(xmlPath);
-                    }
-                }
-            }
         }
     }
 }

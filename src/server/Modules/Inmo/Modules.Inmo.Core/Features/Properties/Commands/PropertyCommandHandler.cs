@@ -16,7 +16,6 @@ using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Exceptions;
 using InmoIT.Modules.Inmo.Core.Features.Properties.Events;
 using InmoIT.Shared.Core.Constants;
-using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -27,26 +26,23 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 {
     internal class PropertyCommandHandler :
        IRequestHandler<RegisterPropertyCommand, Result<Guid>>,
-        IRequestHandler<UpdatePropertyCommand, Result<Guid>>,
+       IRequestHandler<UpdatePropertyCommand, Result<Guid>>,
        IRequestHandler<RemovePropertyCommand, Result<Guid>>
     {
         private readonly IDistributedCache _cache;
         private readonly IInmoDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IUploadService _uploadService;
         private readonly IStringLocalizer<PropertyCommandHandler> _localizer;
 
         public PropertyCommandHandler(
             IDistributedCache cache,
             IInmoDbContext context,
             IMapper mapper,
-            IUploadService uploadService,
             IStringLocalizer<PropertyCommandHandler> localizer)
         {
             _cache = cache;
             _context = context;
             _mapper = mapper;
-            _uploadService = uploadService;
             _localizer = localizer;
         }
 
@@ -60,6 +56,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
             try
             {
+                command.CodeInternal.ToUpper();
                 var property = _mapper.Map<Property>(command);
                 property.AddDomainEvent(new PropertyRegisteredEvent(property));
                 await _context.Properties.AddAsync(property, cancellationToken);
@@ -76,13 +73,14 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
         {
             if (!await _context.Properties
                 .Where(x => x.Id == command.Id)
-                .AnyAsync(cancellationToken))
+                .AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
             {
                 throw new PropertyNotFoundException(_localizer);
             }
 
             try
             {
+                command.CodeInternal.ToUpper();
                 var property = _mapper.Map<Property>(command);
                 property.AddDomainEvent(new PropertyUpdatedEvent(property));
                 _context.Properties.Update(property);

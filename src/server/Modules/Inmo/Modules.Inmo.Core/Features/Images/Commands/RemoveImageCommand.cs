@@ -16,9 +16,9 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
     {
         public Guid Id { get; set; }
 
-        public RemoveImageCommand(Guid propertyId)
+        public RemoveImageCommand(Guid imageId)
         {
-            Id = propertyId;
+            Id = imageId;
         }
     }
 }

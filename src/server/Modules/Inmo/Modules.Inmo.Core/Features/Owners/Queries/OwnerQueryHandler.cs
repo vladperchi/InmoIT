@@ -62,7 +62,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
                 .Specify(filterSpec)
                 .Select(expression)
                 .AsNoTracking()
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new OwnerListEmptyException(_localizer);
@@ -92,6 +92,10 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
                 .Where(c => c.Id == request.Id)
                 .Select(a => a.ImageUrl)
                 .FirstOrDefaultAsync(cancellationToken);
+            if (result == null)
+            {
+                throw new OwnerNotFoundException(_localizer);
+            }
 
             return await Result<string>.SuccessAsync(result);
         }

@@ -8,7 +8,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Roles;
 

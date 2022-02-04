@@ -53,20 +53,21 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Export
 
         public async Task<Result<string>> Handle(ExportOwnersQuery request, CancellationToken cancellationToken)
         {
-            var ownerFilterSpec = new OwnerFilterSpecification(request.SearchString);
-            var ownerList = await _context.Owners
+            var filterSpec = new OwnerFilterSpecification(request.SearchString);
+            var data = await _context.Owners
                 .AsNoTracking()
                 .AsQueryable()
-                .Specify(ownerFilterSpec)
+                .Specify(filterSpec)
                 .ToListAsync(cancellationToken);
-            if (ownerList == null)
+            if (data == null)
             {
                 throw new OwnerListEmptyException(_localizer);
             }
 
-            string result = await _excelService.ExportAsync(ownerList, mappers: new Dictionary<string, Func<Owner, object>>
+            string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<Owner, object>>
             {
                 { _localizer["Name"], item => item.FullName },
+                { _localizer["Active"], item => item.IsActive ? "Yes" : "No" },
                 { _localizer["PhoneNumber"], item => item.PhoneNumber },
                 { _localizer["Email"], item => item.Email },
                 { _localizer["Address"], item => item.Address },

@@ -18,12 +18,13 @@ namespace InmoIT.Modules.Accounting.Core.Specifications
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                Criteria = x => EF.Functions.Like(x.Code.ToLower(), $"%{searchString.ToLower()}%")
-                || EF.Functions.Like(x.Name.ToLower(), $"%{searchString.ToLower()}%");
+                Criteria = x => !string.IsNullOrWhiteSpace(x.Code)
+                && (EF.Functions.Like(x.Code.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.Name.ToLower(), $"%{searchString.ToLower()}%"));
             }
             else
             {
-                Criteria = _ => true;
+                Criteria = x => !string.IsNullOrWhiteSpace(x.Code);
             }
         }
     }

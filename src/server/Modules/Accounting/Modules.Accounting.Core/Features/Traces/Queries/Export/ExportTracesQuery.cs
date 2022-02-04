@@ -53,19 +53,19 @@ namespace InmoIT.Modules.Accounting.Core.Features.Traces.Queries.Export
 
         public async Task<Result<string>> Handle(ExportTracesQuery request, CancellationToken cancellationToken)
         {
-            var traceFilterSpec = new TraceFilterSpecification(request.SearchString);
-            var traceList = await _context.PropertyTraces
+            var filterSpec = new TraceFilterSpecification(request.SearchString);
+            var data = await _context.PropertyTraces
                 .AsNoTracking()
                 .AsQueryable()
-                .Specify(traceFilterSpec)
+                .Specify(filterSpec)
                 .OrderByDescending(a => a.CreatedOn)
                 .ToListAsync(cancellationToken);
-            if (traceList == null)
+            if (data == null)
             {
                 throw new TraceListEmptyException(_localizer);
             }
 
-            string result = await _excelService.ExportAsync(traceList, mappers: new Dictionary<string, Func<PropertyTrace, object>>
+            string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<PropertyTrace, object>>
                 {
                     { _localizer["Code Internal"], item => item.Code.ToUpper() },
                     { _localizer["Name"], item => item.Name },

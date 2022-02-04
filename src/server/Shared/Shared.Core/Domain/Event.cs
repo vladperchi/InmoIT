@@ -27,7 +27,7 @@ namespace InmoIT.Shared.Core.Domain
         protected Event(string description = null)
         {
             Timestamp = DateTime.Now;
-            if (string.IsNullOrWhiteSpace(description))
+            if (!string.IsNullOrWhiteSpace(description))
             {
                 EventDescription = description;
             }

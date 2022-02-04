@@ -53,7 +53,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
                 ? sourse.OrderBy(ordering)
-                : sourse.OrderBy(a => a.Id);
+                : sourse.OrderBy(x => x.Id);
             if (request.CustomerId != null && !request.CustomerId.Equals(Guid.Empty))
             {
                 sourse = sourse.Where(x => x.CustomerId.Equals(request.CustomerId));
@@ -61,7 +61,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
 
             var data = await sourse
                 .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new CartListEmptyException(_localizer);

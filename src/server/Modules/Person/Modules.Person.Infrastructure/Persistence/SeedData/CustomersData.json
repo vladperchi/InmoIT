@@ -6,8 +6,9 @@
     "Gender": "Female",
     "Group": "VIP",
     "PhoneNumber": "0013053607020",
+    "Birthday": "1970-02-22T17:45:00.000Z",
     "Email": "paulaprado@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -17,8 +18,9 @@
     "Gender": "Female",
     "Group": "Normal",
     "PhoneNumber": "0013053617121",
+    "Birthday": "1971-07-18T17:45:00.000Z",
     "Email": "janellejanelle@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -28,8 +30,9 @@
     "Gender": "Female",
     "Group": "Normal",
     "PhoneNumber": "0013053627222",
+    "Birthday": "1973-01-22T17:45:00.000Z",
     "Email": "anarivera@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -39,8 +42,9 @@
     "Gender": "Male",
     "Group": "VIP",
     "PhoneNumber": "0013053637323",
+    "Birthday": "1973-03-23T17:45:00.000Z",
     "Email": "luismozquera@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -50,8 +54,9 @@
     "Gender": "Male",
     "Group": "Normal",
     "PhoneNumber": "0013053647424",
+    "Birthday": "1974-05-28T17:45:00.000Z",
     "Email": "robertorivera@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -61,8 +66,9 @@
     "Gender": "Male",
     "Group": "Normal",
     "PhoneNumber": "0013053657525",
+    "Birthday": "1979-07-25T17:45:00.000Z",
     "Email": "rafaelpuyol@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -72,8 +78,9 @@
     "Gender": "Male",
     "Group": "VIP",
     "PhoneNumber": "0013053667626",
+    "Birthday": "1976-07-21T17:45:00.000Z",
     "Email": "hectorvelez@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -83,8 +90,9 @@
     "Gender": "Female",
     "Group": "Normal",
     "PhoneNumber": "0013053677727",
+    "Birthday": "1980-07-19T17:45:00.000Z",
     "Email": "anastasiaguzman@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -94,8 +102,9 @@
     "Gender": "Female",
     "Group": "Normal",
     "PhoneNumber": "0013053687828",
+    "Birthday": "1977-10-12T17:45:00.000Z",
     "Email": "anadominit@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -105,8 +114,9 @@
     "Gender": "Female",
     "Group": "VIP",
     "PhoneNumber": "0013053697929",
+    "Birthday": "1972-07-22T17:45:00.000Z",
     "Email": "lissettepadron@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -116,8 +126,9 @@
     "Gender": "Male",
     "Group": "Normal",
     "PhoneNumber": "0013053718131",
+    "Birthday": "1975-09-17T17:45:00.000Z",
     "Email": "daniloprieto@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -127,8 +138,9 @@
     "Gender": "Female",
     "Group": "VIP",
     "PhoneNumber": "0013053728232",
+    "Birthday": "1971-02-15T17:45:00.000Z",
     "Email": "johannarivera@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -138,8 +150,9 @@
     "Gender": "Female",
     "Group": "Normal",
     "PhoneNumber": "0013053738333",
+    "Birthday": "1979-08-11T17:45:00.000Z",
     "Email": "luisaordonez@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -149,8 +162,9 @@
     "Gender": "Female",
     "Group": "Normal",
     "PhoneNumber": "0013053748434",
+    "Birthday": "1973-11-29T17:45:00.000Z",
     "Email": "estelaramirez@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -160,8 +174,9 @@
     "Gender": "Male",
     "Group": "Normal",
     "PhoneNumber": "0013053758535",
+    "Birthday": "1976-03-18T17:45:00.000Z",
     "Email": "rosaldaruedas@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -171,8 +186,9 @@
     "Gender": "Male",
     "Group": "Normal",
     "PhoneNumber": "0013053768636",
+    "Birthday": "1981-07-22T17:45:00.000Z",
     "Email": "orlandosilva@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -182,8 +198,9 @@
     "Gender": "Female",
     "Group": "VIP",
     "PhoneNumber": "0013053778737",
+    "Birthday": "1985-11-07T17:45:00.000Z",
     "Email": "omairarivera@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -193,8 +210,9 @@
     "Gender": "Male",
     "Group": "Normal",
     "PhoneNumber": "0013053788838",
+    "Birthday": "1988-02-25T17:45:00.000Z",
     "Email": "kevinruiz@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -204,8 +222,9 @@
     "Gender": "Female",
     "Group": "Normal",
     "PhoneNumber": "0013053798939",
+    "Birthday": "1982-09-10T17:45:00.000Z",
     "Email": "oliviamartinez@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   },
   {
@@ -215,8 +234,9 @@
     "Gender": "Male",
     "Group": "Normal",
     "PhoneNumber": "0013053809040",
+    "Birthday": "1975-09-26T17:45:00.000Z",
     "Email": "alejandroruedas@gmail.com",
-    "ImageUrl": "Files\\Images\\Customers\\default.png",
+    "ImageUrl": "Files\\Images\\Person\\Customers\\ghost.png",
     "IsActive": true
   }
 ]

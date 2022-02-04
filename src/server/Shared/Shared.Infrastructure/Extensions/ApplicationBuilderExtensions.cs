@@ -61,8 +61,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         internal static IApplicationBuilder Initialize(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
-            var initializers = serviceScope.ServiceProvider.GetServices<IDbSeeder>();
-            foreach (var initializer in initializers)
+            foreach (var initializer in serviceScope.ServiceProvider.GetServices<IDbSeeder>())
             {
                 initializer.Initialize();
             }

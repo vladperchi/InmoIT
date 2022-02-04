@@ -15,14 +15,16 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
 {
     public class GetAllPropertiesQuery : IRequest<PaginatedResult<GetAllPropertiesResponse>>
     {
+        public string SearchString { get; private set; }
+
         public int PageNumber { get; private set; }
 
         public int PageSize { get; private set; }
 
-        public string SearchString { get; private set; }
-
         public string[] OrderBy { get; private set; }
 
         public Guid[] OwnerIds { get; private set; }
+
+        public Guid[] PropertyTypeIds { get; private set; }
     }
 }

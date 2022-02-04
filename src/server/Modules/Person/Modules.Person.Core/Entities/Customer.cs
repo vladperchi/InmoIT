@@ -6,8 +6,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
-
 using InmoIT.Shared.Core.Domain;
 
 namespace InmoIT.Modules.Person.Core.Entities
@@ -19,6 +19,8 @@ namespace InmoIT.Modules.Person.Core.Entities
         public string SurName { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public DateTime Birthday { get; set; }
 
         public string Gender { get; set; }
 

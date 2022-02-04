@@ -9,7 +9,7 @@
 using System;
 using InmoIT.Modules.Accounting.Core.Entities;
 using InmoIT.Shared.Core.Features.Queries.Validators;
-using InmoIT.Shared.Dtos.Inmo.Traces;
+using InmoIT.Shared.Dtos.Accounting.Traces;
 using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Modules.Accounting.Core.Features.Traces.Queries.Validators

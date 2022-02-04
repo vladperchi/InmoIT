@@ -12,22 +12,27 @@ namespace InmoIT.Shared.Core.Constants
     {
         public static class Owner
         {
-            public const string OwnersData = "/Persistence/SeedData/OwnersData.json";
+            public const string OwnersData = @"\Persistence\SeedData\OwnersData.json";
         }
 
         public static class Property
         {
-            public const string PropertiesData = "/Persistence/SeedData/PropertiesData.json";
+            public const string PropertiesData = @"\Persistence\SeedData\PropertiesData.json";
+        }
+
+        public static class PropertyType
+        {
+            public const string PropertyTypesData = @"\Persistence\SeedData\PropertyTypesData.json";
         }
 
         public static class Image
         {
-            public const string PropertyImagesData = "/Persistence/SeedData/PropertyImagesData.json";
+            public const string PropertyImagesData = @"\Persistence\SeedData\PropertyImagesData.json";
         }
 
         public static class Customer
         {
-            public const string CustomersData = "/Persistence/SeedData/CustomersData.json";
+            public const string CustomersData = @"\Persistence\SeedData\CustomersData.json";
         }
     }
 }

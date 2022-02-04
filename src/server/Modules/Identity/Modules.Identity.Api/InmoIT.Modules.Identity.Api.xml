@@ -52,8 +52,14 @@
             <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetAllAsync">
-            <response code="200">Return all roles.</response>
-            <response code="204">Roles not content.</response>
+            <response code="200">Return role list.</response>
+            <response code="204">Role list not content.</response>
+            <response code="401">Without authorization to access.</response>
+            <response code="403">No permission to access.</response>
+        </member>
+        <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetByIdAsync(System.String)">
+            <response code="200">Return role by id.</response>
+            <response code="404">Role not found.</response>
             <response code="401">Without authorization to access.</response>
             <response code="403">No permission to access.</response>
         </member>
@@ -76,8 +82,8 @@
             <response code="403">No permission to access.</response>
         </member>
         <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.GetAllClaimsAsync">
-            <response code="200">Return all role claims.</response>
-            <response code="204">Role claims not content.</response>
+            <response code="200">Return role claim list.</response>
+            <response code="204">Role claim list not content.</response>
             <response code="401">Without authorization to access.</response>
             <response code="403">No permission to access.</response>
         </member>
@@ -96,18 +102,6 @@
         <member name="M:InmoIT.Modules.Identity.Api.Controllers.RolesController.DeleteClaimByIdAsync(System.Int32)">
             <response code="200">Return deleted role claims by id.</response>
             <response code="404">Role Claim does not exist.</response>
-            <response code="401">Without authorization to access.</response>
-            <response code="403">No permission to access.</response>
-        </member>
-        <member name="M:InmoIT.Modules.Identity.Api.Controllers.TokensController.GetTokenAsync(InmoIT.Shared.Dtos.Identity.Tokens.TokenRequest)">
-            <response code="200">Return token user.</response>
-            <response code="500">Internal Server Error.</response>
-            <response code="401">Without authorization to access.</response>
-            <response code="403">No permission to access.</response>
-        </member>
-        <member name="M:InmoIT.Modules.Identity.Api.Controllers.TokensController.RefreshAsync(InmoIT.Shared.Dtos.Identity.Tokens.RefreshTokenRequest)">
-            <response code="200">Return token user.</response>
-            <response code="500">Internal Server Error.</response>
             <response code="401">Without authorization to access.</response>
             <response code="403">No permission to access.</response>
         </member>

@@ -99,7 +99,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     UserName = "superadmin",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedOn = DateTime.Now
                 };
                 var superUserInDb = await _userManager.FindByEmailAsync(superUser.Email);
                 if (superUserInDb == null)
@@ -147,7 +148,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     UserName = "admincamilo",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedOn = DateTime.Now
                 };
 
                 var adminUserInDb = await _userManager.FindByEmailAsync(adminUser.Email);
@@ -192,12 +194,12 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     IsActive = true,
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = DateTime.Now
                 };
                 var staffUserInDb = await _userManager.FindByEmailAsync(staffUser.Email);
                 if (staffUserInDb == null)
                 {
-                    await _userManager.CreateAsync(staffUser, UserConstant.DefaultPassword);
+                    await _userManager.CreateAsync(staffUser, UserConstant.BasicPassword);
                     var result = await _userManager.AddToRoleAsync(staffUser, RolesConstant.Staff);
                     if (result.Succeeded)
                     {

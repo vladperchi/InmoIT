@@ -15,6 +15,10 @@ namespace InmoIT.Shared.Core.Integration.Inmo
 {
     public interface IPropertyImageService
     {
-        Task<Result<GetPropertyImageByIdResponse>> GetDetailsPropertyImageAsync(Guid propertyId);
+        Task<Result<GetPropertyImageByPropertyIdResponse>> GetDetailsPropertyImageAsync(Guid propertyId);
+
+        Task<string> GenerateFileName(int length);
+
+        Task<int> GetCountAsync();
     }
 }

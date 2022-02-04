@@ -16,10 +16,11 @@ using AutoMapper;
 using InmoIT.Modules.Accounting.Core.Abstractions;
 using InmoIT.Modules.Accounting.Core.Entities;
 using InmoIT.Modules.Accounting.Core.Exceptions;
+using InmoIT.Modules.Accounting.Core.Specifications;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Mappings.Converters;
 using InmoIT.Shared.Core.Wrapper;
-using InmoIT.Shared.Dtos.Inmo.Traces;
+using InmoIT.Shared.Dtos.Accounting.Traces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -58,9 +59,12 @@ namespace InmoIT.Modules.Accounting.Core.Features.Traces.Queries
                 sourse = sourse.Where(x => x.PropertyId.Equals(request.PropertyId));
             }
 
+            var filterSpec = new TraceFilterSpecification(request.SearchString);
             var data = await sourse
+                .Specify(filterSpec)
                 .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize, _localizer);
+                .AsNoTracking()
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new TraceListEmptyException(_localizer);

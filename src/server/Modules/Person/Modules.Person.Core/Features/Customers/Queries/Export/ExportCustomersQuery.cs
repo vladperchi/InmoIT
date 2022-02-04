@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,22 +53,24 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
 
         public async Task<Result<string>> Handle(ExportCustomersQuery request, CancellationToken cancellationToken)
         {
-            var customerFilterSpec = new CustomerFilterSpecification(request.SearchString);
-            var customerList = await _context.Customers
+            var filterSpec = new CustomerFilterSpecification(request.SearchString);
+            var data = await _context.Customers
                 .AsNoTracking()
                 .AsQueryable()
-                .Specify(customerFilterSpec)
+                .Specify(filterSpec)
                 .ToListAsync(cancellationToken);
-            if (customerList == null)
+            if (data == null)
             {
                 throw new CustomerListEmptyException(_localizer);
             }
 
-            string result = await _excelService.ExportAsync(customerList, mappers: new Dictionary<string, Func<Customer, object>>
+            string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<Customer, object>>
             {
                 { _localizer["Name"], item => item.FullName },
+                { _localizer["Active"], item => item.IsActive ? "Yes" : "No" },
                 { _localizer["PhoneNumber"], item => item.PhoneNumber },
                 { _localizer["Email"], item => item.Email },
+                { _localizer["Birthday"], item => item.Birthday.ToString("G", CultureInfo.CurrentCulture) },
                 { _localizer["Gender"], item => item.Gender },
                 { _localizer["Group"], item => item.Group }
             }, sheetName: _localizer["Customers"]);
