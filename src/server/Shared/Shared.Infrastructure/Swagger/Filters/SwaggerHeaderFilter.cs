@@ -6,12 +6,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using InmoIT.Shared.Core.Attributes;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 
@@ -42,15 +40,12 @@ namespace InmoIT.Shared.Infrastructure.Swagger.Filters
                     In = ParameterLocation.Header,
                     Description = attribute.Description,
                     Required = attribute.IsRequired,
-
                     Schema = string.IsNullOrEmpty(attribute.DefaultValue)
                         ? null
                         : new OpenApiSchema
                         {
-                            Type = "string",
-                            Nullable = true,
-                            Pattern = @"^([0-9]{1}|(?:0[0-9]|1[0-9]|2[0-3])+):([0-5]?[0-9])(?::([0-5]?[0-9])(?:.(\d{1,9}))?)?$",
-                            Example = new OpenApiString("02:00:00")
+                            Type = "String",
+                            Default = new OpenApiString(attribute.DefaultValue)
                         }
                 });
             }
