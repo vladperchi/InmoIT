@@ -6,9 +6,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
+using System.Net;
+using Hangfire;
+using InmoIT.Shared.Core.Exceptions;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Settings;
-using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,13 +35,19 @@ namespace InmoIT.Shared.Infrastructure.Persistence
         private static IServiceCollection AddMSSQL<T>(this IServiceCollection services, string connectionString)
             where T : DbContext
         {
-            services.AddDbContext<T>(m => m.UseSqlServer(connectionString, e => e.MigrationsAssembly(typeof(T).Assembly.FullName)));
-            services.AddHangfire(x => x.UseSqlServerStorage(connectionString));
-            using var scope = services.BuildServiceProvider().CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<T>();
-            dbContext.Database.Migrate();
-
-            return services;
+            try
+            {
+                services.AddDbContext<T>(m => m.UseSqlServer(connectionString, e => e.MigrationsAssembly(typeof(T).Assembly.FullName)));
+                services.AddHangfire(x => x.UseSqlServerStorage(connectionString));
+                using var scope = services.BuildServiceProvider().CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<T>();
+                dbContext.Database.Migrate();
+                return services;
+            }
+            catch (Exception)
+            {
+                throw new CustomException("Migration errors have occurred..", statusCode: HttpStatusCode.BadRequest);
+            }
         }
     }
 }
