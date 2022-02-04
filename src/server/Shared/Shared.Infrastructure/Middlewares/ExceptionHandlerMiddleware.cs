@@ -21,7 +21,6 @@ using InmoIT.Shared.Core.Wrapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 using Newtonsoft.Json.Serialization;
 
 namespace InmoIT.Shared.Infrastructure.Middlewares
