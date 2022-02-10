@@ -87,7 +87,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         private static IServiceCollection AddDockerSettings(this IServiceCollection services, IConfiguration config)
         {
             return services
-                .Configure<DockerSettings>(config.GetSection(nameof(DockerSettings)));
+                .Configure<ContainerSettings>(config.GetSection(nameof(ContainerSettings)));
         }
     }
 }

@@ -14,6 +14,8 @@ namespace InmoIT.Modules.Inmo.Core.Entities
     {
         public string Name { get; set; }
 
+        public string CodeInternal { get; set; }
+
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }

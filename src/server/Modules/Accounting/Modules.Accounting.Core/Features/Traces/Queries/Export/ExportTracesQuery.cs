@@ -70,7 +70,7 @@ namespace InmoIT.Modules.Accounting.Core.Features.Traces.Queries.Export
                     { _localizer["Code Internal"], item => item.Code.ToUpper() },
                     { _localizer["Name"], item => item.Name },
                     { _localizer["Price"], item => item.Tolal.ToString("C") },
-                    { _localizer["Operation"], item => item.Type == 0 ? "Rent" : "Sale" },
+                    { _localizer["Operation"], item => item.TransactionType == 0 ? "Rent" : "Sale" },
                     { _localizer["CreatedOn"], item => item.CreatedOn.ToString("G", CultureInfo.CurrentCulture) },
                     { _localizer["UpdatedOn"], item => item.UpdatedOn.ToString("G", CultureInfo.CurrentCulture) }
                 }, sheetName: _localizer["Traces"]);

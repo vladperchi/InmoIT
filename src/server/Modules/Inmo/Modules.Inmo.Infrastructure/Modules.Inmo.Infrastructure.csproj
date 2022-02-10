@@ -16,6 +16,10 @@
         <CodeAnalysisRuleSet>..\..\..\InmoIT.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="Persistence\Resources\Owners.json" />
+    </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
@@ -29,8 +33,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Persistence\Resources\Owners.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules.Inmo.Core\Modules.Inmo.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Persistence\Resources\Seeds.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Seeds.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Persistence\Resources\Seeds.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Seeds.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

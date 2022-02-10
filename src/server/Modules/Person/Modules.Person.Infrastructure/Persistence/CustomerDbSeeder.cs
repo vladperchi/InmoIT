@@ -8,18 +8,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using InmoIT.Modules.Person.Core.Entities;
-using InmoIT.Shared.Core.Constants;
+using InmoIT.Modules.Person.Infrastructure.Persistence.Resources;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
 using InmoIT.Shared.Core.Interfaces.Services;
+using InmoIT.Shared.Core.Utilities;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-
-using static System.Net.Mime.MediaTypeNames;
 
 namespace InmoIT.Modules.Person.Infrastructure.Persistence
 {
@@ -59,12 +57,9 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
         {
             Task.Run(async () =>
             {
-                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 if (!_context.Customers.Any())
                 {
-                    string dataJSON = await File.ReadAllTextAsync(path + SeedsConstant.Customer.CustomersData);
-                    var dataDeserialize = _jsonSerializer.Deserialize<List<Customer>>(dataJSON);
-
+                    var dataDeserialize = DeserializeJson<Customer>(Seeds.Customers);
                     if (dataDeserialize != null)
                     {
                         foreach (var customer in dataDeserialize)
@@ -74,9 +69,12 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
                     }
 
                     await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Customers."]);
+                    _logger.LogInformation(_localizer["Seeded Customers Successfully."]);
                 }
             }).GetAwaiter().GetResult();
         }
+
+        private List<T> DeserializeJson<T>(byte[] data)
+            => _jsonSerializer.Deserialize<List<T>>(Encoding.Default.GetString(data));
     }
 }

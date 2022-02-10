@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Exceptions;
-using InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Export;
 using InmoIT.Modules.Inmo.Core.Specifications;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Services;
@@ -61,12 +60,12 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries.Export
                 .ToListAsync(cancellationToken);
             if (data == null)
             {
-                throw new OwnerListEmptyException(_localizer);
+                throw new PropertyTypeListEmptyException(_localizer);
             }
 
             string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<PropertyType, object>>
             {
-                { _localizer["Name"], item => item.Name },
+                { _localizer["Name"], item => $"{item.Name} ({item.CodeInternal})" },
                 { _localizer["Description"], item => item.Description },
                 { _localizer["Active"], item => item.IsActive ? "Yes" : "No" }
             }, sheetName: _localizer["Property Types"]);

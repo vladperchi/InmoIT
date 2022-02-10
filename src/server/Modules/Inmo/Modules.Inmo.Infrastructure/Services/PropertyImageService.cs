@@ -8,23 +8,27 @@
 
 using System;
 using System.Threading.Tasks;
-
+using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Features.Images.Queries;
 using InmoIT.Shared.Core.Integration.Inmo;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Inmo.Images;
 using InmoIT.Shared.Infrastructure.Common;
-
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace InmoIT.Modules.Inmo.Infrastructure.Services
 {
     public class PropertyImageService : IPropertyImageService
     {
+        private readonly IInmoDbContext _context;
         private readonly IMediator _mediator;
 
-        public PropertyImageService(IMediator mediator)
+        public PropertyImageService(
+            IInmoDbContext context,
+            IMediator mediator)
         {
+            _context = context;
             _mediator = mediator;
         }
 
@@ -36,6 +40,11 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
         public async Task<string> GenerateFileName(int length)
         {
             return await Utilities.GenerateCode("P", length);
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _context.PropertyImages.CountAsync();
         }
     }
 }

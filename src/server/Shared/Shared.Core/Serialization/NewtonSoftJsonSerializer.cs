@@ -9,7 +9,6 @@
 using System;
 using InmoIT.Shared.Core.Interfaces.Serialization;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
-
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -24,13 +23,13 @@ namespace InmoIT.Shared.Core.Serialization
             _settings = settings.Value.JsonSerializerSettings;
         }
 
-        public T Deserialize<T>(string text, IJsonSerializerSettingsOptions settings = null)
-            => JsonConvert.DeserializeObject<T>(text, settings?.JsonSerializerSettings ?? _settings);
+        public T Deserialize<T>(string data, IJsonSerializerSettingsOptions settings = null)
+            => JsonConvert.DeserializeObject<T>(data, settings?.JsonSerializerSettings ?? _settings);
 
-        public string Serialize<T>(T obj, IJsonSerializerSettingsOptions settings = null)
-            => JsonConvert.SerializeObject(obj, settings?.JsonSerializerSettings ?? _settings);
+        public string Serialize<T>(T data, IJsonSerializerSettingsOptions settings = null)
+            => JsonConvert.SerializeObject(data, settings?.JsonSerializerSettings ?? _settings);
 
-        public string Serialize<T>(T obj, Type type, IJsonSerializerSettingsOptions settings = null)
-            => JsonConvert.SerializeObject(obj, type, settings?.JsonSerializerSettings ?? _settings);
+        public string Serialize<T>(T data, Type type, IJsonSerializerSettingsOptions settings = null)
+            => JsonConvert.SerializeObject(data, type, settings?.JsonSerializerSettings ?? _settings);
     }
 }

@@ -23,7 +23,7 @@ namespace InmoIT.Modules.Accounting.Core.Entities
 
         public decimal Tax { get; set; }
 
-        public TransactionType Type { get; set; }
+        public TransactionType TransactionType { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

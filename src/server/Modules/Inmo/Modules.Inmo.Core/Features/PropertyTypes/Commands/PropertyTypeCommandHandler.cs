@@ -31,7 +31,7 @@ using Microsoft.Extensions.Localization;
 namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
 {
     internal class PropertyTypeCommandHandler :
-        IRequestHandler<RegisterPropertyTypeCommand, Result<Guid>>,
+        IRequestHandler<CreatePropertyTypeCommand, Result<Guid>>,
         IRequestHandler<UpdatePropertyTypeCommand, Result<Guid>>,
         IRequestHandler<RemovePropertyTypeCommand, Result<Guid>>
     {
@@ -58,7 +58,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
             _cache = cache;
         }
 
-        public async Task<Result<Guid>> Handle(RegisterPropertyTypeCommand command, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(CreatePropertyTypeCommand command, CancellationToken cancellationToken)
         {
             if (await _context.PropertyTypes
                 .Where(x => x.IsActive)
@@ -145,7 +145,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
 
             try
             {
-                propertyType.AddDomainEvent(new OwnerRemovedEvent(propertyType.Id));
+                propertyType.AddDomainEvent(new PropertyTypeRemovedEvent(propertyType.Id));
                 _context.PropertyTypes.Remove(propertyType);
                 await _context.SaveChangesAsync(cancellationToken);
                 await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyType>(command.Id), cancellationToken);

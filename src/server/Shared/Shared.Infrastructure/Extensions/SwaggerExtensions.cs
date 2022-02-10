@@ -144,7 +144,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 TermsOfService = new Uri("https://example.com/terms"),
                 Contact = new OpenApiContact
                 {
-                    Name = "Vladimir P. CHibás",
+                    Name = "Vladimir P. CHibás (vladperchi)",
                     Email = "codewithvladperchi@outlook.com",
                     Url = new Uri("https://twitter.com/codewithvlad"),
                 },

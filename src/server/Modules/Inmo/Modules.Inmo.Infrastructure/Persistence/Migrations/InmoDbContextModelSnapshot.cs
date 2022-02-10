@@ -15,12 +15,12 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("Accounting")
+                .HasDefaultSchema("Inmo")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("InmoIT.Modules.Accounting.Core.Entities.Owner", b =>
+            modelBuilder.Entity("InmoIT.Modules.Inmo.Core.Entities.Owner", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +61,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
                     b.ToTable("Owners");
                 });
 
-            modelBuilder.Entity("InmoIT.Modules.Accounting.Core.Entities.Property", b =>
+            modelBuilder.Entity("InmoIT.Modules.Inmo.Core.Entities.Property", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,19 +76,40 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("HasParking")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("IncomeTax")
+                        .HasColumnType("decimal(23,2)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumberBathrooms")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberRooms")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Price")
+                    b.Property<Guid>("PropertyTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("RentPrice")
                         .HasColumnType("decimal(23,2)");
 
-                    b.Property<decimal>("Tax")
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(23,2)");
+
+                    b.Property<decimal>("SaleTax")
+                        .HasColumnType("decimal(23,2)");
+
+                    b.Property<decimal>("SquareMeter")
                         .HasColumnType("decimal(23,2)");
 
                     b.Property<int>("Year")
@@ -98,10 +119,12 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("OwnerId");
 
+                    b.HasIndex("PropertyTypeId");
+
                     b.ToTable("Properties");
                 });
 
-            modelBuilder.Entity("InmoIT.Modules.Accounting.Core.Entities.PropertyImage", b =>
+            modelBuilder.Entity("InmoIT.Modules.Inmo.Core.Entities.PropertyImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,20 +152,54 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
                     b.ToTable("PropertyImages");
                 });
 
-            modelBuilder.Entity("InmoIT.Modules.Accounting.Core.Entities.Property", b =>
+            modelBuilder.Entity("InmoIT.Modules.Inmo.Core.Entities.PropertyType", b =>
                 {
-                    b.HasOne("InmoIT.Modules.Accounting.Core.Entities.Owner", "Owner")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CodeInternal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PropertyTypes");
+                });
+
+            modelBuilder.Entity("InmoIT.Modules.Inmo.Core.Entities.Property", b =>
+                {
+                    b.HasOne("InmoIT.Modules.Inmo.Core.Entities.Owner", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("InmoIT.Modules.Inmo.Core.Entities.PropertyType", "PropertyType")
+                        .WithMany()
+                        .HasForeignKey("PropertyTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Owner");
+
+                    b.Navigation("PropertyType");
                 });
 
-            modelBuilder.Entity("InmoIT.Modules.Accounting.Core.Entities.PropertyImage", b =>
+            modelBuilder.Entity("InmoIT.Modules.Inmo.Core.Entities.PropertyImage", b =>
                 {
-                    b.HasOne("InmoIT.Modules.Accounting.Core.Entities.Property", "Property")
+                    b.HasOne("InmoIT.Modules.Inmo.Core.Entities.Property", "Property")
                         .WithMany()
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)

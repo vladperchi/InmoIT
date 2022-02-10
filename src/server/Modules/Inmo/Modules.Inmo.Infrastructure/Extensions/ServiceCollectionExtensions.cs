@@ -27,10 +27,10 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
                 .AddScoped<IInmoDbContext>(provider => provider.GetService<InmoDbContext>());
             services.AddTransient<IDbSeeder, InmoDbSeeder>();
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddTransient<IOwnerService, OwnerService>();
+            services.AddTransient<IPropertyTypeService, PropertyTypeService>();
             services.AddTransient<IPropertyService, PropertyService>();
             services.AddTransient<IPropertyImageService, PropertyImageService>();
-            services.AddTransient<IPropertyTypeService, PropertyTypeService>();
-            services.AddTransient<IOwnerService, OwnerService>();
             return services;
         }
 

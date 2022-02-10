@@ -71,6 +71,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                     var roleInDb = await _roleManager.FindByNameAsync(roleName);
                     if (roleInDb == null)
                     {
+                        role.Description = $"ROLE {roleName.ToUpper()}";
                         await _roleManager.CreateAsync(role);
                         _logger.LogInformation(string.Format(_localizer["Added '{0}' to Roles"], roleName));
                     }

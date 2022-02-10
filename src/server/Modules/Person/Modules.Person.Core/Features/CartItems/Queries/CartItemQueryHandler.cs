@@ -53,6 +53,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Queries
             Expression<Func<CartItem, GetAllCartItemsResponse>> expression = e => new GetAllCartItemsResponse(e.Id, e.CartId, e.PropertyId);
             var sourse = _context.CartItems
                 .AsNoTracking()
+                .OrderBy(x => x.Id)
                 .AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
@@ -80,7 +81,8 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Queries
                     item.PropertyCode = detailsProperty.Data.CodeInternal;
                     item.PropertyName = detailsProperty.Data.Name;
                     item.PropertyDetail = detailsProperty.Data.Description;
-                    item.PropertyPrice = detailsProperty.Data.Price + detailsProperty.Data.Tax;
+                    item.PropertySalePrice = detailsProperty.Data.SalePrice + detailsProperty.Data.SaleTax;
+                    item.PropertyRentPrice = detailsProperty.Data.RentPrice + detailsProperty.Data.IncomeTax;
                 }
             }
 
@@ -106,7 +108,8 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Queries
                 result.PropertyCode = detailsProperty.Data.CodeInternal;
                 result.PropertyName = detailsProperty.Data.Name;
                 result.PropertyDetail = detailsProperty.Data.Description;
-                result.PropertyPrice = detailsProperty.Data.Price + detailsProperty.Data.Tax;
+                result.PropertySalePrice = detailsProperty.Data.SalePrice + detailsProperty.Data.SaleTax;
+                result.PropertyRentPrice = detailsProperty.Data.RentPrice + detailsProperty.Data.IncomeTax;
             }
 
             return await Result<GetCartItemByIdResponse>.SuccessAsync(result);

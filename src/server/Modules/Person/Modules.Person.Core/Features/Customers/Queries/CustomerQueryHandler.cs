@@ -50,8 +50,8 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries
         {
             Expression<Func<Customer, GetAllCustomersResponse>> expression = e => new GetAllCustomersResponse(e.Id, e.Name, e.SurName, e.PhoneNumber, e.Birthday, e.Gender, e.Group, e.Email, e.ImageUrl);
             var source = _context.Customers
-                .Where(x => x.IsActive)
                 .AsNoTracking()
+                .OrderBy(x => x.Id)
                 .AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             source = !string.IsNullOrWhiteSpace(ordering)

@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
         public string Description { get; set; }
 
-        public int SquareMeter { get; set; }
+        public decimal SquareMeter { get; set; }
 
         public int NumberRooms { get; set; }
 

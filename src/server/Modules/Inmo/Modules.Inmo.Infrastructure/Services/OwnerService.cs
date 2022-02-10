@@ -8,6 +8,8 @@
 
 using System;
 using System.Threading.Tasks;
+
+using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Commands;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Queries;
 using InmoIT.Shared.Core.Integration.Inmo;
@@ -16,14 +18,20 @@ using InmoIT.Shared.Dtos.Inmo.Owners;
 using InmoIT.Shared.Infrastructure.Common;
 using MediatR;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace InmoIT.Modules.Inmo.Infrastructure.Services
 {
     public class OwnerService : IOwnerService
     {
+        private readonly IInmoDbContext _context;
         private readonly IMediator _mediator;
 
-        public OwnerService(IMediator mediator)
+        public OwnerService(
+            IInmoDbContext context,
+            IMediator mediator)
         {
+            _context = context;
             _mediator = mediator;
         }
 
@@ -40,6 +48,11 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
         public async Task<string> GenerateFileName(int length)
         {
             return await Utilities.GenerateCode("O", length);
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _context.Owners.CountAsync();
         }
     }
 }

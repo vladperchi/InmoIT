@@ -24,7 +24,7 @@ namespace InmoIT.Modules.Inmo.Core.Specifications
             }
             else
             {
-                Criteria = x => x.IsActive;
+                Criteria = _ => true;
             }
         }
     }

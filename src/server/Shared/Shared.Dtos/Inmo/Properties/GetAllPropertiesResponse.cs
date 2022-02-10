@@ -10,14 +10,12 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Inmo.Properties
 {
-    public record GetAllPropertiesResponse(Guid Id, string Name, string Address, string Description, int SquareMeter, int NumberRooms, int NumberBathrooms, decimal SalePrice, decimal RentPrice, decimal SaleTax, decimal IncomeTax, string CodeInternal, int Year, bool HasParking, bool IsActive, string OwnerName, Guid OwnerId, string TypeName, Guid PropertyType)
+    public record GetAllPropertiesResponse(Guid Id, string Name, string Address, string Description, decimal SquareMeter, int NumberRooms, int NumberBathrooms, decimal SalePrice, decimal RentPrice, decimal SaleTax, decimal IncomeTax, string CodeInternal, int Year, bool HasParking, bool IsActive, string OwnerName, Guid OwnerId, string TypeName, Guid PropertyTypeId)
     {
         public string PropertyImageCaption { get; set; }
 
         public string PropertyImageUrl { get; set; }
 
         public string PropertyImageCode { get; set; }
-
-        public bool PropertyImageEnabled { get; set; }
     }
 }

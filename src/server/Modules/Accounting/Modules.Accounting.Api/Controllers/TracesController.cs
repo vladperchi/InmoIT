@@ -22,18 +22,18 @@ namespace InmoIT.Modules.Accounting.Api.Controllers
     [ApiVersion("1")]
     internal class TracesController : BaseController
     {
-        /// <response code="200">Return property trace list.</response>
-        /// <response code="204">Property trace list not content.</response>
-        /// <response code="401">Without authorization to access.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return property trace list.</response>
+        ///// <response code="204">Property trace list not content.</response>
+        ///// <response code="401">Without authorization to access.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Traces.ViewAll)]
-        [SwaggerHeader("filter", "Input data required to validate in API", "", true)]
-        [SwaggerOperation(Summary = "Get Property Trace List.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("filter", "Input data required to validate in API", "", true)]
+        //[SwaggerOperation(Summary = "Get Property Trace List.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginatedTraceFilter filter)
         {
             var request = Mapper.Map<GetAllTracesQuery>(filter);
@@ -41,18 +41,18 @@ namespace InmoIT.Modules.Accounting.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="200">Return export property traces to excel.</response>
-        /// <response code="404">Trace was not found.</response>
-        /// <response code="401">Without authorization to access.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return export property traces to excel.</response>
+        ///// <response code="404">Trace was not found.</response>
+        ///// <response code="401">Without authorization to access.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Traces.Export)]
-        [SwaggerHeader("searchString", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Export Property Traces To Excel.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("searchString", "Input data required in API", "", true)]
+        //[SwaggerOperation(Summary = "Export Property Traces To Excel.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> ExportAsync(string searchString = "")
         {
             return Ok(await Mediator.Send(new ExportTracesQuery(searchString)));

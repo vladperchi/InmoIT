@@ -50,8 +50,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
         {
             Expression<Func<Owner, GetAllOwnersResponse>> expression = x => new GetAllOwnersResponse(x.Id, x.Name, x.SurName, x.Address, x.ImageUrl, x.Birthday, x.Gender, x.Group, x.Email, x.PhoneNumber);
             var sourse = _context.Owners
-                .Where(x => x.IsActive)
                 .AsNoTracking()
+                .OrderBy(x => x.Id)
                 .AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
@@ -74,6 +74,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
         public async Task<Result<GetOwnerByIdResponse>> Handle(GetOwnerByIdQuery query, CancellationToken cancellationToken)
         {
             var data = await _context.Owners
+                .AsNoTracking()
                 .Where(x => x.Id == query.Id)
                 .FirstOrDefaultAsync(cancellationToken);
             if (data == null)

@@ -6,8 +6,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
+using System.Net;
 using System.Security.Claims;
+
+using InmoIT.Modules.Identity.Core.Exceptions;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Extensions
 {
@@ -17,7 +19,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
         {
             if (principal == null)
             {
-                throw new ArgumentNullException(nameof(principal));
+                throw new IdentityException("User was not found...", statusCode: HttpStatusCode.NotFound);
             }
 
             var claim = principal.FindFirst(ClaimTypes.NameIdentifier);
@@ -28,7 +30,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
         {
             if (principal == null)
             {
-                throw new ArgumentNullException(nameof(principal));
+                throw new IdentityException("User was not found...", statusCode: HttpStatusCode.NotFound);
             }
 
             var claim = principal.FindFirst(ClaimTypes.Email);

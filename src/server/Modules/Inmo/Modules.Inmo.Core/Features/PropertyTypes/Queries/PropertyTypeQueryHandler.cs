@@ -28,7 +28,7 @@ using InmoIT.Modules.Inmo.Core.Specifications;
 namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries
 {
     internal class PropertyTypeQueryHandler :
-        IRequestHandler<GetAllPropertyTypesQuery, PaginatedResult<GetAllPropertyTpesResponse>>,
+        IRequestHandler<GetAllPropertyTypesQuery, PaginatedResult<GetAllPropertyTypesResponse>>,
         IRequestHandler<GetPropertyTypeByIdQuery, Result<GetPropertyTypeByIdResponse>>,
         IRequestHandler<GetPropertyTypeImageQuery, Result<string>>
     {
@@ -46,12 +46,12 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries
             _localizer = localizer;
         }
 
-        public async Task<PaginatedResult<GetAllPropertyTpesResponse>> Handle(GetAllPropertyTypesQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<GetAllPropertyTypesResponse>> Handle(GetAllPropertyTypesQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<PropertyType, GetAllPropertyTpesResponse>> expression = x => new GetAllPropertyTpesResponse(x.Id, x.Name, x.Description, x.ImageUrl, x.IsActive);
+            Expression<Func<PropertyType, GetAllPropertyTypesResponse>> expression = x => new GetAllPropertyTypesResponse(x.Id, x.Name, x.CodeInternal, x.Description, x.ImageUrl, x.IsActive);
             var sourse = _context.PropertyTypes
-                .Where(x => x.IsActive)
                 .AsNoTracking()
+                .OrderBy(x => x.Id)
                 .AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
@@ -59,21 +59,22 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries
                 : sourse.OrderBy(x => x.Id);
             var filterSpec = new PropertyTypeFilterSpecification(request.SearchString);
             var data = await sourse
+                .AsNoTracking()
                 .Specify(filterSpec)
                 .Select(expression)
-                .AsNoTracking()
                 .ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new PropertyTypeListEmptyException(_localizer);
             }
 
-            return _mapper.Map<PaginatedResult<GetAllPropertyTpesResponse>>(data);
+            return _mapper.Map<PaginatedResult<GetAllPropertyTypesResponse>>(data);
         }
 
         public async Task<Result<GetPropertyTypeByIdResponse>> Handle(GetPropertyTypeByIdQuery query, CancellationToken cancellationToken)
         {
             var data = await _context.PropertyTypes
+                .AsNoTracking()
                 .Where(x => x.Id == query.Id)
                 .FirstOrDefaultAsync(cancellationToken);
             if (data == null)

@@ -8,6 +8,7 @@
 
 using System;
 using System.Threading.Tasks;
+using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands;
 using InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries;
 using InmoIT.Shared.Core.Integration.Inmo;
@@ -16,14 +17,20 @@ using InmoIT.Shared.Dtos.Inmo.PropertyTypes;
 using InmoIT.Shared.Infrastructure.Common;
 using MediatR;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace InmoIT.Modules.Inmo.Infrastructure.Services
 {
     public class PropertyTypeService : IPropertyTypeService
     {
+        private readonly IInmoDbContext _context;
         private readonly IMediator _mediator;
 
-        public PropertyTypeService(IMediator mediator)
+        public PropertyTypeService(
+            IInmoDbContext context,
+            IMediator mediator)
         {
+            _context = context;
             _mediator = mediator;
         }
 
@@ -40,6 +47,11 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
         public async Task<string> GenerateFileName(int length)
         {
             return await Utilities.GenerateCode("PT", length);
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _context.PropertyTypes.CountAsync();
         }
     }
 }

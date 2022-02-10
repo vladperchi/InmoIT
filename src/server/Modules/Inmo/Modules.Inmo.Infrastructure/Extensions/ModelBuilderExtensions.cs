@@ -33,7 +33,19 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Extensions
 
                 if (persistenceOptions.UseMsSql)
                 {
+                    entity.Property(p => p.SquareMeter)
+                        .HasColumnType("decimal(23, 2)");
+
                     entity.Property(p => p.SalePrice)
+                        .HasColumnType("decimal(23, 2)");
+
+                    entity.Property(p => p.RentPrice)
+                        .HasColumnType("decimal(23, 2)");
+
+                    entity.Property(p => p.SaleTax)
+                        .HasColumnType("decimal(23, 2)");
+
+                    entity.Property(p => p.IncomeTax)
                         .HasColumnType("decimal(23, 2)");
                 }
             });

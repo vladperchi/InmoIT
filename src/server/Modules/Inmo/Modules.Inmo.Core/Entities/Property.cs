@@ -20,7 +20,7 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public string Description { get; set; }
 
-        public int SquareMeter { get; set; }
+        public decimal SquareMeter { get; set; }
 
         public int NumberRooms { get; set; }
 
@@ -55,7 +55,7 @@ namespace InmoIT.Modules.Inmo.Core.Entities
 
         public decimal TotalRent => RentPrice + IncomeTax;
 
-        public string PropertyTypeName => $"{PropertyType.Name}";
+        public string PropertyTypeName => $"{PropertyType.Name} ({PropertyType.CodeInternal})";
 
         public string OwnerName => $"{Owner.Name} {Owner.SurName}";
     }

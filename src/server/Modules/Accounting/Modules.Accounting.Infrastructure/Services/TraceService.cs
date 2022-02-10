@@ -8,12 +8,16 @@
 
 using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using InmoIT.Modules.Accounting.Core.Abstractions;
 using InmoIT.Modules.Accounting.Core.Entities;
 using InmoIT.Modules.Accounting.Core.Exceptions;
 using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Integration.Accounting;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Modules.Accounting.Infrastructure.Services
@@ -31,6 +35,18 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
             _localizer = localizer;
         }
 
+        public async Task<int> GetCountRentAsync()
+{
+            var result = _context.PropertyTraces.Where(x => x.TransactionType == TransactionType.Rent);
+            return await result.CountAsync();
+        }
+
+        public async Task<int> GetCountSalesAsync()
+        {
+            var result = _context.PropertyTraces.Where(x => x.TransactionType == TransactionType.Sale);
+            return await result.CountAsync();
+        }
+
         public async Task RecordTransaction(string codeInternal, string name, decimal price, decimal tax, string referenceNumber, Guid propertyId, TransactionType transactionType)
         {
             var propertyTransaction = new PropertyTransaction(propertyId, transactionType, referenceNumber);
@@ -43,7 +59,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
                 propertyTrace.Value = price;
                 propertyTrace.Tax = tax;
                 propertyTrace.UpdatedOn = DateTime.Now;
-                propertyTrace.Type = transactionType;
+                propertyTrace.TransactionType = transactionType;
                 try
                 {
                     _context.PropertyTraces.Update(propertyTrace);
@@ -63,7 +79,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
                     Value = price,
                     Tax = tax,
                     CreatedOn = DateTime.Now,
-                    Type = transactionType
+                    TransactionType = transactionType
                 };
                 try
                 {

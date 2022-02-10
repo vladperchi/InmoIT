@@ -12,7 +12,7 @@ using MediatR;
 
 namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries
 {
-    public class GetAllPropertyTypesQuery : IRequest<PaginatedResult<GetAllPropertyTpesResponse>>
+    public class GetAllPropertyTypesQuery : IRequest<PaginatedResult<GetAllPropertyTypesResponse>>
     {
         public string SearchString { get; private set; }
 

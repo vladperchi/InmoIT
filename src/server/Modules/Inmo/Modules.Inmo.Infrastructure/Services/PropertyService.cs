@@ -8,6 +8,8 @@
 
 using System;
 using System.Threading.Tasks;
+
+using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Features.Properties.Commands;
 using InmoIT.Modules.Inmo.Core.Features.Properties.Queries;
 using InmoIT.Shared.Core.Integration.Inmo;
@@ -15,15 +17,26 @@ using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Inmo.Properties;
 using MediatR;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace InmoIT.Modules.Inmo.Infrastructure.Services
 {
     public class PropertyService : IPropertyService
     {
+        private readonly IInmoDbContext _context;
         private readonly IMediator _mediator;
 
-        public PropertyService(IMediator mediator)
+        public PropertyService(
+            IInmoDbContext context,
+            IMediator mediator)
         {
+            _context = context;
             _mediator = mediator;
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _context.Properties.CountAsync();
         }
 
         public async Task<Result<GetPropertyByIdResponse>> GetDetailsPropertyAsync(Guid propertyId)

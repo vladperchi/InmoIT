@@ -13,7 +13,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
@@ -28,7 +27,6 @@ using InmoIT.Shared.Dtos.Mails;
 using InmoIT.Shared.Dtos.Messages;
 using InmoIT.Shared.Dtos.Upload;
 using InmoIT.Shared.Infrastructure.Common;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;

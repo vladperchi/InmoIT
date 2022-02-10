@@ -30,49 +30,49 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _identityService = identityService;
         }
 
-        /// <response code="201">Return created user.</response>
-        /// <response code="400">User is null.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="201">Return created user.</response>
+        ///// <response code="400">User is null.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpPost("register")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Created User.")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("request", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Created User.")]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> RegisterAsync(RegisterRequest request)
         {
             var origin = Request.Headers["origin"];
             return Ok(await _identityService.RegisterAsync(request, origin));
         }
 
-        /// <response code="200">Return image user by id.</response>
-        /// <response code="404">User was not found.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return image user by id.</response>
+        ///// <response code="404">User was not found.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpGet("user-picture/{userId}")]
         [AllowAnonymous]
-        [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
-        [SwaggerHeader("userId", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Get Image User.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
+        //[SwaggerHeader("userId", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Get Image User.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetUserPictureAsync(string userId)
         {
             var response = await _identityService.GetUserPictureAsync(userId);
             return Ok(response);
         }
 
-        /// <response code="200">Return updated image user.</response>
-        /// <response code="404">User was not found.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return updated image user.</response>
+        ///// <response code="404">User was not found.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpPost("user-picture/{userId}")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Update Image User.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("request", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Update Image User.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateUserPictureAsync(UpdateUserPictureRequest request)
         {
             string userId = _currentUser.GetUserId().ToString();
@@ -80,63 +80,63 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="200">Return account email confirmed user.</response>
-        /// <response code="404">User was not found.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return account email confirmed user.</response>
+        ///// <response code="404">User was not found.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpGet("confirm-email")]
         [AllowAnonymous]
-        [SwaggerHeader("userId, code", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Confirm Email User.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("userId, code", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Confirm Email User.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> ConfirmEmailAsync([FromQuery] string userId, [FromQuery] string code)
         {
             var response = await _identityService.ConfirmEmailAsync(userId, code);
             return Ok(response);
         }
 
-        /// <response code="200">Return account confirmed for phone Number user.</response>
-        /// <response code="404">User was not found.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return account confirmed for phone Number user.</response>
+        ///// <response code="404">User was not found.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpGet("confirm-phone-number")]
         [AllowAnonymous]
-        [SwaggerHeader("userId, code", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Confirm Phone Number User.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("userId, code", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Confirm Phone Number User.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> ConfirmPhoneNumberAsync([FromQuery] string userId, [FromQuery] string code)
         {
             return Ok(await _identityService.ConfirmPhoneNumberAsync(userId, code));
         }
 
-        /// <response code="200">Return forgot password user.</response>
-        /// <response code="500">Identity errors have occurred.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return forgot password user.</response>
+        ///// <response code="500">Identity errors have occurred.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpPost("forgot-password")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Forgot Password User.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("request", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Forgot Password User.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> ForgotPasswordAsync(ForgotPasswordRequest request)
         {
             var origin = Request.Headers["origin"];
             return Ok(await _identityService.ForgotPasswordAsync(request, origin));
         }
 
-        /// <response code="200">Return reset password user.</response>
-        /// <response code="500">Identity errors have occurred.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return reset password user.</response>
+        ///// <response code="500">Identity errors have occurred.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpPost("reset-password")]
         [AllowAnonymous]
-        [SwaggerHeader("request", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Reset Password User.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("request", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Reset Password User.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
         {
             return Ok(await _identityService.ResetPasswordAsync(request));

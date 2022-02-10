@@ -49,6 +49,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
             Expression<Func<Cart, GetAllCartsResponse>> expression = e => new GetAllCartsResponse(e.Id, e.CustomerId, e.Timestamp);
             var sourse = _context.Carts
                 .AsNoTracking()
+                .OrderBy(x => x.Id)
                 .AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
@@ -72,7 +73,8 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
 
         public async Task<Result<GetCartByIdResponse>> Handle(GetCartByIdQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.Carts.AsNoTracking()
+            var data = await _context.Carts
+                .AsNoTracking()
                 .Where(c => c.Id == query.Id)
                 .Include(a => a.CartItems)
                 .Include(c => c.Customer)

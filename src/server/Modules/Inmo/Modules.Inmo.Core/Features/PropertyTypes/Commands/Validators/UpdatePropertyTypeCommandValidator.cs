@@ -29,8 +29,14 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands.Validators
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(20, 150).WithMessage(localizer["{PropertyName} must have between 20 and 150 characters."])
                 .NotEqual(x => x.Name).WithMessage(localizer["{PropertyName} cannot be equal to Name."]);
+            RuleFor(x => x.CodeInternal)
+               .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
+               .MaximumLength(10).WithMessage(localizer["{PropertyName} must have maximu 10 characters."])
+               .Must(IsLetterOrDigit).WithMessage(localizer["{PropertyName} must be only letters and numbers."]);
         }
 
         private bool IsOnlyLetter(string value) => value.All(char.IsLetter);
+
+        private bool IsLetterOrDigit(string value) => value.All(char.IsLetterOrDigit);
     }
 }

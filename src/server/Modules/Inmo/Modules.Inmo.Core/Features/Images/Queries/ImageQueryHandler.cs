@@ -50,6 +50,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
             Expression<Func<PropertyImage, GetAllPropertyImagesResponse>> expression = e => new GetAllPropertyImagesResponse(e.Id, e.ImageUrl, e.Caption, e.Enabled, e.CodeImage, e.PropertyId);
             var sourse = _context.PropertyImages
                 .AsNoTracking()
+                .OrderBy(x => x.Id)
                 .AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)

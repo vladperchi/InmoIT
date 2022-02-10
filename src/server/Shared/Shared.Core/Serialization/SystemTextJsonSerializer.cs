@@ -10,7 +10,6 @@ using System;
 using System.Text.Json;
 using InmoIT.Shared.Core.Interfaces.Serialization;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
-
 using Microsoft.Extensions.Options;
 
 namespace InmoIT.Shared.Core.Serialization

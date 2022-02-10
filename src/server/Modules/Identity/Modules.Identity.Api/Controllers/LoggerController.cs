@@ -29,18 +29,18 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _eventLog = eventLog;
         }
 
-        /// <response code="200">Return all log list user.</response>
-        /// <response code="204">Log not content.</response>
-        /// <response code="401">Without authorization to access.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="200">Return all log list user.</response>
+        ///// <response code="204">Log not content.</response>
+        ///// <response code="401">Without authorization to access.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Logs.ViewAll)]
-        [SwaggerHeader("filter", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Get All Logs User.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[SwaggerHeader("filter", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Get All Logs User.")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginatedLogFilter filter)
         {
             var request = Mapper.Map<GetAllLogsRequest>(filter);
@@ -48,18 +48,18 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             return Ok(response);
         }
 
-        /// <response code="201">Return created log user.</response>
-        /// <response code="400">Log errors have occurred.</response>
-        /// <response code="401">Without authorization to access.</response>
-        /// <response code="403">No permission to access.</response>
+        ///// <response code="201">Return created log user.</response>
+        ///// <response code="400">Log errors have occurred.</response>
+        ///// <response code="401">Without authorization to access.</response>
+        ///// <response code="403">No permission to access.</response>
         [HttpPost]
-        [Authorize]
-        [SwaggerHeader("request", "Input data required in API", "", true)]
-        [SwaggerOperation(Summary = "Created Log User.")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [HavePermission(PermissionsConstant.Logs.Create)]
+        //[SwaggerHeader("request", "Input data required", "", true)]
+        //[SwaggerOperation(Summary = "Created Log User.")]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> LogCustomEventAsync(LogRequest request)
         {
             var response = await _eventLog.LogCustomEventAsync(request);

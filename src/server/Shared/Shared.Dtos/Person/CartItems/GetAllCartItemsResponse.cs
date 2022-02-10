@@ -18,6 +18,8 @@ namespace InmoIT.Shared.Dtos.Person.CartItems
 
         public string PropertyDetail { get; set; }
 
-        public decimal PropertyPrice { get; set; }
+        public decimal PropertySalePrice { get; set; }
+
+        public decimal PropertyRentPrice { get; set; }
     }
 }

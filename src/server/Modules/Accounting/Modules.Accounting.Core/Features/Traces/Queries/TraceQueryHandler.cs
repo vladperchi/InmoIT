@@ -46,9 +46,10 @@ namespace InmoIT.Modules.Accounting.Core.Features.Traces.Queries
 
         public async Task<PaginatedResult<GetAllTracesResponse>> Handle(GetAllTracesQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<PropertyTrace, GetAllTracesResponse>> expression = e => new GetAllTracesResponse(e.Id, e.Code, e.Name, e.Value, e.Tax, e.Type.ToString(), e.CreatedOn, e.UpdatedOn, e.PropertyId);
+            Expression<Func<PropertyTrace, GetAllTracesResponse>> expression = e => new GetAllTracesResponse(e.Id, e.Code, e.Name, e.Value, e.Tax, e.TransactionType.ToString(), e.CreatedOn, e.UpdatedOn, e.PropertyId);
             var sourse = _context.PropertyTraces
             .AsNoTracking()
+            .OrderBy(x => x.Id)
             .AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
@@ -61,6 +62,7 @@ namespace InmoIT.Modules.Accounting.Core.Features.Traces.Queries
 
             var filterSpec = new TraceFilterSpecification(request.SearchString);
             var data = await sourse
+                .AsNoTracking()
                 .Specify(filterSpec)
                 .Select(expression)
                 .AsNoTracking()

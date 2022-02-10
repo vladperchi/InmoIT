@@ -13,7 +13,7 @@ namespace InmoIT.Shared.Core.Common.Enums
     public enum TransactionType
     {
         [Description("Rent")]
-        Purchase,
+        Rent,
 
         [Description("Sale")]
         Sale

@@ -34,9 +34,7 @@ namespace InmoIT.Modules.Identity.Core.Features.RoleClaims.Events
             ClaimType = roleClaim.ClaimType;
             ClaimValue = roleClaim.ClaimValue;
             Description = roleClaim.Description;
-            AggregateId = Guid.TryParse(roleClaim.Id.ToString(), out var aggregateId)
-                ? aggregateId
-                : Guid.NewGuid();
+            AggregateId = Guid.TryParse(roleClaim.Id.ToString(), out var aggregateId) ? aggregateId : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoRoleClaim) };
             EventDescription = "Added RoleClaim.";
         }

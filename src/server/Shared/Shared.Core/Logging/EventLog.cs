@@ -10,6 +10,8 @@ using System;
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Domain;
 
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
+
 namespace InmoIT.Shared.Core.Logging
 {
     public class EventLog : Event, IEntity<Guid>
@@ -17,7 +19,7 @@ namespace InmoIT.Shared.Core.Logging
         public EventLog(Event eventLog, string data, (string oldValues, string newValues) changes, string email, Guid userId)
         {
             Id = Guid.NewGuid();
-            AggregateId = eventLog.AggregateId;
+            AggregateId = userId;
             MessageType = eventLog.MessageType;
             Data = data;
             Email = email;

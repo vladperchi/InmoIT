@@ -13,6 +13,8 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+
 using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Exceptions;
@@ -52,10 +54,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
         public async Task<PaginatedResult<GetAllPropertiesResponse>> Handle(GetAllPropertiesQuery request, CancellationToken cancellationToken)
         {
             Expression<Func<Property, GetAllPropertiesResponse>> expression = e => new GetAllPropertiesResponse(e.Id, e.Name, e.Address, e.Description, e.SquareMeter, e.NumberRooms, e.NumberBathrooms, e.SalePrice, e.RentPrice, e.SaleTax, e.IncomeTax, e.CodeInternal, e.Year, e.HasParking, e.IsActive, e.OwnerName, e.OwnerId, e.PropertyTypeName, e.PropertyTypeId);
-            var source = _context.Properties
-                .Where(x => x.IsActive)
-                .AsNoTracking()
-                .AsQueryable();
+
+            var source = _context.Properties.AsNoTracking().OrderBy(x => x.Id).AsQueryable();
             if (request.OwnerIds.Length > 0)
             {
                 source = source.Where(x => request.OwnerIds.Contains(x.OwnerId));
@@ -67,28 +67,22 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
             }
 
             string ordering = new OrderByConverter().Convert(request.OrderBy);
-            source = !string.IsNullOrWhiteSpace(ordering)
-                ? source.OrderBy(ordering)
-                : source.OrderBy(x => x.Id);
-
+            source = !string.IsNullOrWhiteSpace(ordering) ? source.OrderBy(ordering) : source.OrderBy(x => x.Id);
             var filterSpec = new PropertyFilterSpecification(request.SearchString);
-            var data = await source
-                .AsNoTracking()
-                .Specify(filterSpec)
-                .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            var data = await source.AsNoTracking().Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new PropertyListEmptyException(_localizer);
             }
 
             var result = _mapper.Map<PaginatedResult<GetAllPropertiesResponse>>(data);
-            foreach (var item in result.Data)
+
+            if(!result.Succeeded)
             {
-                var image = await _propertyImageService.GetDetailsPropertyImageAsync(item.Id);
-                if (image.Succeeded)
+                foreach (var item in result.Data)
                 {
-                    if (image.Data.Enabled)
+                    var image = await _propertyImageService.GetDetailsPropertyImageAsync(item.Id);
+                    if (image.Succeeded && image.Data.Enabled)
                     {
                         item.PropertyImageCaption = image.Data.Caption;
                         item.PropertyImageUrl = image.Data.ImageUrl;
@@ -102,21 +96,17 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
 
         public async Task<Result<GetPropertyByIdResponse>> Handle(GetPropertyByIdQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.Properties
-                .AsNoTracking()
-                .Where(x => x.Id == query.Id)
-                .FirstOrDefaultAsync(cancellationToken);
-
+            var data = await _context.Properties.AsNoTracking().Where(x => x.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
             if (data == null)
             {
                 throw new PropertyNotFoundException(_localizer);
             }
 
             var result = _mapper.Map<GetPropertyByIdResponse>(data);
-            var image = await _propertyImageService.GetDetailsPropertyImageAsync(result.Id);
-            if (image.Succeeded)
+            if (result == null)
             {
-                if (image.Data.Enabled)
+                var image = await _propertyImageService.GetDetailsPropertyImageAsync(result.Id);
+                if (image.Succeeded && image.Data.Enabled)
                 {
                     result.PropertyImageCaption = image.Data.Caption;
                     result.PropertyImageUrl = image.Data.ImageUrl;

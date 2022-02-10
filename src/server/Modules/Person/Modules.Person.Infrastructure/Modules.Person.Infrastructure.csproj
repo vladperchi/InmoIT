@@ -33,4 +33,23 @@
     <ProjectReference Include="..\Modules.Person.Core\Modules.Person.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Persistence\Resources\Seeds.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Seeds.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Persistence\Resources\Seeds.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Seeds.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

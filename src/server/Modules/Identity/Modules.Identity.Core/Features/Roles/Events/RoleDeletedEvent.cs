@@ -19,9 +19,7 @@ namespace InmoIT.Modules.Identity.Core.Features.Roles.Events
         public RoleDeletedEvent(string id)
         {
             Id = id;
-            AggregateId = Guid.TryParse(id, out var aggregateId)
-                ? aggregateId
-                : Guid.NewGuid();
+            AggregateId = Guid.TryParse(id, out var aggregateId) ? aggregateId : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoRole) };
             EventDescription = "Deleted Role.";
         }

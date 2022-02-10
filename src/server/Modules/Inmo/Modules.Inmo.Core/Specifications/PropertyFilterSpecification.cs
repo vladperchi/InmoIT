@@ -25,7 +25,8 @@ namespace InmoIT.Modules.Inmo.Core.Specifications
                 || EF.Functions.Like(x.Description.ToLower(), $"%{searchString.ToLower()}%")
                 || EF.Functions.Like(x.CodeInternal.ToLower(), $"%{searchString.ToLower()}%")
                 || EF.Functions.Like(x.Owner.FullName.ToLower(), $"%{searchString.ToLower()}%")
-                || EF.Functions.Like(x.PropertyType.Name.ToLower(), $"%{searchString.ToLower()}%"));
+                || EF.Functions.Like(x.PropertyType.Name.ToLower(), $"%{searchString.ToLower()}%")
+                || EF.Functions.Like(x.PropertyType.CodeInternal.ToLower(), $"%{searchString.ToLower()}%"));
             }
             else
             {

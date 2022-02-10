@@ -24,6 +24,18 @@ namespace InmoIT.Shared.Core.Constants
             public const string Export = "Permissions.Owners.Export";
         }
 
+        [DisplayName("PropertyTypes")]
+        [Description("Property Types Permissions")]
+        public static class PropertyTypes
+        {
+            public const string View = "Permissions.PropertyTypes.View";
+            public const string ViewAll = "Permissions.PropertyTypes.ViewAll";
+            public const string Create = "Permissions.PropertyTypes.Create";
+            public const string Update = "Permissions.PropertyTypes.Update";
+            public const string Remove = "Permissions.PropertyTypes.Remove";
+            public const string Export = "Permissions.PropertyTypes.Export";
+        }
+
         [DisplayName("Properties")]
         [Description("Properties Permissions")]
         public static class Properties
@@ -55,6 +67,17 @@ namespace InmoIT.Shared.Core.Constants
             public const string Export = "Permissions.Traces.Export";
         }
 
+        [DisplayName("DocumentTypes")]
+        [Description("Document Types Permissions")]
+        public static class DocumentTypes
+        {
+            public const string View = "Permissions.DocumentTypes.View";
+            public const string ViewAll = "Permissions.DocumentTypes.ViewAll";
+            public const string Create = "Permissions.DocumentTypes.Create";
+            public const string Update = "Permissions.DocumentTypes.Update";
+            public const string Remove = "Permissions.DocumentTypes.Remove";
+        }
+
         [DisplayName("Documents")]
         [Description("Documents Permissions")]
         public static class Documents
@@ -64,17 +87,6 @@ namespace InmoIT.Shared.Core.Constants
             public const string Create = "Permissions.Documents.Create";
             public const string Update = "Permissions.Documents.Update";
             public const string Remove = "Permissions.Documents.Remove";
-        }
-
-        [DisplayName("DocumentTypes")]
-        [Description("DocumentTypes Permissions")]
-        public static class DocumentTypes
-        {
-            public const string View = "Permissions.DocumentTypes.View";
-            public const string ViewAll = "Permissions.DocumentTypes.ViewAll";
-            public const string Create = "Permissions.DocumentTypes.Create";
-            public const string Update = "Permissions.DocumentTypes.Update";
-            public const string Remove = "Permissions.DocumentTypes.Remove";
         }
 
         [DisplayName("Customers")]
@@ -108,6 +120,17 @@ namespace InmoIT.Shared.Core.Constants
             public const string Add = "Permissions.CartItems.Add";
             public const string Update = "Permissions.CartItems.Update";
             public const string Remove = "Permissions.CartItems.Remove";
+        }
+
+        [DisplayName("Rentals")]
+        [Description("Rentals Permissions")]
+        public static class Rental
+        {
+            public const string View = "Permissions.Rentals.View";
+            public const string ViewAll = "Permissions.Rentals.ViewAll";
+            public const string Register = "Permissions.Rentals.Register";
+            public const string Update = "Permissions.Rentals.Update";
+            public const string Remove = "Permissions.Rentals.Remove";
         }
 
         [DisplayName("Sales")]
