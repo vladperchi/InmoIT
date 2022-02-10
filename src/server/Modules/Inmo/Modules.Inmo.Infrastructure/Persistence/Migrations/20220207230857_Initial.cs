@@ -8,11 +8,11 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "Accounting");
+                name: "Inmo");
 
             migrationBuilder.CreateTable(
                 name: "Owners",
-                schema: "Accounting",
+                schema: "Inmo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -33,20 +33,44 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PropertyTypes",
+                schema: "Inmo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CodeInternal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Properties",
-                schema: "Accounting",
+                schema: "Inmo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(23,2)", nullable: false),
-                    Tax = table.Column<decimal>(type: "decimal(23,2)", nullable: false),
+                    SquareMeter = table.Column<decimal>(type: "decimal(23,2)", nullable: false),
+                    NumberRooms = table.Column<int>(type: "int", nullable: false),
+                    NumberBathrooms = table.Column<int>(type: "int", nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(23,2)", nullable: false),
+                    RentPrice = table.Column<decimal>(type: "decimal(23,2)", nullable: false),
+                    SaleTax = table.Column<decimal>(type: "decimal(23,2)", nullable: false),
+                    IncomeTax = table.Column<decimal>(type: "decimal(23,2)", nullable: false),
                     CodeInternal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Year = table.Column<int>(type: "int", nullable: false),
+                    HasParking = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PropertyTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,15 +78,22 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Properties_Owners_OwnerId",
                         column: x => x.OwnerId,
-                        principalSchema: "Accounting",
+                        principalSchema: "Inmo",
                         principalTable: "Owners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Properties_PropertyTypes_PropertyTypeId",
+                        column: x => x.PropertyTypeId,
+                        principalSchema: "Inmo",
+                        principalTable: "PropertyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "PropertyImages",
-                schema: "Accounting",
+                schema: "Inmo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -78,7 +109,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_PropertyImages_Properties_PropertyId",
                         column: x => x.PropertyId,
-                        principalSchema: "Accounting",
+                        principalSchema: "Inmo",
                         principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -86,13 +117,19 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_OwnerId",
-                schema: "Accounting",
+                schema: "Inmo",
                 table: "Properties",
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Properties_PropertyTypeId",
+                schema: "Inmo",
+                table: "Properties",
+                column: "PropertyTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PropertyImages_PropertyId",
-                schema: "Accounting",
+                schema: "Inmo",
                 table: "PropertyImages",
                 column: "PropertyId");
         }
@@ -101,15 +138,19 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PropertyImages",
-                schema: "Accounting");
+                schema: "Inmo");
 
             migrationBuilder.DropTable(
                 name: "Properties",
-                schema: "Accounting");
+                schema: "Inmo");
 
             migrationBuilder.DropTable(
                 name: "Owners",
-                schema: "Accounting");
+                schema: "Inmo");
+
+            migrationBuilder.DropTable(
+                name: "PropertyTypes",
+                schema: "Inmo");
         }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InmoIT.Modules.Person.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20220128182600_Initial")]
+    [Migration("20220207231000_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
