@@ -10,8 +10,6 @@ using System;
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Domain;
 
-using static InmoIT.Shared.Core.Constants.PermissionsConstant;
-
 namespace InmoIT.Shared.Core.Logging
 {
     public class EventLog : Event, IEntity<Guid>
