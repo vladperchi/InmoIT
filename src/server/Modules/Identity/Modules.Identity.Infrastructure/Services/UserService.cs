@@ -20,6 +20,7 @@ using InmoIT.Modules.Identity.Infrastructure.Specifications;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Services;
+using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Users;
 using Microsoft.AspNetCore.Identity;
@@ -35,19 +36,25 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<UserService> _localizer;
         private readonly IExcelService _excelService;
+        private readonly ILoggerService _eventLog;
+        private readonly ICurrentUser _currentUser;
 
         public UserService(
             UserManager<InmoUser> userManager,
             RoleManager<InmoRole> roleManager,
             IMapper mapper,
             IStringLocalizer<UserService> localizer,
-            IExcelService excelService)
+            IExcelService excelService,
+            ILoggerService eventLog,
+            ICurrentUser currentUser)
         {
             _userManager = userManager;
             _mapper = mapper;
             _roleManager = roleManager;
             _localizer = localizer;
             _excelService = excelService;
+            _eventLog = eventLog;
+            _currentUser = currentUser;
         }
 
         public async Task<Result<List<UserResponse>>> GetAllAsync()
@@ -207,6 +214,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 throw new UserListEmptyException(_localizer);
             }
 
+            var user = await _userManager.FindByIdAsync(_currentUser.GetUserId().ToString());
             string result = await _excelService.ExportAsync(userList, mappers: new Dictionary<string, Func<InmoUser, object>>
                 {
                     { _localizer["FirstName"], item => item.FirstName },
@@ -219,6 +227,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     { _localizer["IsActive"], item => item.IsActive ? "Yes" : "No" },
                     { _localizer["CreatedOn"], item => item.CreatedOn.ToString("G", CultureInfo.CurrentCulture) }
                 }, sheetName: _localizer["Users"]);
+
+            if (user != null)
+            {
+                await _eventLog.LogCustomEventAsync(new() { Event = "Generate Excel File", Description = $"Exported User To Excel for {user.Email}.", Email = user.Email, UserId = _currentUser.GetUserId() });
+            }
 
             return await Result<string>.SuccessAsync(data: result);
         }
