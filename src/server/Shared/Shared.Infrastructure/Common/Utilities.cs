@@ -48,7 +48,7 @@ namespace InmoIT.Shared.Infrastructure.Common
             return Task.FromResult(new string(Enumerable
                 .Repeat($"{letter.ToUpper()}-{chars}INMO", length)
                 .Select(s => s[Random.Next(s.Length)])
-                .ToArray()));
+                .ToArray()).ToLower());
         }
     }
 }
