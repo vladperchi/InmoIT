@@ -41,6 +41,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly MailSettings _mailSettings;
         private readonly JwtSettings _config;
         private readonly ILoggerService _eventLog;
+        private readonly ICurrentUser _currentUser;
 
         public TokenService(
             UserManager<InmoUser> userManager,
@@ -49,7 +50,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             IStringLocalizer<TokenService> localizer,
             IOptions<SmsTwilioSettings> smsTwilioSettings,
             IOptions<MailSettings> mailSettings,
-            ILoggerService eventLog)
+            ILoggerService eventLog,
+            ICurrentUser currentUser)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -58,6 +60,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _mailSettings = mailSettings.Value;
             _config = config.Value;
             _eventLog = eventLog;
+            _currentUser = currentUser;
         }
 
         public async Task<IResult<TokenResponse>> GetTokenAsync(TokenRequest request, string ipAddress)
@@ -96,7 +99,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 await _userManager.UpdateAsync(user);
                 string token = await GenerateJwtAsync(user, ipAddress);
                 var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
-                await _eventLog.LogCustomEventAsync(new() { Description = $"Generated Tokens for {user.Email}.", Email = user.Email });
+                await _eventLog.LogCustomEventAsync(new() { Event = "Get Token", Description = $"Generated Tokens for {user.Email}.", Email = user.Email, UserId = _currentUser.GetUserId() });
                 return await Result<TokenResponse>.SuccessAsync(response);
             }
             catch (Exception)
