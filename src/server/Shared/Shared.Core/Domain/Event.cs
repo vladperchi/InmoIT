@@ -22,7 +22,7 @@ namespace InmoIT.Shared.Core.Domain
 
         public DateTime Timestamp { get; private set; }
 
-        public string EventDescription { get; set; }
+        public string EventDescription { get; protected set; }
 
         protected Event(string description = null)
         {
