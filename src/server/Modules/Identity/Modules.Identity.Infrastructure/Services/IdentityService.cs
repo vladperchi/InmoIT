@@ -173,11 +173,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 var fileUploadRequest = new FileUploadRequest
                 {
                     Data = request?.Data,
-                    Extension = Path.GetExtension(request.FileName),
+                    Extension = Path.GetExtension(request.FileName).ToLower(),
                     UploadStorageType = UploadStorageType.Staff
                 };
-                string fileName = await GenerateFileName(10);
-                fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
+                string fileName = await GenerateFileName(20);
+                fileUploadRequest.FileName = fileName + fileUploadRequest.Extension;
                 user.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
@@ -300,7 +300,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
             else
             {
-                throw new IdentityException(_localizer["An error occurred while password reset."]);
+                return await Result.FailAsync(_localizer["An error occurred while password reset."]);
             }
         }
     }
