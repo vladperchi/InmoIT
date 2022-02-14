@@ -15,9 +15,7 @@ using InmoIT.Shared.Core.Integration.Person;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Person.Customers;
 using InmoIT.Shared.Infrastructure.Common;
-
 using MediatR;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace InmoIT.Modules.Person.Infrastructure.Services
