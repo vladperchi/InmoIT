@@ -60,9 +60,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 
         public async Task<Result<List<Guid>>> Handle(AddImageCommand command, CancellationToken cancellationToken)
         {
-            if (!await _context.Properties
-                .Where(x => x.Id == command.PropertyId)
-                .AnyAsync(cancellationToken))
+            if (!await _context.Properties.Where(x => x.Id == command.PropertyId).AnyAsync(cancellationToken))
             {
                 throw new PropertyNotFoundException(_localizer);
             }
@@ -71,17 +69,14 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 
             foreach (var item in command.PropertyImageList)
             {
-                if (await _context.PropertyImages
-                    .Where(x => x.PropertyId == command.PropertyId)
-                    .AnyAsync(x => x.CodeImage == item.CodeImage, cancellationToken))
+                if (await _context.PropertyImages.Where(x => x.PropertyId == command.PropertyId).AnyAsync(x => x.CodeImage == item.CodeImage, cancellationToken))
                 {
                     throw new ImageAlreadyExistsException(_localizer);
                 }
 
                 var image = _mapper.Map<PropertyImage>(item);
                 image.CodeImage.ToUpper();
-                if (!string.IsNullOrWhiteSpace(item.ImageData)
-                    && !string.IsNullOrWhiteSpace(item.FileName))
+                if (!string.IsNullOrWhiteSpace(item.ImageData) && !string.IsNullOrWhiteSpace(item.FileName))
                 {
                     var fileUploadRequest = new FileUploadRequest
                     {
@@ -112,17 +107,14 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 
         public async Task<Result<Guid>> Handle(UpdateImageCommand command, CancellationToken cancellationToken)
         {
-            if (!await _context.PropertyImages
-                .Where(x => x.Id == command.Id)
-                .AnyAsync(x => x.CodeImage == command.CodeImage, cancellationToken))
+            if (!await _context.PropertyImages.Where(x => x.Id == command.Id).AnyAsync(x => x.CodeImage == command.CodeImage, cancellationToken))
             {
                 throw new ImageNotFoundException(_localizer);
             }
 
             var image = _mapper.Map<PropertyImage>(command);
             image.CodeImage.ToUpper();
-            if (!string.IsNullOrWhiteSpace(command.ImageData) &&
-                        !string.IsNullOrWhiteSpace(command.FileName))
+            if (!string.IsNullOrWhiteSpace(command.ImageData) && !string.IsNullOrWhiteSpace(command.FileName))
             {
                 var fileUploadRequest = new FileUploadRequest
                 {
@@ -152,9 +144,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 
         public async Task<Result<Guid>> Handle(RemoveImageCommand command, CancellationToken cancellationToken)
         {
-            var image = await _context.PropertyImages
-                .Where(x => x.Id == command.Id)
-                .FirstOrDefaultAsync(cancellationToken);
+            var image = await _context.PropertyImages.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
             if (image == null)
             {
                 throw new ImageNotFoundException(_localizer);

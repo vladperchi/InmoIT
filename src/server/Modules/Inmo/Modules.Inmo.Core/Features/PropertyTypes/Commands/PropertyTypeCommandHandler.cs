@@ -60,9 +60,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
 
         public async Task<Result<Guid>> Handle(CreatePropertyTypeCommand command, CancellationToken cancellationToken)
         {
-            if (await _context.PropertyTypes
-                .Where(x => x.IsActive)
-                .AnyAsync(x => x.Name == command.Name, cancellationToken))
+            if (await _context.PropertyTypes.Where(x => x.IsActive).AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
             {
                 throw new PropertyTypeAlreadyExistsException(_localizer);
             }
@@ -135,25 +133,30 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
 
         public async Task<Result<Guid>> Handle(RemovePropertyTypeCommand command, CancellationToken cancellationToken)
         {
-            var propertyType = await _context.PropertyTypes
-                .Where(x => x.Id == command.Id)
-                .FirstOrDefaultAsync(cancellationToken);
+            var propertyType = await _context.PropertyTypes.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
             if (propertyType == null)
             {
                 throw new PropertyTypeNotFoundException(_localizer);
             }
 
-            try
+            if (!await _propertyTypeService.IsPropertyTypeUsed(propertyType.Id))
             {
-                propertyType.AddDomainEvent(new PropertyTypeRemovedEvent(propertyType.Id));
-                _context.PropertyTypes.Remove(propertyType);
-                await _context.SaveChangesAsync(cancellationToken);
-                await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyType>(command.Id), cancellationToken);
-                return await Result<Guid>.SuccessAsync(propertyType.Id, _localizer["Property Type Deleted"]);
+                try
+                {
+                    propertyType.AddDomainEvent(new PropertyTypeRemovedEvent(propertyType.Id));
+                    _context.PropertyTypes.Remove(propertyType);
+                    await _context.SaveChangesAsync(cancellationToken);
+                    await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, PropertyType>(command.Id), cancellationToken);
+                    return await Result<Guid>.SuccessAsync(propertyType.Id, _localizer["Property Type Deleted"]);
+                }
+                catch (Exception)
+                {
+                    throw new PropertyTypeCustomException(_localizer, null);
+                }
             }
-            catch (Exception)
+            else
             {
-                throw new PropertyTypeCustomException(_localizer, null);
+                return await Result<Guid>.FailAsync(propertyType.Id, _localizer["Deletion Not Allowed Property Type"]);
             }
         }
     }

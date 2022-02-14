@@ -17,6 +17,7 @@ using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Core.Exceptions;
 using InmoIT.Modules.Person.Core.Specifications;
 using InmoIT.Shared.Core.Extensions;
+using InmoIT.Shared.Core.Integration.Person;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
 using MediatR;
@@ -54,17 +55,15 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
         public async Task<Result<string>> Handle(ExportCustomersQuery request, CancellationToken cancellationToken)
         {
             var filterSpec = new CustomerFilterSpecification(request.SearchString);
-            var data = await _context.Customers
-                .AsNoTracking()
-                .AsQueryable()
-                .Specify(filterSpec)
-                .ToListAsync(cancellationToken);
+            var data = await _context.Customers.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
             if (data == null)
             {
                 throw new CustomerListEmptyException(_localizer);
             }
 
-            string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<Customer, object>>
+            try
+            {
+                string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<Customer, object>>
             {
                 { _localizer["Name"], item => item.FullName },
                 { _localizer["Active"], item => item.IsActive ? "Yes" : "No" },
@@ -75,7 +74,12 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
                 { _localizer["Group"], item => item.Group }
             }, sheetName: _localizer["Customers"]);
 
-            return await Result<string>.SuccessAsync(data: result);
+                return await Result<string>.SuccessAsync(data: result);
+            }
+            catch (Exception)
+            {
+                throw new CustomerCustomException(_localizer, null);
+            }
         }
     }
 }

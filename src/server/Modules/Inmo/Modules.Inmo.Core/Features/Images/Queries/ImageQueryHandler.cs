@@ -48,10 +48,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
         public async Task<PaginatedResult<GetAllPropertyImagesResponse>> Handle(GetAllImagesQuery request, CancellationToken cancellationToken)
         {
             Expression<Func<PropertyImage, GetAllPropertyImagesResponse>> expression = e => new GetAllPropertyImagesResponse(e.Id, e.ImageUrl, e.Caption, e.Enabled, e.CodeImage, e.PropertyId);
-            var sourse = _context.PropertyImages
-                .AsNoTracking()
-                .OrderBy(x => x.Id)
-                .AsQueryable();
+            var sourse = _context.PropertyImages.AsNoTracking().OrderBy(x => x.Id).AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
                 ? sourse.OrderBy(ordering)
@@ -80,7 +77,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
         {
             var data = await _context.PropertyImages
                 .AsNoTracking()
-                .Where(x => x.Id == query.Id)
+                .Where(x => x.PropertyId == query.Id)
                 .Include(x => x.Property)
                 .FirstOrDefaultAsync(cancellationToken);
 
