@@ -76,6 +76,7 @@ namespace InmoIT.Shared.Core.Constants
             public const string Create = "Permissions.DocumentTypes.Create";
             public const string Update = "Permissions.DocumentTypes.Update";
             public const string Remove = "Permissions.DocumentTypes.Remove";
+            public const string Export = "Permissions.DocumentTypes.Export";
         }
 
         [DisplayName("Documents")]
@@ -128,9 +129,10 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.Rentals.View";
             public const string ViewAll = "Permissions.Rentals.ViewAll";
-            public const string Register = "Permissions.Rentals.Register";
+            public const string Create = "Permissions.Rentals.Create";
             public const string Update = "Permissions.Rentals.Update";
             public const string Remove = "Permissions.Rentals.Remove";
+            public const string Export = "Permissions.Rentals.Export";
         }
 
         [DisplayName("Sales")]
@@ -139,9 +141,10 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.Sales.View";
             public const string ViewAll = "Permissions.Sales.ViewAll";
-            public const string Register = "Permissions.Sales.Register";
+            public const string Create = "Permissions.Sales.Create";
             public const string Update = "Permissions.Sales.Update";
             public const string Remove = "Permissions.Sales.Remove";
+            public const string Export = "Permissions.Sales.Export";
         }
 
         [DisplayName("Users")]
@@ -152,7 +155,7 @@ namespace InmoIT.Shared.Core.Constants
             public const string ViewAll = "Permissions.Users.ViewAll";
             public const string Create = "Permissions.Users.Create";
             public const string Edit = "Permissions.Users.Edit";
-            public const string Remove = "Permissions.Users.Remove";
+            public const string Delete = "Permissions.Users.Delete";
             public const string Export = "Permissions.Users.Export";
         }
 
@@ -161,8 +164,8 @@ namespace InmoIT.Shared.Core.Constants
         public static class Roles
         {
             public const string View = "Permissions.Roles.View";
-            public const string Create = "Permissions.Roles.Create";
-            public const string Edit = "Permissions.Roles.Edit";
+            public const string ViewAll = "Permissions.Roles.ViewAll";
+            public const string AddOrUpdate = "Permissions.Roles.AddOrUpdate";
             public const string Delete = "Permissions.Roles.Delete";
         }
 
