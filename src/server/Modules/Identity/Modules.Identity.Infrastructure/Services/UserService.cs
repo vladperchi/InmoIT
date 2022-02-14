@@ -15,6 +15,7 @@ using AutoMapper;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
+using InmoIT.Modules.Identity.Core.Features.RoleClaims.Events;
 using InmoIT.Modules.Identity.Core.Features.Users.Events;
 using InmoIT.Modules.Identity.Infrastructure.Specifications;
 using InmoIT.Shared.Core.Constants;
@@ -104,28 +105,27 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 throw new UserNotFoundException(_localizer);
             }
 
-            var roles = await _roleManager.Roles.AsNoTracking().ToListAsync();
-            foreach (var role in roles)
+            try
             {
-                var userRolesViewModel = new UserRoleModel
+                var roles = await _roleManager.Roles.AsNoTracking().ToListAsync();
+                foreach (var role in roles)
                 {
-                    RoleId = role.Id,
-                    RoleName = role.Name
-                };
-                if (await _userManager.IsInRoleAsync(user, role.Name))
-                {
-                    userRolesViewModel.Selected = true;
-                }
-                else
-                {
-                    userRolesViewModel.Selected = false;
+                    var userRolesViewModel = new UserRoleModel
+                    {
+                        RoleId = role.Id,
+                        RoleName = role.Name
+                    };
+                    userRolesViewModel.Selected = await _userManager.IsInRoleAsync(user, role.Name);
+                    viewModel.Add(userRolesViewModel);
                 }
 
-                viewModel.Add(userRolesViewModel);
+                var result = new UserRolesResponse { UserRoles = viewModel };
+                return await Result<UserRolesResponse>.SuccessAsync(result);
             }
-
-            var result = new UserRolesResponse { UserRoles = viewModel };
-            return await Result<UserRolesResponse>.SuccessAsync(result);
+            catch (Exception)
+            {
+                throw new IdentityCustomException(_localizer, null);
+            }
         }
 
         public async Task<IResult<string>> UpdateAsync(UpdateUserRequest request)
@@ -157,7 +157,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (result.Succeeded)
             {
-                return await Result<string>.SuccessAsync(user.Id, _localizer["User Updated Succesffull."]);
+                return await Result<string>.SuccessAsync(user.Id, _localizer["User Updated Successful."]);
             }
             else
             {
@@ -176,46 +176,76 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (await _userManager.IsInRoleAsync(user, RolesConstant.SuperAdmin))
             {
-                return await Result<string>.FailAsync(_localizer["Not Allowed."]);
+                return await Result<string>.FailAsync(_localizer["Not Allowed updated."]);
             }
 
-            foreach (var userRole in request.UserRoles)
+            try
             {
-                if (await _roleManager.FindByNameAsync(userRole.RoleName) != null)
+                foreach (var userRole in request.UserRoles)
                 {
-                    if (userRole.Selected)
+                    if (await _roleManager.FindByNameAsync(userRole.RoleName) != null)
                     {
-                        if (!await _userManager.IsInRoleAsync(user, userRole.RoleName))
+                        if (userRole.Selected)
                         {
-                            await _userManager.AddToRoleAsync(user, userRole.RoleName);
+                            if (!await _userManager.IsInRoleAsync(user, userRole.RoleName))
+                            {
+                                await _userManager.AddToRoleAsync(user, userRole.RoleName);
+                            }
+                        }
+                        else
+                        {
+                            await _userManager.RemoveFromRoleAsync(user, userRole.RoleName);
                         }
                     }
-                    else
-                    {
-                        await _userManager.RemoveFromRoleAsync(user, userRole.RoleName);
-                    }
                 }
-            }
 
-            return await Result<string>.SuccessAsync(userId, string.Format(_localizer["User Roles Updated Successfull."]));
+                return await Result<string>.SuccessAsync(userId, string.Format(_localizer["User Roles Updated Successfull."]));
+            }
+            catch (Exception)
+            {
+                throw new IdentityCustomException(_localizer, null);
+            }
         }
 
-        public async Task<Result<string>> ExportUsersAsync(string searchString = "")
+        public async Task<Result<string>> DeleteAsync(string userId)
+        {
+            var user = await _userManager.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new UserNotFoundException(_localizer);
+            }
+
+            if (await _userManager.IsInRoleAsync(user, RolesConstant.SuperAdmin))
+            {
+                return await Result<string>.FailAsync(_localizer["Not allowed to delete"]);
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            user.AddDomainEvent(new UserDeletedEvent(user.Id));
+            if (result.Succeeded)
+            {
+                return await Result<string>.SuccessAsync(user.Id, _localizer["User Deleted Successful."]);
+            }
+            else
+            {
+                var errorMessages = result.Errors.Select(a => _localizer[a.Description].ToString()).Distinct().ToList();
+                throw new IdentityCustomException(_localizer, errorMessages);
+            }
+        }
+
+        public async Task<Result<string>> ExportAsync(string searchString = "")
         {
             var userFilterSpec = new UserFilterSpecification(searchString);
-            var userList = await _userManager.Users
-                .AsNoTracking()
-                .AsQueryable()
-                .Specify(userFilterSpec)
-                .OrderByDescending(a => a.CreatedOn)
-                .ToListAsync();
-            if (userList == null)
+            var data = await _userManager.Users.AsNoTracking().AsQueryable().Specify(userFilterSpec).OrderByDescending(a => a.CreatedOn).ToListAsync();
+            if (data == null)
             {
                 throw new UserListEmptyException(_localizer);
             }
 
             var user = await _userManager.FindByIdAsync(_currentUser.GetUserId().ToString());
-            string result = await _excelService.ExportAsync(userList, mappers: new Dictionary<string, Func<InmoUser, object>>
+            try
+            {
+                string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<InmoUser, object>>
                 {
                     { _localizer["FirstName"], item => item.FirstName },
                     { _localizer["LastName"], item => item.LastName },
@@ -228,12 +258,17 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     { _localizer["CreatedOn"], item => item.CreatedOn.ToString("G", CultureInfo.CurrentCulture) }
                 }, sheetName: _localizer["Users"]);
 
-            if (user != null)
-            {
-                await _eventLog.LogCustomEventAsync(new() { Event = "Generate Excel File", Description = $"Exported User To Excel for {user.Email}.", Email = user.Email, UserId = _currentUser.GetUserId() });
-            }
+                if (user != null)
+                {
+                    await _eventLog.LogCustomEventAsync(new() { Event = "Generate Excel File", Description = $"Exported Users To Excel for {user.Email}.", Email = user.Email, UserId = _currentUser.GetUserId() });
+                }
 
-            return await Result<string>.SuccessAsync(data: result);
+                return await Result<string>.SuccessAsync(data: result);
+            }
+            catch (Exception)
+            {
+                throw new IdentityCustomException(_localizer, null);
+            }
         }
 
         public async Task<int> GetCountAsync()
