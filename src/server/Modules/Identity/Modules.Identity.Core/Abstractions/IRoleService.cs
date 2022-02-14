@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Identity.Core.Abstractions
 
         Task<Result<RoleResponse>> GetByIdAsync(string id);
 
-        Task<Result<string>> SaveAsync(RoleRequest request);
+        Task<Result<string>> AddOrUpdateAsync(RoleRequest request);
 
         Task<Result<string>> DeleteAsync(string id);
     }
