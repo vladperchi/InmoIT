@@ -9,7 +9,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 using AutoMapper;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
@@ -50,6 +49,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<List<RoleResponse>>> GetAllAsync()
         {
             var data = await _roleManager.Roles.ToListAsync();
+            if(data == null)
+            {
+                throw new RolListEmptyException(_localizer);
+            }
+
             var result = _mapper.Map<List<RoleResponse>>(data);
             return await Result<List<RoleResponse>>.SuccessAsync(result);
         }
@@ -57,11 +61,16 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<RoleResponse>> GetByIdAsync(string id)
         {
             var data = await _roleManager.Roles.SingleOrDefaultAsync(x => x.Id == id);
+            if (data == null)
+            {
+                throw new RoleNotFoundException(_localizer);
+            }
+
             var result = _mapper.Map<RoleResponse>(data);
             return await Result<RoleResponse>.SuccessAsync(result);
         }
 
-        public async Task<Result<string>> SaveAsync(RoleRequest request)
+        public async Task<Result<string>> AddOrUpdateAsync(RoleRequest request)
         {
             if (string.IsNullOrEmpty(request.Id))
             {
