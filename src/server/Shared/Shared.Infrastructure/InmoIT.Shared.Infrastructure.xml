@@ -4,17 +4,56 @@
         <name>InmoIT.Shared.Infrastructure</name>
     </assembly>
     <members>
-        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.RemoveVersionParameterFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
-            <inheritdoc/>
+        <member name="T:InmoIT.Shared.Infrastructure.Controllers.InternalControllerFeatureProvider">
+            <inheritdoc cref = "T:Microsoft.AspNetCore.Mvc.Controllers.ControllerFeatureProvider" />
         </member>
-        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.ReplaceVersionValueInPathFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
-            <inheritdoc/>
+        <member name="T:InmoIT.Shared.Infrastructure.Filters.HangfireAuthorizationFilter">
+            <inheritdoc cref = "T:Hangfire.Dashboard.IDashboardAuthorizationFilter" />
         </member>
-        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerExcludeFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
-            <inheritdoc/>
+        <member name="T:InmoIT.Shared.Infrastructure.Middlewares.ExceptionHandlerMiddleware">
+            <inheritdoc cref = "T:Microsoft.AspNetCore.Http.IMiddleware" />
         </member>
-        <member name="M:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerHeaderFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
-            <inheritdoc/>
+        <member name="T:InmoIT.Shared.Infrastructure.Permissions.HavePermission">
+            <inheritdoc cref = "T:Microsoft.AspNetCore.Authorization.AuthorizeAttribute" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Permissions.PermissionPolicyProvider">
+            <inheritdoc cref = "T:Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Permissions.PermissionRequirement">
+            <inheritdoc cref = "T:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Services.EntityReferenceService">
+            <inheritdoc cref = "T:InmoIT.Shared.Core.Integration.Application.IEntityReferenceService" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Services.ExcelService">
+            <inheritdoc cref = "T:InmoIT.Shared.Core.Interfaces.Services.IExcelService" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Services.HangfireService">
+            <inheritdoc cref = "T:InmoIT.Shared.Core.Interfaces.Services.IJobService" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Services.LoggerService">
+            <inheritdoc cref = "T:InmoIT.Shared.Core.Interfaces.Services.ILoggerService" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Services.SmsTwilioService">
+            <inheritdoc cref = "T:InmoIT.Shared.Core.Interfaces.Services.ISmsTwilioService" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Services.SmtpMailService">
+            <inheritdoc cref = "T:InmoIT.Shared.Core.Interfaces.Services.IMailService" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Services.UploadService">
+            <inheritdoc cref = "T:InmoIT.Shared.Core.Interfaces.Services.IUploadService" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Swagger.Filters.RemoveVersionParameterFilter">
+            <inheritdoc cref = "T:Swashbuckle.AspNetCore.SwaggerGen.IOperationFilter" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Swagger.Filters.ReplaceVersionValueInPathFilter">
+            <inheritdoc cref = "T:Swashbuckle.AspNetCore.SwaggerGen.IDocumentFilter" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerExcludeFilter">
+            <inheritdoc cref = "T:Swashbuckle.AspNetCore.SwaggerGen.IOperationFilter" />
+        </member>
+        <member name="T:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerHeaderFilter">
+            <inheritdoc cref = "T:Swashbuckle.AspNetCore.SwaggerGen.IOperationFilter" />
         </member>
     </members>
 </doc>
