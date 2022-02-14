@@ -53,5 +53,10 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
         {
             return await _context.PropertyTypes.CountAsync();
         }
+
+        public async Task<bool> IsPropertyTypeUsed(Guid id)
+        {
+            return await _context.PropertyTypes.AnyAsync(x => x.Id == id);
+        }
     }
 }
