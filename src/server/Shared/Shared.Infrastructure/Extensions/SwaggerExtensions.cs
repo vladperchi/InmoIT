@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
@@ -99,7 +100,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                         Type = SecuritySchemeType.ApiKey,
                         Scheme = "Bearer",
                         BearerFormat = "JWT",
-                        Description = "Input your Bearer token in this format - Bearer {your token here} to access this API",
+                        Description = "Input your Bearer token in this format - \"bearer {token}\" to access this API",
                     });
 
                     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -128,6 +129,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                     });
                     options.EnableAnnotations();
                     options.OperationFilter<SwaggerHeaderFilter>();
+                    options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
                 });
             }
 
