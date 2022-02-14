@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
+using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Features.RoleClaims.Events;
 using InmoIT.Modules.Identity.Core.Helpers;
 using InmoIT.Shared.Core.Constants;
@@ -32,7 +33,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly ICurrentUser _currentUser;
         private readonly IStringLocalizer<RoleClaimService> _localizer;
         private readonly IMapper _mapper;
-        private readonly IIdentityDbContext _db;
+        private readonly IIdentityDbContext _context;
 
         public RoleClaimService(
             RoleManager<InmoRole> roleManager,
@@ -40,37 +41,48 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             ICurrentUser currentUserService,
             IStringLocalizer<RoleClaimService> localizer,
             IMapper mapper,
-            IIdentityDbContext db)
+            IIdentityDbContext context)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _currentUser = currentUserService;
             _localizer = localizer;
             _mapper = mapper;
-            _db = db;
+            _context = context;
         }
 
         public async Task<Result<List<RoleClaimResponse>>> GetAllAsync()
         {
-            var data = await _db.RoleClaims.AsNoTracking().ToListAsync();
+            var data = await _context.RoleClaims.AsNoTracking().ToListAsync();
+            if (data == null)
+            {
+                throw new RolClaimListEmptyException(_localizer);
+            }
+
             var result = _mapper.Map<List<RoleClaimResponse>>(data);
             return await Result<List<RoleClaimResponse>>.SuccessAsync(result);
         }
 
         public async Task<Result<RoleClaimResponse>> GetByIdAsync(int id)
         {
-            var data = await _db.RoleClaims.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+            var data = await _context.RoleClaims.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+            if (data == null)
+            {
+                throw new RoleClaimNotFoundException(_localizer);
+            }
+
             var result = _mapper.Map<RoleClaimResponse>(data);
             return await Result<RoleClaimResponse>.SuccessAsync(result);
         }
 
         public async Task<Result<List<RoleClaimResponse>>> GetAllByRoleIdAsync(string roleId)
         {
-            var data = await _db.RoleClaims
-                .AsNoTracking()
-                .Include(x => x.Role)
-                .Where(x => x.RoleId == roleId)
-                .ToListAsync();
+            var data = await _context.RoleClaims.AsNoTracking().Include(x => x.Role).Where(x => x.RoleId == roleId).ToListAsync();
+            if (data == null)
+            {
+                throw new RolClaimListEmptyException(_localizer);
+            }
+
             var result = _mapper.Map<List<RoleClaimResponse>>(data);
             return await Result<List<RoleClaimResponse>>.SuccessAsync(result);
         }
@@ -84,27 +96,22 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (request.Id == 0)
             {
-                var existingRoleClaim =
-                    await _db.RoleClaims
-                        .SingleOrDefaultAsync(x =>
-                            x.RoleId == request.RoleId && x.ClaimType == request.Type && x.ClaimValue == request.Value);
+                var existingRoleClaim = await _context.RoleClaims.SingleOrDefaultAsync(x => x.RoleId == request.RoleId && x.ClaimType == request.Type && x.ClaimValue == request.Value);
                 if (existingRoleClaim != null)
                 {
                     return await Result<string>.FailAsync(_localizer["Similar Role Claim exists."]);
                 }
 
                 var roleClaim = _mapper.Map<InmoRoleClaim>(request);
-                await _db.RoleClaims.AddAsync(roleClaim);
+                await _context.RoleClaims.AddAsync(roleClaim);
                 roleClaim.AddDomainEvent(new RoleClaimAddedEvent(roleClaim));
-                await _db.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} created."], request.Value));
             }
             else
             {
                 var existingRoleClaim =
-                    await _db.RoleClaims
-                        .Include(x => x.Role)
-                        .SingleOrDefaultAsync(x => x.Id == request.Id);
+                    await _context.RoleClaims.Include(x => x.Role).SingleOrDefaultAsync(x => x.Id == request.Id);
                 if (existingRoleClaim == null)
                 {
                     return await Result<string>.FailAsync(_localizer["Role Claim does not exist."]);
@@ -116,9 +123,9 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     existingRoleClaim.Group = request.Group;
                     existingRoleClaim.Description = request.Description;
                     existingRoleClaim.RoleId = request.RoleId;
-                    _db.RoleClaims.Update(existingRoleClaim);
+                    _context.RoleClaims.Update(existingRoleClaim);
                     existingRoleClaim.AddDomainEvent(new RoleClaimUpdatedEvent(existingRoleClaim));
-                    await _db.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} for Role {1} updated."], request.Value, existingRoleClaim.Role.Name));
                 }
             }
@@ -126,9 +133,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public async Task<Result<string>> DeleteAsync(int id)
         {
-            var existingRoleClaim = await _db.RoleClaims
-                .Include(x => x.Role)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var existingRoleClaim = await _context.RoleClaims.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
             if (existingRoleClaim != null)
             {
                 if (existingRoleClaim.Role?.Name == RolesConstant.SuperAdmin)
@@ -136,9 +141,9 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     return await Result<string>.FailAsync(string.Format(_localizer["Not allowed to delete Permissions for {0} Role."], existingRoleClaim.Role.Name));
                 }
 
-                _db.RoleClaims.Remove(existingRoleClaim);
+                _context.RoleClaims.Remove(existingRoleClaim);
                 existingRoleClaim.AddDomainEvent(new RoleClaimDeletedEvent(id));
-                await _db.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} for {1} Role deleted."], existingRoleClaim.ClaimValue, existingRoleClaim.Role?.Name));
             }
             else
@@ -290,7 +295,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public async Task<int> GetCountAsync()
         {
-            return await _db.RoleClaims.AsNoTracking().CountAsync();
+            return await _context.RoleClaims.AsNoTracking().CountAsync();
         }
     }
 }
