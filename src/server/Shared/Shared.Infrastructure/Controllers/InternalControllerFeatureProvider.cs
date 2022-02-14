@@ -27,21 +27,6 @@ namespace InmoIT.Shared.Infrastructure.Controllers
                 return false;
             }
 
-            // if (typeInfo.IsAnsiClass)
-            // {
-            //     return false;
-            // }
-
-            // if (typeInfo.IsAutoClass)
-            // {
-            //     return false;
-            // }
-
-            // if (typeInfo.IsAutoLayout)
-            // {
-            //     return false;
-            // }
-
             if (typeInfo.ContainsGenericParameters)
             {
                 return false;
