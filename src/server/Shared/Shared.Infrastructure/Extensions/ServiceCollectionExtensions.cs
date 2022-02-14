@@ -43,8 +43,9 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             services.AddScoped<IEventLogger, EventLogger>();
             services.AddApiVersioning(options =>
             {
-                options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
             });
             services.AddControllers()
                 .ConfigureApplicationPartManager(manager =>
