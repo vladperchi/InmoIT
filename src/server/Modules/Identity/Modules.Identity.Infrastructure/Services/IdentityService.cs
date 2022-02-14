@@ -184,9 +184,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             string filePath = user.ImageUrl;
             var identityResult = await _userManager.UpdateAsync(user);
             var errors = identityResult.Errors.Select(e => _localizer[e.Description].ToString()).ToList();
-            return identityResult.Succeeded
-                ? await Result<string>.SuccessAsync(data: filePath)
-                : await Result<string>.FailAsync(errors);
+            return identityResult.Succeeded ? await Result<string>.SuccessAsync(data: filePath) : await Result<string>.FailAsync(errors);
         }
 
         private async Task<string> GetEmailVerificationUriAsync(InmoUser user, string origin)
@@ -214,7 +212,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new IdentityException(_localizer["An error occurred while confirming E-Mail."]);
+                throw new UserNotFoundException(_localizer);
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
@@ -241,7 +239,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new IdentityException(_localizer["An error occurred while confirming Mobile Phone."]);
+                throw new UserNotFoundException(_localizer);
             }
 
             var result = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, code);
@@ -265,7 +263,12 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult> ForgotPasswordAsync(ForgotPasswordRequest request, string origin)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            if (user == null)
+            {
+                throw new UserNotFoundException(_localizer);
+            }
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
             {
                 throw new IdentityCustomException(_localizer, null);
             }
@@ -290,7 +293,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                throw new IdentityCustomException(_localizer, null);
+                throw new UserNotFoundException(_localizer);
             }
 
             var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
