@@ -15,12 +15,14 @@ namespace InmoIT.Shared.Core.Integration.Inmo
 {
     public interface IPropertyTypeService
     {
-        Task<Result<GetPropertyTypeByIdResponse>> GetDetailsPropertyTypeAsync(Guid propertyTypeId);
+        Task<Result<GetPropertyTypeByIdResponse>> GetDetailsPropertyTypeAsync(Guid id);
 
-        Task<Result<Guid>> RemovePropertyTypeAsync(Guid propertyTypeId);
+        Task<Result<Guid>> RemovePropertyTypeAsync(Guid id);
 
         Task<string> GenerateFileName(int length);
 
         Task<int> GetCountAsync();
+
+        Task<bool> IsPropertyTypeUsed(Guid id);
     }
 }
