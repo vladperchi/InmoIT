@@ -18,7 +18,6 @@ namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
     public class SwaggerExcludeFilter : IOperationFilter
     {
-        /// <inheritdoc/>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             if (context?.MethodInfo == null)

@@ -14,7 +14,6 @@ namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
     public class ReplaceVersionValueInPathFilter : IDocumentFilter
     {
-        /// <inheritdoc/>
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             var paths = new OpenApiPaths();

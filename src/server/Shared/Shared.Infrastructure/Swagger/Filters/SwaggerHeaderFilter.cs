@@ -12,14 +12,12 @@ using System.Reflection;
 using InmoIT.Shared.Core.Attributes;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
     public class SwaggerHeaderFilter : IOperationFilter
     {
-        /// <inheritdoc/>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             operation.Parameters ??= new List<OpenApiParameter>();
