@@ -72,16 +72,12 @@ namespace InmoIT.Shared.Core.Extensions
 
         public static IServiceCollection AddPaginatedFilterValidatorsFromAssembly(this IServiceCollection services, Assembly assembly)
         {
-            var validatorTypes = assembly
-                .GetExportedTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && t.BaseType?.IsGenericType == true)
-                .Select(t => new
+            var validatorTypes = assembly.GetExportedTypes().Where(t => t.IsClass && !t.IsAbstract && t.BaseType?.IsGenericType ==
+            true).Select(t => new
                 {
                     BaseGenericType = t.BaseType,
                     CurrentType = t
-                })
-                .Where(t => t.BaseGenericType?.GetGenericTypeDefinition() == typeof(PaginatedFilterValidator<,,>))
-                .ToList();
+                }).Where(t => t.BaseGenericType?.GetGenericTypeDefinition() == typeof(PaginatedFilterValidator<,,>)).ToList();
 
             foreach (var validatorType in validatorTypes)
             {
