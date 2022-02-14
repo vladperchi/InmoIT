@@ -119,6 +119,11 @@ namespace InmoIT.Shared.Core.Wrapper
             return new() { Succeeded = false, Messages = messages };
         }
 
+        public static Result<T> Fail(T data, string message)
+        {
+            return new() { Succeeded = false, Data = data, Messages = new List<string> { message } };
+        }
+
         public static ErrorResult<T> ReturnError(List<string> messages)
         {
             return new() { Succeeded = false, Messages = messages, ErrorCode = 500 };
@@ -142,6 +147,11 @@ namespace InmoIT.Shared.Core.Wrapper
         public new static Task<Result<T>> FailAsync(List<string> messages)
         {
             return Task.FromResult(Fail(messages));
+        }
+
+        public static Task<Result<T>> FailAsync(T data, string message)
+        {
+            return Task.FromResult(Fail(data, message));
         }
 
         public static Task<ErrorResult<T>> ReturnErrorAsync(List<string> messages)
