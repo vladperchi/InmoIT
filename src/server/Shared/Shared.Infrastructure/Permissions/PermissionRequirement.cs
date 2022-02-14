@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InmoIT.Shared.Infrastructure.Permissions
 {
+    /// <inheritdoc cref = "IAuthorizationRequirement" />
     public class PermissionRequirement : IAuthorizationRequirement
     {
         public string Permission { get; private set; }

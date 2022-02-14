@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InmoIT.Shared.Infrastructure.Permissions
 {
+    /// <inheritdoc cref = "AuthorizeAttribute" />
     public class HavePermission : AuthorizeAttribute
     {
         public HavePermission(string permission)

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 
 namespace InmoIT.Shared.Infrastructure.Permissions
 {
+    /// <inheritdoc cref = "IAuthorizationPolicyProvider" />
     public class PermissionPolicyProvider : IAuthorizationPolicyProvider
     {
         public DefaultAuthorizationPolicyProvider FallbackPolicyProvider { get; }

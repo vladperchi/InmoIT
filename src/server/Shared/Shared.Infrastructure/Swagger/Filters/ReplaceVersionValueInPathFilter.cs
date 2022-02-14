@@ -12,6 +12,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
+    /// <inheritdoc cref = "IDocumentFilter" />
     public class ReplaceVersionValueInPathFilter : IDocumentFilter
     {
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)

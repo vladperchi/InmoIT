@@ -21,7 +21,8 @@ using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
-     public class UploadService : IUploadService
+    /// <inheritdoc cref = "IUploadService" />
+    public class UploadService : IUploadService
     {
         private readonly IStringLocalizer<UploadService> _localizer;
 

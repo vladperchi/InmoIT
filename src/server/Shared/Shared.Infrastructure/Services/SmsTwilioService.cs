@@ -18,6 +18,7 @@ using Twilio.Types;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
+    /// <inheritdoc cref = "ISmsTwilioService" />
     public class SmsTwilioService : ISmsTwilioService
     {
         private readonly SmsTwilioSettings _smsTwilioSettings;

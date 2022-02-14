@@ -16,6 +16,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
+    /// <inheritdoc cref = "IOperationFilter" />
     public class SwaggerExcludeFilter : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)

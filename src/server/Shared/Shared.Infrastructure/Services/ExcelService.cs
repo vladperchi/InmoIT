@@ -18,6 +18,7 @@ using OfficeOpenXml.Style;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
+    /// <inheritdoc cref = "IExcelService" />
     public class ExcelService : IExcelService
     {
         private readonly IStringLocalizer<ExcelService> _localizer;

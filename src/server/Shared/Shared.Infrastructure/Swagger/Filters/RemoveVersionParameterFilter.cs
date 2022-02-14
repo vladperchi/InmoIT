@@ -12,6 +12,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace InmoIT.Shared.Infrastructure.Swagger.Filters
 {
+    /// <inheritdoc cref = "IOperationFilter" />
     public class RemoveVersionParameterFilter : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)

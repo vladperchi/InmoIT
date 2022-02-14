@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace InmoIT.Shared.Infrastructure.Controllers
 {
+    /// <inheritdoc cref = "ControllerFeatureProvider" />
     internal class InternalControllerFeatureProvider : ControllerFeatureProvider
     {
         protected override bool IsController(TypeInfo typeInfo)

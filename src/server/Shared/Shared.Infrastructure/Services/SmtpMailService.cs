@@ -18,6 +18,7 @@ using MimeKit;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
+    /// <inheritdoc cref = "IMailService" />
     public class SmtpMailService : IMailService
     {
         private readonly MailSettings _settings;

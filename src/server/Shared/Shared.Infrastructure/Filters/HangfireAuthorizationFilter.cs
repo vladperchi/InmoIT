@@ -11,6 +11,7 @@ using InmoIT.Shared.Core.Constants;
 
 namespace InmoIT.Shared.Infrastructure.Filters
 {
+    /// <inheritdoc cref = "IDashboardAuthorizationFilter" />
     public class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
     {
         public bool Authorize(DashboardContext context)

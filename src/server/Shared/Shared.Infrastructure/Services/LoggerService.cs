@@ -24,6 +24,7 @@ using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
+    /// <inheritdoc cref = "ILoggerService" />
     public class LoggerService : ILoggerService
     {
         private readonly IEventLogger _logger;
@@ -88,9 +89,16 @@ namespace InmoIT.Shared.Infrastructure.Services
 
         public async Task<Result<string>> LogCustomEventAsync(LogRequest request)
         {
-            var log = _mapper.Map<EventLog>(request);
-            await _logger.SaveAsync(log, default);
-            return await Result<string>.SuccessAsync(data: log.Id.ToString());
+            try
+            {
+                var log = _mapper.Map<EventLog>(request);
+                await _logger.SaveAsync(log, default);
+                return await Result<string>.SuccessAsync(data: log.Id.ToString());
+            }
+            catch (Exception)
+            {
+                throw new EventLogCustomException(_localizer, null);
+            }
         }
     }
 }

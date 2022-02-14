@@ -25,6 +25,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace InmoIT.Shared.Infrastructure.Middlewares
 {
+    /// <inheritdoc cref = "IMiddleware" />
     internal class ExceptionHandlerMiddleware : IMiddleware
     {
         private readonly ILogger<ExceptionHandlerMiddleware> _logger;

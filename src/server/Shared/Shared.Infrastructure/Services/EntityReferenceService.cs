@@ -17,6 +17,7 @@ using InmoIT.Shared.Core.Entities;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
+    /// <inheritdoc cref = "IEntityReferenceService" />
     public class EntityReferenceService : IEntityReferenceService
     {
         private readonly IApplicationDbContext _context;

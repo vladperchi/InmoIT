@@ -14,6 +14,7 @@ using Hangfire;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
+    /// <inheritdoc cref = "IJobService" />
     public class HangfireService : IJobService
     {
         public string Enqueue(Expression<Func<Task>> methodCall) =>
