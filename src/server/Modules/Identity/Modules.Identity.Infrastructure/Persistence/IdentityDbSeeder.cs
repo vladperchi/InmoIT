@@ -52,11 +52,12 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                 AddSuperAdmin();
                 AddAdmin();
                 AddStaff();
+                _logger.LogInformation(_localizer["Finished seeding data module Identity."]);
                 _context.SaveChanges();
             }
             catch (Exception)
             {
-                _logger.LogError(_localizer["An error occurred while seeding Identity Data."]);
+                _logger.LogError(_localizer["An error occurred while seeding data module Identity."]);
             }
         }
 

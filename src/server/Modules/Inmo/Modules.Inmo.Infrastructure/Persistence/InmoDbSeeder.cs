@@ -48,11 +48,12 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                 AddProperties();
 
                 // AddPropertyImages();
+                _logger.LogInformation(_localizer["Finished seeding data module Inmo."]);
                 _context.SaveChanges();
             }
             catch (Exception)
             {
-                _logger.LogError(_localizer["An error occurred while seeding Inmo Data."]);
+                _logger.LogError(_localizer["An error occurred while seeding data module Inmo."]);
             }
         }
 

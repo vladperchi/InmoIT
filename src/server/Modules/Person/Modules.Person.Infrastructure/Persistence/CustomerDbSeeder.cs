@@ -45,11 +45,12 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
             try
             {
                 AddCustomers();
+                _logger.LogInformation(_localizer["Finished seeding data module Person."]);
                 _context.SaveChanges();
             }
             catch (Exception)
             {
-                _logger.LogError(_localizer["An error occurred while seeding Customers Data."]);
+                _logger.LogError(_localizer["An error occurred while seeding data module Person."]);
             }
         }
 
