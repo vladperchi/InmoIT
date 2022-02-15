@@ -143,7 +143,6 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 Version = "v1",
                 Title = "InmoIT.API",
                 Description = "Modular Clean Architecture built in ASP.NET Core 5.0 WebAPI.",
-                TermsOfService = new Uri("https://example.com/terms"),
                 Contact = new OpenApiContact
                 {
                     Name = "Vladimir P. CHibás (vladperchi)",
@@ -154,7 +153,8 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 {
                     Name = "MIT License",
                     Url = new Uri("https://github.com/vladperchi/InmoIT/blob/master/LICENSE"),
-                }
+                },
+                TermsOfService = new Uri("https://example.com/terms")
             });
         }
     }
