@@ -13,6 +13,7 @@ using InmoIT.Shared.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using InmoIT.Shared.Core.Entities;
+using InmoIT.Shared.Core.Constants;
 
 namespace InmoIT.Shared.Infrastructure.Persistence
 {
@@ -20,7 +21,7 @@ namespace InmoIT.Shared.Infrastructure.Persistence
     {
         private readonly PersistenceSettings _persistenceOptions;
 
-        protected string Schema => "Application";
+        protected string Schema => SchemesConstant.Application;
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IOptions<PersistenceSettings> persistenceOptions)
                 : base(options)

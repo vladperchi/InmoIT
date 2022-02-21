@@ -16,6 +16,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
+using InmoIT.Shared.Core.Constants;
 
 namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
 {
@@ -24,7 +25,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
         private readonly PersistenceSettings _persistenceOptions;
         private readonly IJsonSerializer _jsonSerializer;
 
-        protected override string Schema => "Inmo";
+        protected override string Schema => SchemesConstant.Inmo;
 
         public InmoDbContext(
             DbContextOptions<InmoDbContext> options,

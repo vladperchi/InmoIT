@@ -17,6 +17,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
+using InmoIT.Shared.Core.Constants;
 
 namespace InmoIT.Modules.Person.Infrastructure.Persistence
 {
@@ -25,7 +26,7 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
         private readonly PersistenceSettings _persistenceOptions;
         private readonly IJsonSerializer _jsonSerializer;
 
-        protected override string Schema => "Person";
+        protected override string Schema => SchemesConstant.Person;
 
         public CustomerDbContext(
             DbContextOptions<CustomerDbContext> options,

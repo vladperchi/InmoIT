@@ -24,6 +24,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
 using InmoIT.Shared.Core.Interfaces.Contexts;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
+using InmoIT.Shared.Core.Constants;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Persistence
 {
@@ -36,7 +37,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
         private readonly PersistenceSettings _persistenceOptions;
         private readonly IJsonSerializer _json;
 
-        internal string Schema => "Identity";
+        internal string Schema => SchemesConstant.Identity;
 
         public IdentityDbContext(
             DbContextOptions<IdentityDbContext> options,

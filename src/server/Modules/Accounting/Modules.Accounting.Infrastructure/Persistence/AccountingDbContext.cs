@@ -9,6 +9,7 @@
 using InmoIT.Modules.Accounting.Core.Abstractions;
 using InmoIT.Modules.Accounting.Core.Entities;
 using InmoIT.Modules.Accounting.Infrastructure.Extensions;
+using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
 using InmoIT.Shared.Core.Logging;
 using InmoIT.Shared.Core.Settings;
@@ -24,7 +25,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Persistence
         private readonly PersistenceSettings _persistenceOptions;
         private readonly IJsonSerializer _json;
 
-        protected override string Schema => "Accounting";
+        protected override string Schema => SchemesConstant.Accounting;
 
         public AccountingDbContext(
             DbContextOptions<AccountingDbContext> options,
