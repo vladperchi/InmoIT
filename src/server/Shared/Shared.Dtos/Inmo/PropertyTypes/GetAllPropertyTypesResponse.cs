@@ -10,5 +10,5 @@ using System;
 
 namespace InmoIT.Shared.Dtos.Inmo.PropertyTypes
 {
-    public record GetAllPropertyTypesResponse(Guid Id, string Name, string Code, string Detail, string Url, bool IsActive);
+    public record GetAllPropertyTypesResponse(Guid Id, string Name, string Code, string Detail, string ImageUrl, bool IsActive);
 }
