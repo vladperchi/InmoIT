@@ -16,6 +16,7 @@ using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Features.Users.Events;
+using InmoIT.Modules.Identity.Infrastructure.Extensions;
 using InmoIT.Modules.Identity.Infrastructure.Specifications;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Extensions;
@@ -30,8 +31,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-using Serilog.Core;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -72,7 +71,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _jobService = jobService;
             _excelService = excelService;
             _eventLog = eventLog;
-
             _currentUser = currentUser;
         }
 
@@ -197,9 +195,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
             else
             {
-                var errorMessages = result.Errors.Select(a => _localizer[a.Description].ToString()).Distinct().ToList();
-                await Result<string>.FailAsync(errorMessages);
-                throw new IdentityException(_localizer["An error occurred while updating a user"], errorMessages);
+                await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                throw new IdentityException(_localizer["An error occurred while updating a user"], result.GetErrorMessages(_localizer));
             }
         }
 
@@ -266,8 +263,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
             else
             {
-                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
-                throw new IdentityException(_localizer["An error occurred while deleting a user"], errorMessages);
+                throw new IdentityException(_localizer["An error occurred while deleting a user"], result.GetErrorMessages(_localizer));
             }
         }
 

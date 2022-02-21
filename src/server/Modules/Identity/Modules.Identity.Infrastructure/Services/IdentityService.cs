@@ -17,6 +17,7 @@ using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Features.Users.Events;
+using InmoIT.Modules.Identity.Infrastructure.Extensions;
 using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
@@ -147,8 +148,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 }
                 else
                 {
-                    var errorMessages = result.Errors.Select(a => _localizer[a.Description].ToString()).Distinct().ToList();
-                    throw new IdentityCustomException(_localizer, errorMessages);
+                    throw new IdentityCustomException(_localizer, result.GetErrorMessages(_localizer));
                 }
             }
             else
@@ -198,9 +198,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
             else
             {
-                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
-                await Result<string>.FailAsync(errorMessages);
-                throw new IdentityCustomException(_localizer, errorMessages);
+                await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                throw new IdentityCustomException(_localizer, result.GetErrorMessages(_localizer));
             }
         }
 
@@ -311,9 +310,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
             else
             {
-                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
-                await Result<string>.FailAsync(errorMessages);
-                throw new IdentityException(_localizer["An error occurred while password reset"], errorMessages);
+                await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                throw new IdentityException(_localizer["An error occurred while password reset"], result.GetErrorMessages(_localizer));
             }
         }
 
@@ -329,9 +327,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
             else
             {
-                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
-                await Result<string>.FailAsync(errorMessages);
-                throw new IdentityException(_localizer["An error occurred while change password"], errorMessages);
+                await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                throw new IdentityException(_localizer["An error occurred while change password"], result.GetErrorMessages(_localizer));
             }
         }
 

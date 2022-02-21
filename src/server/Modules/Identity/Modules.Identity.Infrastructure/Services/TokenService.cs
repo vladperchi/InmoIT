@@ -29,7 +29,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using static InmoIT.Shared.Core.Constants.PermissionsConstant;
+using InmoIT.Modules.Identity.Infrastructure.Extensions;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -99,14 +99,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 throw new IdentityException(_localizer["Invalid Credentials. Please contact the administrator"], statusCode: HttpStatusCode.Unauthorized);
             }
 
-            try
-            {
-                return await GenerateTokensAndUpdateAsync(user, ipAddress);
-            }
-            catch (Exception ex)
-            {
-                throw new IdentityException(string.Format(_localizer["An Error Token {0}||{1}||Exception:{2}"], user.Email, user.Id, ex));
-            }
+            return await GenerateTokensAndUpdateAsync(user, ipAddress);
         }
 
         public async Task<IResult<TokenResponse>> RefreshTokenAsync(RefreshTokenRequest request, string ipAddress)
@@ -129,14 +122,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 throw new IdentityException(_localizer["Invalid Client Token."], statusCode: HttpStatusCode.Unauthorized);
             }
 
-            try
-            {
-                return await GenerateTokensAndUpdateAsync(user, ipAddress);
-            }
-            catch (Exception ex)
-            {
-                throw new IdentityException(string.Format(_localizer["An Error Refresh Token {0}||{1}||Exception:{2}"], user.Email, user.Id, ex));
-            }
+            return await GenerateTokensAndUpdateAsync(user, ipAddress);
         }
 
         private async Task<IResult<TokenResponse>> GenerateTokensAndUpdateAsync(InmoUser user, string ipAddress)
@@ -149,10 +135,19 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             string token = await GenerateJwtAsync(user, ipAddress);
             user.RefreshToken = GenerateRefreshToken();
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
-            await _userManager.UpdateAsync(user);
-            var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
-            _logger.LogInformation($"{user.Email}||{user.Id}||{response.Token}||{response.RefreshToken}||{response.RefreshTokenExpiryTime}");
-            return await Result<TokenResponse>.SuccessAsync(response);
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
+                _logger.LogInformation($"{user.Email}||{user.Id}||{response.Token}||{response.RefreshToken}||{response.RefreshTokenExpiryTime}");
+                return await Result<TokenResponse>.SuccessAsync(response);
+            }
+            else
+            {
+                await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                throw new IdentityException(_localizer["An error occurred while generating or updated Token"], result.GetErrorMessages(_localizer));
+            }
         }
 
         private async Task<string> GenerateJwtAsync(InmoUser user, string ipAddress) =>

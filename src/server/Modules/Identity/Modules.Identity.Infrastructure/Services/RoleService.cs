@@ -14,6 +14,7 @@ using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Features.Roles.Events;
+using InmoIT.Modules.Identity.Infrastructure.Extensions;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Roles;
@@ -81,16 +82,17 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 }
 
                 var newRole = new InmoRole(request.Name, request.Description);
-                var response = await _roleManager.CreateAsync(newRole);
+                var result = await _roleManager.CreateAsync(newRole);
                 newRole.AddDomainEvent(new RoleAddedEvent(newRole));
                 await _context.SaveChangesAsync();
-                if (response.Succeeded)
+                if (result.Succeeded)
                 {
                     return await Result<string>.SuccessAsync(newRole.Id, string.Format(_localizer["Role {0} Created."], request.Name));
                 }
                 else
                 {
-                    return await Result<string>.FailAsync(response.Errors.Select(e => _localizer[e.Description].ToString()).ToList());
+                    return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                    throw new IdentityException(_localizer["An error occurred while added Rol"], result.GetErrorMessages(_localizer));
                 }
             }
             else
@@ -110,8 +112,16 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 existingRole.NormalizedName = request.Name.ToUpper();
                 existingRole.Description = request.Description;
                 existingRole.AddDomainEvent(new RoleUpdatedEvent(existingRole));
-                await _roleManager.UpdateAsync(existingRole);
-                return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Updated."], existingRole.Name));
+                var result = await _roleManager.UpdateAsync(existingRole);
+                if (result.Succeeded)
+                {
+                    return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Updated."], existingRole.Name));
+                }
+                else
+                {
+                    return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                    throw new IdentityException(_localizer["An error occurred while updated Rol"], result.GetErrorMessages(_localizer));
+                }
             }
         }
 
@@ -141,8 +151,16 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             if (roleIsNotUsed)
             {
                 existingRole.AddDomainEvent(new RoleDeletedEvent(id));
-                await _roleManager.DeleteAsync(existingRole);
-                return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
+                var result = await _roleManager.DeleteAsync(existingRole);
+                if (result.Succeeded)
+                {
+                    return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
+                }
+                else
+                {
+                    return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                    throw new IdentityException(_localizer["An error occurred while deleted Rol"], result.GetErrorMessages(_localizer));
+                }
             }
             else
             {

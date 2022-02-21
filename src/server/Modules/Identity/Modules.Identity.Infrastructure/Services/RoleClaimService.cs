@@ -21,6 +21,7 @@ using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Roles;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -102,11 +103,18 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     return await Result<string>.FailAsync(_localizer["Similar Role Claim exists."]);
                 }
 
-                var roleClaim = _mapper.Map<InmoRoleClaim>(request);
-                await _context.RoleClaims.AddAsync(roleClaim);
-                roleClaim.AddDomainEvent(new RoleClaimAddedEvent(roleClaim));
-                await _context.SaveChangesAsync();
-                return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} created."], request.Value));
+                try
+                {
+                    var roleClaim = _mapper.Map<InmoRoleClaim>(request);
+                    var result = await _context.RoleClaims.AddAsync(roleClaim);
+                    roleClaim.AddDomainEvent(new RoleClaimAddedEvent(roleClaim));
+                    await _context.SaveChangesAsync();
+                    return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} created."], request.Value));
+                }
+                catch (Exception)
+                {
+                    throw new IdentityException(string.Format(_localizer["An error occurred while Role Claim {0} created."], request.Value));
+                }
             }
             else
             {
@@ -118,15 +126,22 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 }
                 else
                 {
-                    existingRoleClaim.ClaimType = request.Type;
-                    existingRoleClaim.ClaimValue = request.Value;
-                    existingRoleClaim.Group = request.Group;
-                    existingRoleClaim.Description = request.Description;
-                    existingRoleClaim.RoleId = request.RoleId;
-                    _context.RoleClaims.Update(existingRoleClaim);
-                    existingRoleClaim.AddDomainEvent(new RoleClaimUpdatedEvent(existingRoleClaim));
-                    await _context.SaveChangesAsync();
-                    return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} for Role {1} updated."], request.Value, existingRoleClaim.Role.Name));
+                    try
+                    {
+                        existingRoleClaim.ClaimType = request.Type;
+                        existingRoleClaim.ClaimValue = request.Value;
+                        existingRoleClaim.Group = request.Group;
+                        existingRoleClaim.Description = request.Description;
+                        existingRoleClaim.RoleId = request.RoleId;
+                        _context.RoleClaims.Update(existingRoleClaim);
+                        existingRoleClaim.AddDomainEvent(new RoleClaimUpdatedEvent(existingRoleClaim));
+                        await _context.SaveChangesAsync();
+                        return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} for Role {1} updated."], request.Value, existingRoleClaim.Role.Name));
+                    }
+                    catch (Exception)
+                    {
+                        throw new IdentityException(string.Format(_localizer["An error occurred while Role Claim {0} for Role {1} updated."], request.Value, existingRoleClaim.Role.Name));
+                    }
                 }
             }
         }
