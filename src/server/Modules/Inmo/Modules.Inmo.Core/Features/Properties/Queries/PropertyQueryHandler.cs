@@ -99,7 +99,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
             var data = await _context.Properties.AsNoTracking().Where(x => x.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
             if (data is null)
             {
-                throw new PropertyNotFoundException(_localizer);
+                throw new PropertyNotFoundException(_localizer, query.Id);
             }
 
             var result = _mapper.Map<GetPropertyByIdResponse>(data);

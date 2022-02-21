@@ -17,9 +17,10 @@ namespace InmoIT.Modules.Inmo.Core.Exceptions
     {
         public Guid Id { get; }
 
-        public PropertyNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Property was not found..."], null, HttpStatusCode.NotFound)
+        public PropertyNotFoundException(IStringLocalizer localizer, Guid id)
+            : base(localizer["Property with Id: {id} was not found."], null, HttpStatusCode.NotFound)
         {
+            Id = id;
         }
     }
 }

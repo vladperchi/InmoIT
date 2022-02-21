@@ -73,7 +73,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
         {
             if (!await _context.Properties.Where(x => x.Id == command.Id).AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
             {
-                throw new PropertyNotFoundException(_localizer);
+                throw new PropertyNotFoundException(_localizer, command.Id);
             }
 
             try
@@ -101,7 +101,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
             var property = await _context.Properties.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
             if (property is null)
             {
-                throw new PropertyNotFoundException(_localizer);
+                throw new PropertyNotFoundException(_localizer, command.Id);
             }
 
             try
