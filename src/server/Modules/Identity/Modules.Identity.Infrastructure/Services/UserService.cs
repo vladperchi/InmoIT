@@ -187,7 +187,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             user.AddDomainEvent(new UserUpdatedEvent(user));
             var result = await _userManager.UpdateAsync(user);
-
             if (result.Succeeded)
             {
                 _logger.LogInformation(string.Format(_localizer["User {0} updated with Id: {1}"], user.Email, user.Id));
