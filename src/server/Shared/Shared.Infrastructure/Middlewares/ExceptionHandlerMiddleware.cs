@@ -97,7 +97,7 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                     Path = $"{context.Request.Path}",
                     QueryString = $"{context.Request.QueryString}::{requestBody}",
                     StatusCode = context.Response.StatusCode,
-                    SupportMessage = _localizer["Please provide the ErrorId to the support team for further analysis."],
+                    SupportMessage = string.Format(_localizer["Please provide the ErrorId: {0} to the support team for further analysis"], errorId),
                 };
                 errorResult.Messages!.Add(exception.Message);
                 var response = context.Response;
