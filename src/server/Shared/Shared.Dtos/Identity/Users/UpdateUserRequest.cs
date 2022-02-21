@@ -21,15 +21,17 @@ namespace InmoIT.Shared.Dtos.Identity.Users
         [Required]
         public string LastName { get; set; }
 
-        [MinLength(6)]
+        public string Email { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        [MinLength(8)]
         public string CurrentPassword { get; set; }
 
-        [MinLength(6)]
+        [MinLength(8)]
         public string Password { get; set; }
 
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
-
-        public string PhoneNumber { get; set; }
     }
 }
