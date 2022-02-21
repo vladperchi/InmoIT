@@ -9,6 +9,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Constants;
@@ -31,14 +32,14 @@ namespace InmoIT.Shared.Infrastructure.Services
             _localizer = localizer;
         }
 
-        public Task<string> UploadAsync(FileUploadRequest request, FileType supportedFileType)
+        public async Task<string> UploadAsync(FileUploadRequest request, FileType supportedFileType)
         {
-            if (request.Data == null)
+            if (request is null || request.Data is null)
             {
-                return Task.FromResult(string.Empty);
+                return string.Empty;
             }
 
-            if (!supportedFileType.GetDescriptionList().Contains(request.Extension))
+            if (request.Extension is null || !supportedFileType.GetDescriptionList().Contains(request.Extension.ToLower()))
                 throw new FileFormatInvalidException(_localizer);
 
             byte[] data = request.Data.ToByteArray();
@@ -60,6 +61,7 @@ namespace InmoIT.Shared.Infrastructure.Services
                 }
 
                 string fileName = request.FileName.Trim('"');
+                fileName = RemoveSpecialCharacters(fileName);
                 string fullPath = Path.Combine(pathToSave, fileName);
                 string dbPath = Path.Combine(folderName, fileName);
                 if (File.Exists(dbPath))
@@ -69,12 +71,12 @@ namespace InmoIT.Shared.Infrastructure.Services
                 }
 
                 using var fileStream = new FileStream(fullPath, FileMode.Create);
-                memoryStream.CopyTo(fileStream);
-                return Task.FromResult(dbPath);
+                await memoryStream.CopyToAsync(fileStream);
+                return dbPath.Replace("\\", "/");
             }
             else
             {
-                return Task.FromResult(string.Empty);
+                return string.Empty;
             }
         }
 
@@ -124,6 +126,26 @@ namespace InmoIT.Shared.Infrastructure.Services
             }
 
             return string.Format(pattern, max);
+        }
+
+        public static string RemoveSpecialCharacters(string str)
+        {
+            return Regex.Replace(str, "[^a-zA-Z0-9_.]+", string.Empty, RegexOptions.Compiled);
+        }
+
+        public void Remove(UploadStorageType pathFolder, string currentImageUrl)
+        {
+            string folder = pathFolder.ToDescriptionString();
+            string folderName = Path.Combine("Files", folder);
+            string pathToDelete = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            bool exists = Directory.Exists(pathToDelete);
+            if (exists)
+            {
+                if (File.Exists(currentImageUrl))
+                {
+                    File.Delete(currentImageUrl);
+                }
+            }
         }
     }
 }

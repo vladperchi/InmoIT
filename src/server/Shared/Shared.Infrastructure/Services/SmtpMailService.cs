@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Settings;
@@ -48,11 +49,12 @@ namespace InmoIT.Shared.Infrastructure.Services
                 await smtp.ConnectAsync(_settings.Host, _settings.Port, SecureSocketOptions.StartTls);
                 await smtp.AuthenticateAsync(_settings.UserName, _settings.Password);
                 await smtp.SendAsync(email);
+                _logger.LogInformation($"Send email to {email.To} successfull");
                 await smtp.DisconnectAsync(true);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
+                _logger.LogError(ex.Message, $"An error occurred while send email to {request.To}");
             }
         }
     }

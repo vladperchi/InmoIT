@@ -46,9 +46,7 @@ namespace InmoIT.Shared.Infrastructure.Services
 
         public async Task<PaginatedResult<EventLog>> GetAllAsync(GetAllLogsRequest request)
         {
-            var queryable = _dbContext.EventLogs
-                .AsNoTracking()
-                .AsQueryable();
+            var queryable = _dbContext.EventLogs.AsNoTracking().AsQueryable();
 
             if (request.UserId != Guid.Empty)
             {
@@ -77,8 +75,7 @@ namespace InmoIT.Shared.Infrastructure.Services
                 && EF.Functions.Like(x.NewValues.ToLower(), $"%{lowerSearchString}%")) || EF.Functions.Like(x.Id.ToString().ToLower(), $"%{lowerSearchString}%"));
             }
 
-            var eventLogList = await queryable
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            var eventLogList = await queryable.ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (eventLogList == null)
             {
                 throw new EventLogListEmptyException(_localizer);

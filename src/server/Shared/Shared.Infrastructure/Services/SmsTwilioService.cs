@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Settings;
@@ -38,17 +39,17 @@ namespace InmoIT.Shared.Infrastructure.Services
                 string authToken = _smsTwilioSettings.Password;
 
                 TwilioClient.Init(accountSid, authToken);
-
                 return MessageResource.CreateAsync(
                     to: new PhoneNumber(request.Number),
                     from: new PhoneNumber(_smsTwilioSettings.From),
                     body: request.Message);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
+                _logger.LogError(ex.Message, $"An error occurred while send SMS to number {request.Number}");
             }
 
+            _logger.LogInformation($"Send SMS to number {request.Number} successfull");
             return Task.CompletedTask;
         }
     }
