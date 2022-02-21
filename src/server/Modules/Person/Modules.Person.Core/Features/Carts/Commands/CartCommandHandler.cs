@@ -51,7 +51,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
             if (!await _context.Customers
                 .AnyAsync(x => x.Id == command.CustomerId, cancellationToken))
             {
-                throw new CustomerNotFoundException(_localizer);
+                throw new CustomerNotFoundException(_localizer, command.CustomerId);
             }
 
             try
@@ -72,7 +72,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
         {
             var cart = await _context.Carts
                 .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
-            if (cart == null)
+            if (cart is null)
             {
                 throw new CartNotFoundException(_localizer);
             }
@@ -95,7 +95,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
         {
             var cart = await _context.Carts
                 .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
-            if (cart == null)
+            if (cart is null)
             {
                 throw new CartNotFoundException(_localizer);
             }

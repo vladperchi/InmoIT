@@ -293,9 +293,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
         }
 
-        public async Task<int> GetCountAsync()
-        {
-            return await _context.RoleClaims.AsNoTracking().CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await _context.RoleClaims.AsNoTracking().CountAsync();
     }
 }

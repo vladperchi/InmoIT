@@ -59,9 +59,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(RegisterOwnerCommand command, CancellationToken cancellationToken)
 {
-            if (await _context.Owners
-                .Where(x => x.Email == command.Email)
-                .AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
+            if (await _context.Owners.Where(x => x.Email == command.Email).AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
             {
                 throw new OwnerAlreadyExistsException(_localizer);
             }
@@ -98,14 +96,23 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(UpdateOwnerCommand command, CancellationToken cancellationToken)
         {
-            if (!await _context.Owners
-                .Where(x => x.Id == command.Id)
-                .AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
+            if (!await _context.Owners.Where(x => x.Id == command.Id).AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
             {
                 throw new OwnerNotFoundException(_localizer);
             }
 
             var owner = _mapper.Map<Owner>(command);
+            if (command.DeleteCurrentImage)
+            {
+                string currentImageUrl = command.ImageUrl;
+                if (!string.IsNullOrEmpty(currentImageUrl))
+                {
+                    _uploadService.Remove(UploadStorageType.Owner, currentImageUrl);
+                }
+
+                owner = owner.ClearPathImageUrl();
+            }
+
             if (command.FileUploadRequest != null)
             {
                 var fileUploadRequest = new FileUploadRequest
@@ -136,10 +143,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public async Task<Result<Guid>> Handle(RemoveOwnerCommand command, CancellationToken cancellationToken)
         {
-            var owner = await _context.Owners
-                .Where(x => x.Id == command.Id)
-                .FirstOrDefaultAsync(cancellationToken);
-            if (owner == null)
+            var owner = await _context.Owners.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
+            if (owner is null)
             {
                 throw new OwnerNotFoundException(_localizer);
             }

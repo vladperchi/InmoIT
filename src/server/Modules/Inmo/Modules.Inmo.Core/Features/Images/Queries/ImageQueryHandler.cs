@@ -53,18 +53,13 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
             sourse = !string.IsNullOrWhiteSpace(ordering)
                 ? sourse.OrderBy(ordering)
                 : sourse.OrderBy(x => x.Id);
-
             if (request.PropertyId != null && !request.PropertyId.Equals(Guid.Empty))
             {
                 sourse = sourse.Where(x => x.PropertyId.Equals(request.PropertyId));
             }
 
             var filterSpec = new ImageFilterSpecification(request.SearchString);
-            var data = await sourse
-                .AsNoTracking()
-                .Specify(filterSpec)
-                .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            var data = await sourse.AsNoTracking().Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             if (data == null)
             {
                 throw new ImageListEmptyException(_localizer);
@@ -75,11 +70,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
 
         public async Task<Result<GetPropertyImageByPropertyIdResponse>> Handle(GetImageByPropertyIdQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.PropertyImages
-                .AsNoTracking()
-                .Where(x => x.PropertyId == query.Id)
-                .Include(x => x.Property)
-                .FirstOrDefaultAsync(cancellationToken);
+            var data = await _context.PropertyImages.AsNoTracking().Where(x => x.PropertyId == query.Id).Include(x => x.Property).FirstOrDefaultAsync(cancellationToken);
 
             if (data == null)
             {

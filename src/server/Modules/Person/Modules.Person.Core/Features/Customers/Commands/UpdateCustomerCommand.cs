@@ -35,6 +35,8 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public bool IsActive { get; set; }
 
+        public bool DeleteCurrentImage { get; set; } = false;
+
         public FileUploadRequest FileUploadRequest { get; set; }
     }
 }

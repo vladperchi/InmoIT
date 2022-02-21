@@ -48,15 +48,15 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
         public async Task<Result<Guid>> Handle(RegisterPropertyCommand command, CancellationToken cancellationToken)
         {
-            if (await _context.Properties
-                .AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
+            if (await _context.Properties.AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
             {
                 throw new PropertyAlreadyExistsException(_localizer);
             }
 
             try
-            {
+{
                 command.CodeInternal.ToUpper();
+                command.IsActive = true;
                 var property = _mapper.Map<Property>(command);
                 property.AddDomainEvent(new PropertyRegisteredEvent(property));
                 await _context.Properties.AddAsync(property, cancellationToken);
@@ -71,9 +71,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
         public async Task<Result<Guid>> Handle(UpdatePropertyCommand command, CancellationToken cancellationToken)
         {
-            if (!await _context.Properties
-                .Where(x => x.Id == command.Id)
-                .AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
+            if (!await _context.Properties.Where(x => x.Id == command.Id).AnyAsync(x => x.CodeInternal == command.CodeInternal, cancellationToken))
             {
                 throw new PropertyNotFoundException(_localizer);
             }
@@ -82,6 +80,10 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
             {
                 command.CodeInternal.ToUpper();
                 var property = _mapper.Map<Property>(command);
+                property.CodeInternal = !string.IsNullOrEmpty(command.CodeInternal)
+                    ? command.CodeInternal.ToUpper()
+                    : property.CodeInternal;
+                property.IsActive = command.IsActive || property.IsActive;
                 property.AddDomainEvent(new PropertyUpdatedEvent(property));
                 _context.Properties.Update(property);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -96,10 +98,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
 
         public async Task<Result<Guid>> Handle(RemovePropertyCommand command, CancellationToken cancellationToken)
         {
-            var property = await _context.Properties
-                .Where(x => x.Id == command.Id)
-                .FirstOrDefaultAsync(cancellationToken);
-            if (property == null)
+            var property = await _context.Properties.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
+            if (property is null)
             {
                 throw new PropertyNotFoundException(_localizer);
             }

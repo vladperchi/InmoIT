@@ -24,8 +24,16 @@ namespace InmoIT.Modules.Identity.Core.Abstractions
 
         Task<IResult> ResetPasswordAsync(ResetPasswordRequest request);
 
+        Task<IResult> ChangePasswordAsync(ChangePasswordRequest request, string userId);
+
         Task<IResult<string>> GetUserPictureAsync(string userId);
 
         Task<IResult<string>> UpdateUserPictureAsync(UpdateUserPictureRequest request, string userId);
+
+        Task<bool> ExistsWithNameAsync(string name);
+
+        Task<bool> ExistsWithEmailAsync(string email, string exceptId = null);
+
+        Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, string exceptId = null);
     }
 }

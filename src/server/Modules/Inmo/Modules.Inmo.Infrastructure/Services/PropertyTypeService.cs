@@ -16,7 +16,6 @@ using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Inmo.PropertyTypes;
 using InmoIT.Shared.Infrastructure.Common;
 using MediatR;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace InmoIT.Modules.Inmo.Infrastructure.Services
@@ -44,19 +43,8 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
             return await _mediator.Send(new RemovePropertyTypeCommand(propertyTypeId));
         }
 
-        public async Task<string> GenerateFileName(int length)
-        {
-            return await Utilities.GenerateCode("PT", length);
-        }
+        public async Task<string> GenerateFileName(int length) => await Utilities.GenerateCode("PT", length);
 
-        public async Task<int> GetCountAsync()
-        {
-            return await _context.PropertyTypes.CountAsync();
-        }
-
-        public async Task<bool> IsPropertyTypeUsed(Guid id)
-        {
-            return await _context.PropertyTypes.AnyAsync(x => x.Id == id);
-        }
+        public async Task<int> GetCountAsync() => await _context.PropertyTypes.CountAsync();
     }
 }

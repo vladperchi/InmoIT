@@ -17,7 +17,11 @@ namespace InmoIT.Shared.Core.Integration.Inmo
     {
         Task<Result<GetPropertyByIdResponse>> GetDetailsPropertyAsync(Guid propertyId);
 
+        Task<Result<Guid>> ChangeStatusPropertyAsync(Guid propertyId, bool status);
+
         Task<Result<Guid>> RemovePropertyAsync(Guid propertyId);
+
+        Task<bool> IsPropertyTypeUsed(Guid propertyTypeId);
 
         Task<int> GetCountAsync();
     }

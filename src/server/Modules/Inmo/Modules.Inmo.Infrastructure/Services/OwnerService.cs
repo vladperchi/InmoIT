@@ -8,7 +8,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Commands;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Queries;
@@ -45,14 +44,8 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
             return await _mediator.Send(new RemoveOwnerCommand(ownerId));
         }
 
-        public async Task<string> GenerateFileName(int length)
-        {
-            return await Utilities.GenerateCode("O", length);
-        }
+        public async Task<string> GenerateFileName(int length) => await Utilities.GenerateCode("O", length);
 
-        public async Task<int> GetCountAsync()
-        {
-            return await _context.Owners.CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await _context.Owners.CountAsync();
     }
 }

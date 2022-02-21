@@ -13,8 +13,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
-
 using InmoIT.Modules.Inmo.Core.Abstractions;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Exceptions;
@@ -67,10 +65,12 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
             }
 
             string ordering = new OrderByConverter().Convert(request.OrderBy);
-            source = !string.IsNullOrWhiteSpace(ordering) ? source.OrderBy(ordering) : source.OrderBy(x => x.Id);
+            source = !string.IsNullOrWhiteSpace(ordering)
+                ? source.OrderBy(ordering)
+                : source.OrderBy(x => x.Id);
             var filterSpec = new PropertyFilterSpecification(request.SearchString);
             var data = await source.AsNoTracking().Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data == null)
+            if (data is null)
             {
                 throw new PropertyListEmptyException(_localizer);
             }
@@ -97,13 +97,13 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
         public async Task<Result<GetPropertyByIdResponse>> Handle(GetPropertyByIdQuery query, CancellationToken cancellationToken)
         {
             var data = await _context.Properties.AsNoTracking().Where(x => x.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
-            if (data == null)
+            if (data is null)
             {
                 throw new PropertyNotFoundException(_localizer);
             }
 
             var result = _mapper.Map<GetPropertyByIdResponse>(data);
-            if (result == null)
+            if (result is null)
             {
                 var image = await _propertyImageService.GetDetailsPropertyImageAsync(result.Id);
                 if (image.Succeeded && image.Data.Enabled)

@@ -155,9 +155,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             return typeof(RolesConstant).GetAllConstantValues<string>();
         }
 
-        public async Task<int> GetCountAsync()
-        {
-            return await _roleManager.Roles.CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await _roleManager.Roles.CountAsync();
     }
 }

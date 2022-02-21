@@ -11,11 +11,9 @@ using InmoIT.Shared.Infrastructure.Permissions;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Dtos.Identity.Logging;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using InmoIT.Shared.Core.Attributes;
-using Microsoft.AspNetCore.Http;
 
 namespace InmoIT.Modules.Identity.Api.Controllers
 {
@@ -29,18 +27,17 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _eventLog = eventLog;
         }
 
-        ///// <response code="200">Return all log list user.</response>
-        ///// <response code="204">Log not content.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Logs.ViewAll)]
-        //[SwaggerHeader("filter", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Get All Logs User.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("filter", "Input data not required", "", false)]
+        [SwaggerOperation(
+            Summary = "Get Log User List.",
+            Description = "List all logs user in the database. This can only be done by the registered user",
+            OperationId = "GetAllAsync")]
+        [SwaggerResponse(200, "Return log user list.")]
+        [SwaggerResponse(204, "Log user list not content.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginatedLogFilter filter)
         {
             var request = Mapper.Map<GetAllLogsRequest>(filter);
@@ -48,18 +45,17 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             return Ok(response);
         }
 
-        ///// <response code="201">Return created log user.</response>
-        ///// <response code="400">Log errors have occurred.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.Logs.Create)]
-        //[SwaggerHeader("request", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Created Log User.")]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("request", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Created Log Custom Event.",
+            Description = "Created a log custom event user with all its values set. This can only be done by the registered user",
+            OperationId = "LogCustomEventAsync")]
+        [SwaggerResponse(201, "Return created log custom event user.")]
+        [SwaggerResponse(500, "Log Custom Event Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> LogCustomEventAsync(LogRequest request)
         {
             var response = await _eventLog.LogCustomEventAsync(request);

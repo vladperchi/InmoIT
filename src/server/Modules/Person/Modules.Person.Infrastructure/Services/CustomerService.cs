@@ -43,14 +43,8 @@ namespace InmoIT.Modules.Person.Infrastructure.Services
             return await _mediator.Send(new RemoveCustomerCommand(customerId));
         }
 
-        public async Task<string> GenerateFileName(int length)
-        {
-            return await Utilities.GenerateCode("C", length);
-        }
+        public async Task<string> GenerateFileName(int length) => await Utilities.GenerateCode("C", length);
 
-        public async Task<int> GetCountAsync()
-        {
-            return await _context.Customers.CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await _context.Customers.CountAsync();
     }
 }

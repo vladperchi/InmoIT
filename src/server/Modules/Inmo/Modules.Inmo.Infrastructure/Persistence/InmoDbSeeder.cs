@@ -46,9 +46,6 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                 AddOwners();
                 AddPropertyTypes();
                 AddProperties();
-
-                // AddPropertyImages();
-                _logger.LogInformation(_localizer["Finished seeding data module Inmo."]);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -73,10 +70,10 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                         {
                             await _context.Owners.AddAsync(item);
                         }
-                    }
 
-                    await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Owners Successfully."]);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation(_localizer["Seeded Owners Successfully."]);
+                    }
                 }
             }).GetAwaiter().GetResult();
         }
@@ -94,10 +91,10 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                         {
                             await _context.PropertyTypes.AddAsync(item);
                         }
-                    }
 
-                    await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Property Types Successfully."]);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation(_localizer["Seeded Property Types Successfully."]);
+                    }
                 }
             }).GetAwaiter().GetResult();
         }
@@ -115,10 +112,10 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                         {
                             await _context.PropertyImages.AddAsync(item);
                         }
-                    }
 
-                    await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Property Images Successfully."]);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation(_localizer["Seeded Property Images Successfully."]);
+                    }
                 }
             }).GetAwaiter().GetResult();
         }
@@ -136,10 +133,10 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                         {
                             await _context.Properties.AddAsync(item);
                         }
-                    }
 
-                    await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Properties Successfully."]);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation(_localizer["Seeded Properties Successfully."]);
+                    }
                 }
             }).GetAwaiter().GetResult();
         }

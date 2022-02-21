@@ -49,21 +49,14 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries
         public async Task<PaginatedResult<GetAllCustomersResponse>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
         {
             Expression<Func<Customer, GetAllCustomersResponse>> expression = e => new GetAllCustomersResponse(e.Id, e.Name, e.SurName, e.PhoneNumber, e.Birthday, e.Gender, e.Group, e.Email, e.ImageUrl);
-            var source = _context.Customers
-                .AsNoTracking()
-                .OrderBy(x => x.Id)
-                .AsQueryable();
+            var source = _context.Customers.AsNoTracking().OrderBy(x => x.Id).AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             source = !string.IsNullOrWhiteSpace(ordering)
                 ? source.OrderBy(ordering)
                 : source.OrderBy(x => x.Id);
             var filterSpec = new CustomerFilterSpecification(request.SearchString);
-            var data = await source
-                .AsNoTracking()
-                .Specify(filterSpec)
-                .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data == null)
+            var data = await source.AsNoTracking().Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            if (data is null)
             {
                 throw new CustomerListEmptyException(_localizer);
             }
@@ -73,13 +66,10 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries
 
         public async Task<Result<GetCustomerByIdResponse>> Handle(GetCustomerByIdQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.Customers
-                .AsNoTracking()
-                .Where(c => c.Id == query.Id)
-                .FirstOrDefaultAsync(cancellationToken);
-            if (data == null)
+            var data = await _context.Customers.AsNoTracking().Where(c => c.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
+            if (data is null)
             {
-                throw new CustomerNotFoundException(_localizer);
+                throw new CustomerNotFoundException(_localizer, query.Id);
             }
 
             var result = _mapper.Map<GetCustomerByIdResponse>(data);
@@ -88,14 +78,10 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries
 
         public async Task<Result<string>> Handle(GetCustomerImageQuery request, CancellationToken cancellationToken)
         {
-            string result = await _context.Customers
-                .AsNoTracking()
-                .Where(c => c.Id == request.Id)
-                .Select(a => a.ImageUrl)
-                .FirstOrDefaultAsync(cancellationToken);
-            if (result == null)
+            string result = await _context.Customers.AsNoTracking().Where(c => c.Id == request.Id).Select(a => a.ImageUrl).FirstOrDefaultAsync(cancellationToken);
+            if (result is null)
             {
-                throw new CustomerNotFoundException(_localizer);
+                throw new CustomerNotFoundException(_localizer, request.Id);
             }
 
             return await Result<string>.SuccessAsync(data: result);

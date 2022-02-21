@@ -6,15 +6,15 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using InmoIT.Modules.Identity.Core.Abstractions;
-using InmoIT.Shared.Infrastructure.Permissions;
+using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Dtos.Identity.Users;
+using InmoIT.Shared.Infrastructure.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Http;
-using InmoIT.Shared.Core.Attributes;
 
 namespace InmoIT.Modules.Identity.Api.Controllers
 {
@@ -29,116 +29,123 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             _userService = userService;
         }
 
-        ///// <response code="200">Return list users.</response>
-        ///// <response code="204">User not content.</response>
-        ///// <response code="500">Identity Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Users.ViewAll)]
-        //[SwaggerOperation(Summary = "Get List Users.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerOperation(
+            Summary = "Get User List.",
+            Description = "List all users in the database. This can only be done by the registered user",
+            OperationId = "GetAllAsync")]
+        [SwaggerResponse(200, "Return user list.")]
+        [SwaggerResponse(204, "User list not content.")]
+        [SwaggerResponse(500, "Identity Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _userService.GetAllAsync();
             return Ok(response);
         }
 
-        ///// <response code="200">Return user.</response>
-        ///// <response code="404">User was not found.</response>
-        ///// <response code="500">Identity Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpGet("{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
-        //[SwaggerHeader("id", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "User By Id.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("id", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Get User By Id.",
+            Description = "We get the detail user by Id. This can only be done by the registered user",
+            OperationId = "GetByIdAsync")]
+        [SwaggerResponse(200, "Return user by id.")]
+        [SwaggerResponse(404, "User was not found.")]
+        [SwaggerResponse(500, "Identity Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> GetByIdAsync(string id)
         {
             var response = await _userService.GetByIdAsync(id);
             return Ok(response);
         }
 
-        ///// <response code="200">Return updated user.</response>
-        ///// <response code="404">User was not found.</response>
-        ///// <response code="500">Identity Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpPut]
         [HavePermission(PermissionsConstant.Users.Edit)]
-        //[SwaggerHeader("request", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Update User.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("request", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Update User.",
+            Description = "We get the user with its modified values. This can only be done by the registered user",
+            OperationId = "UpdateAsync")]
+        [SwaggerResponse(200, "Return updated user.")]
+        [SwaggerResponse(404, "User was not found.")]
+        [SwaggerResponse(500, "Identity Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> UpdateAsync(UpdateUserRequest request)
         {
             var response = await _userService.UpdateAsync(request);
             return Ok(response);
         }
 
-        ///// <response code="200">Return roles user.</response>
-        ///// <response code="404">User was not found.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
+        [HttpDelete("{id}")]
+        [HavePermission(PermissionsConstant.Users.Delete)]
+        [SwaggerOperation(
+            Summary = "Delete user.",
+            Description = "We get the deleted user by Id. This can only be done by the registered user",
+            OperationId = "DeleteAsync")]
+        [SwaggerResponse(200, "Return deleted user by id.")]
+        [SwaggerResponse(404, "User was not found.")]
+        [SwaggerResponse(405, "Not allowed to deletion.")]
+        [SwaggerResponse(500, "Identity Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
+        public async Task<IActionResult> DeleteAsync(string id)
+        {
+            var response = await _userService.DeleteAsync(id);
+            return Ok(response);
+        }
+
         [HttpGet("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.View)]
-        //[SwaggerHeader("id", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Get Roles User.", Description = "")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerOperation(
+            Summary = "Get Roles By User Id.",
+            Description = "List all roles by user Id. This can only be done by the registered user",
+            OperationId = "GetRolesAsync")]
+        [SwaggerResponse(200, "Return roles by user id.")]
+        [SwaggerResponse(404, "User was not found.")]
+        [SwaggerResponse(500, "Identity Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> GetRolesAsync(string id)
         {
             var response = await _userService.GetRolesAsync(id);
             return Ok(response);
         }
 
-        ///// <response code="200">Return user roles.</response>
-        ///// <response code="404">User was not found.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpPut("roles/{id}")]
         [HavePermission(PermissionsConstant.Users.Edit)]
-        //[SwaggerHeader("id, request", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Get User Roles.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerOperation(
+            Summary = "Update User Roles.",
+            Description = "We get the user roles modified. This can only be done by the registered user",
+            OperationId = "UpdateUserRolesAsync")]
+        [SwaggerResponse(200, "Return updated user roles by user id.")]
+        [SwaggerResponse(404, "User was not found.")]
+        [SwaggerResponse(405, "Not allowed to change.")]
+        [SwaggerResponse(500, "Identity Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> UpdateUserRolesAsync(string id, UserRolesRequest request)
         {
             var response = await _userService.UpdateUserRolesAsync(id, request);
             return Ok(response);
         }
 
-        ///// <response code="200">Return export users to excel.</response>
-        ///// <response code="404">User was not found.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Users.Export)]
-        //[SwaggerHeader("searchString", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Export Users To Excel.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> ExportAsync(string searchString = "")
-        {
-            return Ok(await _userService.ExportUsersAsync(searchString));
-        }
+        [SwaggerOperation(
+            Summary = "Export Users To Excel.",
+            Description = "We get an exported excel file of all users. This can only be done by the registered user",
+            OperationId = "ExportAsync")]
+        [SwaggerResponse(200, "Return export users to excel.")]
+        [SwaggerResponse(204, "User list not content.")]
+        [SwaggerResponse(500, "Identity Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
+        public async Task<IActionResult> ExportAsync(string searchString = "") => Ok(await _userService.ExportAsync(searchString));
     }
 }

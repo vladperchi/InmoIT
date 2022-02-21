@@ -88,7 +88,15 @@ namespace InmoIT.Shared.Core.Wrapper
 
         public string Exception { get; set; }
 
-        public int ErrorCode { get; set; }
+        public string ErrorId { get; set; }
+
+        public string SupportMessage { get; set; }
+
+        public int StatusCode { get; set; }
+
+        public new List<string> Messages { get; set; } = new();
+
+        public string RemoteIP { get; set; }
     }
 
     public class Result<T> : Result, IResult<T>
@@ -111,7 +119,7 @@ namespace InmoIT.Shared.Core.Wrapper
 
         public static ErrorResult<T> ReturnError(string message)
         {
-            return new() { Succeeded = false, Messages = new List<string> { message }, ErrorCode = 500 };
+            return new() { Succeeded = false, Messages = new List<string> { message }, StatusCode = 500 };
         }
 
         public new static Result<T> Fail(List<string> messages)
@@ -126,7 +134,7 @@ namespace InmoIT.Shared.Core.Wrapper
 
         public static ErrorResult<T> ReturnError(List<string> messages)
         {
-            return new() { Succeeded = false, Messages = messages, ErrorCode = 500 };
+            return new() { Succeeded = false, Messages = messages, StatusCode = 500 };
         }
 
         public new static Task<Result<T>> FailAsync()

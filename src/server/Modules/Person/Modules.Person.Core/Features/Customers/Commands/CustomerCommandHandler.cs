@@ -27,6 +27,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
 
+using static System.Net.WebRequestMethods;
+
 namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 {
     internal class CustomerCommandHandler :
@@ -59,9 +61,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public async Task<Result<Guid>> Handle(RegisterCustomerCommand command, CancellationToken cancellationToken)
         {
-            if (await _context.Customers
-                .Where(x => x.Email == command.Email)
-                .AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
+            if (await _context.Customers.Where(x => x.Email == command.Email).AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
             {
                 throw new CustomerAlreadyExistsException(_localizer);
             }
@@ -98,14 +98,24 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public async Task<Result<Guid>> Handle(UpdateCustomerCommand command, CancellationToken cancellationToken)
         {
-            if (!await _context.Customers
-                .Where(x => x.Id == command.Id)
-                .AnyAsync(cancellationToken))
+            if (!await _context.Customers.Where(x => x.Id == command.Id).AnyAsync(cancellationToken))
             {
-                throw new CustomerNotFoundException(_localizer);
+                throw new CustomerNotFoundException(_localizer, command.Id);
             }
 
             var customer = _mapper.Map<Customer>(command);
+
+            if (command.DeleteCurrentImage)
+            {
+                string currentImageUrl = command.ImageUrl;
+                if (!string.IsNullOrEmpty(currentImageUrl))
+                {
+                    _uploadService.Remove(UploadStorageType.Customer, currentImageUrl);
+                }
+
+                customer = customer.ClearPathImageUrl();
+            }
+
             if (command.FileUploadRequest != null)
             {
                 var fileUploadRequest = new FileUploadRequest
@@ -136,12 +146,10 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 
         public async Task<Result<Guid>> Handle(RemoveCustomerCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _context.Customers
-                 .Where(x => x.Id == command.Id)
-                 .FirstOrDefaultAsync(cancellationToken);
-            if (customer == null)
+            var customer = await _context.Customers.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
+            if (customer is null)
             {
-                throw new CustomerNotFoundException(_localizer);
+                throw new CustomerNotFoundException(_localizer, command.Id);
             }
 
             try

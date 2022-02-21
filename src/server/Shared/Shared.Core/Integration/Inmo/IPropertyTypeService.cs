@@ -22,7 +22,5 @@ namespace InmoIT.Shared.Core.Integration.Inmo
         Task<string> GenerateFileName(int length);
 
         Task<int> GetCountAsync();
-
-        Task<bool> IsPropertyTypeUsed(Guid id);
     }
 }

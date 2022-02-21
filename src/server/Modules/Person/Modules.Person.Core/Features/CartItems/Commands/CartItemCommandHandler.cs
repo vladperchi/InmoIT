@@ -52,7 +52,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
                 .Include(x => x.CartItems)
                 .FirstOrDefaultAsync(x => x.Id == command.CartId, cancellationToken);
 
-            if (cart == null)
+            if (cart is null)
             {
                 throw new CartNotFoundException(_localizer);
             }
@@ -83,7 +83,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
                 .Where(x => x.Id == command.Id)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
-            if (cartItem == null)
+            if (cartItem is null)
             {
                 throw new CartItemNotFoundException(_localizer);
             }
@@ -117,7 +117,7 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
         {
             var cartItem = await _context.CartItems
                 .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
-            if (cartItem == null)
+            if (cartItem is null)
             {
                 throw new CartItemNotFoundException(_localizer);
             }

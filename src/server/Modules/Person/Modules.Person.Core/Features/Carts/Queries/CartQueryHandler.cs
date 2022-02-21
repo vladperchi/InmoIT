@@ -63,7 +63,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
             var data = await sourse
                 .Select(expression)
                 .ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data == null)
+            if (data is null)
             {
                 throw new CartListEmptyException(_localizer);
             }
@@ -80,7 +80,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
                 .Include(c => c.Customer)
                 .FirstOrDefaultAsync(cancellationToken);
 
-            if (data == null)
+            if (data is null)
             {
                 throw new CartNotFoundException(_localizer);
             }

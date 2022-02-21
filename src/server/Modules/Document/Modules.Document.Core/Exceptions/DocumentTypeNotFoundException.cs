@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Net;
 using InmoIT.Shared.Core.Exceptions;
 using Microsoft.Extensions.Localization;
@@ -14,6 +15,8 @@ namespace InmoIT.Modules.Document.Core.Exceptions
 {
     public class DocumentTypeNotFoundException : CustomException
     {
+        public Guid Id { get; }
+
         public DocumentTypeNotFoundException(IStringLocalizer localizer)
             : base(localizer["Document Type was not found..."], null, HttpStatusCode.NotFound)
         {

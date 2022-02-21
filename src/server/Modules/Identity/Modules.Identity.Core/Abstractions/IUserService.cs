@@ -6,7 +6,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Wrapper;
@@ -29,6 +28,8 @@ namespace InmoIT.Modules.Identity.Core.Abstractions
         Task<Result<string>> DeleteAsync(string userId);
 
         Task<Result<string>> ExportAsync(string searchString = "");
+
+        Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, string exceptId = null);
 
         Task<int> GetCountAsync();
     }

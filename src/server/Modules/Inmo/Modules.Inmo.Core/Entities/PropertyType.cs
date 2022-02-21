@@ -21,5 +21,11 @@ namespace InmoIT.Modules.Inmo.Core.Entities
         public string ImageUrl { get; set; }
 
         public bool IsActive { get; set; }
+
+        public PropertyType ClearPathImageUrl()
+        {
+            ImageUrl = string.Empty;
+            return this;
+        }
     }
 }

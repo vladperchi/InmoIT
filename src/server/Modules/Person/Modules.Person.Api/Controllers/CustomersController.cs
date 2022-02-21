@@ -12,12 +12,10 @@ using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Core.Features.Customers.Commands;
 using InmoIT.Modules.Person.Core.Features.Customers.Queries;
 using InmoIT.Modules.Person.Core.Features.Customers.Queries.Export;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Person.Customers;
 using InmoIT.Shared.Infrastructure.Permissions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -28,7 +26,6 @@ namespace InmoIT.Modules.Person.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.Customers.ViewAll)]
-        [SwaggerHeader("filter", "Input data required", "", false)]
         [SwaggerOperation(
             Summary = "Get Customer List.",
             Description = "List all customers in the database. This can only be done by the registered user",
@@ -44,12 +41,11 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Customers.View)]
-        [SwaggerHeader("filter", "Input data required", "", false)]
         [SwaggerOperation(
             Summary = "Get Customer By Id.",
-            Description = "We get the detail customer by Id. This can only be done by the registered staff user",
+            Description = "We get the detail customer by Id. This can only be done by the registered user",
             OperationId = "GetByIdAsync")]
         [SwaggerResponse(200, "Return customer by id.")]
         [SwaggerResponse(404, "Customer was not found.")]
@@ -62,13 +58,12 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{customerId}")]
-        [AllowAnonymous]
+        [HttpGet("{customerId:guid}")]
+        [HavePermission(PermissionsConstant.Customers.View)]
         [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
-        [SwaggerHeader("customerId", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Get Picture Customer.",
-            Description = "We get the picture associated to the customer. This can only be done by the registered staff user",
+            Description = "We get the picture associated to the customer. This can only be done by the registered user",
             OperationId = "GetPictureAsync")]
         [SwaggerResponse(200, "Return picture customer by id.")]
         [SwaggerResponse(404, "Customer was not found.")]
@@ -81,12 +76,11 @@ namespace InmoIT.Modules.Person.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.Customers.Register)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
-            Summary = "Created Customer.",
-            Description = "Registed a customer with all its values set. This can only be done by the registered staff user",
+            Summary = "Registered Customer.",
+            Description = "Registed a customer with all its values set. This can only be done by the registered user",
             OperationId = "RegisterAsync")]
-        [SwaggerResponse(201, "Return created customer.")]
+        [SwaggerResponse(201, "Return registered customer.")]
         [SwaggerResponse(400, "Customer already exists.")]
         [SwaggerResponse(500, "Customer Internal Server Error.")]
         [SwaggerResponse(401, "No authorization to access.")]
@@ -99,13 +93,12 @@ namespace InmoIT.Modules.Person.Api.Controllers
 
         [HttpPut]
         [HavePermission(PermissionsConstant.Customers.Update)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Update Customer.",
-            Description = "We get the customer with its modified values.. This can only be done by the registered staff user",
+            Description = "We get the customer with its modified values.. This can only be done by the registered user",
             OperationId = "UpdateAsync")]
-        [SwaggerResponse(201, "Return updated customer.")]
-        [SwaggerResponse(404, "Customer was not found.", typeof(UpdateCustomerCommand))]
+        [SwaggerResponse(200, "Return updated customer.")]
+        [SwaggerResponse(404, "Customer was not found.")]
         [SwaggerResponse(500, "Customer Internal Server Error.")]
         [SwaggerResponse(401, "No authorization to access.")]
         [SwaggerResponse(403, "No permission to access.")]
@@ -117,13 +110,12 @@ namespace InmoIT.Modules.Person.Api.Controllers
 
         [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Customers.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Customer.",
-            Description = "We get the customer with its modified values. This can only be done by the registered staff user",
-            OperationId = "UpdateAsync")]
-        [SwaggerResponse(201, "Return removed customer.")]
-        [SwaggerResponse(404, "Customer was not found.", typeof(RemoveCustomerCommand))]
+            Description = "We get the removed customer by Id. This can only be done by the registered user",
+            OperationId = "RemoveAsync")]
+        [SwaggerResponse(200, "Return removed customer.")]
+        [SwaggerResponse(404, "Customer was not found.")]
         [SwaggerResponse(500, "Customer Internal Server Error.")]
         [SwaggerResponse(401, "No authorization to access.")]
         [SwaggerResponse(403, "No permission to access.")]
@@ -135,18 +127,14 @@ namespace InmoIT.Modules.Person.Api.Controllers
 
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Customers.Export)]
-        [SwaggerHeader("searchString", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Export Customers To Excel.",
-            Description = "We get an exported excel file of all customers. This can only be done by the registered staff user",
-            OperationId = "UpdateAsync")]
+            Description = "We get an exported excel file of all customers. This can only be done by the registered user",
+            OperationId = "ExportAsync")]
         [SwaggerResponse(200, "Return export customers to excel.")]
-        [SwaggerResponse(404, "Customer was not found.")]
+        [SwaggerResponse(204, "Customer list not content.")]
         [SwaggerResponse(401, "No authorization to access.")]
         [SwaggerResponse(403, "No permission to access.")]
-        public async Task<IActionResult> ExportAsync(string searchString = "")
-        {
-            return Ok(await Mediator.Send(new ExportCustomersQuery(searchString)));
-        }
+        public async Task<IActionResult> ExportAsync(string searchString = "") => Ok(await Mediator.Send(new ExportCustomersQuery(searchString)));
     }
 }

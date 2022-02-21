@@ -56,7 +56,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
         {
             var filterSpec = new CustomerFilterSpecification(request.SearchString);
             var data = await _context.Customers.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
-            if (data == null)
+            if (data is null)
             {
                 throw new CustomerListEmptyException(_localizer);
             }
