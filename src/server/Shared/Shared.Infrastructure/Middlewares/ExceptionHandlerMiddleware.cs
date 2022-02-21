@@ -90,20 +90,15 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                     Source = exception.TargetSite?.DeclaringType?.FullName,
                     Exception = exception.Message.Trim(),
                     ErrorId = errorId,
+                    RemoteIP = $"{context.Connection.RemoteIpAddress}",
+                    Schema = context.Request.Scheme ?? string.Empty,
+                    Host = $"{context.Request.Host}",
+                    Method = context.Request.Method ?? string.Empty,
+                    Path = $"{context.Request.Path}",
+                    QueryString = $"{context.Request.QueryString}::{requestBody}",
+                    StatusCode = context.Response.StatusCode,
                     SupportMessage = _localizer["Please provide the ErrorId to the support team for further analysis."],
-                    RemoteIP = $"{context.Connection.RemoteIpAddress}"
                 };
-
-                _logger.LogError(
-                $"Exception: {exception.Message}{Environment.NewLine}" +
-                    $"  RemoteIP: {context.Connection.RemoteIpAddress}{Environment.NewLine}" +
-                    $"  Schema: {context.Request.Scheme}{Environment.NewLine}" +
-                    $"  Host: {context.Request.Host}{Environment.NewLine}" +
-                    $"  Method: {context.Request.Method}{Environment.NewLine}" +
-                    $"  Path: {context.Request.Path}{Environment.NewLine}" +
-                    $"  Query String: {context.Request.QueryString}{Environment.NewLine}" + requestBody +
-                    $"  Response Status Code: {context.Response?.StatusCode}{Environment.NewLine}");
-
                 errorResult.Messages!.Add(exception.Message);
                 var response = context.Response;
                 response.ContentType = "application/json";
@@ -147,7 +142,7 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                     });
                 }
 
-                _logger.LogError($"ERROR: {errorResult.Exception}::Request failed with Status Code: {context.Response.StatusCode}::Error Id: {errorId}.");
+                _logger.LogError($"Request failed::{errorResult}");
                 await response.WriteAsync(result);
             }
         }

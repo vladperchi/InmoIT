@@ -97,6 +97,16 @@ namespace InmoIT.Shared.Core.Wrapper
         public new List<string> Messages { get; set; } = new();
 
         public string RemoteIP { get; set; }
+
+        public string Schema { get; set; }
+
+        public string Host { get; set; }
+
+        public string Method { get; set; }
+
+        public string Path { get; set; }
+
+        public string QueryString { get; set; }
     }
 
     public class Result<T> : Result, IResult<T>
