@@ -17,6 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
+using Serilog;
+using Serilog.Events;
 
 [assembly: InternalsVisibleTo("InmoIT.Api")]
 
@@ -40,6 +42,16 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Files")),
                 RequestPath = new PathString("/Files")
             });
+            app.UseSerilogRequestLogging(options =>
+            {
+                options.MessageTemplate = "Handled {RequestPath}";
+                options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Debug;
+                options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+                {
+                    diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
+                    diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
+                };
+            });
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
@@ -48,11 +60,11 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 DashboardTitle = "InmoIT Jobs",
                 Authorization = new[] { new HangfireAuthorizationFilter() },
             });
+            app.UseSwaggerDocumentation(config);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            app.UseSwaggerDocumentation(config);
             app.Initialize();
 
             return app;

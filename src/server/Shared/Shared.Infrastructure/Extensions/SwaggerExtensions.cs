@@ -13,6 +13,7 @@ using System.Linq;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Swagger.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -54,7 +55,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             {
                 services.AddSwaggerGen(options =>
                 {
-                    options.AddSwaggerDocs();
+                    options.AddSwaggerDocs(services);
                     options.OperationFilter<RemoveVersionParameterFilter>();
                     options.DocumentFilter<ReplaceVersionValueInPathFilter>();
                     options.OperationFilter<SwaggerExcludeFilter>();
@@ -100,7 +101,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                         Name = "Authorization",
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.ApiKey,
-                        Scheme = "Bearer",
+                        Scheme = JwtBearerDefaults.AuthenticationScheme,
                         BearerFormat = "JWT",
                         Description = "Input your Bearer token in this format - \"bearer {token}\" to access this API",
                     });
@@ -138,25 +139,26 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             return services;
         }
 
-        private static void AddSwaggerDocs(this SwaggerGenOptions options)
+        private static void AddSwaggerDocs(this SwaggerGenOptions options, IServiceCollection services)
         {
-            options.SwaggerDoc("v1", new OpenApiInfo
+            var settings = services.GetOptions<SwaggerSettings>(nameof(SwaggerSettings));
+            options.SwaggerDoc(settings.Version, new OpenApiInfo
             {
-                Version = "v1",
-                Title = "InmoIT.API",
-                Description = "Modular Clean Architecture built in ASP.NET Core 5.0 WebAPI.",
+                Version = settings.Version,
+                Title = settings.Title,
+                Description = settings.Description,
                 Contact = new OpenApiContact
                 {
-                    Name = "Vladimir P. CHibás (vladperchi)",
-                    Email = "codewithvladperchi@outlook.com",
-                    Url = new Uri("https://twitter.com/codewithvlad"),
+                    Name = settings.ContactName,
+                    Email = settings.ContactEmail,
+                    Url = new Uri(settings.ContactUrl),
                 },
                 License = new OpenApiLicense
                 {
-                    Name = "MIT License",
-                    Url = new Uri("https://github.com/vladperchi/InmoIT/blob/master/LICENSE"),
+                    Name = settings.LicenseName,
+                    Url = new Uri(settings.LicenseUrl),
                 },
-                TermsOfService = new Uri("https://example.com/terms")
+                TermsOfService = new Uri(settings.TermsUrl)
             });
         }
     }

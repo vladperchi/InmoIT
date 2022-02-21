@@ -10,6 +10,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace InmoIT.Shared.Infrastructure.Controllers
 {
@@ -20,11 +21,13 @@ namespace InmoIT.Shared.Infrastructure.Controllers
         protected internal const string BasePath = "api/v{version:apiVersion}";
 
         private IMediator _mediatorInstance;
+        private IMapper _mapperInstance;
+        private ILogger _loggerInstance;
 
         protected IMediator Mediator => _mediatorInstance ??= HttpContext.RequestServices.GetService<IMediator>();
 
-        private IMapper _mapperInstance;
-
         protected IMapper Mapper => _mapperInstance ??= HttpContext.RequestServices.GetService<IMapper>();
+
+        protected ILogger _logger => _loggerInstance ??= HttpContext.RequestServices.GetService<ILogger>();
     }
 }

@@ -17,11 +17,13 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         internal static IHostBuilder UseSerilog(this IHostBuilder builder)
         {
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.Development.json")
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
-            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
             SerilogHostBuilderExtensions.UseSerilog(builder);
             return builder;
         }
