@@ -107,7 +107,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var userWithEmail = await _userManager.FindByEmailAsync(request.Email.Trim().Normalize());
             if (userWithEmail is null)
             {
-                user.AddDomainEvent(new UserRegisteredEvent(user));
                 var result = await _userManager.CreateAsync(user, request.Password);
                 if (result.Succeeded)
                 {
@@ -143,7 +142,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                         messages.Add(_localizer["Please check your Phone for code in SMS to verify!"]);
                     }
 
-                    _logger.LogInformation(string.Format(_localizer["Created user account email:{0}=>FullName:{1}_{2}=>Id:{3}"], user.Email, user.FirstName, user.LastName, user.Id));
+                    user.AddDomainEvent(new UserRegisteredEvent(user));
                     return await Result<string>.SuccessAsync(user.Id, messages: messages);
                 }
                 else
@@ -193,7 +192,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                _logger.LogInformation($"Updated User Picture::{user.Email}::{user.Id}::ImageUrl:{filePath}");
+                user.AddDomainEvent(new UserPictureUpdateEvent(user));
                 return await Result<string>.SuccessAsync(data: filePath);
             }
             else

@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Events
             Id = id;
             AggregateId = id;
             RelatedEntities = new[] { typeof(Property) };
-            EventDescription = "Removed Property.";
+            EventDescription = $"Removed Property with Id: {id}.";
         }
     }
 }

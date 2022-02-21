@@ -83,10 +83,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
                 var newRole = new InmoRole(request.Name, request.Description);
                 var result = await _roleManager.CreateAsync(newRole);
-                newRole.AddDomainEvent(new RoleAddedEvent(newRole));
                 await _context.SaveChangesAsync();
                 if (result.Succeeded)
                 {
+                    newRole.AddDomainEvent(new RoleAddedEvent(newRole));
                     return await Result<string>.SuccessAsync(newRole.Id, string.Format(_localizer["Role {0} Created."], request.Name));
                 }
                 else
@@ -111,10 +111,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 existingRole.Name = request.Name;
                 existingRole.NormalizedName = request.Name.ToUpper();
                 existingRole.Description = request.Description;
-                existingRole.AddDomainEvent(new RoleUpdatedEvent(existingRole));
                 var result = await _roleManager.UpdateAsync(existingRole);
                 if (result.Succeeded)
                 {
+                    existingRole.AddDomainEvent(new RoleUpdatedEvent(existingRole));
                     return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Updated."], existingRole.Name));
                 }
                 else
@@ -150,10 +150,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (roleIsNotUsed)
             {
-                existingRole.AddDomainEvent(new RoleDeletedEvent(id));
                 var result = await _roleManager.DeleteAsync(existingRole);
                 if (result.Succeeded)
                 {
+                    existingRole.AddDomainEvent(new RoleDeletedEvent(id));
                     return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
                 }
                 else

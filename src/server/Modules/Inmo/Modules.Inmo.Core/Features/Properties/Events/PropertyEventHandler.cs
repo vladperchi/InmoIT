@@ -32,19 +32,19 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Events
 
         public Task Handle(PropertyRegisteredEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(PropertyRegisteredEvent)} High. Registered {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(PropertyRegisteredEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(PropertyUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(PropertyUpdatedEvent)} High. Updated {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(PropertyUpdatedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(PropertyRemovedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(PropertyRemovedEvent)} High. Removed {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(PropertyRemovedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
     }

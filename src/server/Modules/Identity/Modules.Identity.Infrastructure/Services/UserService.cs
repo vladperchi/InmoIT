@@ -185,11 +185,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.Password);
             }
 
-            user.AddDomainEvent(new UserUpdatedEvent(user));
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                _logger.LogInformation(string.Format(_localizer["User {0} updated with Id: {1}"], user.Email, user.Id));
+                user.AddDomainEvent(new UserUpdatedEvent(user));
                 return await Result<string>.SuccessAsync(user.Id, _localizer["User Updated Successfull."]);
             }
             else
@@ -257,7 +256,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             user.AddDomainEvent(new UserDeletedEvent(user.Id));
             if (result.Succeeded)
             {
-                _logger.LogInformation(string.Format(_localizer["User {0} deleted"], user.Email));
                 return await Result<string>.SuccessAsync(user.Id, _localizer["User Deleted Successfull."]);
             }
             else

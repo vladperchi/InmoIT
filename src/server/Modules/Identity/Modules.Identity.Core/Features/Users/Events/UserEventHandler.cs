@@ -17,6 +17,7 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
     public class UserEventHandler :
         INotificationHandler<UserRegisteredEvent>,
         INotificationHandler<UserUpdatedEvent>,
+        INotificationHandler<UserPictureUpdateEvent>,
         INotificationHandler<UserDeletedEvent>
     {
         private readonly ILogger<UserEventHandler> _logger;
@@ -39,6 +40,12 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
         public Task Handle(UserUpdatedEvent notification, CancellationToken cancellationToken)
         {
             _logger.LogInformation(_localizer[$"{nameof(UserUpdatedEvent)} High. Updated {notification.Id}."]);
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(UserPictureUpdateEvent notification, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation(_localizer[$"{nameof(UserPictureUpdateEvent)} High. Updated Picture {notification.ImageUrl} {notification.Id}."]);
             return Task.CompletedTask;
         }
 
