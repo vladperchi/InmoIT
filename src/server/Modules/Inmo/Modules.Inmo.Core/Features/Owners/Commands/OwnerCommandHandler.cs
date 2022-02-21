@@ -98,7 +98,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
         {
             if (!await _context.Owners.Where(x => x.Id == command.Id).AnyAsync(x => x.PhoneNumber == command.PhoneNumber, cancellationToken))
             {
-                throw new OwnerNotFoundException(_localizer);
+                throw new OwnerNotFoundException(_localizer, command.Id);
             }
 
             var owner = _mapper.Map<Owner>(command);
@@ -146,7 +146,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
             var owner = await _context.Owners.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
             if (owner is null)
             {
-                throw new OwnerNotFoundException(_localizer);
+                throw new OwnerNotFoundException(_localizer, command.Id);
             }
 
             try

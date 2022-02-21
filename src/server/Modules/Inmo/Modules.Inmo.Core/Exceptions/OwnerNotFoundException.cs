@@ -17,9 +17,10 @@ namespace InmoIT.Modules.Inmo.Core.Exceptions
     {
         public Guid Id { get; }
 
-        public OwnerNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Owner was not found..."], null, HttpStatusCode.NotFound)
+        public OwnerNotFoundException(IStringLocalizer localizer, Guid id)
+            : base(localizer["Owner with Id: {id} was not found."], null, HttpStatusCode.NotFound)
         {
+            Id = id;
         }
     }
 }

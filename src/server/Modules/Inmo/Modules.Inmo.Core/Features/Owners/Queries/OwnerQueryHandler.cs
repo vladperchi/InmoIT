@@ -69,7 +69,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
             var data = await _context.Owners.AsNoTracking().Where(x => x.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
             if (data is null)
             {
-                throw new OwnerNotFoundException(_localizer);
+                throw new OwnerNotFoundException(_localizer, query.Id);
             }
 
             var result = _mapper.Map<GetOwnerByIdResponse>(data);
@@ -81,7 +81,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
             string result = await _context.Owners.AsNoTracking().Where(c => c.Id == request.Id).Select(a => a.ImageUrl).FirstOrDefaultAsync(cancellationToken);
             if (result is null)
             {
-                throw new OwnerNotFoundException(_localizer);
+                throw new OwnerNotFoundException(_localizer, request.Id);
             }
 
             return await Result<string>.SuccessAsync(result);
