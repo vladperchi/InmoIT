@@ -40,6 +40,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
         private readonly IMapper _mapper;
         private readonly IUploadService _uploadService;
         private readonly IStringLocalizer<PropertyTypeCommandHandler> _localizer;
+        private readonly IPropertyService _propertyService;
         private readonly IPropertyTypeService _propertyTypeService;
 
         public PropertyTypeCommandHandler(
@@ -47,6 +48,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
             IMapper mapper,
             IUploadService uploadService,
             IStringLocalizer<PropertyTypeCommandHandler> localizer,
+            IPropertyService propertyService,
             IPropertyTypeService propertyTypeService,
             IDistributedCache cache)
         {
@@ -54,6 +56,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
             _mapper = mapper;
             _uploadService = uploadService;
             _localizer = localizer;
+            _propertyService = propertyService;
             _propertyTypeService = propertyTypeService;
             _cache = cache;
         }
@@ -79,6 +82,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
                 propertyType.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
+            propertyType.CodeInternal.ToUpper();
             propertyType.IsActive = true;
             try
             {
@@ -103,6 +107,17 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
             }
 
             var propertyType = _mapper.Map<PropertyType>(command);
+            if (command.DeleteCurrentImage)
+            {
+                string currentImageUrl = command.ImageUrl;
+                if (!string.IsNullOrEmpty(currentImageUrl))
+                {
+                    _uploadService.Remove(UploadStorageType.PropertyType, currentImageUrl);
+}
+
+                propertyType = propertyType.ClearPathImageUrl();
+            }
+
             if (command.FileUploadRequest != null)
             {
                 var fileUploadRequest = new FileUploadRequest
@@ -116,6 +131,9 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
                 propertyType.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
+            propertyType.CodeInternal = !string.IsNullOrEmpty(command.CodeInternal)
+                    ? command.CodeInternal.ToUpper()
+                    : propertyType.CodeInternal;
             propertyType.IsActive = command.IsActive || propertyType.IsActive;
             try
             {
@@ -134,12 +152,12 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
         public async Task<Result<Guid>> Handle(RemovePropertyTypeCommand command, CancellationToken cancellationToken)
         {
             var propertyType = await _context.PropertyTypes.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
-            if (propertyType == null)
+            if (propertyType is null)
             {
                 throw new PropertyTypeNotFoundException(_localizer);
             }
 
-            if (!await _propertyTypeService.IsPropertyTypeUsed(propertyType.Id))
+            if (!await _propertyService.IsPropertyTypeUsed(propertyType.Id))
             {
                 try
                 {

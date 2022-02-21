@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Net;
 using InmoIT.Shared.Core.Exceptions;
 using Microsoft.Extensions.Localization;
@@ -14,6 +15,8 @@ namespace InmoIT.Modules.Identity.Core.Exceptions
 {
     public class RoleNotFoundException : CustomException
     {
+        public Guid Id { get; }
+
         public RoleNotFoundException(IStringLocalizer localizer)
             : base(localizer["Role was not found..."], null, HttpStatusCode.NotFound)
         {

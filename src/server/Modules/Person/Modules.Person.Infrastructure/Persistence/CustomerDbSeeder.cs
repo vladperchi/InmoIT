@@ -15,7 +15,6 @@ using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Infrastructure.Persistence.Resources;
 using InmoIT.Shared.Core.Interfaces.Serialization.Serializer;
 using InmoIT.Shared.Core.Interfaces.Services;
-using InmoIT.Shared.Core.Utilities;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
@@ -45,7 +44,6 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
             try
             {
                 AddCustomers();
-                _logger.LogInformation(_localizer["Finished seeding data module Person."]);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -67,10 +65,10 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
                         {
                             await _context.Customers.AddAsync(customer);
                         }
-                    }
 
-                    await _context.SaveChangesAsync();
-                    _logger.LogInformation(_localizer["Seeded Customers Successfully."]);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation(_localizer["Seeded Customers Successfully."]);
+                    }
                 }
             }).GetAwaiter().GetResult();
         }

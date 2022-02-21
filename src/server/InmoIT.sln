@@ -57,17 +57,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{C4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Operation", "Operation", "{892F2F00-5054-4402-B14B-F3784C6FB627}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Document.Infrastructure", "Modules\Document\Modules.Document.Infrastructure\Modules.Document.Infrastructure.csproj", "{CD107279-35F3-4BC1-9343-E9F12DABA9D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Document.Infrastructure", "Modules\Document\Modules.Document.Infrastructure\Modules.Document.Infrastructure.csproj", "{CD107279-35F3-4BC1-9343-E9F12DABA9D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Document.Core", "Modules\Document\Modules.Document.Core\Modules.Document.Core.csproj", "{D400BEE5-937E-436A-9A0D-BBC39F8912D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Document.Core", "Modules\Document\Modules.Document.Core\Modules.Document.Core.csproj", "{D400BEE5-937E-436A-9A0D-BBC39F8912D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Document.Api", "Modules\Document\Modules.Document.Api\Modules.Document.Api.csproj", "{0D8A4760-AE40-4E7D-B46F-F7D8DBF9D8CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Document.Api", "Modules\Document\Modules.Document.Api\Modules.Document.Api.csproj", "{0D8A4760-AE40-4E7D-B46F-F7D8DBF9D8CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Operation.Core", "Modules\Operation\Modules.Operation.Core\Modules.Operation.Core.csproj", "{C1DFF062-F729-4D21-B4A7-386FFFDF5C39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Operation.Core", "Modules\Operation\Modules.Operation.Core\Modules.Operation.Core.csproj", "{C1DFF062-F729-4D21-B4A7-386FFFDF5C39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Operation.Infrastructure", "Modules\Operation\Modules.Operation.Infrastructure\Modules.Operation.Infrastructure.csproj", "{72A06C63-9C95-41FD-86D8-7B683833DFF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Operation.Infrastructure", "Modules\Operation\Modules.Operation.Infrastructure\Modules.Operation.Infrastructure.csproj", "{72A06C63-9C95-41FD-86D8-7B683833DFF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Operation.Api", "Modules\Operation\Modules.Operation.Api\Modules.Operation.Api.csproj", "{21B49487-1A8A-463D-A110-EDEC0F7D8D79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Operation.Api", "Modules\Operation\Modules.Operation.Api\Modules.Operation.Api.csproj", "{21B49487-1A8A-463D-A110-EDEC0F7D8D79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

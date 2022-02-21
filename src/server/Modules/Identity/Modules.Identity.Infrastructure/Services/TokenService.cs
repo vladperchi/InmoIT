@@ -27,8 +27,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-
-using Twilio.Http;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -37,6 +38,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly UserManager<InmoUser> _userManager;
         private readonly RoleManager<InmoRole> _roleManager;
         private readonly IStringLocalizer<TokenService> _localizer;
+        private readonly ILogger<TokenService> _logger;
+        private readonly IDiagnosticContext _diagnosticContext;
         private readonly SmsTwilioSettings _smsTwilioSettings;
         private readonly MailSettings _mailSettings;
         private readonly JwtSettings _config;
@@ -48,6 +51,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             RoleManager<InmoRole> roleManager,
             IOptions<JwtSettings> config,
             IStringLocalizer<TokenService> localizer,
+            ILogger<TokenService> logger,
+            IDiagnosticContext diagnosticContext,
             IOptions<SmsTwilioSettings> smsTwilioSettings,
             IOptions<MailSettings> mailSettings,
             ILoggerService eventLog,
@@ -56,6 +61,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _userManager = userManager;
             _roleManager = roleManager;
             _localizer = localizer;
+            _logger = logger;
+            _diagnosticContext = diagnosticContext;
             _smsTwilioSettings = smsTwilioSettings.Value;
             _mailSettings = mailSettings.Value;
             _config = config.Value;
@@ -65,10 +72,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public async Task<IResult<TokenResponse>> GetTokenAsync(TokenRequest request, string ipAddress)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
+            var user = await _userManager.FindByEmailAsync(request.Email.Trim().Normalize());
+            if (user is null)
             {
-                throw new IdentityException(_localizer["User Not Found."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UserNotFoundException(_localizer);
             }
 
             if (!user.IsActive)
@@ -78,33 +85,27 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (_mailSettings.EnableVerification && !user.EmailConfirmed)
             {
-                throw new IdentityException(_localizer["E-Mail not confirmed."], statusCode: HttpStatusCode.Unauthorized);
+                throw new IdentityException(_localizer["E-Mail not confirmed. Please check your email account."], statusCode: HttpStatusCode.Unauthorized);
             }
 
             if (_smsTwilioSettings.EnableVerification && !user.PhoneNumberConfirmed)
             {
-                throw new IdentityException(_localizer["Phone Number not confirmed."], statusCode: HttpStatusCode.Unauthorized);
+                throw new IdentityException(_localizer["Phone Number not confirmed. Please check the sms on your mobile."], statusCode: HttpStatusCode.Unauthorized);
             }
 
             bool passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
             if (!passwordValid)
             {
-                throw new IdentityException(_localizer["Invalid Credentials."], statusCode: HttpStatusCode.Unauthorized);
+                throw new IdentityException(_localizer["Invalid Credentials. Please contact the administrator"], statusCode: HttpStatusCode.Unauthorized);
             }
 
             try
             {
-                user.RefreshToken = GenerateRefreshToken();
-                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
-                await _userManager.UpdateAsync(user);
-                string token = await GenerateJwtAsync(user, ipAddress);
-                var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
-                await _eventLog.LogCustomEventAsync(new() { Event = "Get Token", Description = $"Generated Tokens for {user.Email}.", Email = user.Email, UserId = _currentUser.GetUserId() });
-                return await Result<TokenResponse>.SuccessAsync(response);
+                return await GenerateTokensAndUpdateAsync(user, ipAddress);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new IdentityCustomException(_localizer, null);
+                throw new IdentityException(string.Format(_localizer["An Error Token {0}||{1}||Exception:{2}"], user.Email, user.Id, ex));
             }
         }
 
@@ -112,13 +113,13 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (request is null)
             {
-                throw new IdentityException(_localizer["Invalid Client Token."], statusCode: HttpStatusCode.Unauthorized);
+                throw new IdentityException(_localizer["Authentication Failed."], statusCode: HttpStatusCode.Unauthorized);
             }
 
             var userPrincipal = GetPrincipalFromExpiredToken(request.Token);
             string userEmail = userPrincipal.FindFirstValue(ClaimTypes.Email);
             var user = await _userManager.FindByEmailAsync(userEmail);
-            if (user == null)
+            if (user is null)
             {
                 throw new IdentityException(_localizer["User Not Found."], statusCode: HttpStatusCode.NotFound);
             }
@@ -130,23 +131,32 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             try
             {
-                string token = GenerateEncryptedToken(GetSigningCredentials(), await GetClaimsAsync(user, ipAddress));
-                user.RefreshToken = GenerateRefreshToken();
-                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
-                await _userManager.UpdateAsync(user);
-                var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
-                return await Result<TokenResponse>.SuccessAsync(response);
+                return await GenerateTokensAndUpdateAsync(user, ipAddress);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new IdentityCustomException(_localizer, null);
+                throw new IdentityException(string.Format(_localizer["An Error Refresh Token {0}||{1}||Exception:{2}"], user.Email, user.Id, ex));
             }
         }
 
-        private async Task<string> GenerateJwtAsync(InmoUser user, string ipAddress)
+        private async Task<IResult<TokenResponse>> GenerateTokensAndUpdateAsync(InmoUser user, string ipAddress)
         {
-            return GenerateEncryptedToken(GetSigningCredentials(), await GetClaimsAsync(user, ipAddress));
+            if (_config.RefreshTokenExpirationInDays == 0)
+            {
+                throw new IdentityException(_localizer["There is no RefreshTokenExpirationInDays value defined in the JwtSettings configuration."], statusCode: HttpStatusCode.Unauthorized);
+            }
+
+            string token = await GenerateJwtAsync(user, ipAddress);
+            user.RefreshToken = GenerateRefreshToken();
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_config.RefreshTokenExpirationInDays);
+            await _userManager.UpdateAsync(user);
+            var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
+            _logger.LogInformation($"{user.Email}||{user.Id}||{response.Token}||{response.RefreshToken}||{response.RefreshTokenExpiryTime}");
+            return await Result<TokenResponse>.SuccessAsync(response);
         }
+
+        private async Task<string> GenerateJwtAsync(InmoUser user, string ipAddress) =>
+            GenerateEncryptedToken(GetSigningCredentials(), await GetClaimsAsync(user, ipAddress));
 
         private async Task<IEnumerable<Claim>> GetClaimsAsync(InmoUser user, string ipAddress)
         {
@@ -186,6 +196,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         private string GenerateEncryptedToken(SigningCredentials signingCredentials, IEnumerable<Claim> claims)
         {
+            if (_config.TokenExpirationInMinutes == 0)
+            {
+                throw new IdentityException(_localizer["There is no TokenExpirationInMinutes value defined in the JwtSettings configuration."], statusCode: HttpStatusCode.Unauthorized);
+            }
+
             var token = new JwtSecurityToken(
                claims: claims,
                expires: DateTime.UtcNow.AddMinutes(_config.TokenExpirationInMinutes),
@@ -196,6 +211,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
+            if (string.IsNullOrEmpty(_config.Key))
+            {
+                throw new IdentityException(_localizer["There is no key value defined in the JwtSettings configuration."], statusCode: HttpStatusCode.Unauthorized);
+            }
+
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -219,8 +239,13 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         private SigningCredentials GetSigningCredentials()
         {
-            byte[] secret = Encoding.UTF8.GetBytes(_config.Key);
-            return new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256);
+            if (string.IsNullOrEmpty(_config.Key))
+            {
+                throw new InvalidOperationException("There is no key value defined in the JwtSettings configuration.");
+            }
+
+            byte[] key = Encoding.UTF8.GetBytes(_config.Key);
+            return new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
         }
     }
 }

@@ -10,6 +10,10 @@ namespace InmoIT.Shared.Core.Settings
 {
     public class CorsSettings
     {
-        public string Url { get; set; }
+        public string AngularUrl { get; set; }
+
+        public string BlazorUrl { get; set; }
+
+        public string ReactUrl { get; set; }
     }
 }

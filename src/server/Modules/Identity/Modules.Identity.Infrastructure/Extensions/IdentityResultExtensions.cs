@@ -1,25 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------
-// <copyright file="PropertyNotFoundException.cs" company="InmoIT">
+// <copyright file="IdentityResultExtensions.cs" company="InmoIT">
 // Copyright (c) InmoIT. All rights reserved.
 // Developer: Vladimir P. CHibás (vladperchi).
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System;
-using System.Net;
-using InmoIT.Shared.Core.Exceptions;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
-namespace InmoIT.Modules.Inmo.Core.Exceptions
+namespace InmoIT.Modules.Identity.Infrastructure.Extensions
 {
-    public class PropertyNotFoundException : CustomException
+    internal static class IdentityResultExtensions
     {
-        public Guid Id { get; }
-
-        public PropertyNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Property was not found..."], null, HttpStatusCode.NotFound)
-        {
-        }
+        public static List<string> GetErrorMessages(this IdentityResult result, IStringLocalizer localizer) =>
+            result.Errors.Select(e => localizer[e.Description].ToString()).ToList();
     }
 }

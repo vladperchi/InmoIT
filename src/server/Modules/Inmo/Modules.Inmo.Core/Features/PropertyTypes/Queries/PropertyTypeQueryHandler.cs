@@ -48,22 +48,15 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries
 
         public async Task<PaginatedResult<GetAllPropertyTypesResponse>> Handle(GetAllPropertyTypesQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<PropertyType, GetAllPropertyTypesResponse>> expression = x => new GetAllPropertyTypesResponse(x.Id, x.Name, x.CodeInternal, x.Description, x.ImageUrl, x.IsActive);
-            var sourse = _context.PropertyTypes
-                .AsNoTracking()
-                .OrderBy(x => x.Id)
-                .AsQueryable();
+            Expression<Func<PropertyType, GetAllPropertyTypesResponse>> expression = e => new GetAllPropertyTypesResponse(e.Id, e.Name, e.CodeInternal, e.Description, e.ImageUrl, e.IsActive);
+            var sourse = _context.PropertyTypes.AsNoTracking().OrderBy(x => x.Id).AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
             sourse = !string.IsNullOrWhiteSpace(ordering)
                 ? sourse.OrderBy(ordering)
                 : sourse.OrderBy(x => x.Id);
             var filterSpec = new PropertyTypeFilterSpecification(request.SearchString);
-            var data = await sourse
-                .AsNoTracking()
-                .Specify(filterSpec)
-                .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data == null)
+            var data = await sourse.AsNoTracking().Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            if (data is null)
             {
                 throw new PropertyTypeListEmptyException(_localizer);
             }
@@ -73,11 +66,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries
 
         public async Task<Result<GetPropertyTypeByIdResponse>> Handle(GetPropertyTypeByIdQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.PropertyTypes
-                .AsNoTracking()
-                .Where(x => x.Id == query.Id)
-                .FirstOrDefaultAsync(cancellationToken);
-            if (data == null)
+            var data = await _context.PropertyTypes.AsNoTracking().Where(x => x.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
+            if (data is null)
             {
                 throw new PropertyTypeNotFoundException(_localizer);
             }
@@ -88,12 +78,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries
 
         public async Task<Result<string>> Handle(GetPropertyTypeImageQuery request, CancellationToken cancellationToken)
         {
-            string result = await _context.PropertyTypes
-                .AsNoTracking()
-                .Where(c => c.Id == request.Id)
-                .Select(a => a.ImageUrl)
-                .FirstOrDefaultAsync(cancellationToken);
-            if (result == null)
+            string result = await _context.PropertyTypes.AsNoTracking().Where(x => x.Id == request.Id).Select(a => a.ImageUrl).FirstOrDefaultAsync(cancellationToken);
+            if (result is null)
             {
                 throw new PropertyTypeNotFoundException(_localizer);
             }

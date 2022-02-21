@@ -16,7 +16,6 @@ using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Inmo.Images;
 using InmoIT.Shared.Infrastructure.Permissions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -25,18 +24,17 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
     [ApiVersion("1")]
     internal sealed class PropertyImagesController : BaseController
     {
-        ///// <response code="200">Return list property images.</response>
-        ///// <response code="204">List property images not content.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.Images.ViewAll)]
-        //[SwaggerHeader("filter", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Get List Property Images.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("filter", "Input data not required", "", false)]
+        [SwaggerOperation(
+            Summary = "Get Property Image List.",
+            Description = "List all property images in the database. This can only be done by the registered user",
+            OperationId = "GetAllAsync")]
+        [SwaggerResponse(200, "Return property image list.")]
+        [SwaggerResponse(204, "Property image list not content.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginatedPropertyImageFilter filter)
         {
             var request = Mapper.Map<GetAllImagesQuery>(filter);
@@ -44,18 +42,17 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
             return Ok(response);
         }
 
-        ///// <response code="200">Return property image by id.</response>
-        ///// <response code="404">Property Image was not found.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Images.View)]
-        //[SwaggerHeader("filter", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Get Property Image By Id.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("filter", "Input data not required", "", true)]
+        [SwaggerOperation(
+            Summary = "Get Property Image By Id.",
+            Description = "We get the detail property image by Id. This can only be done by the registered user",
+            OperationId = "GetByIdAsync")]
+        [SwaggerResponse(200, "Return property image by id.")]
+        [SwaggerResponse(404, "Property Image was not found.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> GetByIdAsync([FromQuery] GetByIdCacheableFilter<Guid, PropertyImage> filter)
         {
             var request = Mapper.Map<GetImageByPropertyIdQuery>(filter);
@@ -63,62 +60,55 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
             return Ok(response);
         }
 
-        ///// <response code="201">Return added list property images.</response>
-        ///// <response code="404">Property was not found.</response>
-        ///// <response code="400">Property Image already exists.</response>
-        ///// <response code="500">Property Image Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.Images.Add)]
-        //[SwaggerHeader("command", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Added List Property Images.")]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("command", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Added Property Image List.",
+            Description = "Added a property image list with all its values set. This can only be done by the registered user",
+            OperationId = "AddAsync")]
+        [SwaggerResponse(201, "Return added property image list.")]
+        [SwaggerResponse(404, "Property was not found.")]
+        [SwaggerResponse(400, "Property Image already exists.")]
+        [SwaggerResponse(500, "Property Image Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> AddAsync(AddImageCommand command)
         {
             var response = await Mediator.Send(command);
             return Ok(response);
         }
 
-        ///// <response code="200">Return updated property image.</response>
-        ///// <response code="404">Property Image was not found.</response>
-        ///// <response code="500">Property Image Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpPut]
         [HavePermission(PermissionsConstant.Images.Edit)]
-        //[SwaggerHeader("command", "Input data required to validate in API", "", true)]
-        //[SwaggerOperation(Summary = "Edit Property Image.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("command", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Edit Property Image.",
+            Description = "We get the property image with its modified values. This can only be done by the registered user",
+            OperationId = "UpdateAsync")]
+        [SwaggerResponse(200, "Return updated property image.")]
+        [SwaggerResponse(404, "Property Image was not found.")]
+        [SwaggerResponse(500, "Property Image Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> EditAsync(UpdateImageCommand command)
         {
             var response = await Mediator.Send(command);
             return Ok(response);
         }
 
-        ///// <response code="200">Return remove property image.</response>
-        ///// <response code="404">Property Image was not found.</response>
-        ///// <response code="500">Property Image Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Images.Remove)]
-        //[SwaggerHeader("id", "Input data required to validate in API", "", true)]
-        //[SwaggerOperation(Summary = "Remove Property Image.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerHeader("id", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Remove Property Image.",
+            Description = "We get the removed property image by Id. This can only be done by the registered user",
+            OperationId = "RemoveAsync")]
+        [SwaggerResponse(200, "Return removed property image.")]
+        [SwaggerResponse(404, "Property Image was not found.")]
+        [SwaggerResponse(500, "Property Image Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
         public async Task<IActionResult> RemoveAsync(Guid id)
         {
             var response = await Mediator.Send(new RemoveImageCommand(id));

@@ -52,7 +52,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Persistence
                 AddSuperAdmin();
                 AddAdmin();
                 AddStaff();
-                _logger.LogInformation(_localizer["Finished seeding data module Identity."]);
                 _context.SaveChanges();
             }
             catch (Exception)

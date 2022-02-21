@@ -16,7 +16,6 @@ using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Person.CartItems;
 using InmoIT.Shared.Infrastructure.Permissions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -24,89 +23,93 @@ namespace InmoIT.Modules.Person.Api.Controllers
 {
     internal sealed class CartItemsController : BaseController
     {
-        ///// <response code="200">Return list cart items.</response>
-        ///// <response code="204">List Cart Items not content.</response>
         [HttpGet]
         [HavePermission(PermissionsConstant.CartItems.ViewAll)]
-        //[SwaggerHeader("filter", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Get List Cart Items.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> GetCartItemsAsync([FromQuery] PaginatedCartItemFilter filter)
+        [SwaggerHeader("filter", "Input data not required", "", false)]
+        [SwaggerOperation(
+            Summary = "Get Cart Item List.",
+            Description = "List all Cart Items in the database. This can only be done by the registered user",
+            OperationId = "GetAllAsync")]
+        [SwaggerResponse(200, "Return Cart Item list.")]
+        [SwaggerResponse(204, "Cart Item list not content.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginatedCartItemFilter filter)
         {
             var request = Mapper.Map<GetAllCartItemsQuery>(filter);
             var response = await Mediator.Send(request);
             return Ok(response);
         }
 
-        ///// <response code="200">Return cart items by id.</response>
-        ///// <response code="404">Cart Items was not found.</response>
         [HttpGet("{id}")]
         [HavePermission(PermissionsConstant.CartItems.View)]
-        //[SwaggerHeader("filter", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Get Cart Items By Id.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> GetCartItemByIdAsync([FromQuery] GetByIdCacheableFilter<Guid, CartItem> filter)
+        [SwaggerHeader("filter", "Input data not required", "", true)]
+        [SwaggerOperation(
+            Summary = "Get cart items By Id.",
+            Description = "We get the detail cart items by Id. This can only be done by the registered user",
+            OperationId = "GetByIdAsync")]
+        [SwaggerResponse(200, "Return cart items by id.")]
+        [SwaggerResponse(404, "Cart items was not found.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
+        public async Task<IActionResult> GetByIdAsync([FromQuery] GetByIdCacheableFilter<Guid, CartItem> filter)
         {
             var request = Mapper.Map<GetCartItemByIdQuery>(filter);
             var response = await Mediator.Send(request);
             return Ok(response);
         }
 
-        ///// <response code="201">Return add cart items.</response>
-        ///// <response code="400">Cart Items already exists.</response>
-        ///// <response code="500">Cart Items Internal Server Error.</response>
         [HttpPost]
         [HavePermission(PermissionsConstant.CartItems.Add)]
-        //[SwaggerHeader("command", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Add Cart Items.")]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> AddCartItemAsync(AddCartItemCommand command)
+        [SwaggerHeader("command", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Added Cart Items.",
+            Description = "Added a cart items with all its values set. This can only be done by the registered user",
+            OperationId = "AddAsync")]
+        [SwaggerResponse(201, "Return added cart item.")]
+        [SwaggerResponse(404, "Cart was not found.")]
+        [SwaggerResponse(400, "Cart Item already added to the Cart.")]
+        [SwaggerResponse(500, "Cart items Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
+        public async Task<IActionResult> AddAsync(AddCartItemCommand command)
         {
             var response = await Mediator.Send(command);
             return Ok(response);
         }
 
-        ///// <response code="200">Return updated cart items.</response>
-        ///// <response code="404">Cart Items was not found.</response>
-        ///// <response code="500">Cart Items Internal Server Error.</response>
         [HttpPut]
         [HavePermission(PermissionsConstant.CartItems.Update)]
-        //[SwaggerHeader("command", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Update Cart Items.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> UpdateCartItemAsync(UpdateCartItemCommand command)
+        [SwaggerHeader("command", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Update Cart Items.",
+            Description = "We get the cart items with its modified values.. This can only be done by the registered user",
+            OperationId = "UpdateAsync")]
+        [SwaggerResponse(200, "Return updated customer.")]
+        [SwaggerResponse(404, "Cart Items was not found.")]
+        [SwaggerResponse(400, "Cart Items already added to the Cart.")]
+        [SwaggerResponse(500, "Cart Items Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
+        public async Task<IActionResult> UpdateAsync(UpdateCartItemCommand command)
         {
             var response = await Mediator.Send(command);
             return Ok(response);
         }
 
-        ///// <response code="200">Return remove cart items.</response>
-        ///// <response code="404">Cart Items was not found.</response>
-        ///// <response code="500">Cart Items Internal Server Error.</response>
         [HttpDelete("{id}")]
         [HavePermission(PermissionsConstant.CartItems.Remove)]
-        //[SwaggerHeader("id", "Input data required in API", "", true)]
-        //[SwaggerOperation(Summary = "Remove Cart Items.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> RemoveCartItemAsync(Guid id)
+        [SwaggerHeader("id", "Input data required", "", true)]
+        [SwaggerOperation(
+            Summary = "Remove Cart Items.",
+            Description = "We get the removed cart items by Id. This can only be done by the registered user",
+            OperationId = "RemoveAsync")]
+        [SwaggerResponse(200, "Return removed customer.")]
+        [SwaggerResponse(404, "Cart items was not found.")]
+        [SwaggerResponse(500, "Cart items Internal Server Error.")]
+        [SwaggerResponse(401, "No authorization to access.")]
+        [SwaggerResponse(403, "No permission to access.")]
+        public async Task<IActionResult> RemoveAsync(Guid id)
         {
             var response = await Mediator.Send(new RemoveCartItemCommand(id));
             return Ok(response);

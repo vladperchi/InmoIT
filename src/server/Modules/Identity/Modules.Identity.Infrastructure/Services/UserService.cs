@@ -15,18 +15,23 @@ using AutoMapper;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Core.Entities;
 using InmoIT.Modules.Identity.Core.Exceptions;
-using InmoIT.Modules.Identity.Core.Features.RoleClaims.Events;
 using InmoIT.Modules.Identity.Core.Features.Users.Events;
 using InmoIT.Modules.Identity.Infrastructure.Specifications;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
+using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Identity.Users;
+using InmoIT.Shared.Dtos.Messages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
+using Serilog.Core;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -36,6 +41,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly RoleManager<InmoRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<UserService> _localizer;
+        private readonly ILogger<UserService> _logger;
+        private readonly ISmsTwilioService _smsTwilioService;
+        private readonly SmsTwilioSettings _smsTwilioSettings;
+        private readonly IJobService _jobService;
         private readonly IExcelService _excelService;
         private readonly ILoggerService _eventLog;
         private readonly ICurrentUser _currentUser;
@@ -45,6 +54,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             RoleManager<InmoRole> roleManager,
             IMapper mapper,
             IStringLocalizer<UserService> localizer,
+            ILogger<UserService> logger,
+            ISmsTwilioService smsTwilioService,
+            IOptions<SmsTwilioSettings> smsTwilioSettings,
+            IJobService jobService,
             IExcelService excelService,
             ILoggerService eventLog,
             ICurrentUser currentUser)
@@ -53,8 +66,13 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _mapper = mapper;
             _roleManager = roleManager;
             _localizer = localizer;
+            _logger = logger;
+            _smsTwilioSettings = smsTwilioSettings.Value;
+            _smsTwilioService = smsTwilioService;
+            _jobService = jobService;
             _excelService = excelService;
             _eventLog = eventLog;
+
             _currentUser = currentUser;
         }
 
@@ -132,8 +150,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (!string.IsNullOrWhiteSpace(request.PhoneNumber))
             {
-                var userWithPhoneNumber = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
-                if (userWithPhoneNumber != null)
+                if (!await ExistsWithPhoneNumberAsync(request.PhoneNumber))
                 {
                     throw new IdentityException(string.Format(_localizer["Phone number {0} is registered."], request.PhoneNumber));
                 }
@@ -141,34 +158,54 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             var user = await _userManager.FindByIdAsync(request.Id);
 
-            if (user == null)
+            if (user is null)
             {
                 throw new IdentityException(string.Format(_localizer["User Id {0} is not found."], request.Id));
             }
 
-            user.AddDomainEvent(new UserUpdatedEvent(user));
+            string phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            if (request.PhoneNumber != phoneNumber)
+            {
+                var messages = new List<string> { string.Format(_localizer["Phone number {0} Registered. "], request.PhoneNumber) };
+                if (_smsTwilioSettings.EnableVerification)
+                {
+                    string mobilePhoneVerificationCode = await GetPhoneVerificationCodeAsync(user);
+                    var smsTwilioRequest = new SmsTwilioRequest
+                    {
+                        Number = user.PhoneNumber,
+                        Message = string.Format(_localizer["Please confirm your InmoIT account by this code: {0}"], mobilePhoneVerificationCode)
+                    };
+                    _jobService.Enqueue(() => _smsTwilioService.SendAsync(smsTwilioRequest));
+                    messages.Add(_localizer["Please check your Phone for code in SMS to verify!"]);
+                }
+
+                await _userManager.SetPhoneNumberAsync(user, request.PhoneNumber);
+            }
 
             if (request.CurrentPassword != null && request.Password != null)
             {
                 await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.Password);
             }
 
+            user.AddDomainEvent(new UserUpdatedEvent(user));
             var result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded)
             {
-                return await Result<string>.SuccessAsync(user.Id, _localizer["User Updated Successful."]);
+                _logger.LogInformation(string.Format(_localizer["User {0} updated with Id: {1}"], user.Email, user.Id));
+                return await Result<string>.SuccessAsync(user.Id, _localizer["User Updated Successfull."]);
             }
             else
             {
                 var errorMessages = result.Errors.Select(a => _localizer[a.Description].ToString()).Distinct().ToList();
-                throw new IdentityCustomException(_localizer, errorMessages);
+                await Result<string>.FailAsync(errorMessages);
+                throw new IdentityException(_localizer["An error occurred while updating a user"], errorMessages);
             }
         }
 
         public async Task<IResult<string>> UpdateUserRolesAsync(string userId, UserRolesRequest request)
         {
-            var user = await _userManager.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+            var user = await _userManager.Users.Where(x => x.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
                 throw new UserNotFoundException(_localizer);
@@ -209,7 +246,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public async Task<Result<string>> DeleteAsync(string userId)
         {
-            var user = await _userManager.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+            var user = await _userManager.Users.Where(x => x.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
                 throw new UserNotFoundException(_localizer);
@@ -224,12 +261,13 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             user.AddDomainEvent(new UserDeletedEvent(user.Id));
             if (result.Succeeded)
             {
-                return await Result<string>.SuccessAsync(user.Id, _localizer["User Deleted Successful."]);
+                _logger.LogInformation(string.Format(_localizer["User {0} deleted"], user.Email));
+                return await Result<string>.SuccessAsync(user.Id, _localizer["User Deleted Successfull."]);
             }
             else
             {
-                var errorMessages = result.Errors.Select(a => _localizer[a.Description].ToString()).Distinct().ToList();
-                throw new IdentityCustomException(_localizer, errorMessages);
+                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
+                throw new IdentityException(_localizer["An error occurred while deleting a user"], errorMessages);
             }
         }
 
@@ -260,7 +298,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
                 if (user != null)
                 {
-                    await _eventLog.LogCustomEventAsync(new() { Event = "Generate Excel File", Description = $"Exported Users To Excel for {user.Email}.", Email = user.Email, UserId = _currentUser.GetUserId() });
+                    var eventLog = await _eventLog.LogCustomEventAsync(new() { Event = "Generate Excel File", Description = $"Exported Users To Excel for {user.Email}.", Email = user.Email, UserId = _currentUser.GetUserId() });
+                    _logger.LogInformation(string.Format(_localizer["User_Exported::{0}"], eventLog));
                 }
 
                 return await Result<string>.SuccessAsync(data: result);
@@ -271,9 +310,12 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
         }
 
-        public async Task<int> GetCountAsync()
-        {
-            return await _userManager.Users.CountAsync();
-        }
+        public async Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, string exceptId = null) =>
+            await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber) is InmoUser user && user.Id != exceptId;
+
+        private async Task<string> GetPhoneVerificationCodeAsync(InmoUser user) =>
+            await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+
+        public async Task<int> GetCountAsync() => await _userManager.Users.AsNoTracking().CountAsync();
     }
 }

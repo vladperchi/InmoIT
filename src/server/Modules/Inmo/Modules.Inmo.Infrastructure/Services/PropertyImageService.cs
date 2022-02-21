@@ -37,14 +37,8 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
             return await _mediator.Send(new GetImageByPropertyIdQuery(propertyId));
         }
 
-        public async Task<string> GenerateFileName(int length)
-        {
-            return await Utilities.GenerateCode("P", length);
-        }
+        public async Task<string> GenerateFileName(int length) => await Utilities.GenerateCode("P", length);
 
-        public async Task<int> GetCountAsync()
-        {
-            return await _context.PropertyImages.CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await _context.PropertyImages.CountAsync();
     }
 }

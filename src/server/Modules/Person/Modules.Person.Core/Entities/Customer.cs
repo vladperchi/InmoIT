@@ -34,5 +34,11 @@ namespace InmoIT.Modules.Person.Core.Entities
 
         [NotMapped]
         public string FullName => $"{Name} {SurName}";
+
+        public Customer ClearPathImageUrl()
+        {
+            ImageUrl = string.Empty;
+            return this;
+        }
     }
 }

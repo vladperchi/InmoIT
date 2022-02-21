@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Net;
 using InmoIT.Shared.Core.Exceptions;
 using Microsoft.Extensions.Localization;
@@ -14,6 +15,8 @@ namespace InmoIT.Modules.Inmo.Core.Exceptions
 {
     public class PropertyTypeNotFoundException : CustomException
     {
+        public Guid Id { get; }
+
         public PropertyTypeNotFoundException(IStringLocalizer localizer)
             : base(localizer["Property Type was not found..."], null, HttpStatusCode.NotFound)
         {

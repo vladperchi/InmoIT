@@ -15,10 +15,9 @@ using InmoIT.Modules.Accounting.Core.Entities;
 using InmoIT.Modules.Accounting.Core.Exceptions;
 using InmoIT.Shared.Core.Common.Enums;
 using InmoIT.Shared.Core.Integration.Accounting;
-
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace InmoIT.Modules.Accounting.Infrastructure.Services
 {
@@ -26,13 +25,16 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
     {
         private readonly IAccountingDbContext _context;
         private readonly IStringLocalizer<TraceService> _localizer;
+        private readonly ILogger<TraceService> _logger;
 
         public TraceService(
             IAccountingDbContext context,
-            IStringLocalizer<TraceService> localizer)
+            IStringLocalizer<TraceService> localizer,
+            ILogger<TraceService> logger)
         {
             _context = context;
             _localizer = localizer;
+            _logger = logger;
         }
 
         public async Task<int> GetCountRentAsync()
@@ -50,6 +52,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
         public async Task RecordTransaction(string codeInternal, string name, decimal price, decimal tax, string referenceNumber, Guid propertyId, TransactionType transactionType)
         {
             var propertyTransaction = new PropertyTransaction(propertyId, transactionType, referenceNumber);
+            _logger.LogInformation(string.Format(_localizer["Added property transaction reference::{0} => Id::{1}"], propertyTransaction.ReferenceNumber, propertyTransaction.Id));
             await _context.PropertyTransactions.AddAsync(propertyTransaction);
             var propertyTrace = _context.PropertyTraces.FirstOrDefault(x => x.PropertyId == propertyId);
 
@@ -62,6 +65,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
                 propertyTrace.TransactionType = transactionType;
                 try
                 {
+                    _logger.LogInformation(string.Format(_localizer["Updated property trace name::{0} => Id::{1}"], propertyTrace.Name, propertyTrace.Id));
                     _context.PropertyTraces.Update(propertyTrace);
                 }
                 catch (Exception)
@@ -83,6 +87,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
                 };
                 try
                 {
+                    _logger.LogInformation(string.Format(_localizer["Added property trace name::{0} => Id::{1}"], propertyTrace.Name, propertyTrace.Id));
                     _context.PropertyTraces.Add(propertyTrace);
                 }
                 catch (Exception)

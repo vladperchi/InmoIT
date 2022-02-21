@@ -53,12 +53,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries.Export
         public async Task<Result<string>> Handle(ExportPropertyTypesQuery request, CancellationToken cancellationToken)
         {
             var filterSpec = new PropertyTypeFilterSpecification(request.SearchString);
-            var data = await _context.PropertyTypes
-                .AsNoTracking()
-                .AsQueryable()
-                .Specify(filterSpec)
-                .ToListAsync(cancellationToken);
-            if (data == null)
+            var data = await _context.PropertyTypes.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
+            if (data is null)
             {
                 throw new PropertyTypeListEmptyException(_localizer);
             }

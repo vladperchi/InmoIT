@@ -28,10 +28,14 @@ using InmoIT.Shared.Dtos.Messages;
 using InmoIT.Shared.Dtos.Upload;
 using InmoIT.Shared.Infrastructure.Common;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
+using Twilio.Http;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -44,6 +48,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly ISmsTwilioService _smsTwilioService;
         private readonly SmsTwilioSettings _smsTwilioSettings;
         private readonly IStringLocalizer<IdentityService> _localizer;
+        private readonly ILogger<IdentityService> _logger;
         private readonly IUploadService _uploadService;
 
         public IdentityService(
@@ -54,7 +59,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             IOptions<MailSettings> mailSettings,
             ISmsTwilioService smsTwilioService,
             IOptions<SmsTwilioSettings> smsTwilioSettings,
-            IStringLocalizer<IdentityService> localizer)
+            IStringLocalizer<IdentityService> localizer,
+            ILogger<IdentityService> logger)
         {
             _userManager = userManager;
             _uploadService = uploadService;
@@ -64,6 +70,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _smsTwilioSettings = smsTwilioSettings.Value;
             _smsTwilioService = smsTwilioService;
             _localizer = localizer;
+            _logger = logger;
         }
 
         public async Task<IResult> RegisterAsync(RegisterRequest request, string origin)
@@ -96,8 +103,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 }
             }
 
-            var userWithEmail = await _userManager.FindByEmailAsync(request.Email);
-            if (userWithEmail == null)
+            var userWithEmail = await _userManager.FindByEmailAsync(request.Email.Trim().Normalize());
+            if (userWithEmail is null)
             {
                 user.AddDomainEvent(new UserRegisteredEvent(user));
                 var result = await _userManager.CreateAsync(user, request.Password);
@@ -135,6 +142,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                         messages.Add(_localizer["Please check your Phone for code in SMS to verify!"]);
                     }
 
+                    _logger.LogInformation(string.Format(_localizer["Created user account email:{0}=>FullName:{1}_{2}=>Id:{3}"], user.Email, user.FirstName, user.LastName, user.Id));
                     return await Result<string>.SuccessAsync(user.Id, messages: messages);
                 }
                 else
@@ -152,7 +160,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<string>> GetUserPictureAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
+            if (user is null)
             {
                 return await Result<string>.FailAsync(_localizer["User Not Found"]);
             }
@@ -163,7 +171,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<string>> UpdateUserPictureAsync(UpdateUserPictureRequest request, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
+            if (user is null)
             {
                 return await Result<string>.FailAsync(message: _localizer["User Not Found"]);
             }
@@ -182,9 +190,18 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
 
             string filePath = user.ImageUrl;
-            var identityResult = await _userManager.UpdateAsync(user);
-            var errors = identityResult.Errors.Select(e => _localizer[e.Description].ToString()).ToList();
-            return identityResult.Succeeded ? await Result<string>.SuccessAsync(data: filePath) : await Result<string>.FailAsync(errors);
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation($"Updated User Picture::{user.Email}::{user.Id}::ImageUrl:{filePath}");
+                return await Result<string>.SuccessAsync(data: filePath);
+            }
+            else
+            {
+                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
+                await Result<string>.FailAsync(errorMessages);
+                throw new IdentityCustomException(_localizer, errorMessages);
+            }
         }
 
         private async Task<string> GetEmailVerificationUriAsync(InmoUser user, string origin)
@@ -210,21 +227,19 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<string>> ConfirmEmailAsync(string userId, string code)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer);
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
             {
                 if (user.PhoneNumberConfirmed || !_smsTwilioSettings.EnableVerification)
                 {
+                    _logger.LogInformation(string.Format(_localizer["Account Email {0} Confirmed"], user.Email));
                     return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Email {0} Confirmed. Use the /api/v1/identity/token endpoint to generate JWT."], user.Email));
                 }
                 else
                 {
+                    _logger.LogWarning(string.Format(_localizer["Phone number {0} must be confirmed"], user.PhoneNumber));
                     return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Email {0} Confirmed. Confirm your phone number before using the /api/v1/identity/token endpoint to generate JWT."], user.Email));
                 }
             }
@@ -237,20 +252,18 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<string>> ConfirmPhoneNumberAsync(string userId, string code)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer);
             var result = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, code);
             if (result.Succeeded)
             {
                 if (user.EmailConfirmed)
                 {
+                    _logger.LogInformation(string.Format(_localizer["Phone number {0} confirmed"], user.PhoneNumber));
                     return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Confirmed for Phone Number {0}. Use the /api/v1/identity/token endpoint to generate JWT."], user.PhoneNumber));
                 }
                 else
                 {
+                    _logger.LogWarning(string.Format(_localizer["Account Email {0} must be confirmed"], user.Email));
                     return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["Account Confirmed for Phone Number {0}. Confirm your E-mail before using the /api/v1/identity/token endpoint to generate JWT."], user.PhoneNumber));
                 }
             }
@@ -263,11 +276,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult> ForgotPasswordAsync(ForgotPasswordRequest request, string origin)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer);
             if (!await _userManager.IsEmailConfirmedAsync(user))
             {
                 throw new IdentityCustomException(_localizer, null);
@@ -285,26 +294,53 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 Body = string.Format(_localizer["Please reset your password by <a href='{0}>clicking here</a>."], HtmlEncoder.Default.Encode(passwordResetUrl))
             };
             _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
+            _logger.LogInformation(string.Format(_localizer["Password reset mail sent account email {0} to authorized."], user.Email));
             return await Result.SuccessAsync(_localizer["Password Reset Mail has been sent to your authorized Email."]);
         }
 
         public async Task<IResult> ResetPasswordAsync(ResetPasswordRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
+            _ = user ?? throw new UserNotFoundException(_localizer);
 
             var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
             if (result.Succeeded)
             {
+                _logger.LogInformation(string.Format(_localizer["User {0} password reset"], user.Email));
                 return await Result.SuccessAsync(_localizer["Password Reset Successful!"]);
             }
             else
             {
-                return await Result.FailAsync(_localizer["An error occurred while password reset."]);
+                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
+                await Result<string>.FailAsync(errorMessages);
+                throw new IdentityException(_localizer["An error occurred while password reset"], errorMessages);
             }
         }
+
+        public async Task<IResult> ChangePasswordAsync(ChangePasswordRequest request, string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            _ = user ?? throw new UserNotFoundException(_localizer);
+            var result = await _userManager.ChangePasswordAsync(user, request.Password, request.NewPassword);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation(string.Format(_localizer["User {0} changed password"], user.Email));
+                return await Result<string>.SuccessAsync(_localizer["Change Password Successful!"]);
+            }
+            else
+            {
+                var errorMessages = result.Errors.Select(x => _localizer[x.Description].ToString()).Distinct().ToList();
+                await Result<string>.FailAsync(errorMessages);
+                throw new IdentityException(_localizer["An error occurred while change password"], errorMessages);
+            }
+        }
+
+        public async Task<bool> ExistsWithNameAsync(string name) => await _userManager.FindByNameAsync(name) is not null;
+
+        public async Task<bool> ExistsWithEmailAsync(string email, string exceptId = null) =>
+            await _userManager.FindByEmailAsync(email.Trim().Normalize()) is InmoUser user && user.Id != exceptId;
+
+        public async Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, string exceptId = null) =>
+            await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber) is InmoUser user && user.Id != exceptId;
     }
 }

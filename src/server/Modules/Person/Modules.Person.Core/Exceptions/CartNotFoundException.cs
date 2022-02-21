@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Net;
 using InmoIT.Shared.Core.Exceptions;
 using Microsoft.Extensions.Localization;
@@ -14,6 +15,8 @@ namespace InmoIT.Modules.Person.Core.Exceptions
 {
     public class CartNotFoundException : CustomException
     {
+        public Guid Id { get; }
+
         public CartNotFoundException(IStringLocalizer localizer)
             : base(localizer["Cart was not found..."], null, HttpStatusCode.NotFound)
         {

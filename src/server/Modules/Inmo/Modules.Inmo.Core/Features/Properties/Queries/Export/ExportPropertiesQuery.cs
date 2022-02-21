@@ -57,13 +57,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Export
         public async Task<Result<string>> Handle(ExportPropertiesQuery request, CancellationToken cancellationToken)
         {
             var filterSpec = new PropertyFilterSpecification(request.SearchString);
-            var data = await _context.Properties
-                .Where(x => x.IsActive)
-                .AsNoTracking()
-                .AsQueryable()
-                .Specify(filterSpec)
-                .ToListAsync(cancellationToken);
-            if (data == null)
+            var data = await _context.Properties.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
+            if (data is null)
             {
                 throw new PropertyListEmptyException(_localizer);
             }
@@ -85,7 +80,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Export
                 { _localizer["Bathrooms"], item => item.NumberBathrooms },
                 { _localizer["Parking"], item => item.HasParking ? "Yes" : "No" },
                 { _localizer["Rent Price"], item => item.TotalRent.ToString("0:N2") },
-                { _localizer["Sale Price"], item => item.TolalSale.ToString("C") }
+                { _localizer["Sale Price"], item => item.TolalSale.ToString("0:N2") }
             }, sheetName: _localizer["Properties"]);
 
                 return await Result<string>.SuccessAsync(data: result);

@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System;
 using System.Net;
 using InmoIT.Shared.Core.Exceptions;
 using Microsoft.Extensions.Localization;
@@ -14,9 +15,12 @@ namespace InmoIT.Modules.Person.Core.Exceptions
 {
     public class CustomerNotFoundException : CustomException
     {
-        public CustomerNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Customer was not found..."], null, HttpStatusCode.NotFound)
+        public Guid Id { get; }
+
+        public CustomerNotFoundException(IStringLocalizer localizer, Guid id)
+            : base(localizer[$"Customer with Id: {id} was not found."], null, HttpStatusCode.NotFound)
         {
+            Id = id;
         }
     }
 }

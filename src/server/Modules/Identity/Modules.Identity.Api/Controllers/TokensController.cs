@@ -7,7 +7,6 @@
 // --------------------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Dtos.Identity.Tokens;
 using Microsoft.AspNetCore.Authorization;
@@ -22,59 +21,42 @@ namespace InmoIT.Modules.Identity.Api.Controllers
     {
         private readonly ITokenService _tokenService;
 
-        public TokensController(ITokenService tokenService)
+        public TokensController(
+            ITokenService tokenService)
         {
             _tokenService = tokenService;
         }
 
-        ///// <response code="200">Return token user.</response>
-        ///// <response code="500">Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpPost]
         [AllowAnonymous]
-        //[SwaggerHeader("request", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Get Token.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerOperation(
+            Summary = "Get Token.",
+            Description = "Submit Credentials to generate valid Access Token.",
+            OperationId = "GetTokenAsync")]
+        [SwaggerResponse(200, "Return token user.")]
+        [SwaggerResponse(404, "User was not found.")]
         public async Task<IActionResult> GetTokenAsync(TokenRequest request)
         {
             var response = await _tokenService.GetTokenAsync(request, IPAddressGenerate());
             return Ok(response);
         }
 
-        ///// <response code="200">Return recovery token user.</response>
-        ///// <response code="404">User was not found.</response>
-        ///// <response code="500">Internal Server Error.</response>
-        ///// <response code="401">Without authorization to access.</response>
-        ///// <response code="403">No permission to access.</response>
         [HttpPost("refresh")]
         [AllowAnonymous]
-        //[SwaggerHeader("request", "Input data required", "", true)]
-        //[SwaggerOperation(Summary = "Refresh Token.")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerOperation(
+            Summary = "Refresh Token.",
+            Description = "Recovery of the access token every time it expires.",
+            OperationId = "RefreshTokenAsync")]
+        [SwaggerResponse(200, "Return recovery token user.")]
+        [SwaggerResponse(404, "User was not found.")]
         public async Task<ActionResult> RefreshAsync(RefreshTokenRequest request)
         {
             var response = await _tokenService.RefreshTokenAsync(request, IPAddressGenerate());
             return Ok(response);
         }
 
-        private string IPAddressGenerate()
-        {
-            if (Request.Headers.ContainsKey("X-Forwarded-For"))
-            {
-                return Request.Headers["X-Forwarded-For"];
-            }
-            else
-            {
-                return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
-            }
-        }
+        private string IPAddressGenerate() => Request.Headers.ContainsKey("X-Forwarded-For")
+            ? Request.Headers["X-Forwarded-For"]
+            : HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString() ?? "N/A";
     }
 }

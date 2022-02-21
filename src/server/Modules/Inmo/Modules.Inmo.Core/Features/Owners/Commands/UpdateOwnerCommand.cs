@@ -37,6 +37,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
 
         public bool IsActive { get; set; }
 
+        public bool DeleteCurrentImage { get; set; } = false;
+
         public FileUploadRequest FileUploadRequest { get; set; }
 
         public string FileName => $"{Name}{PhoneNumber}";

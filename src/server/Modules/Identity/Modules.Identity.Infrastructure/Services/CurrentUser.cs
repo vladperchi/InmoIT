@@ -26,34 +26,20 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
         public string Name => _accessor.HttpContext?.User.Identity?.Name;
 
-        public Guid GetUserId()
-        {
-            return IsAuthenticated() ? Guid.Parse(_accessor.HttpContext?.User.GetUserId() ?? Guid.Empty.ToString()) : Guid.Empty;
-        }
+        public Guid GetUserId() => IsAuthenticated()
+            ? Guid.Parse(_accessor.HttpContext?.User.GetUserId() ?? Guid.Empty.ToString())
+            : Guid.Empty;
 
-        public string GetUserEmail()
-        {
-            return IsAuthenticated() ? _accessor.HttpContext?.User.GetUserEmail() : string.Empty;
-        }
+        public string GetUserEmail() => IsAuthenticated()
+            ? _accessor.HttpContext?.User.GetUserEmail()
+            : string.Empty;
 
-        public bool IsAuthenticated()
-        {
-            return _accessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
-        }
+        public bool IsAuthenticated() => _accessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
 
-        public bool IsInRole(string role)
-        {
-            return _accessor.HttpContext?.User.IsInRole(role) ?? false;
-        }
+        public bool IsInRole(string role) => _accessor.HttpContext?.User.IsInRole(role) ?? false;
 
-        public IEnumerable<Claim> GetUserClaims()
-        {
-            return _accessor.HttpContext?.User.Claims;
-        }
+        public IEnumerable<Claim> GetUserClaims() => _accessor.HttpContext?.User.Claims;
 
-        public HttpContext GetHttpContext()
-        {
-            return _accessor.HttpContext;
-        }
+        public HttpContext GetHttpContext() => _accessor.HttpContext;
     }
 }

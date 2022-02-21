@@ -54,12 +54,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Export
         public async Task<Result<string>> Handle(ExportOwnersQuery request, CancellationToken cancellationToken)
         {
             var filterSpec = new OwnerFilterSpecification(request.SearchString);
-            var data = await _context.Owners
-                .AsNoTracking()
-                .AsQueryable()
-                .Specify(filterSpec)
-                .ToListAsync(cancellationToken);
-            if (data == null)
+            var data = await _context.Owners.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
+            if (data is null)
             {
                 throw new OwnerListEmptyException(_localizer);
             }
