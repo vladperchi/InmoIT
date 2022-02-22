@@ -65,7 +65,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             });
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddHangfireServer();
-            services.AddSingleton<ExceptionHandlerMiddleware>();
+            services.AddScoped<ExceptionHandlerMiddleware>();
             services.AddSwaggerDocumentation();
             services.AddCorsPolicy();
             services.AddApplicationSettings(config);
