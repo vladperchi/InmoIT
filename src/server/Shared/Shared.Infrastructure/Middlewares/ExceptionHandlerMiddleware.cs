@@ -24,8 +24,6 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-
-using Serilog;
 using Serilog.Context;
 
 namespace InmoIT.Shared.Infrastructure.Middlewares
@@ -79,9 +77,13 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                 }
 
                 string email = _currentUser.GetUserEmail() is string userEmail ? userEmail : "Anonymous";
-                var userId = _currentUser.GetUserId();
-                if (userId != Guid.Empty) LogContext.PushProperty("UserId", userId);
                 LogContext.PushProperty("UserEmail", email);
+                var userId = _currentUser.GetUserId();
+                if (userId != Guid.Empty)
+                {
+                    LogContext.PushProperty("UserId", userId);
+                }
+
                 string errorId = Guid.NewGuid().ToString();
                 LogContext.PushProperty("ErrorId", errorId);
                 LogContext.PushProperty("StackTrace", exception.StackTrace);
