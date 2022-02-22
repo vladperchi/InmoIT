@@ -73,7 +73,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
             var property = await _context.Properties.Where(x => x.Id == propertyId).FirstOrDefaultAsync();
             if (property is null)
             {
-                throw new PropertyNotFoundException(_localizer);
+                throw new PropertyNotFoundException(_localizer, propertyId);
             }
 
             try
