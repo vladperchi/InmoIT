@@ -50,7 +50,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
 
         internal static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
         {
-            var settings = services.GetOptions<SwaggerSettings>(nameof(SwaggerSettings));
+            var settings = GetSwaggerSettings(services);
             if (settings.Enable)
             {
                 services.AddSwaggerGen(options =>
@@ -141,7 +141,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
 
         private static void AddSwaggerDocs(this SwaggerGenOptions options, IServiceCollection services)
         {
-            var settings = services.GetOptions<SwaggerSettings>(nameof(SwaggerSettings));
+            var settings = GetSwaggerSettings(services);
             options.SwaggerDoc(settings.Version, new OpenApiInfo
             {
                 Version = settings.Version,
@@ -161,5 +161,8 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 TermsOfService = new Uri(settings.TermsUrl)
             });
         }
+
+        private static SwaggerSettings GetSwaggerSettings(IServiceCollection services) =>
+        services.GetOptions<SwaggerSettings>(nameof(SwaggerSettings));
     }
 }
