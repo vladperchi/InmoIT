@@ -80,23 +80,23 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (!user.IsActive)
             {
-                throw new IdentityException(_localizer["User Not Active. Please contact the administrator."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["User Not Active. Please contact the administrator."]);
             }
 
             if (_mailSettings.EnableVerification && !user.EmailConfirmed)
             {
-                throw new IdentityException(_localizer["E-Mail not confirmed. Please check your email account."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["E-Mail not confirmed. Please check your email account."]);
             }
 
             if (_smsTwilioSettings.EnableVerification && !user.PhoneNumberConfirmed)
             {
-                throw new IdentityException(_localizer["Phone Number not confirmed. Please check the sms on your mobile."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["Phone Number not confirmed. Please check the sms on your mobile."]);
             }
 
             bool passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
             if (!passwordValid)
             {
-                throw new IdentityException(_localizer["Invalid Credentials. Please contact the administrator"], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["Invalid Credentials. Please contact the administrator"]);
             }
 
             return await GenerateTokensAndUpdateAsync(user, ipAddress);
@@ -106,7 +106,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (request is null)
             {
-                throw new IdentityException(_localizer["Authentication Failed."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["Authentication Failed."]);
             }
 
             var userPrincipal = GetPrincipalFromExpiredToken(request.Token);
@@ -114,12 +114,12 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var user = await _userManager.FindByEmailAsync(userEmail);
             if (user is null)
             {
-                throw new IdentityException(_localizer["User Not Found."], statusCode: HttpStatusCode.NotFound);
+                throw new UserNotFoundException(_localizer);
             }
 
             if (user.RefreshToken != request.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
             {
-                throw new IdentityException(_localizer["Invalid Client Token."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["Invalid Client Token."]);
             }
 
             return await GenerateTokensAndUpdateAsync(user, ipAddress);
@@ -129,7 +129,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (_config.RefreshTokenExpirationInDays == 0)
             {
-                throw new IdentityException(_localizer["There is no RefreshTokenExpirationInDays value defined in the JwtSettings configuration."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["There is no RefreshTokenExpirationInDays value defined in the JwtSettings configuration."]);
             }
 
             string token = await GenerateJwtAsync(user, ipAddress);
@@ -193,7 +193,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (_config.TokenExpirationInMinutes == 0)
             {
-                throw new IdentityException(_localizer["There is no TokenExpirationInMinutes value defined in the JwtSettings configuration."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["There is no TokenExpirationInMinutes value defined in the JwtSettings configuration."]);
             }
 
             var token = new JwtSecurityToken(
@@ -208,7 +208,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (string.IsNullOrEmpty(_config.Key))
             {
-                throw new IdentityException(_localizer["There is no key value defined in the JwtSettings configuration."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["There is no key value defined in the JwtSettings configuration."]);
             }
 
             var tokenValidationParameters = new TokenValidationParameters
@@ -226,7 +226,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     SecurityAlgorithms.HmacSha256,
                     StringComparison.InvariantCultureIgnoreCase))
             {
-                throw new IdentityException(_localizer["Invalid Token."], statusCode: HttpStatusCode.Unauthorized);
+                throw new UnauthorizedException(_localizer["Invalid Token."]);
             }
 
             return principal;
@@ -236,7 +236,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (string.IsNullOrEmpty(_config.Key))
             {
-                throw new InvalidOperationException("There is no key value defined in the JwtSettings configuration.");
+                throw new UnauthorizedException("There is no key value defined in the JwtSettings configuration.");
             }
 
             byte[] key = Encoding.UTF8.GetBytes(_config.Key);
