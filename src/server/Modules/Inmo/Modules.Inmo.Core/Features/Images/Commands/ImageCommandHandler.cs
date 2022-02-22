@@ -62,7 +62,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
         {
             if (!await _context.Properties.Where(x => x.Id == command.PropertyId).AnyAsync(cancellationToken))
             {
-                throw new PropertyNotFoundException(_localizer);
+                throw new PropertyNotFoundException(_localizer, command.PropertyId);
             }
 
             var result = new Result<List<Guid>>();
