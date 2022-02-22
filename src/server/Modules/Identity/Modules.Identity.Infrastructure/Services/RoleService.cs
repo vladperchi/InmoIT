@@ -168,10 +168,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
         }
 
-        private static List<string> DefaultRoles()
-        {
-            return typeof(RolesConstant).GetAllConstantValues<string>();
-        }
+        private static List<string> DefaultRoles() => typeof(RolesConstant).GetAllConstantValues<string>();
 
         public async Task<int> GetCountAsync() => await _roleManager.Roles.CountAsync();
     }
