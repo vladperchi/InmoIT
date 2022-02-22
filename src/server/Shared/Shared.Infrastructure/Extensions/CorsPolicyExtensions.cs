@@ -21,11 +21,11 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             var corsSettings = services.GetOptions<CorsSettings>(nameof(CorsSettings));
             var originUrls = new List<string>();
             if (corsSettings.AngularUrl is not null)
-                originUrls.AddRange(corsSettings.AngularUrl.Split(';', StringSplitOptions.RemoveEmptyEntries));
+                originUrls.AddRange(corsSettings.AngularUrl.Split('|', StringSplitOptions.RemoveEmptyEntries));
             if (corsSettings.BlazorUrl is not null)
-                originUrls.AddRange(corsSettings.BlazorUrl.Split(';', StringSplitOptions.RemoveEmptyEntries));
+                originUrls.AddRange(corsSettings.BlazorUrl.Split('|', StringSplitOptions.RemoveEmptyEntries));
             if (corsSettings.ReactUrl is not null)
-                originUrls.AddRange(corsSettings.ReactUrl.Split(';', StringSplitOptions.RemoveEmptyEntries));
+                originUrls.AddRange(corsSettings.ReactUrl.Split('|', StringSplitOptions.RemoveEmptyEntries));
             return services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
