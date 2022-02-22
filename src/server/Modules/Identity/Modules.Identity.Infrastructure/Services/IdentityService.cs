@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -29,14 +28,11 @@ using InmoIT.Shared.Dtos.Messages;
 using InmoIT.Shared.Dtos.Upload;
 using InmoIT.Shared.Infrastructure.Common;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-using Twilio.Http;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
