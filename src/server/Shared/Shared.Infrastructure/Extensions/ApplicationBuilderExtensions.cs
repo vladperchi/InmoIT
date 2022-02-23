@@ -29,6 +29,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         public static IApplicationBuilder UseSharedInfrastructure(this IApplicationBuilder app, IConfiguration config)
         {
             app.UseMiddleware<ExceptionHandlerMiddleware>();
+            app.UseSecurityHeaders(config);
             app.UseRouting();
 
             string filesDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Files");
@@ -63,7 +64,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             app.UseSwaggerDocumentation(config);
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization();
             });
             app.Initialize();
 
