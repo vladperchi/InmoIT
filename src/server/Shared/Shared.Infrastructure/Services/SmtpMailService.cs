@@ -54,7 +54,7 @@ namespace InmoIT.Shared.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, $"An error occurred while send email to {request.To}");
+                _logger.LogError($"An error occurred while send email to {request.To}", ex.Message);
             }
         }
     }
