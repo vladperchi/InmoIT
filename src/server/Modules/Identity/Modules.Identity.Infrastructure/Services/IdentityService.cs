@@ -194,7 +194,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             else
             {
                 await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
-                throw new IdentityCustomException(_localizer, result.GetErrorMessages(_localizer));
+                throw new IdentityException(_localizer["Update user picture failed"], result.GetErrorMessages(_localizer));
             }
         }
 
