@@ -163,6 +163,6 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         }
 
         private static SwaggerSettings GetSwaggerSettings(IServiceCollection services) =>
-        services.GetOptions<SwaggerSettings>(nameof(SwaggerSettings));
+            services.GetOptions<SwaggerSettings>(nameof(SwaggerSettings));
     }
 }
