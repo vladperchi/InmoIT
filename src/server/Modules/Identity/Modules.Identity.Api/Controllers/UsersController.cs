@@ -66,7 +66,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpPut]
         [HavePermission(PermissionsConstant.Users.Edit)]
-        [SwaggerHeader("request", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Update User.",
             Description = "We get the user with its modified values. This can only be done by the registered user",
