@@ -60,6 +60,6 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         }
 
         private static HeaderSettings GetHeaderSettings(IConfiguration config) =>
-        config.GetSection(nameof(HeaderSettings)).Get<HeaderSettings>();
+            config.GetSection(nameof(HeaderSettings)).Get<HeaderSettings>();
     }
 }
