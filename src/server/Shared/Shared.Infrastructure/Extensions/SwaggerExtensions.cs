@@ -51,7 +51,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
         internal static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
         {
             var settings = GetSwaggerSettings(services);
-            if (settings.Enable)
+            if (settings?.Enable is true)
             {
                 services.AddSwaggerGen(options =>
                 {
@@ -103,7 +103,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                         Type = SecuritySchemeType.ApiKey,
                         Scheme = JwtBearerDefaults.AuthenticationScheme,
                         BearerFormat = "JWT",
-                        Description = "Input your Bearer token in this format - \"bearer {token}\" to access this API",
+                        Description = "Input your Bearer token in this format - \"Bearer {token}\" to access this API",
                     });
 
                     options.AddSecurityRequirement(new OpenApiSecurityRequirement
