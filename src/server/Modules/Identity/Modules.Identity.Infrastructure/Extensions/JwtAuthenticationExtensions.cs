@@ -13,10 +13,12 @@ using System.Text;
 using System.Threading.Tasks;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Settings;
+using InmoIT.Modules.Identity.Infrastructure.Services;
 using InmoIT.Shared.Core.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Extensions
@@ -53,11 +55,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
                         {
                             if (x.Exception is SecurityTokenExpiredException)
                             {
-                                throw new IdentityException("The Token is expired.", statusCode: HttpStatusCode.Unauthorized);
+                                throw new UnauthorizedException("The Token is expired.");
                             }
                             else
                             {
-                                throw new IdentityException("An unhandled error has occurred.", statusCode: HttpStatusCode.InternalServerError);
+                                throw new IdentityException("An unhandled error has occurred.");
                             }
                         },
                         OnChallenge = x =>
@@ -65,14 +67,14 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
                             x.HandleResponse();
                             if (!x.Response.HasStarted)
                             {
-                                throw new IdentityException("You are not Authorized.", statusCode: HttpStatusCode.Unauthorized);
+                                throw new UnauthorizedException("You are not Authorized.");
                             }
 
                             return Task.CompletedTask;
                         },
                         OnForbidden = _ =>
                         {
-                            throw new IdentityException("You are not authorized to access this resource.", statusCode: HttpStatusCode.Forbidden);
+                            throw new ForbiddenException("You are not authorized to access this resource.");
                         }
                     };
                 });
