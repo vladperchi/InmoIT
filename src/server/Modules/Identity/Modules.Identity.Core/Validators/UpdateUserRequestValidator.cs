@@ -37,13 +37,13 @@ namespace InmoIT.Modules.Identity.Core.Validators
 
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
-                .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
+                .MaximumLength(100).WithMessage(localizer["{PropertyName} can have a maximum of 100 characters."])
                 .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."])
                 .NotEqual(x => x.LastName).WithMessage(localizer["{PropertyName} cannot be equal to LastName."]);
 
             RuleFor(x => x.LastName)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
-                .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
+                .MaximumLength(100).WithMessage(localizer["{PropertyName} can have a maximum of 100 characters."])
                 .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."])
                 .NotEqual(x => x.FirstName).WithMessage(localizer["{PropertyName} cannot be equal to FirstName."]);
 
