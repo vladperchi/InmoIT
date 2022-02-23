@@ -25,7 +25,7 @@ namespace InmoIT.Api
             {
                 // Space reserved for any initialization task
 
-                Log.Information("InmoIT.Api Starting Up...");
+                Log.Information("InmoIT.Api Starting...");
                 Log.Information("Welcome {Name} from thread {ThreadId}", Environment.UserName, Thread.CurrentThread.ManagedThreadId);
                 host.Run();
             }
