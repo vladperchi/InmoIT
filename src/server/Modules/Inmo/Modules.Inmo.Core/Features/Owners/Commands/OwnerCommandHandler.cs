@@ -102,19 +102,11 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
             }
 
             var owner = _mapper.Map<Owner>(command);
-            if (command.DeleteCurrentImage)
+            string currentImageUrl = command.ImageUrl ?? string.Empty;
+            if (command.DeleteCurrentImageUrl && !string.IsNullOrEmpty(currentImageUrl))
             {
-                string currentImageUrl = command.ImageUrl;
-                if (!string.IsNullOrEmpty(currentImageUrl))
-                {
-                    _uploadService.Remove(UploadStorageType.Owner, currentImageUrl);
-                }
-
+                _uploadService.Remove(UploadStorageType.Owner, currentImageUrl);
                 owner = owner.ClearPathImageUrl();
-            }
-
-            if (command.FileUploadRequest != null)
-            {
                 var fileUploadRequest = new FileUploadRequest
                 {
                     Data = command.FileUploadRequest?.Data,
