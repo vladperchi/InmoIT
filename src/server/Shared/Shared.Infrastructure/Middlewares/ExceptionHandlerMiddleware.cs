@@ -86,7 +86,6 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
 
                 string errorId = Guid.NewGuid().ToString();
                 LogContext.PushProperty("ErrorId", errorId);
-                LogContext.PushProperty("StackTrace", exception.StackTrace);
                 var errorResult = new ErrorResult<string>
                 {
                     Source = exception.TargetSite?.DeclaringType?.FullName,
@@ -98,9 +97,15 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                     Method = context.Request.Method ?? string.Empty,
                     Path = $"{context.Request.Path}",
                     QueryString = $"{context.Request.QueryString}::{requestBody}",
-                    StatusCode = context.Response.StatusCode,
                     SupportMessage = string.Format(_localizer["Please provide the ErrorId: {0} to the support team for further analysis"], errorId),
                 };
+                LogContext.PushProperty("RemoteIP", errorResult.RemoteIP);
+                LogContext.PushProperty("Schema", errorResult.Schema);
+                LogContext.PushProperty("Host", errorResult.Host);
+                LogContext.PushProperty("Method", errorResult.Method);
+                LogContext.PushProperty("Path", errorResult.Path);
+                LogContext.PushProperty("QueryString", errorResult.QueryString);
+                LogContext.PushProperty("StackTrace", exception.StackTrace);
                 errorResult.Messages!.Add(exception.Message);
                 var response = context.Response;
                 response.ContentType = "application/json";
@@ -144,7 +149,7 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                     });
                 }
 
-                _logger.LogError($"Request failed::{errorResult}");
+                _logger.LogError($"{errorResult.Exception}::Request failed with StatusCode: {errorResult.StatusCode}. {errorResult.SupportMessage}.");
                 await response.WriteAsync(result);
             }
         }
