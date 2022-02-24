@@ -71,11 +71,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
         public async Task<Result<Guid>> ChangeStatusPropertyAsync(Guid propertyId, bool status)
 {
             var property = await _context.Properties.Where(x => x.Id == propertyId).FirstOrDefaultAsync();
-            if (property is null)
-            {
-                throw new PropertyNotFoundException(_localizer, propertyId);
-            }
-
+            _ = property ?? throw new PropertyNotFoundException(_localizer, propertyId);
             try
             {
                 property.IsActive = status;
@@ -84,7 +80,7 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
                 property.AddDomainEvent(new PropertyUpdatedEvent(property));
                 await _context.SaveChangesAsync();
                 await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, Property>(property.Id));
-                _logger.LogInformation(string.Format(_localizer["Property::{0} => Id::{1}"], statusProperty, property.Id));
+                _logger.LogInformation(string.Format(_localizer["Status Property: {0} with Id: {1}"], statusProperty, property.Id));
                 return await Result<Guid>.SuccessAsync(property.Id, _localizer[$"Property {statusProperty}"]);
             }
             catch (Exception)

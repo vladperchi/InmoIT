@@ -60,31 +60,18 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Queries
                 sourse = sourse.Where(x => x.CustomerId.Equals(request.CustomerId));
             }
 
-            var data = await sourse
-                .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data is null)
-            {
-                throw new CartListEmptyException(_localizer);
-            }
-
+            var data = await sourse.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            _ = data ?? throw new CartListEmptyException(_localizer);
             return _mapper.Map<PaginatedResult<GetAllCartsResponse>>(data);
         }
 
         public async Task<Result<GetCartByIdResponse>> Handle(GetCartByIdQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.Carts
-                .AsNoTracking()
-                .Where(c => c.Id == query.Id)
+            var data = await _context.Carts.AsNoTracking().Where(c => c.Id == query.Id)
                 .Include(a => a.CartItems)
                 .Include(c => c.Customer)
                 .FirstOrDefaultAsync(cancellationToken);
-
-            if (data is null)
-            {
-                throw new CartNotFoundException(_localizer);
-            }
-
+            _ = data ?? throw new CartNotFoundException(_localizer, query.Id);
             var result = _mapper.Map<GetCartByIdResponse>(data);
             return await Result<GetCartByIdResponse>.SuccessAsync(result);
         }

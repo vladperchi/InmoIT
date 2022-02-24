@@ -30,6 +30,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using InmoIT.Modules.Identity.Infrastructure.Extensions;
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -73,11 +74,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<TokenResponse>> GetTokenAsync(TokenRequest request, string ipAddress)
         {
             var user = await _userManager.FindByEmailAsync(request.Email.Trim().Normalize());
-            if (user is null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer, request.Email);
             if (!user.IsActive)
             {
                 throw new UnauthorizedException(_localizer["User Not Active. Please contact the administrator."]);
@@ -112,11 +109,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var userPrincipal = GetPrincipalFromExpiredToken(request.Token);
             string userEmail = userPrincipal.FindFirstValue(ClaimTypes.Email);
             var user = await _userManager.FindByEmailAsync(userEmail);
-            if (user is null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer, userEmail);
             if (user.RefreshToken != request.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
             {
                 throw new UnauthorizedException(_localizer["Invalid Client Token."]);

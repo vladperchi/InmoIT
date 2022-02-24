@@ -55,11 +55,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Export
         {
             var filterSpec = new OwnerFilterSpecification(request.SearchString);
             var data = await _context.Owners.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
-            if (data is null)
-            {
-                throw new OwnerListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new OwnerListEmptyException(_localizer);
             string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<Owner, object>>
             {
                 { _localizer["Name"], item => item.FullName },
@@ -71,7 +67,6 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Export
                 { _localizer["Gender"], item => item.Gender },
                 { _localizer["Group"], item => item.Group }
             }, sheetName: _localizer["Owners"]);
-
             return await Result<string>.SuccessAsync(data: result);
         }
     }

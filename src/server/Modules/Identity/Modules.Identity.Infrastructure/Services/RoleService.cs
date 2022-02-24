@@ -23,6 +23,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
+
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
     internal class RoleService : IRoleService
@@ -50,11 +52,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<List<RoleResponse>>> GetAllAsync()
         {
             var data = await _roleManager.Roles.ToListAsync();
-            if(data == null)
-            {
-                throw new RolListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new RolListEmptyException(_localizer);
             var result = _mapper.Map<List<RoleResponse>>(data);
             return await Result<List<RoleResponse>>.SuccessAsync(result);
         }
@@ -62,11 +60,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<RoleResponse>> GetByIdAsync(string id)
         {
             var data = await _roleManager.Roles.SingleOrDefaultAsync(x => x.Id == id);
-            if (data == null)
-            {
-                throw new RoleNotFoundException(_localizer);
-            }
-
+            _ = data ?? throw new RoleNotFoundException(_localizer, id);
             var result = _mapper.Map<RoleResponse>(data);
             return await Result<RoleResponse>.SuccessAsync(result);
         }
@@ -76,11 +70,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             if (string.IsNullOrEmpty(request.Id))
             {
                 var existingRole = await _roleManager.FindByNameAsync(request.Name);
-                if (existingRole != null)
-                {
-                    throw new RoleAlreadyExistsException(_localizer);
-                }
-
+                _ = existingRole ?? throw new RoleAlreadyExistsException(_localizer);
                 var newRole = new InmoRole(request.Name, request.Description);
                 var result = await _roleManager.CreateAsync(newRole);
                 await _context.SaveChangesAsync();
@@ -98,11 +88,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             else
             {
                 var existingRole = await _roleManager.FindByIdAsync(request.Id);
-                if (existingRole == null)
-                {
-                    return await Result<string>.FailAsync(_localizer["Role does not exist."]);
-                }
-
+                _ = existingRole ?? throw new RoleNotFoundException(_localizer, request.Id);
                 if (DefaultRoles().Contains(existingRole.Name))
                 {
                     return await Result<string>.SuccessAsync(string.Format(_localizer["Not allowed to modify {0} Role."], existingRole.Name));
@@ -119,7 +105,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 }
                 else
                 {
-                    return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                    // return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
                     throw new IdentityException(_localizer["An error occurred while updated Rol"], result.GetErrorMessages(_localizer));
                 }
             }
@@ -128,11 +114,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<string>> DeleteAsync(string id)
         {
             var existingRole = await _roleManager.FindByIdAsync(id);
-            if (existingRole == null)
-            {
-                throw new RoleNotFoundException(_localizer);
-            }
-
+            _ = existingRole ?? throw new RoleNotFoundException(_localizer, id);
             if (DefaultRoles().Contains(existingRole.Name))
             {
                 return await Result<string>.FailAsync(string.Format(_localizer["Not allowed to delete {0} Role."], existingRole.Name));
@@ -158,7 +140,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 }
                 else
                 {
-                    return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                    // return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
                     throw new IdentityException(_localizer["An error occurred while deleted Rol"], result.GetErrorMessages(_localizer));
                 }
             }

@@ -23,6 +23,8 @@ using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Upload;
 using MediatR;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
@@ -138,11 +140,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
         public async Task<Result<Guid>> Handle(RemoveCustomerCommand command, CancellationToken cancellationToken)
         {
             var customer = await _context.Customers.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
-            if (customer is null)
-            {
-                throw new CustomerNotFoundException(_localizer, command.Id);
-            }
-
+            _ = customer ?? throw new CustomerNotFoundException(_localizer, command.Id);
             try
             {
                 customer.AddDomainEvent(new CustomerRemovedEvent(customer.Id));

@@ -136,11 +136,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
         public async Task<Result<Guid>> Handle(RemoveOwnerCommand command, CancellationToken cancellationToken)
         {
             var owner = await _context.Owners.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
-            if (owner is null)
-            {
-                throw new OwnerNotFoundException(_localizer, command.Id);
-            }
-
+            _ = owner ?? throw new OwnerNotFoundException(_localizer, command.Id);
             try
             {
                 owner.AddDomainEvent(new OwnerRemovedEvent(owner.Id));

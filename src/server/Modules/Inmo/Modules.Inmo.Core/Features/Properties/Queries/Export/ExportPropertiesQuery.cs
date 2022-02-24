@@ -58,11 +58,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Export
         {
             var filterSpec = new PropertyFilterSpecification(request.SearchString);
             var data = await _context.Properties.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
-            if (data is null)
-            {
-                throw new PropertyListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new PropertyListEmptyException(_localizer);
             try
             {
                 string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<Property, object>>
@@ -82,7 +78,6 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Export
                 { _localizer["Rent Price"], item => item.TotalRent.ToString("0:N2") },
                 { _localizer["Sale Price"], item => item.TolalSale.ToString("0:N2") }
             }, sheetName: _localizer["Properties"]);
-
                 return await Result<string>.SuccessAsync(data: result);
             }
             catch (Exception)

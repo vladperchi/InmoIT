@@ -17,9 +17,10 @@ namespace InmoIT.Modules.Inmo.Core.Exceptions
     {
         public Guid Id { get; }
 
-        public ImageNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Image was not found..."], null, HttpStatusCode.NotFound)
+        public ImageNotFoundException(IStringLocalizer localizer, Guid id)
+            : base(localizer[$"Image with Id: {id} was not found."], null, HttpStatusCode.NotFound)
         {
+            Id = id;
         }
     }
 }

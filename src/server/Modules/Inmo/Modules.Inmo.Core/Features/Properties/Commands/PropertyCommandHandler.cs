@@ -99,11 +99,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Commands
         public async Task<Result<Guid>> Handle(RemovePropertyCommand command, CancellationToken cancellationToken)
         {
             var property = await _context.Properties.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
-            if (property is null)
-            {
-                throw new PropertyNotFoundException(_localizer, command.Id);
-            }
-
+            _ = property ?? throw new PropertyNotFoundException(_localizer, command.Id);
             try
             {
                 property.AddDomainEvent(new PropertyRemovedEvent(property.Id));

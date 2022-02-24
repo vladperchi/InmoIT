@@ -17,9 +17,10 @@ namespace InmoIT.Modules.Document.Core.Exceptions
     {
         public Guid Id { get; }
 
-        public DocumentNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Document was not found..."], null, HttpStatusCode.NotFound)
+        public DocumentNotFoundException(IStringLocalizer localizer, Guid id)
+            : base(localizer[$"Document with Id: {id} was not found."], null, HttpStatusCode.NotFound)
         {
+            Id = id;
         }
     }
 }

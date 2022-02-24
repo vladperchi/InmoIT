@@ -103,7 +103,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
                 .Where(x => x.Id == command.Id)
                 .AnyAsync(x => x.Name == command.Name, cancellationToken))
             {
-                throw new PropertyTypeNotFoundException(_localizer);
+                throw new PropertyTypeNotFoundException(_localizer, command.Id);
             }
 
             var propertyType = _mapper.Map<PropertyType>(command);
@@ -142,11 +142,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
         public async Task<Result<Guid>> Handle(RemovePropertyTypeCommand command, CancellationToken cancellationToken)
         {
             var propertyType = await _context.PropertyTypes.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
-            if (propertyType is null)
-            {
-                throw new PropertyTypeNotFoundException(_localizer);
-            }
-
+            _ = propertyType ?? throw new PropertyTypeNotFoundException(_localizer, command.Id);
             if (!await _propertyService.IsPropertyTypeUsed(propertyType.Id))
             {
                 try

@@ -28,8 +28,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
 
-using static InmoIT.Shared.Core.Constants.SeedsConstant;
-
 namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 {
     public class ImageCommandHandler :
@@ -111,7 +109,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
         {
             if (!await _context.PropertyImages.Where(x => x.Id == command.Id).AnyAsync(x => x.CodeImage == command.CodeImage, cancellationToken))
             {
-                throw new ImageNotFoundException(_localizer);
+                throw new ImageNotFoundException(_localizer, command.Id);
             }
 
             var image = _mapper.Map<PropertyImage>(command);
@@ -150,11 +148,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
         public async Task<Result<Guid>> Handle(RemoveImageCommand command, CancellationToken cancellationToken)
         {
             var image = await _context.PropertyImages.Where(x => x.Id == command.Id).FirstOrDefaultAsync(cancellationToken);
-            if (image == null)
-            {
-                throw new ImageNotFoundException(_localizer);
-            }
-
+            _ = image ?? throw new ImageNotFoundException(_localizer, command.Id);
             try
             {
                 image.AddDomainEvent(new ImageRemovedEvent(image.Id));

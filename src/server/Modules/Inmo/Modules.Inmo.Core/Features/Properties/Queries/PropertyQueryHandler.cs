@@ -65,16 +65,10 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
             }
 
             string ordering = new OrderByConverter().Convert(request.OrderBy);
-            source = !string.IsNullOrWhiteSpace(ordering)
-                ? source.OrderBy(ordering)
-                : source.OrderBy(x => x.Id);
+            source = !string.IsNullOrWhiteSpace(ordering) ? source.OrderBy(ordering) : source.OrderBy(x => x.Id);
             var filterSpec = new PropertyFilterSpecification(request.SearchString);
             var data = await source.AsNoTracking().Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data is null)
-            {
-                throw new PropertyListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new PropertyListEmptyException(_localizer);
             var result = _mapper.Map<PaginatedResult<GetAllPropertiesResponse>>(data);
 
             if(!result.Succeeded)
@@ -97,11 +91,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries
         public async Task<Result<GetPropertyByIdResponse>> Handle(GetPropertyByIdQuery query, CancellationToken cancellationToken)
         {
             var data = await _context.Properties.AsNoTracking().Where(x => x.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
-            if (data is null)
-            {
-                throw new PropertyNotFoundException(_localizer, query.Id);
-            }
-
+            _ = data ?? throw new PropertyNotFoundException(_localizer, query.Id);
             var result = _mapper.Map<GetPropertyByIdResponse>(data);
             if (result is null)
             {

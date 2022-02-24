@@ -48,17 +48,10 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
 
         public async Task<Result<Guid>> Handle(AddCartItemCommand command, CancellationToken cancellationToken)
         {
-            var cart = await _context.Carts
-                .Include(x => x.CartItems)
+            var cart = await _context.Carts.Include(x => x.CartItems)
                 .FirstOrDefaultAsync(x => x.Id == command.CartId, cancellationToken);
-
-            if (cart is null)
-            {
-                throw new CartNotFoundException(_localizer);
-            }
-
-            if (cart.CartItems
-                .Any(x => x.PropertyId == command.PropertyId))
+            _ = cart ?? throw new CartNotFoundException(_localizer, command.CartId);
+            if (cart.CartItems.Any(x => x.PropertyId == command.PropertyId))
             {
                 throw new CartItemAlreadyAddedException(_localizer);
             }
@@ -79,21 +72,14 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
 
         public async Task<Result<Guid>> Handle(UpdateCartItemCommand command, CancellationToken cancellationToken)
         {
-            var cartItem = await _context.CartItems
-                .Where(x => x.Id == command.Id)
-                .AsNoTracking()
+            var cartItem = await _context.CartItems.AsNoTracking().Where(x => x.Id == command.Id)
                 .FirstOrDefaultAsync(cancellationToken);
-            if (cartItem is null)
-            {
-                throw new CartItemNotFoundException(_localizer);
-            }
-
-            if (await _context.CartItems
-                .AsNoTracking()
+            _ = cartItem ?? throw new CartItemNotFoundException(_localizer, command.Id);
+            if (await _context.CartItems.AsNoTracking()
                 .AnyAsync(
                     x => x.Id != command.Id
-                      && x.CartId == command.CartId
-                      && x.PropertyId == command.PropertyId, cancellationToken))
+                    && x.CartId == command.CartId
+                    && x.PropertyId == command.PropertyId, cancellationToken))
             {
                 throw new CartItemAlreadyAddedException(_localizer);
             }
@@ -115,13 +101,8 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Commands
 
         public async Task<Result<Guid>> Handle(RemoveCartItemCommand command, CancellationToken cancellationToken)
         {
-            var cartItem = await _context.CartItems
-                .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
-            if (cartItem is null)
-            {
-                throw new CartItemNotFoundException(_localizer);
-            }
-
+            var cartItem = await _context.CartItems.FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
+            _ = cartItem ?? throw new CartItemNotFoundException(_localizer, command.Id);
             try
             {
                 cartItem.AddDomainEvent(new CartItemRemovedEvent(cartItem.Id));

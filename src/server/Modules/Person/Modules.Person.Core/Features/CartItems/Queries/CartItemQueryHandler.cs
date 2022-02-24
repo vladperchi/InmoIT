@@ -51,27 +51,16 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Queries
         public async Task<PaginatedResult<GetAllCartItemsResponse>> Handle(GetAllCartItemsQuery request, CancellationToken cancellationToken)
         {
             Expression<Func<CartItem, GetAllCartItemsResponse>> expression = e => new GetAllCartItemsResponse(e.Id, e.CartId, e.PropertyId);
-            var sourse = _context.CartItems
-                .AsNoTracking()
-                .OrderBy(x => x.Id)
-                .AsQueryable();
+            var sourse = _context.CartItems.AsNoTracking().OrderBy(x => x.Id).AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
-            sourse = !string.IsNullOrWhiteSpace(ordering)
-                ? sourse.OrderBy(ordering)
-                : sourse.OrderBy(a => a.Id);
+            sourse = !string.IsNullOrWhiteSpace(ordering) ? sourse.OrderBy(ordering) : sourse.OrderBy(a => a.Id);
             if (request.CartId != null && !request.CartId.Equals(Guid.Empty))
             {
                 sourse = sourse.Where(x => x.CartId.Equals(request.CartId));
             }
 
-            var data = await sourse
-                .Select(expression)
-                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data == null)
-            {
-                throw new CartItemListEmptyException(_localizer);
-            }
-
+            var data = await sourse.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            _ = data ?? throw new CartItemListEmptyException(_localizer);
             var result = _mapper.Map<PaginatedResult<GetAllCartItemsResponse>>(data);
             foreach (var item in result.Data)
             {
@@ -91,16 +80,9 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Queries
 
         public async Task<Result<GetCartItemByIdResponse>> Handle(GetCartItemByIdQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.CartItems
-                .AsNoTracking()
-                .Where(b => b.Id == query.Id)
+            var data = await _context.CartItems.AsNoTracking().Where(b => b.Id == query.Id)
                 .FirstOrDefaultAsync(cancellationToken);
-
-            if (data == null)
-            {
-                throw new CartItemNotFoundException(_localizer);
-            }
-
+            _ = data ?? throw new CartItemNotFoundException(_localizer, query.Id);
             var result = _mapper.Map<GetCartItemByIdResponse>(data);
             var detailsProperty = await _propertyService.GetDetailsPropertyAsync(result.PropertyId);
             if (detailsProperty.Succeeded)

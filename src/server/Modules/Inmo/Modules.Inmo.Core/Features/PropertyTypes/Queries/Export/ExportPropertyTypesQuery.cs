@@ -54,11 +54,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries.Export
         {
             var filterSpec = new PropertyTypeFilterSpecification(request.SearchString);
             var data = await _context.PropertyTypes.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
-            if (data is null)
-            {
-                throw new PropertyTypeListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new PropertyTypeListEmptyException(_localizer);
             string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<PropertyType, object>>
             {
                 { _localizer["Name"], item => $"{item.Name} ({item.CodeInternal})" },

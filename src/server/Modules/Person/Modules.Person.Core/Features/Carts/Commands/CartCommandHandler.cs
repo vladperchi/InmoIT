@@ -70,13 +70,8 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
 
         public async Task<Result<Guid>> Handle(RemoveCartCommand command, CancellationToken cancellationToken)
         {
-            var cart = await _context.Carts
-                .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
-            if (cart is null)
-            {
-                throw new CartNotFoundException(_localizer);
-            }
-
+            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
+            _ = cart ?? throw new CartNotFoundException(_localizer, command.Id);
             try
             {
                 cart.AddDomainEvent(new CartRemovedEvent(cart.Id));
@@ -93,13 +88,8 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Commands
 
         public async Task<Result<Guid>> Handle(ClearCartCommand command, CancellationToken cancellationToken)
         {
-            var cart = await _context.Carts
-                .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
-            if (cart is null)
-            {
-                throw new CartNotFoundException(_localizer);
-            }
-
+            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
+            _ = cart ?? throw new CartNotFoundException(_localizer, command.Id);
             var cartItems = await _context.CartItems
                 .Where(x => x.CartId == command.Id)
                 .ToListAsync();

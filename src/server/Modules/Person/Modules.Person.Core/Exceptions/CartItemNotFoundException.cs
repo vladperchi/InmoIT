@@ -17,9 +17,10 @@ namespace InmoIT.Modules.Person.Core.Exceptions
     {
         public Guid Id { get; }
 
-        public CartItemNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Cart Item was not found..."], null, HttpStatusCode.NotFound)
+        public CartItemNotFoundException(IStringLocalizer localizer, Guid id)
+            : base(localizer[$"Cart Item with id: {id} was not found..."], null, HttpStatusCode.NotFound)
         {
+            Id = id;
         }
     }
 }

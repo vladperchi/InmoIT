@@ -25,6 +25,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
 {
     internal class ImageQueryHandler :
@@ -50,33 +52,23 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Queries
             Expression<Func<PropertyImage, GetAllPropertyImagesResponse>> expression = e => new GetAllPropertyImagesResponse(e.Id, e.ImageUrl, e.Caption, e.Enabled, e.CodeImage, e.PropertyId);
             var sourse = _context.PropertyImages.AsNoTracking().OrderBy(x => x.Id).AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
-            sourse = !string.IsNullOrWhiteSpace(ordering)
-                ? sourse.OrderBy(ordering)
-                : sourse.OrderBy(x => x.Id);
+            sourse = !string.IsNullOrWhiteSpace(ordering) ? sourse.OrderBy(ordering) : sourse.OrderBy(x => x.Id);
             if (request.PropertyId != null && !request.PropertyId.Equals(Guid.Empty))
             {
                 sourse = sourse.Where(x => x.PropertyId.Equals(request.PropertyId));
             }
 
             var filterSpec = new ImageFilterSpecification(request.SearchString);
-            var data = await sourse.AsNoTracking().Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data == null)
-            {
-                throw new ImageListEmptyException(_localizer);
-            }
-
+            var data = await sourse.AsNoTracking()
+                .Specify(filterSpec).Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            _ = data ?? throw new ImageListEmptyException(_localizer);
             return _mapper.Map<PaginatedResult<GetAllPropertyImagesResponse>>(data);
         }
 
-        public async Task<Result<GetPropertyImageByPropertyIdResponse>> Handle(GetImageByPropertyIdQuery query, CancellationToken cancellationToken)
+        public async Task<Result<GetPropertyImageByPropertyIdResponse>> Handle(GetImageByPropertyIdQuery query,     CancellationToken cancellationToken)
         {
             var data = await _context.PropertyImages.AsNoTracking().Where(x => x.PropertyId == query.Id).Include(x => x.Property).FirstOrDefaultAsync(cancellationToken);
-
-            if (data == null)
-            {
-                throw new ImageNotFoundException(_localizer);
-            }
-
+            _ = data ?? throw new ImageNotFoundException(_localizer, query.Id);
             var result = _mapper.Map<GetPropertyImageByPropertyIdResponse>(data);
             return await Result<GetPropertyImageByPropertyIdResponse>.SuccessAsync(result);
         }

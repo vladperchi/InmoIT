@@ -26,7 +26,8 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands.Validators
             RuleFor(x => x.FileName)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
-                .NotEqual(x => x.Caption).WithMessage(localizer["Cannot be equal to image caption."]);
+                .NotEqual(x => x.Caption).WithMessage(localizer["Cannot be equal to image caption."])
+                .Must(HasExtension).WithMessage(localizer["{PropertyName} must have extension"]);
             RuleFor(x => x.Caption)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(50, 150).WithMessage(localizer["{PropertyName} must have between 50 and 150 characters."])
@@ -36,9 +37,6 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands.Validators
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .MaximumLength(10).WithMessage(localizer["{PropertyName} must have maximu 10 characters."])
                 .Must(IsLetterOrDigit).WithMessage(localizer["{PropertyName} must be only letters and numbers."]);
-            RuleFor(x => x.ImageData)
-                  .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty"])
-                  .Must(HasExtension).WithMessage(localizer["{PropertyName} must have extension"]);
         }
 
         private bool IsOnlyLetter(string value) => value.All(char.IsLetter);

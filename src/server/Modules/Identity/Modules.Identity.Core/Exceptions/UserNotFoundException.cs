@@ -15,11 +15,12 @@ namespace InmoIT.Modules.Identity.Core.Exceptions
 {
     public class UserNotFoundException : CustomException
     {
-        public Guid Id { get; }
+        public string User { get; }
 
-        public UserNotFoundException(IStringLocalizer localizer)
-            : base(localizer["User was not found..."], null, HttpStatusCode.NotFound)
+        public UserNotFoundException(IStringLocalizer localizer, string user)
+            : base(localizer[$"User: {user} was not found..."], null, HttpStatusCode.NotFound)
         {
+            User = user;
         }
     }
 }

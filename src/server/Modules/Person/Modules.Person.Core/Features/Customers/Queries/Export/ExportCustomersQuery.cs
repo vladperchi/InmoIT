@@ -56,11 +56,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
         {
             var filterSpec = new CustomerFilterSpecification(request.SearchString);
             var data = await _context.Customers.AsNoTracking().AsQueryable().Specify(filterSpec).ToListAsync(cancellationToken);
-            if (data is null)
-            {
-                throw new CustomerListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new CustomerListEmptyException(_localizer);
             try
             {
                 string result = await _excelService.ExportAsync(data, mappers: new Dictionary<string, Func<Customer, object>>
@@ -73,7 +69,6 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Queries.Export
                 { _localizer["Gender"], item => item.Gender },
                 { _localizer["Group"], item => item.Group }
             }, sheetName: _localizer["Customers"]);
-
                 return await Result<string>.SuccessAsync(data: result);
             }
             catch (Exception)

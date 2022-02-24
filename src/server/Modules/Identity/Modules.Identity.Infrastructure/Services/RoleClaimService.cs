@@ -25,6 +25,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
+
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
     public class RoleClaimService : IRoleClaimService
@@ -55,11 +57,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<List<RoleClaimResponse>>> GetAllAsync()
         {
             var data = await _context.RoleClaims.AsNoTracking().ToListAsync();
-            if (data == null)
-            {
-                throw new RolClaimListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new RolClaimListEmptyException(_localizer);
             var result = _mapper.Map<List<RoleClaimResponse>>(data);
             return await Result<List<RoleClaimResponse>>.SuccessAsync(result);
         }
@@ -67,11 +65,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<RoleClaimResponse>> GetByIdAsync(int id)
         {
             var data = await _context.RoleClaims.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
-            if (data == null)
-            {
-                throw new RoleClaimNotFoundException(_localizer);
-            }
-
+            _ = data ?? throw new RoleClaimNotFoundException(_localizer, id);
             var result = _mapper.Map<RoleClaimResponse>(data);
             return await Result<RoleClaimResponse>.SuccessAsync(result);
         }
@@ -79,11 +73,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<List<RoleClaimResponse>>> GetAllByRoleIdAsync(string roleId)
         {
             var data = await _context.RoleClaims.AsNoTracking().Include(x => x.Role).Where(x => x.RoleId == roleId).ToListAsync();
-            if (data == null)
-            {
-                throw new RolClaimListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new RolClaimListEmptyException(_localizer);
             var result = _mapper.Map<List<RoleClaimResponse>>(data);
             return await Result<List<RoleClaimResponse>>.SuccessAsync(result);
         }

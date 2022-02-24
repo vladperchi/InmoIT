@@ -15,11 +15,12 @@ namespace InmoIT.Modules.Identity.Core.Exceptions
 {
     public class RoleNotFoundException : CustomException
     {
-        public Guid Id { get; }
+        public string Id { get; }
 
-        public RoleNotFoundException(IStringLocalizer localizer)
-            : base(localizer["Role was not found..."], null, HttpStatusCode.NotFound)
+        public RoleNotFoundException(IStringLocalizer localizer, string id)
+            : base(localizer[$"Role with Id: {id} was not found."], null, HttpStatusCode.NotFound)
         {
+            Id = id;
         }
     }
 }

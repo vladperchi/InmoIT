@@ -221,7 +221,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<string>> ConfirmEmailAsync(string userId, string code)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            _ = user ?? throw new UserNotFoundException(_localizer);
+            _ = user ?? throw new UserNotFoundException(_localizer, userId);
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
@@ -246,7 +246,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<string>> ConfirmPhoneNumberAsync(string userId, string code)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            _ = user ?? throw new UserNotFoundException(_localizer);
+            _ = user ?? throw new UserNotFoundException(_localizer, userId);
             var result = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, code);
             if (result.Succeeded)
             {
@@ -270,7 +270,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult> ForgotPasswordAsync(ForgotPasswordRequest request, string origin)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            _ = user ?? throw new UserNotFoundException(_localizer);
+            _ = user ?? throw new UserNotFoundException(_localizer, request.Email);
             if (!await _userManager.IsEmailConfirmedAsync(user))
             {
                 throw new IdentityCustomException(_localizer, null);
@@ -295,7 +295,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult> ResetPasswordAsync(ResetPasswordRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            _ = user ?? throw new UserNotFoundException(_localizer);
+            _ = user ?? throw new UserNotFoundException(_localizer, request.Email);
 
             var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
             if (result.Succeeded)
@@ -313,7 +313,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult> ChangePasswordAsync(ChangePasswordRequest request, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            _ = user ?? throw new UserNotFoundException(_localizer);
+            _ = user ?? throw new UserNotFoundException(_localizer, userId);
             var result = await _userManager.ChangePasswordAsync(user, request.Password, request.NewPassword);
             if (result.Succeeded)
             {

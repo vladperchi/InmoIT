@@ -51,39 +51,26 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Queries
             Expression<Func<Owner, GetAllOwnersResponse>> expression = e => new GetAllOwnersResponse(e.Id, e.Name, e.SurName, e.Address, e.ImageUrl, e.Birthday, e.Gender, e.Group, e.Email, e.PhoneNumber);
             var sourse = _context.Owners.AsNoTracking().OrderBy(x => x.Id).AsQueryable();
             string ordering = new OrderByConverter().Convert(request.OrderBy);
-            sourse = !string.IsNullOrWhiteSpace(ordering)
-                ? sourse.OrderBy(ordering)
-                : sourse.OrderBy(x => x.Id);
+            sourse = !string.IsNullOrWhiteSpace(ordering) ? sourse.OrderBy(ordering) : sourse.OrderBy(x => x.Id);
             var filterSpec = new OwnerFilterSpecification(request.SearchString);
             var data = await sourse.Specify(filterSpec).Select(expression).AsNoTracking().ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (data is null)
-            {
-                throw new OwnerListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new OwnerListEmptyException(_localizer);
             return _mapper.Map<PaginatedResult<GetAllOwnersResponse>>(data);
         }
 
         public async Task<Result<GetOwnerByIdResponse>> Handle(GetOwnerByIdQuery query, CancellationToken cancellationToken)
         {
             var data = await _context.Owners.AsNoTracking().Where(x => x.Id == query.Id).FirstOrDefaultAsync(cancellationToken);
-            if (data is null)
-            {
-                throw new OwnerNotFoundException(_localizer, query.Id);
-            }
-
+            _ = data ?? throw new OwnerNotFoundException(_localizer, query.Id);
             var result = _mapper.Map<GetOwnerByIdResponse>(data);
             return await Result<GetOwnerByIdResponse>.SuccessAsync(result);
         }
 
         public async Task<Result<string>> Handle(GetOwnerImageQuery request, CancellationToken cancellationToken)
         {
-            string result = await _context.Owners.AsNoTracking().Where(c => c.Id == request.Id).Select(a => a.ImageUrl).FirstOrDefaultAsync(cancellationToken);
-            if (result is null)
-            {
-                throw new OwnerNotFoundException(_localizer, request.Id);
-            }
-
+            string result = await _context.Owners.AsNoTracking()
+                .Where(c => c.Id == request.Id).Select(a => a.ImageUrl).FirstOrDefaultAsync(cancellationToken);
+            _ = result ?? throw new OwnerNotFoundException(_localizer, request.Id);
             return await Result<string>.SuccessAsync(result);
         }
     }

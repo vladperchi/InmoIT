@@ -77,11 +77,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<List<UserResponse>>> GetAllAsync()
         {
             var users = await _userManager.Users.AsNoTracking().ToListAsync();
-            if (users == null)
-            {
-                throw new UserListEmptyException(_localizer);
-            }
-
+            _ = users ?? throw new UserListEmptyException(_localizer);
             try
             {
                 var mapperUsers = _mapper.Map<List<UserResponse>>(users);
@@ -96,11 +92,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<UserResponse>> GetByIdAsync(string userId)
         {
             var user = await _userManager.Users.AsNoTracking().Where(x => x.Id == userId).FirstOrDefaultAsync();
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer, userId);
             try
             {
                 var mapperUser = _mapper.Map<UserResponse>(user);
@@ -116,11 +108,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             var viewModel = new List<UserRoleModel>();
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer, userId);
             try
             {
                 var roles = await _roleManager.Roles.AsNoTracking().ToListAsync();
@@ -201,11 +189,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<IResult<string>> UpdateUserRolesAsync(string userId, UserRolesRequest request)
         {
             var user = await _userManager.Users.Where(x => x.Id == userId).FirstOrDefaultAsync();
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer, userId);
             if (await _userManager.IsInRoleAsync(user, RolesConstant.SuperAdmin))
             {
                 return await Result<string>.FailAsync(_localizer["Not Allowed updated."]);
@@ -242,11 +226,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         public async Task<Result<string>> DeleteAsync(string userId)
         {
             var user = await _userManager.Users.Where(x => x.Id == userId).FirstOrDefaultAsync();
-            if (user == null)
-            {
-                throw new UserNotFoundException(_localizer);
-            }
-
+            _ = user ?? throw new UserNotFoundException(_localizer, userId);
             if (await _userManager.IsInRoleAsync(user, RolesConstant.SuperAdmin))
             {
                 return await Result<string>.FailAsync(_localizer["Not allowed to delete"]);
@@ -268,11 +248,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             var userFilterSpec = new UserFilterSpecification(searchString);
             var data = await _userManager.Users.AsNoTracking().AsQueryable().Specify(userFilterSpec).OrderByDescending(a => a.CreatedOn).ToListAsync();
-            if (data == null)
-            {
-                throw new UserListEmptyException(_localizer);
-            }
-
+            _ = data ?? throw new UserListEmptyException(_localizer);
             var user = await _userManager.FindByIdAsync(_currentUser.GetUserId().ToString());
             try
             {
