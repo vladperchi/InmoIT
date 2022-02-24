@@ -42,7 +42,7 @@ namespace InmoIT.Shared.Infrastructure.Logging
             else
             {
                 var userId = _currentUser.GetUserId();
-                string userEmail = string.IsNullOrWhiteSpace(_currentUser.GetUserEmail()) ? "Anonymous" : _currentUser.GetUserEmail();
+                string userEmail = !string.IsNullOrWhiteSpace(_currentUser.GetUserEmail()) ? _currentUser.GetUserEmail() : "Anonymous";
                 string serializedData = _jsonSerializer.Serialize(@event, @event.GetType());
                 var thisEventLog = new EventLog(
                     @event,
