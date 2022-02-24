@@ -107,19 +107,11 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
             }
 
             var propertyType = _mapper.Map<PropertyType>(command);
-            if (command.DeleteCurrentImage)
+            string currentImageUrl = command.ImageUrl ?? string.Empty;
+            if (command.DeleteCurrentImageUrl && !string.IsNullOrEmpty(currentImageUrl))
             {
-                string currentImageUrl = command.ImageUrl;
-                if (!string.IsNullOrEmpty(currentImageUrl))
-                {
-                    _uploadService.Remove(UploadStorageType.PropertyType, currentImageUrl);
-}
-
+                _uploadService.Remove(UploadStorageType.PropertyType, currentImageUrl);
                 propertyType = propertyType.ClearPathImageUrl();
-            }
-
-            if (command.FileUploadRequest != null)
-            {
                 var fileUploadRequest = new FileUploadRequest
                 {
                     Data = command.FileUploadRequest?.Data,
@@ -131,9 +123,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
                 propertyType.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
 
-            propertyType.CodeInternal = !string.IsNullOrEmpty(command.CodeInternal)
-                    ? command.CodeInternal.ToUpper()
-                    : propertyType.CodeInternal;
+            propertyType.CodeInternal = command.CodeInternal.ToUpper() ?? propertyType.CodeInternal;
             propertyType.IsActive = command.IsActive || propertyType.IsActive;
             try
             {
