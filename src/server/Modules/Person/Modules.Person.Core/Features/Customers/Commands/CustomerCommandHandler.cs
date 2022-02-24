@@ -104,20 +104,11 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
             }
 
             var customer = _mapper.Map<Customer>(command);
-
-            if (command.DeleteCurrentImage)
+            string currentImageUrl = command.ImageUrl ?? string.Empty;
+            if (command.DeleteCurrentImageUrl && !string.IsNullOrEmpty(currentImageUrl))
             {
-                string currentImageUrl = command.ImageUrl;
-                if (!string.IsNullOrEmpty(currentImageUrl))
-                {
-                    _uploadService.Remove(UploadStorageType.Customer, currentImageUrl);
-                }
-
+                _uploadService.Remove(UploadStorageType.Customer, currentImageUrl);
                 customer = customer.ClearPathImageUrl();
-            }
-
-            if (command.FileUploadRequest != null)
-            {
                 var fileUploadRequest = new FileUploadRequest
                 {
                     Data = command.FileUploadRequest?.Data,
