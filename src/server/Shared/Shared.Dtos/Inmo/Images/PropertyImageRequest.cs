@@ -18,6 +18,6 @@ namespace InmoIT.Shared.Dtos.Inmo.Images
 
         public string CodeImage { get; set; }
 
-        public string ImageData { get; set; }
+        public string Data { get; set; }
     }
 }

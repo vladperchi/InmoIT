@@ -24,5 +24,11 @@ namespace InmoIT.Modules.Inmo.Core.Entities
         public Guid PropertyId { get; set; }
 
         public virtual Property Property { get; set; }
+
+        public PropertyImage ClearPathImageUrl()
+        {
+            ImageUrl = string.Empty;
+            return this;
+        }
     }
 }

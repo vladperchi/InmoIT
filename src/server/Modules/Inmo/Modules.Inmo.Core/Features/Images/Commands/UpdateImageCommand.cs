@@ -26,6 +26,10 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 
         public string CodeImage { get; set; }
 
-        public string ImageData { get; set; }
+        public string ImageUrl { get; set; }
+
+        public bool DeleteCurrentImageUrl { get; set; } = false;
+
+        public string Data { get; set; }
     }
 }

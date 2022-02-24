@@ -28,6 +28,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
 
+using static InmoIT.Shared.Core.Constants.SeedsConstant;
+
 namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 {
     public class ImageCommandHandler :
@@ -76,11 +78,11 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
 
                 var image = _mapper.Map<PropertyImage>(item);
                 image.CodeImage.ToUpper();
-                if (!string.IsNullOrWhiteSpace(item.ImageData) && !string.IsNullOrWhiteSpace(item.FileName))
+                if (!string.IsNullOrWhiteSpace(item.Data) && !string.IsNullOrWhiteSpace(item.FileName))
                 {
                     var fileUploadRequest = new FileUploadRequest
                     {
-                        Data = item.ImageData,
+                        Data = item.Data,
                         Extension = Path.GetExtension(item.FileName),
                         UploadStorageType = UploadStorageType.Property
                     };
@@ -113,20 +115,23 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands
             }
 
             var image = _mapper.Map<PropertyImage>(command);
-            image.CodeImage.ToUpper();
-            if (!string.IsNullOrWhiteSpace(command.ImageData) && !string.IsNullOrWhiteSpace(command.FileName))
+            string currentImageUrl = command.ImageUrl ?? string.Empty;
+            if (command.DeleteCurrentImageUrl && !string.IsNullOrEmpty(currentImageUrl))
             {
+                _uploadService.Remove(UploadStorageType.Property, currentImageUrl);
+                image = image.ClearPathImageUrl();
                 var fileUploadRequest = new FileUploadRequest
                 {
-                    Data = command.ImageData,
+                    Data = command.Data,
                     Extension = Path.GetExtension(command.FileName),
                     UploadStorageType = UploadStorageType.Property
                 };
                 string fileName = await _propertyImageService.GenerateFileName(10);
                 fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 image.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
-            }
+}
 
+            image.CodeImage = command.CodeImage.ToUpper() ?? image.CodeImage;
             try
             {
                 image.AddDomainEvent(new ImageUpdatedEvent(image));
