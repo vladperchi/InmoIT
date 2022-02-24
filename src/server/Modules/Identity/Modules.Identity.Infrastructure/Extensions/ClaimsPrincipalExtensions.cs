@@ -8,7 +8,6 @@
 
 using System.Net;
 using System.Security.Claims;
-
 using InmoIT.Modules.Identity.Core.Exceptions;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Extensions
@@ -34,6 +33,30 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
             }
 
             var claim = principal.FindFirst(ClaimTypes.Email);
+            return claim?.Value;
+        }
+
+        public static string GetUserPhoneNumber(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.MobilePhone);
+
+        public static string GetUserFirstName(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new IdentityException("User was not found...", statusCode: HttpStatusCode.NotFound);
+            }
+
+            var claim = principal.FindFirst(ClaimTypes.Name);
+            return claim?.Value;
+        }
+
+        public static string GetuserSurname(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new IdentityException("User was not found...", statusCode: HttpStatusCode.NotFound);
+            }
+
+            var claim = principal.FindFirst(ClaimTypes.Surname);
             return claim?.Value;
         }
     }

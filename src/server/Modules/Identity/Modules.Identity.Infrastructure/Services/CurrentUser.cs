@@ -24,21 +24,27 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _accessor = accessor;
         }
 
-        public string Name => _accessor.HttpContext?.User.Identity?.Name;
+        private ClaimsPrincipal _user;
 
-        public Guid GetUserId() => IsAuthenticated()
-            ? Guid.Parse(_accessor.HttpContext?.User.GetUserId() ?? Guid.Empty.ToString())
-            : Guid.Empty;
+        private Guid _userId = Guid.Empty;
 
-        public string GetUserEmail() => IsAuthenticated()
-            ? _accessor.HttpContext?.User.GetUserEmail()
-            : string.Empty;
+        public string Name => _user.Identity?.Name;
 
-        public bool IsAuthenticated() => _accessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
+        public Guid GetUserId() => IsAuthenticated() ? Guid.Parse(_user?.GetUserId() ?? Guid.Empty.ToString()) : _userId;
 
-        public bool IsInRole(string role) => _accessor.HttpContext?.User.IsInRole(role) ?? false;
+        public string GetUserEmail() => IsAuthenticated() ? _user.GetUserEmail() : string.Empty;
 
-        public IEnumerable<Claim> GetUserClaims() => _accessor.HttpContext?.User.Claims;
+        public string GetUserPhoneNumber() => IsAuthenticated() ? _user.GetUserPhoneNumber() : string.Empty;
+
+        public string GetUserFirstName() => IsAuthenticated() ? _user.GetUserFirstName() : string.Empty;
+
+        public string GetuserSurname() => IsAuthenticated() ? _user.GetuserSurname() : string.Empty;
+
+        public bool IsAuthenticated() => _user.Identity?.IsAuthenticated ?? false;
+
+        public bool IsInRole(string role) => _user?.IsInRole(role) ?? false;
+
+        public IEnumerable<Claim> GetUserClaims() => _user.Claims;
 
         public HttpContext GetHttpContext() => _accessor.HttpContext;
     }

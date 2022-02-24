@@ -22,6 +22,12 @@ namespace InmoIT.Shared.Core.Interfaces.Services.Identity
 
         string GetUserEmail();
 
+        string GetUserPhoneNumber();
+
+        string GetUserFirstName();
+
+        string GetuserSurname();
+
         bool IsAuthenticated();
 
         bool IsInRole(string role);
