@@ -76,7 +76,7 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                     requestBody = string.Empty;
                 }
 
-                string email = _currentUser.GetUserEmail() is string userEmail ? userEmail : "Anonymous";
+                string email = _currentUser?.GetUserEmail() is string userEmail ? userEmail : "Anonymous";
                 LogContext.PushProperty("UserEmail", email);
                 var userId = _currentUser.GetUserId();
                 if (userId != Guid.Empty)

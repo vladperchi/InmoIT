@@ -7,18 +7,15 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using InmoIT.Modules.Identity.Core.Exceptions;
 using InmoIT.Modules.Identity.Core.Settings;
-using InmoIT.Modules.Identity.Infrastructure.Services;
 using InmoIT.Shared.Core.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Extensions

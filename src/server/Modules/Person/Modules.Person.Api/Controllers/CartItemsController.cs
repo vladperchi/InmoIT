@@ -21,6 +21,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace InmoIT.Modules.Person.Api.Controllers
 {
+    [ApiVersion("1")]
     internal sealed class CartItemsController : BaseController
     {
         [HttpGet]

@@ -23,8 +23,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-using static InmoIT.Shared.Core.Constants.PermissionsConstant;
-
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
     internal class RoleService : IRoleService
