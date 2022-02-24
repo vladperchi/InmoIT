@@ -82,6 +82,8 @@ namespace InmoIT.Shared.Infrastructure.Middlewares
                 if (userId != Guid.Empty)
                 {
                     LogContext.PushProperty("UserId", userId);
+                    string fullName = _currentUser.Name is string name ? name : "Guest";
+                    LogContext.PushProperty("UserName", fullName);
                 }
 
                 string errorId = Guid.NewGuid().ToString();
