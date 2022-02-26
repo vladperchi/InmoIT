@@ -1,0 +1,225 @@
+{
+    "info": {
+        "_postman_id": "6633e681-2a04-4221-9375-9185ebebac96",
+        "name": "InmoIt.Api",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [{
+            "name": "Identity",
+            "item": [{
+                    "name": "Tokens",
+                    "item": [{
+                            "name": "get-token",
+                            "event": [{
+                                "listen": "test",
+                                "script": {
+                                    "exec": [
+                                        "var jsonData = pm.response.json();\r",
+                                        "pm.collectionVariables.set(\"token\", jsonData.token);"
+                                    ],
+                                    "type": "text/javascript"
+                                }
+                            }],
+                            "request": {
+                                "auth": {
+                                    "type": "noauth"
+                                },
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n  \"email\": \"{{email_user}}\",\r\n  \"password\": \"{{password_user}}\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/identity/tokens",
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "tokens"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "refresh-token",
+                            "event": [{
+                                "listen": "test",
+                                "script": {
+                                    "exec": [
+                                        "var jsonData = pm.response.json();\r",
+                                        "pm.collectionVariables.set(\"token\", jsonData.token);"
+                                    ],
+                                    "type": "text/javascript"
+                                }
+                            }],
+                            "request": {
+                                "auth": {
+                                    "type": "noauth"
+                                },
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"token\": \"{{token_user}}\",\r\n    \"refreshToken\": \"{{refresh_Token_user}}\"}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/tokens/refresh",
+                                    "host": ["{{url}}"],
+                                    "path": ["tokens", "refresh"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Permissions",
+                    "item": [{}]
+                },
+                {
+                    "name": "Roles",
+                    "item": [{}]
+                },
+                {
+                    "name": "Users",
+                    "item": [{}]
+                },
+                {
+                    "name": "Logs",
+                    "item": [{}]
+                }
+            ]
+        },
+        {
+            "name": "Inmo",
+            "item": [{
+                    "name": "Owners",
+                    "item": [{}]
+                },
+                {
+                    "name": "PropertyTypes",
+                    "item": [{}]
+                },
+                {
+                    "name": "Properties",
+                    "item": [{}]
+                },
+                {
+                    "name": "PropertyImages",
+                    "item": [{}]
+                }
+            ]
+        },
+        {
+            "name": "Customer",
+            "item": [{
+                    "name": "Customers",
+                    "item": [{}]
+                },
+                {
+                    "name": "Carts",
+                    "item": [{}]
+                },
+                {
+                    "name": "CartItems",
+                    "item": [{}]
+                }
+            ]
+        },
+        {
+            "name": "Document",
+            "item": [{
+                    "name": "Documents",
+                    "item": [{}]
+                },
+                {
+                    "name": "DocumentTypes",
+                    "item": [{}]
+                }
+            ]
+        },
+        {
+            "name": "Operation",
+            "item": [{
+                    "name": "Rents",
+                    "item": [{}]
+                },
+                {
+                    "name": "Sales",
+                    "item": [{}]
+                }
+            ]
+        },
+        {
+            "name": "Accounting",
+            "item": [{
+                "name": "Traces",
+                "item": [{}]
+            }]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [{
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+        }]
+    },
+    "event": [{
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        }
+    ],
+    "variable": [{
+            "key": "url",
+            "value": "https://localhost:5001/api"
+        },
+        {
+            "key": "token",
+            "value": ""
+        },
+        {
+            "key": "token_user",
+            "value": ""
+        },
+        {
+            "key": "refresh_Token_user",
+            "value": ""
+        },
+        {
+            "key": "email_user",
+            "value": "vlaperchiwon@inmoit.com"
+        },
+        {
+            "key": "password_user",
+            "value": "@SuperAdminP4$$w0rd#"
+        },
+        {
+            "key": "new_password_user",
+            "value": "@SuperAdminP4$$w0rd#!"
+        },
+        {
+            "key": "confirm_password_user",
+            "value": "@SuperAdminP4$$w0rd#!"
+        }
+    ]
+}
