@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <RuleSet Name="InmoIT Rules" Description="These rules represent InmoIT preferences and enforce consistent code quality guidelines." ToolsVersion="16.0">
   <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
