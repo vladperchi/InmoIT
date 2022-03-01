@@ -77,7 +77,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] AutoMapper
 - [x] Custom API Response
 - [x] Custom Errors
-- [x] Localization
+- [ ] Localization
 - [x] Middlewares
 - [x] Paginated API Responses
 - [x] Specification Pattern
@@ -89,16 +89,16 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] HTTP Interceptor
 - [x] CRUD Operations
 - [x] Email Service
+- [x] SMS Service (Twilio Api)
 - [x] EventLogs
 - [x] Swagger
 - [x] API Versioning
-- [ ] Docker Support
-- [ ] Document
+- [x] Hangfire
 - [x] File Upload
 - [x] Export Excel
-- [x] Hangfire
-- [x] Message Service - Twilio Api
-- [ ] Dashboard Updates
+- [ ] Document
+- [ ] Dashboard
+- [ ] Docker Support
 
 ## Project Structure
 

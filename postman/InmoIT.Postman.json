@@ -63,7 +63,7 @@
                                 "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY4ODZjOTJkLWQzY2ItNGU3ZC1hMGRiLTBkNGM3NmE1MGVjZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InZsYXBlcmNoaXdvbkBpbm1vaXQuY29tIiwiZnVsbE5hbWUiOiJWbGFwZXJjaGkgV29uIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlZsYXBlcmNoaSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJXb24iLCJpcEFkZHJlc3MiOiIwLjAuMC4xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3VwZXJBZG1pbiIsIlBlcm1pc3Npb24iOlsiUGVybWlzc2lvbnMuT3duZXJzLlZpZXciLCJQZXJtaXNzaW9ucy5Pd25lcnMuVmlld0FsbCIsIlBlcm1pc3Npb25zLk93bmVycy5SZWdpc3RlciIsIlBlcm1pc3Npb25zLk93bmVycy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5Pd25lcnMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuT3duZXJzLkV4cG9ydCIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuVmlldyIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuUHJvcGVydHlUeXBlcy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5Qcm9wZXJ0eVR5cGVzLlJlbW92ZSIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuRXhwb3J0IiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5WaWV3IiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5SZWdpc3RlciIsIlBlcm1pc3Npb25zLlByb3BlcnRpZXMuVXBkYXRlIiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5SZW1vdmUiLCJQZXJtaXNzaW9ucy5Qcm9wZXJ0aWVzLkV4cG9ydCIsIlBlcm1pc3Npb25zLkltYWdlcy5WaWV3IiwiUGVybWlzc2lvbnMuSW1hZ2VzLlZpZXdBbGwiLCJQZXJtaXNzaW9ucy5JbWFnZXMuQWRkIiwiUGVybWlzc2lvbnMuSW1hZ2VzLkVkaXQiLCJQZXJtaXNzaW9ucy5JbWFnZXMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuVHJhY2VzLlZpZXdBbGwiLCJQZXJtaXNzaW9ucy5UcmFjZXMuRXhwb3J0IiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5WaWV3IiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5DcmVhdGUiLCJQZXJtaXNzaW9ucy5Eb2N1bWVudFR5cGVzLlVwZGF0ZSIsIlBlcm1pc3Npb25zLkRvY3VtZW50VHlwZXMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5FeHBvcnQiLCJQZXJtaXNzaW9ucy5Eb2N1bWVudHMuVmlldyIsIlBlcm1pc3Npb25zLkRvY3VtZW50cy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuRG9jdW1lbnRzLkNyZWF0ZSIsIlBlcm1pc3Npb25zLkRvY3VtZW50cy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5Eb2N1bWVudHMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuQ3VzdG9tZXJzLlZpZXciLCJQZXJtaXNzaW9ucy5DdXN0b21lcnMuVmlld0FsbCIsIlBlcm1pc3Npb25zLkN1c3RvbWVycy5SZWdpc3RlciIsIlBlcm1pc3Npb25zLkN1c3RvbWVycy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5DdXN0b21lcnMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuQ3VzdG9tZXJzLkV4cG9ydCIsIlBlcm1pc3Npb25zLkNhcnRzLlZpZXciLCJQZXJtaXNzaW9ucy5DYXJ0cy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuQ2FydHMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuQ2FydHMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuQ2FydEl0ZW1zLlZpZXciLCJQZXJtaXNzaW9ucy5DYXJ0SXRlbXMuVmlld0FsbCIsIlBlcm1pc3Npb25zLkNhcnRJdGVtcy5BZGQiLCJQZXJtaXNzaW9ucy5DYXJ0SXRlbXMuVXBkYXRlIiwiUGVybWlzc2lvbnMuQ2FydEl0ZW1zLlJlbW92ZSIsIlBlcm1pc3Npb25zLlJlbnRhbHMuVmlldyIsIlBlcm1pc3Npb25zLlJlbnRhbHMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlJlbnRhbHMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuUmVudGFscy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5SZW50YWxzLlJlbW92ZSIsIlBlcm1pc3Npb25zLlJlbnRhbHMuRXhwb3J0IiwiUGVybWlzc2lvbnMuU2FsZXMuVmlldyIsIlBlcm1pc3Npb25zLlNhbGVzLlZpZXdBbGwiLCJQZXJtaXNzaW9ucy5TYWxlcy5DcmVhdGUiLCJQZXJtaXNzaW9ucy5TYWxlcy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5TYWxlcy5SZW1vdmUiLCJQZXJtaXNzaW9ucy5TYWxlcy5FeHBvcnQiLCJQZXJtaXNzaW9ucy5Vc2Vycy5WaWV3IiwiUGVybWlzc2lvbnMuVXNlcnMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlVzZXJzLkNyZWF0ZSIsIlBlcm1pc3Npb25zLlVzZXJzLkVkaXQiLCJQZXJtaXNzaW9ucy5Vc2Vycy5EZWxldGUiLCJQZXJtaXNzaW9ucy5Vc2Vycy5FeHBvcnQiLCJQZXJtaXNzaW9ucy5Sb2xlcy5WaWV3IiwiUGVybWlzc2lvbnMuUm9sZXMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlJvbGVzLkFkZE9yVXBkYXRlIiwiUGVybWlzc2lvbnMuUm9sZXMuRGVsZXRlIiwiUGVybWlzc2lvbnMuUm9sZUNsYWltcy5WaWV3IiwiUGVybWlzc2lvbnMuUm9sZUNsYWltcy5DcmVhdGUiLCJQZXJtaXNzaW9ucy5Sb2xlQ2xhaW1zLkVkaXQiLCJQZXJtaXNzaW9ucy5Sb2xlQ2xhaW1zLkRlbGV0ZSIsIlBlcm1pc3Npb25zLkxvZ3MuVmlld0FsbCIsIlBlcm1pc3Npb25zLkxvZ3MuQ3JlYXRlIiwiUGVybWlzc2lvbnMuRGFzaGJvYXJkcy5WaWV3IiwiUGVybWlzc2lvbnMuSGFuZ2ZpcmUuVmlldyJdLCJleHAiOjE2NDU4NjU4MTR9.eo7PkXNNqcPLDwZ-KLzmim0FbWLUzb9JgJa9bZ9hzsY\",\r\n    \"refreshToken\": \"7peiPNjRxlDTwbEFryHmSS3+Bpgi0y3W+e1UH/hXm5c=\"\r\n}",
+                                    "raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"refreshToken\": \"{{refreshToken}}\"\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -71,9 +71,13 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{url}}/tokens/refresh",
+                                    "raw": "{{url}}/identity/tokens/refresh",
                                     "host": ["{{url}}"],
-                                    "path": ["tokens", "refresh"]
+                                    "path": [
+                                        "identity",
+                                        "tokens",
+                                        "refresh"
+                                    ]
                                 }
                             },
                             "response": []
@@ -84,16 +88,95 @@
                     "name": "Permissions",
                     "item": [{
 
-
                     }]
                 },
                 {
                     "name": "Roles",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "Users",
                     "item": [{
+                            "name": "get-users",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/identity/users",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "identity",
+                                        "users"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get-user-id",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/identity/users/bc102093-2dc7-4e47-bc3a-da64e6a0ffa9",
+                                    "host": [
+                                        "{{url}}"
+                                    ],
+                                    "path": [
+                                        "identity",
+                                        "users",
+                                        "bc102093-2dc7-4e47-bc3a-da64e6a0ffa9"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "register-user",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n  \"firstName\": \"Testing\",\r\n  \"lastName\": \"User\",\r\n  \"email\": \"testinguser@inmoit.com\",\r\n  \"emailConfirmed\": true,\r\n  \"userName\": \"testing.user\",\r\n  \"password\": \"@BasicP4$$w0rd#\",\r\n  \"confirmPassword\": \"@BasicP4$$w0rd#\",\r\n  \"phoneNumber\": \"0012134858927\",\r\n  \"phoneNumberConfirmed\": true\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/identity/users/register",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "identity",
+                                        "users",
+                                        "register"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "delete-user",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/identity/users/bc102093-2dc7-4e47-bc3a-da64e6a0ffa9",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "identity",
+                                        "users",
+                                        "bc102093-2dc7-4e47-bc3a-da64e6a0ffa9"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
                             "name": "forgot-password",
                             "request": {
                                 "auth": {
@@ -105,14 +188,10 @@
                                     }]
                                 },
                                 "method": "POST",
-                                "header": [{
-                                    "key": "tenant",
-                                    "value": "root",
-                                    "type": "text"
-                                }],
+                                "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n    \"email\":\"{{email_user}}\"\r\n}",
+                                    "raw": "{\r\n  \"email\":\"{{email_user}}\"\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -120,9 +199,13 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{url}}/users/forgot-password",
+                                    "raw": "{{url}}/identity/users/forgot-password",
                                     "host": ["{{url}}"],
-                                    "path": ["users", "forgot-password"]
+                                    "path": [
+                                        "identity",
+                                        "users",
+                                        "forgot-password"
+                                    ]
                                 }
                             },
                             "response": []
@@ -131,14 +214,10 @@
                             "name": "reset-password",
                             "request": {
                                 "method": "POST",
-                                "header": [{
-                                    "key": "tenant",
-                                    "value": "root",
-                                    "type": "text"
-                                }],
+                                "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n    \"email\":\"{{email_user}}\",\r\n    \"password\":\"{{new_password_user}}\",\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY4ODZjOTJkLWQzY2ItNGU3ZC1hMGRiLTBkNGM3NmE1MGVjZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InZsYXBlcmNoaXdvbkBpbm1vaXQuY29tIiwiZnVsbE5hbWUiOiJWbGFwZXJjaGkgV29uIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlZsYXBlcmNoaSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJXb24iLCJpcEFkZHJlc3MiOiIwLjAuMC4xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3VwZXJBZG1pbiIsIlBlcm1pc3Npb24iOlsiUGVybWlzc2lvbnMuT3duZXJzLlZpZXciLCJQZXJtaXNzaW9ucy5Pd25lcnMuVmlld0FsbCIsIlBlcm1pc3Npb25zLk93bmVycy5SZWdpc3RlciIsIlBlcm1pc3Npb25zLk93bmVycy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5Pd25lcnMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuT3duZXJzLkV4cG9ydCIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuVmlldyIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuUHJvcGVydHlUeXBlcy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5Qcm9wZXJ0eVR5cGVzLlJlbW92ZSIsIlBlcm1pc3Npb25zLlByb3BlcnR5VHlwZXMuRXhwb3J0IiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5WaWV3IiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5SZWdpc3RlciIsIlBlcm1pc3Npb25zLlByb3BlcnRpZXMuVXBkYXRlIiwiUGVybWlzc2lvbnMuUHJvcGVydGllcy5SZW1vdmUiLCJQZXJtaXNzaW9ucy5Qcm9wZXJ0aWVzLkV4cG9ydCIsIlBlcm1pc3Npb25zLkltYWdlcy5WaWV3IiwiUGVybWlzc2lvbnMuSW1hZ2VzLlZpZXdBbGwiLCJQZXJtaXNzaW9ucy5JbWFnZXMuQWRkIiwiUGVybWlzc2lvbnMuSW1hZ2VzLkVkaXQiLCJQZXJtaXNzaW9ucy5JbWFnZXMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuVHJhY2VzLlZpZXdBbGwiLCJQZXJtaXNzaW9ucy5UcmFjZXMuRXhwb3J0IiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5WaWV3IiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5DcmVhdGUiLCJQZXJtaXNzaW9ucy5Eb2N1bWVudFR5cGVzLlVwZGF0ZSIsIlBlcm1pc3Npb25zLkRvY3VtZW50VHlwZXMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuRG9jdW1lbnRUeXBlcy5FeHBvcnQiLCJQZXJtaXNzaW9ucy5Eb2N1bWVudHMuVmlldyIsIlBlcm1pc3Npb25zLkRvY3VtZW50cy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuRG9jdW1lbnRzLkNyZWF0ZSIsIlBlcm1pc3Npb25zLkRvY3VtZW50cy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5Eb2N1bWVudHMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuQ3VzdG9tZXJzLlZpZXciLCJQZXJtaXNzaW9ucy5DdXN0b21lcnMuVmlld0FsbCIsIlBlcm1pc3Npb25zLkN1c3RvbWVycy5SZWdpc3RlciIsIlBlcm1pc3Npb25zLkN1c3RvbWVycy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5DdXN0b21lcnMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuQ3VzdG9tZXJzLkV4cG9ydCIsIlBlcm1pc3Npb25zLkNhcnRzLlZpZXciLCJQZXJtaXNzaW9ucy5DYXJ0cy5WaWV3QWxsIiwiUGVybWlzc2lvbnMuQ2FydHMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuQ2FydHMuUmVtb3ZlIiwiUGVybWlzc2lvbnMuQ2FydEl0ZW1zLlZpZXciLCJQZXJtaXNzaW9ucy5DYXJ0SXRlbXMuVmlld0FsbCIsIlBlcm1pc3Npb25zLkNhcnRJdGVtcy5BZGQiLCJQZXJtaXNzaW9ucy5DYXJ0SXRlbXMuVXBkYXRlIiwiUGVybWlzc2lvbnMuQ2FydEl0ZW1zLlJlbW92ZSIsIlBlcm1pc3Npb25zLlJlbnRhbHMuVmlldyIsIlBlcm1pc3Npb25zLlJlbnRhbHMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlJlbnRhbHMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuUmVudGFscy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5SZW50YWxzLlJlbW92ZSIsIlBlcm1pc3Npb25zLlJlbnRhbHMuRXhwb3J0IiwiUGVybWlzc2lvbnMuU2FsZXMuVmlldyIsIlBlcm1pc3Npb25zLlNhbGVzLlZpZXdBbGwiLCJQZXJtaXNzaW9ucy5TYWxlcy5DcmVhdGUiLCJQZXJtaXNzaW9ucy5TYWxlcy5VcGRhdGUiLCJQZXJtaXNzaW9ucy5TYWxlcy5SZW1vdmUiLCJQZXJtaXNzaW9ucy5TYWxlcy5FeHBvcnQiLCJQZXJtaXNzaW9ucy5Vc2Vycy5WaWV3IiwiUGVybWlzc2lvbnMuVXNlcnMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlVzZXJzLkNyZWF0ZSIsIlBlcm1pc3Npb25zLlVzZXJzLkVkaXQiLCJQZXJtaXNzaW9ucy5Vc2Vycy5EZWxldGUiLCJQZXJtaXNzaW9ucy5Vc2Vycy5FeHBvcnQiLCJQZXJtaXNzaW9ucy5Sb2xlcy5WaWV3IiwiUGVybWlzc2lvbnMuUm9sZXMuVmlld0FsbCIsIlBlcm1pc3Npb25zLlJvbGVzLkFkZE9yVXBkYXRlIiwiUGVybWlzc2lvbnMuUm9sZXMuRGVsZXRlIiwiUGVybWlzc2lvbnMuUm9sZUNsYWltcy5WaWV3IiwiUGVybWlzc2lvbnMuUm9sZUNsYWltcy5DcmVhdGUiLCJQZXJtaXNzaW9ucy5Sb2xlQ2xhaW1zLkVkaXQiLCJQZXJtaXNzaW9ucy5Sb2xlQ2xhaW1zLkRlbGV0ZSIsIlBlcm1pc3Npb25zLkxvZ3MuVmlld0FsbCIsIlBlcm1pc3Npb25zLkxvZ3MuQ3JlYXRlIiwiUGVybWlzc2lvbnMuRGFzaGJvYXJkcy5WaWV3IiwiUGVybWlzc2lvbnMuSGFuZ2ZpcmUuVmlldyJdLCJleHAiOjE2NDU4NjU4MTR9.eo7PkXNNqcPLDwZ-KLzmim0FbWLUzb9JgJa9bZ9hzsY\"\r\n}",
+                                    "raw": "{\r\n  \"email\":\"{{email_user}}\",\r\n  \"password\":\"{{new_password_user}}\",\r\n  \"token\": \"{{token}}\"\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -146,9 +225,39 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{url}}/users/reset-password",
+                                    "raw": "{{url}}/identity/users/reset-password",
                                     "host": ["{{url}}"],
-                                    "path": ["users", "reset-password"]
+                                    "path": [
+                                        "identity",
+                                        "users",
+                                        "reset-password"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "change-password",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n  \"currentPassword\":\"{{currentPassword}}\",\r\n  \"newPassword\":\"{{newPassword}}\",\r\n  \"confirmPassword\": \"{{confirmPassword}}\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/identity/users/change-password",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "identity",
+                                        "users",
+                                        "change-password"
+                                    ]
                                 }
                             },
                             "response": []
@@ -158,14 +267,17 @@
                 {
                     "name": "Event-Logs",
                     "item": [{
-                        "name": "get-log-user",
+                        "name": "get-current-user-logs",
                         "request": {
                             "method": "GET",
                             "header": [],
                             "url": {
                                 "raw": "{{url}}/identity/logger",
                                 "host": ["{{url}}"],
-                                "path": ["identity", "logger"]
+                                "path": [
+                                    "identity",
+                                    "logger"
+                                ]
                             }
                         },
                         "response": []
@@ -177,19 +289,27 @@
             "name": "Inmo",
             "item": [{
                     "name": "Owners",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "PropertyTypes",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "Properties",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "PropertyImages",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 }
             ]
         },
@@ -197,15 +317,21 @@
             "name": "Customer",
             "item": [{
                     "name": "Customers",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "Carts",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "CartItems",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 }
             ]
         },
@@ -213,11 +339,15 @@
             "name": "Document",
             "item": [{
                     "name": "Documents",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "DocumentTypes",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 }
             ]
         },
@@ -225,11 +355,15 @@
             "name": "Operation",
             "item": [{
                     "name": "Rents",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 },
                 {
                     "name": "Sales",
-                    "item": [{}]
+                    "item": [{
+
+                    }]
                 }
             ]
         },
@@ -238,6 +372,22 @@
             "item": [{
                 "name": "Traces",
                 "item": [{}]
+            }]
+        },
+        {
+            "name": "Summary",
+            "item": [{
+                "name": "dashboard",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{url}}/dashboard",
+                        "host": ["{{url}}"],
+                        "path": ["dashboard"]
+                    }
+                },
+                "response": []
             }]
         }
     ],
@@ -266,7 +416,7 @@
     ],
     "variable": [{
             "key": "url",
-            "value": "https://localhost:5001/api"
+            "value": "https://localhost:5001/api/v1"
         },
         {
             "key": "token",
@@ -279,10 +429,6 @@
         {
             "key": "password_user",
             "value": "@SuperAdminP4$$w0rd#"
-        },
-        {
-            "key": "new_password_user",
-            "value": "@SuperAdminP4$$w0rd##"
         }
     ]
 }
