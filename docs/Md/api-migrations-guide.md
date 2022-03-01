@@ -52,14 +52,14 @@ Navigate terminal to Modules.Document.Infrastructure and run the following.
 
 - `Add-Migration Initial -context DocumentDbContext -o Persistence/Migrations/`
 
-### Accounting
-
-Navigate terminal to Modules.Accounting.Infrastructure and run the following.
-
-- `Add-Migration Initial -context AccountingDbContext -o Persistence/Migrations/`
-
 ### Operation
 
 Navigate terminal to Modules.Operation.Infrastructure and run the following.
 
 - `Add-Migration Initial -context OperationDbContext -o Persistence/Migrations/`
+  
+### Accounting
+
+Navigate terminal to Modules.Accounting.Infrastructure and run the following.
+
+- `Add-Migration Initial -context AccountingDbContext -o Persistence/Migrations/`
