@@ -17,7 +17,7 @@ namespace InmoIT.Modules.Identity.Core.Validators
         public ChangePasswordRequestValidator(
             IStringLocalizer<ChangePasswordRequestValidator> localizer)
         {
-            RuleFor(p => p.Password)
+            RuleFor(p => p.CurrentPassword)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
             RuleFor(p => p.NewPassword)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
