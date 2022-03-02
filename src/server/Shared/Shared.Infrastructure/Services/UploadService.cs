@@ -133,19 +133,20 @@ namespace InmoIT.Shared.Infrastructure.Services
             return Regex.Replace(str, "[^a-zA-Z0-9_.]+", string.Empty, RegexOptions.Compiled);
         }
 
-        public void Remove(UploadStorageType pathFolder, string currentImageUrl)
+        public Task<bool> RemoveFileImage(UploadStorageType pathFolder, string currentImageUrl)
         {
+            bool removedFile = false;
             string folder = pathFolder.ToDescriptionString();
             string folderName = Path.Combine("Files", folder);
             string pathToDelete = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             bool exists = Directory.Exists(pathToDelete);
-            if (exists)
+            if (exists && File.Exists(currentImageUrl))
             {
-                if (File.Exists(currentImageUrl))
-                {
-                    File.Delete(currentImageUrl);
-                }
+                File.Delete(currentImageUrl);
+                removedFile = true;
             }
+
+            return Task.FromResult(removedFile);
         }
     }
 }
