@@ -31,7 +31,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
                 .AddScoped<ICurrentUser, CurrentUser>()
                 .Configure<JwtSettings>(configuration.GetSection("JwtSettings"))
                 .AddTransient<ITokenService, TokenService>()
-                .AddTransient<IIdentityService, IdentityService>()
                 .AddTransient<IUserService, UserService>()
                 .AddTransient<IRoleService, RoleService>()
                 .AddTransient<IRoleClaimService, RoleClaimService>()
