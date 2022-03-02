@@ -123,8 +123,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                         existingRoleClaim.Group = request.Group;
                         existingRoleClaim.Description = request.Description;
                         existingRoleClaim.RoleId = request.RoleId;
-                        _context.RoleClaims.Update(existingRoleClaim);
                         existingRoleClaim.AddDomainEvent(new RoleClaimUpdatedEvent(existingRoleClaim));
+                        _context.RoleClaims.Update(existingRoleClaim);
                         await _context.SaveChangesAsync();
                         return await Result<string>.SuccessAsync(string.Format(_localizer["Role Claim {0} for Role {1} updated."], request.Value, existingRoleClaim.Role.Name));
                     }
