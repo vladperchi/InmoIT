@@ -68,13 +68,17 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             if (string.IsNullOrEmpty(request.Id))
             {
                 var existingRole = await _roleManager.FindByNameAsync(request.Name);
-                _ = existingRole ?? throw new RoleAlreadyExistsException(_localizer);
+                if (existingRole != null)
+                {
+                    throw new RoleAlreadyExistsException(_localizer);
+                }
+
                 var newRole = new InmoRole(request.Name, request.Description);
+                newRole.AddDomainEvent(new RoleAddedEvent(newRole));
                 var result = await _roleManager.CreateAsync(newRole);
                 await _context.SaveChangesAsync();
                 if (result.Succeeded)
                 {
-                    newRole.AddDomainEvent(new RoleAddedEvent(newRole));
                     return await Result<string>.SuccessAsync(newRole.Id, string.Format(_localizer["Role {0} Created."], request.Name));
                 }
                 else
@@ -95,10 +99,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 existingRole.Name = request.Name;
                 existingRole.NormalizedName = request.Name.ToUpper();
                 existingRole.Description = request.Description;
+                existingRole.AddDomainEvent(new RoleUpdatedEvent(existingRole));
                 var result = await _roleManager.UpdateAsync(existingRole);
                 if (result.Succeeded)
                 {
-                    existingRole.AddDomainEvent(new RoleUpdatedEvent(existingRole));
                     return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Updated."], existingRole.Name));
                 }
                 else
@@ -130,15 +134,15 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (roleIsNotUsed)
             {
+                existingRole.AddDomainEvent(new RoleDeletedEvent(id));
                 var result = await _roleManager.DeleteAsync(existingRole);
                 if (result.Succeeded)
                 {
-                    existingRole.AddDomainEvent(new RoleDeletedEvent(id));
                     return await Result<string>.SuccessAsync(existingRole.Id, string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
                 }
                 else
                 {
-                    // return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
+                    return await Result<string>.FailAsync(result.GetErrorMessages(_localizer));
                     throw new IdentityException(_localizer["An error occurred while deleted Rol"], result.GetErrorMessages(_localizer));
                 }
             }
