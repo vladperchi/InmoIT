@@ -46,7 +46,7 @@ namespace InmoIT.Shared.Infrastructure.Common
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return Task.FromResult(new string(Enumerable
-                .Repeat($"{letter.ToUpper()}-{chars}INMO", length)
+                .Repeat($"{letter}-{chars}-INMO", length)
                 .Select(s => s[Random.Next(s.Length)])
                 .ToArray()).ToLower());
         }
