@@ -71,7 +71,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _currentUser = currentUser;
         }
 
-        public async Task<IResult<TokenResponse>> GetTokenAsync(TokenRequest request, string ipAddress)
+        public async Task<IResult<TokenUserResponse>> GetTokenAsync(TokenUserRequest request, string ipAddress)
         {
             var user = await _userManager.FindByEmailAsync(request.Email.Trim().Normalize());
             _ = user ?? throw new UserNotFoundException(_localizer, request.Email);
@@ -99,7 +99,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             return await GenerateTokensAndUpdateAsync(user, ipAddress);
         }
 
-        public async Task<IResult<TokenResponse>> RefreshTokenAsync(RefreshTokenRequest request, string ipAddress)
+        public async Task<IResult<TokenUserResponse>> RefreshTokenAsync(RefreshTokenUserRequest request, string ipAddress)
         {
             if (request is null)
             {
@@ -118,7 +118,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             return await GenerateTokensAndUpdateAsync(user, ipAddress);
         }
 
-        private async Task<IResult<TokenResponse>> GenerateTokensAndUpdateAsync(InmoUser user, string ipAddress)
+        private async Task<IResult<TokenUserResponse>> GenerateTokensAndUpdateAsync(InmoUser user, string ipAddress)
         {
             if (_config.RefreshTokenExpirationInDays == 0)
             {
@@ -132,9 +132,9 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
 
             if (result.Succeeded)
             {
-                var response = new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
+                var response = new TokenUserResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
                 _logger.LogInformation($"{user.Email}||{user.Id}||{response.Token}||{response.RefreshToken}||{response.RefreshTokenExpiryTime}");
-                return await Result<TokenResponse>.SuccessAsync(response);
+                return await Result<TokenUserResponse>.SuccessAsync(response);
             }
             else
             {
