@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Core.Features.Carts.Commands;
 using InmoIT.Modules.Person.Core.Features.Carts.Queries;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Person.Carts;
@@ -26,7 +25,6 @@ namespace InmoIT.Modules.Person.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.Carts.ViewAll)]
-        [SwaggerHeader("filter", "Input data required", "", false)]
         [SwaggerOperation(
             Summary = "Get Cart List.",
             Description = "List all carts in the database. This can only be done by the registered user",
@@ -42,9 +40,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Carts.View)]
-        [SwaggerHeader("filter", "Input data not required", "", true)]
         [SwaggerOperation(
             Summary = "Get Cart By Id.",
             Description = "We get the detail caer by Id. This can only be done by the registered user",
@@ -62,7 +59,6 @@ namespace InmoIT.Modules.Person.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.Carts.Create)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Created Cart.",
             Description = "Created a cart with all its values set. This can only be done by the registered user",
@@ -77,9 +73,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Carts.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Cart.",
             Description = "We get the removed cart by Id. This can only be done by the registered user",
@@ -94,9 +89,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(await Mediator.Send(new RemoveCartCommand(id)));
         }
 
-        [HttpDelete("clear/{id}")]
+        [HttpDelete("clear/{id:guid}")]
         [HavePermission(PermissionsConstant.Carts.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Cart.",
             Description = "We get the clear cart by Id. This can only be done by the registered user",

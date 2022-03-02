@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Features.Images.Commands;
 using InmoIT.Modules.Inmo.Core.Features.Images.Queries;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Inmo.Images;
@@ -26,7 +25,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.Images.ViewAll)]
-        [SwaggerHeader("filter", "Input data not required", "", false)]
         [SwaggerOperation(
             Summary = "Get Property Image List.",
             Description = "List all property images in the database. This can only be done by the registered user",
@@ -44,7 +42,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Images.View)]
-        [SwaggerHeader("filter", "Input data not required", "", true)]
         [SwaggerOperation(
             Summary = "Get Property Image By Id.",
             Description = "We get the detail property image by Id. This can only be done by the registered user",
@@ -62,7 +59,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.Images.Add)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Added Property Image List.",
             Description = "Added a property image list with all its values set. This can only be done by the registered user",
@@ -81,7 +77,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpPut]
         [HavePermission(PermissionsConstant.Images.Edit)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Edit Property Image.",
             Description = "We get the property image with its modified values. This can only be done by the registered user",
@@ -99,7 +94,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Images.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Property Image.",
             Description = "We get the removed property image by Id. This can only be done by the registered user",

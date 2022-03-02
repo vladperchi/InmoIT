@@ -9,7 +9,6 @@
 using System.Threading.Tasks;
 using InmoIT.Modules.Accounting.Core.Features.Traces.Queries;
 using InmoIT.Modules.Accounting.Core.Features.Traces.Queries.Export;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Dtos.Accounting.Traces;
 using InmoIT.Shared.Infrastructure.Permissions;
@@ -23,7 +22,6 @@ namespace InmoIT.Modules.Accounting.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.Traces.ViewAll)]
-        [SwaggerHeader("filter", "Input data not required", "", false)]
         [SwaggerOperation(
             Summary = "Get Property Trace List.",
             Description = "List all customers in the database. This can only be done by the registered user",
@@ -41,7 +39,6 @@ namespace InmoIT.Modules.Accounting.Api.Controllers
 
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Traces.Export)]
-        [SwaggerHeader("searchString", "Input data required", "", false)]
         [SwaggerOperation(
             Summary = "Export Property Traces To Excel.",
             Description = "We get an exported excel file of all property traces. This can only be done by the registered user",

@@ -12,7 +12,6 @@ using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Commands;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Queries;
 using InmoIT.Modules.Inmo.Core.Features.Owners.Queries.Export;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Inmo.Owners;
@@ -27,7 +26,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.Owners.ViewAll)]
-        [SwaggerHeader("filter", "Input data not required", "", false)]
         [SwaggerOperation(
             Summary = "Get Owner List.",
             Description = "List all owners in the database. This can only be done by the registered user",
@@ -45,7 +43,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Owners.View)]
-        [SwaggerHeader("filter", "Input data not required", "", true)]
         [SwaggerOperation(
             Summary = "Get Owner By Id.",
             Description = "We get the detail owner by Id. This can only be done by the registered user",
@@ -64,7 +61,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
         [HttpGet("{ownerId:guid}")]
         [HavePermission(PermissionsConstant.Owners.View)]
         [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
-        [SwaggerHeader("request", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Get Picture Owner.",
             Description = "We get the picture associated to the owner. This can only be done by the registered user",
@@ -80,7 +76,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.Owners.Register)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Registered Owner.",
             Description = "Registed a owner with all its values set. This can only be done by the registered user",
@@ -98,7 +93,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpPut]
         [HavePermission(PermissionsConstant.Owners.Update)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Update Owner.",
             Description = "We get the owner with its modified values. This can only be done by the registered user",
@@ -116,7 +110,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Owners.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Owner.",
             Description = "We get the removed owner by Id. This can only be done by the registered user",
@@ -134,7 +127,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Owners.Export)]
-        [SwaggerHeader("searchString", "Input data required", "", false)]
         [SwaggerOperation(
             Summary = "Export Owners To Excel.",
             Description = "We get an exported excel file of all owners. This can only be done by the registered user",

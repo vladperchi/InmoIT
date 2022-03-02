@@ -13,7 +13,6 @@ using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Dtos.Identity.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using InmoIT.Shared.Core.Attributes;
 
 namespace InmoIT.Modules.Identity.Api.Controllers
 {
@@ -29,7 +28,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpGet]
         [HavePermission(PermissionsConstant.Logs.ViewAll)]
-        [SwaggerHeader("filter", "Input data not required", "", false)]
         [SwaggerOperation(
             Summary = "Get Log User List.",
             Description = "List all logs user in the database. This can only be done by the registered user",
@@ -47,7 +45,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.Logs.Create)]
-        [SwaggerHeader("request", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Created Log Custom Event.",
             Description = "Created a log custom event user with all its values set. This can only be done by the registered user",

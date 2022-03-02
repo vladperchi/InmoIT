@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using InmoIT.Modules.Person.Core.Entities;
 using InmoIT.Modules.Person.Core.Features.CartItems.Commands;
 using InmoIT.Modules.Person.Core.Features.CartItems.Queries;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Person.CartItems;
@@ -26,7 +25,6 @@ namespace InmoIT.Modules.Person.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.CartItems.ViewAll)]
-        [SwaggerHeader("filter", "Input data not required", "", false)]
         [SwaggerOperation(
             Summary = "Get Cart Item List.",
             Description = "List all Cart Items in the database. This can only be done by the registered user",
@@ -42,9 +40,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.CartItems.View)]
-        [SwaggerHeader("filter", "Input data not required", "", true)]
         [SwaggerOperation(
             Summary = "Get cart items By Id.",
             Description = "We get the detail cart items by Id. This can only be done by the registered user",
@@ -62,7 +59,6 @@ namespace InmoIT.Modules.Person.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.CartItems.Add)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Added Cart Items.",
             Description = "Added a cart items with all its values set. This can only be done by the registered user",
@@ -81,7 +77,6 @@ namespace InmoIT.Modules.Person.Api.Controllers
 
         [HttpPut]
         [HavePermission(PermissionsConstant.CartItems.Update)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Update Cart Items.",
             Description = "We get the cart items with its modified values.. This can only be done by the registered user",
@@ -98,9 +93,8 @@ namespace InmoIT.Modules.Person.Api.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.CartItems.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Cart Items.",
             Description = "We get the removed cart items by Id. This can only be done by the registered user",

@@ -13,7 +13,6 @@ using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Dtos.Identity.Roles;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using InmoIT.Shared.Core.Attributes;
 
 namespace InmoIT.Modules.Identity.Api.Controllers
 {
@@ -49,7 +48,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Roles.View)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Get Role By Id.",
             Description = "We get the detail role by Id. This can only be done by the registered user",
@@ -66,7 +64,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.Roles.AddOrUpdate)]
-        [SwaggerHeader("request", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Add Or Update Rol.",
             Description = "We get the role with its added or modified values. This can only be done by the registered user",
@@ -84,7 +81,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Roles.Delete)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Delete Rol.",
             Description = "We get the deleted rol by Id database. This can only be done by the registered user",
@@ -102,7 +98,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpGet("permissions/byrole/{roleId}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
-        [SwaggerHeader("roleId", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Get Permission List By Rol Id.",
             Description = "We get the permission list by rol id. This can only be done by the registered user",
@@ -135,7 +130,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpGet("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.View)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Get Role Claims By Id.",
             Description = "We get the detail role claim by id. This can only be done by the registered user",
@@ -152,7 +146,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpPut("permissions/update")]
         [HavePermission(PermissionsConstant.RoleClaims.Edit)]
-        [SwaggerHeader("request", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Get Updated Role Claim.",
             Description = "We get the role claim with its modified values.. This can only be done by the registered user",
@@ -170,7 +163,6 @@ namespace InmoIT.Modules.Identity.Api.Controllers
 
         [HttpDelete("permissions/{id}")]
         [HavePermission(PermissionsConstant.RoleClaims.Delete)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Deleted Role Claims By Id.",
             Description = "We get the deleted role claims by Id. This can only be done by the registered user",

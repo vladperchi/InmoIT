@@ -12,7 +12,6 @@ using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Features.Properties.Commands;
 using InmoIT.Modules.Inmo.Core.Features.Properties.Queries;
 using InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Export;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Inmo.Properties;
@@ -27,7 +26,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.Properties.ViewAll)]
-        [SwaggerHeader("filter", "Input data not required", "", false)]
         [SwaggerOperation(
             Summary = "Get Property List.",
             Description = "List all properties in the database. This can only be done by the registered user",
@@ -45,7 +43,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.Properties.View)]
-        [SwaggerHeader("filter", "Input data not required", "", true)]
         [SwaggerOperation(
             Summary = "Get Property By Id.",
             Description = "We get the detail property by Id. This can only be done by the registered user",
@@ -63,7 +60,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.Properties.Register)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Registered Property.",
             Description = "Registed a property with all its values set. This can only be done by the registered user",
@@ -81,7 +77,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpPut]
         [HavePermission(PermissionsConstant.Properties.Update)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Update Property.",
             Description = "We get the property with its modified values.. This can only be done by the registered user",
@@ -99,7 +94,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.Properties.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Property.",
             Description = "We get the removed property by Id. This can only be done by the registered user",
@@ -117,7 +111,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.Properties.Export)]
-        [SwaggerHeader("searchString", "Input data required", "", false)]
         [SwaggerOperation(
             Summary = "Export Properties To Excel.",
             Description = "We get an exported excel file of all properties. This can only be done by the registered user",

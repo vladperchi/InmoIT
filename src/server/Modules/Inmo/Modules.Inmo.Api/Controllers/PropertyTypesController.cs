@@ -12,7 +12,6 @@ using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands;
 using InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries;
 using InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Queries.Export;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Features.Filters;
 using InmoIT.Shared.Dtos.Inmo.PropertyTypes;
@@ -28,7 +27,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
     {
         [HttpGet]
         [HavePermission(PermissionsConstant.PropertyTypes.ViewAll)]
-        [SwaggerHeader("filter", "Input data not required", "", false)]
         [SwaggerOperation(
             Summary = "Get Property Type List.",
             Description = "List all property types in the database. This can only be done by the registered user",
@@ -46,7 +44,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [HavePermission(PermissionsConstant.PropertyTypes.View)]
-        [SwaggerHeader("filter", "Input data not required", "", true)]
         [SwaggerOperation(
             Summary = "Get Property Type By Id.",
             Description = "We get the detail property type by Id. This can only be done by the registered user",
@@ -64,7 +61,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpPost]
         [HavePermission(PermissionsConstant.PropertyTypes.Create)]
-        [SwaggerHeader("command", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Created Property Type List.",
             Description = "Created a property type list with all its values set. This can only be done by the registered user",
@@ -100,7 +96,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
         [HttpGet("{propertyTypeId:guid}")]
         [HavePermission(PermissionsConstant.PropertyTypes.View)]
         [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Client, Duration = 60)]
-        [SwaggerHeader("request", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Get Image Property Type.",
             Description = "We get the image associated to the property type. This can only be done by the registered user",
@@ -116,7 +111,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpDelete("{id:guid}")]
         [HavePermission(PermissionsConstant.PropertyTypes.Remove)]
-        [SwaggerHeader("id", "Input data required", "", true)]
         [SwaggerOperation(
             Summary = "Remove Property Type.",
             Description = "We get the removed property type by Id. This can only be done by the registered user",
@@ -135,7 +129,6 @@ namespace InmoIT.Modules.Inmo.Api.Controllers
 
         [HttpGet("export")]
         [HavePermission(PermissionsConstant.PropertyTypes.Export)]
-        [SwaggerHeader("searchString", "Input data required", "", false)]
         [SwaggerOperation(
             Summary = "Export Property Types To Excel.",
             Description = "We get an exported excel file of all property. This can only be done by the registered user",
