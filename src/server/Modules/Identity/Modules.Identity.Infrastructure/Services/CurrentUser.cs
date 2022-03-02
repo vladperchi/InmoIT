@@ -24,28 +24,44 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _accessor = accessor;
         }
 
-        private ClaimsPrincipal _user;
+        public string Name =>
+            GetHttpContext()?.User.Identity?.Name;
 
-        private Guid _userId = Guid.Empty;
+        public Guid GetUserId() =>
+            IsAuthenticated()
+            ? Guid.Parse(GetHttpContext()?.User.GetUserId() ?? Guid.Empty.ToString())
+            : Guid.Empty;
 
-        public string Name => _user?.Identity?.Name;
+        public string GetUserEmail() =>
+            IsAuthenticated()
+            ? GetHttpContext()?.User.GetUserEmail()
+            : string.Empty;
 
-        public Guid GetUserId() => IsAuthenticated() ? Guid.Parse(_user?.GetUserId() ?? Guid.Empty.ToString()) : _userId;
+        public string GetUserPhoneNumber() =>
+            IsAuthenticated()
+            ? GetHttpContext()?.User.GetUserPhoneNumber()
+            : string.Empty;
 
-        public string GetUserEmail() => IsAuthenticated() ? _user?.GetUserEmail() : string.Empty;
+        public string GetUserFirstName() =>
+            IsAuthenticated()
+            ? GetHttpContext()?.User.GetUserFirstName()
+            : string.Empty;
 
-        public string GetUserPhoneNumber() => IsAuthenticated() ? _user?.GetUserPhoneNumber() : string.Empty;
+        public string GetuserSurname() =>
+            IsAuthenticated()
+            ? GetHttpContext()?.User.GetuserSurname()
+            : string.Empty;
 
-        public string GetUserFirstName() => IsAuthenticated() ? _user?.GetUserFirstName() : string.Empty;
+        public bool IsAuthenticated() =>
+            GetHttpContext()?.User.Identity?.IsAuthenticated ?? false;
 
-        public string GetuserSurname() => IsAuthenticated() ? _user?.GetuserSurname() : string.Empty;
+        public bool IsInRole(string role) =>
+            GetHttpContext()?.User.IsInRole(role) ?? false;
 
-        public bool IsAuthenticated() => _user?.Identity?.IsAuthenticated ?? false;
+        public IEnumerable<Claim> GetUserClaims() =>
+            GetHttpContext()?.User.Claims;
 
-        public bool IsInRole(string role) => _user?.IsInRole(role) ?? false;
-
-        public IEnumerable<Claim> GetUserClaims() => _user?.Claims;
-
-        public HttpContext GetHttpContext() => _accessor.HttpContext;
+        public HttpContext GetHttpContext() =>
+            _accessor.HttpContext;
     }
 }
