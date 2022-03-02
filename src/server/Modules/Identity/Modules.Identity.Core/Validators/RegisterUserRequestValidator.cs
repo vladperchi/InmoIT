@@ -16,53 +16,47 @@ namespace InmoIT.Modules.Identity.Core.Validators
 {
     public class RegisterUserRequestValidator : AbstractValidator<RegisterRequest>
     {
-        public RegisterUserRequestValidator(IIdentityService identityService, IStringLocalizer<RegisterUserRequestValidator> localizer)
+        public RegisterUserRequestValidator(IUserService userService, IStringLocalizer<RegisterUserRequestValidator> localizer)
         {
-            RuleFor(x => x.Email)
+            RuleFor(x => x.Email).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .EmailAddress().WithMessage(localizer["{PropertyName} must be a valid email accounts."])
-                .MustAsync(async (email, _) => !await identityService.ExistsWithEmailAsync(email))
+                .MustAsync(async (email, _) => !await userService.ExistsWithEmailAsync(email))
                     .WithMessage((_, email) => string.Format(localizer["Email {0} is already registered."], email));
 
-            RuleFor(x => x.EmailConfirmed)
-                .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
-
-            RuleFor(x => x.UserName)
+            RuleFor(x => x.UserName).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .MinimumLength(8)
-                .MustAsync(async (name, _) => !await identityService.ExistsWithNameAsync(name))
+                .MustAsync(async (name, _) => !await userService.ExistsWithNameAsync(name))
                     .WithMessage((_, name) => string.Format(localizer["Username {0} is already taken."], name));
 
-            RuleFor(x => x.PhoneNumber)
+            RuleFor(x => x.PhoneNumber).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(8, 16).WithMessage(localizer["{PropertyName} must have between 8 and  16 characters."])
                 .Must(IsOnlyNumber).WithMessage(localizer["{PropertyName} should be all numbers."])
-                .MustAsync(async (phone, _) => !await identityService.ExistsWithPhoneNumberAsync(phone!))
+                .MustAsync(async (phone, _) => !await userService.ExistsWithPhoneNumberAsync(phone!))
                     .WithMessage((_, phone) => string.Format(localizer["Phone number {0} is already registered."], phone))
                     .Unless(u => string.IsNullOrWhiteSpace(u.PhoneNumber));
 
-            RuleFor(x => x.PhoneNumberConfirmed)
-               .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."]);
-
-            RuleFor(x => x.FirstName)
+            RuleFor(x => x.FirstName).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .MaximumLength(100).WithMessage(localizer["{PropertyName} can have a maximum of 100 characters."])
                 .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."])
-                .Equal(x => x.LastName).WithMessage(localizer["{PropertyName} cannot be equal to LastName."]);
+                .NotEqual(x => x.LastName).WithMessage(localizer["{PropertyName} cannot be equal to LastName."]);
 
-            RuleFor(x => x.LastName)
+            RuleFor(x => x.LastName).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .MaximumLength(100).WithMessage(localizer["{PropertyName} can have a maximum of 100 characters."])
                 .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."])
-                .Equal(x => x.FirstName).WithMessage(localizer["{PropertyName} cannot be equal to FirstName."]);
+                .NotEqual(x => x.FirstName).WithMessage(localizer["{PropertyName} cannot be equal to FirstName."]);
 
-            RuleFor(x => x.Password)
+            RuleFor(x => x.Password).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
-                .MinimumLength(8);
+                .MinimumLength(8).WithMessage(localizer["{PropertyName} minimum 8 characters."]);
 
-            RuleFor(x => x.ConfirmPassword)
+            RuleFor(x => x.ConfirmPassword).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
-                .NotEqual(x => x.Password).WithMessage(localizer["{PropertyName} do not match."]);
+                .Equal(x => x.Password).WithMessage(localizer["{PropertyName} do not match."]);
         }
 
         private bool IsOnlyLetter(string value) => value.All(char.IsLetter);
