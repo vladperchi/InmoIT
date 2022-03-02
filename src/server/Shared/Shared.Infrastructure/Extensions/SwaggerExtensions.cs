@@ -58,7 +58,6 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                     options.AddSwaggerDocs(services);
                     options.OperationFilter<RemoveVersionParameterFilter>();
                     options.DocumentFilter<ReplaceVersionValueInPathFilter>();
-                    options.OperationFilter<SwaggerExcludeFilter>();
                     options.DocInclusionPredicate((version, desc) =>
                     {
                         if (!desc.TryGetMethodInfo(out var methodInfo))
@@ -131,7 +130,6 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                         Example = new OpenApiString("02:00:00")
                     });
                     options.EnableAnnotations();
-                    options.OperationFilter<SwaggerHeaderFilter>();
                     options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
                 });
             }
