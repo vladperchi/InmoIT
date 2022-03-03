@@ -12,5 +12,6 @@ namespace InmoIT.Shared.Dtos.Identity.Users
 {
     public class UpdateUserPictureRequest : FileUploadRequest
     {
+        public bool DeleteCurrentImageUrl { get; set; } = false;
     }
 }
