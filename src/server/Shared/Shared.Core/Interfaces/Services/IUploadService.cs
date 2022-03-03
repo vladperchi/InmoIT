@@ -16,6 +16,6 @@ namespace InmoIT.Shared.Core.Interfaces.Services
     {
         Task<string> UploadAsync(FileUploadRequest request, FileType supportedFileType);
 
-        public void Remove(UploadStorageType pathFolder, string currentImageUrl);
+        Task<bool> RemoveFileImage(UploadStorageType pathFolder, string currentImageUrl);
     }
 }
