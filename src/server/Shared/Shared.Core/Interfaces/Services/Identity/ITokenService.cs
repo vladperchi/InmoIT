@@ -14,8 +14,8 @@ namespace InmoIT.Shared.Core.Interfaces.Services.Identity
 {
     public interface ITokenService
     {
-        Task<IResult<TokenResponse>> GetTokenAsync(TokenRequest request, string ipAddress);
+        Task<IResult<TokenUserResponse>> GetTokenAsync(TokenUserRequest request, string ipAddress);
 
-        Task<IResult<TokenResponse>> RefreshTokenAsync(RefreshTokenRequest request, string ipAddress);
+        Task<IResult<TokenUserResponse>> RefreshTokenAsync(RefreshTokenUserRequest request, string ipAddress);
     }
 }
