@@ -44,8 +44,10 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Services
             return await _mediator.Send(new RemoveOwnerCommand(ownerId));
         }
 
-        public async Task<string> GenerateFileName(int length) => await Utilities.GenerateCode("O", length);
+        public async Task<string> GenerateFileName(int length) =>
+            await Utilities.GenerateCode("O", length);
 
-        public async Task<int> GetCountAsync() => await _context.Owners.CountAsync();
+        public async Task<int> GetCountAsync() =>
+            await _context.Owners.CountAsync();
     }
 }
