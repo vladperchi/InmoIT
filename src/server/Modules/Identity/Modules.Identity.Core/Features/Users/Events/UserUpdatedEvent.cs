@@ -39,7 +39,7 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
                 ? aggregateId
                 : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoUser) };
-            EventDescription = "Updated User.";
+            EventDescription = $"Updated User:{user.UserName}:::Email:{user.Email}:::Id:{user.Id}";
         }
     }
 }

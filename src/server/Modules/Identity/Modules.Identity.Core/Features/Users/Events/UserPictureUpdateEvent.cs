@@ -26,7 +26,7 @@ namespace InmoIT.Modules.Identity.Core.Features.Users.Events
                 ? aggregateId
                 : Guid.NewGuid();
             RelatedEntities = new[] { typeof(InmoUser) };
-            EventDescription = "Updated User Picture.";
+            EventDescription = $"Updated User Picture:{user.ImageUrl}:::Id:{user.Id}";
         }
     }
 }
