@@ -43,8 +43,8 @@ namespace InmoIT.Shared.Core.Behaviors
 
                 if (failures.Count != 0)
                 {
-                    var errorMessages = failures.Select(a => a.ErrorMessage).Distinct().ToList();
-                    throw new ValidationCustomException(_localizer, errorMessages);
+                    var errors = failures.Select(a => a.ErrorMessage).Distinct().ToList();
+                    throw new ValidationCustomException(_localizer, errors);
                 }
             }
 

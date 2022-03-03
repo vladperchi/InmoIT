@@ -16,6 +16,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
     internal static class IdentityResultExtensions
     {
         public static List<string> GetErrorMessages(this IdentityResult result, IStringLocalizer localizer) =>
-            result.Errors.Select(e => localizer[e.Description].ToString()).ToList();
+            result.Errors.Select(x => localizer[x.Description].ToString()).ToList();
     }
 }

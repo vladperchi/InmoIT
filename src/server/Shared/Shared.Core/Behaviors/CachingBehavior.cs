@@ -69,7 +69,10 @@ namespace InmoIT.Shared.Core.Behaviors
                 return response;
             }
 
-            byte[] cachedResponse = !string.IsNullOrWhiteSpace(request.CacheKey) ? await _cache.GetAsync(request.CacheKey, cancellationToken) : null;
+            byte[] cachedResponse = !string.IsNullOrWhiteSpace(request.CacheKey)
+                ? await _cache.GetAsync(request.CacheKey, cancellationToken)
+                : null;
+
             if (cachedResponse != null)
             {
                 response = _jsonSerializer.Deserialize<TResponse>(Encoding.Default.GetString(cachedResponse));
