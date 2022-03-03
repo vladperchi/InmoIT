@@ -67,5 +67,11 @@ namespace InmoIT.Modules.Identity.Core.Entities
 
         [NotMapped]
         public string FileName => $"{FirstName}{LastName}";
+
+        public InmoUser ClearPathImageUrl()
+        {
+            ImageUrl = string.Empty;
+            return this;
+        }
     }
 }
