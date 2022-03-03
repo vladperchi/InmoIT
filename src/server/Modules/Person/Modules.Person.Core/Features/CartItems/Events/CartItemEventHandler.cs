@@ -32,19 +32,19 @@ namespace InmoIT.Modules.Person.Core.Features.CartItems.Events
 
         public Task Handle(CartItemAddedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CartItemAddedEvent)} High. Added {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(CartItemAddedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(CartItemUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CartItemUpdatedEvent)} High. Updated {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(CartItemUpdatedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(CartItemRemovedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(CartItemRemovedEvent)} High. Removed {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(CartItemRemovedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
     }
