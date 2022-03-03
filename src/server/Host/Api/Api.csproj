@@ -46,8 +46,8 @@
   <ItemGroup>
     <Folder Include="Files\Documents\Contract\Sale\" />
     <Folder Include="Files\Documents\Contract\Rent\" />
-    <Folder Include="Files\Images\Inmo\PropertyTypes\" />
     <Folder Include="Files\Images\Inmo\Properties\" />
+    <Folder Include="Logs\Logs\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 
