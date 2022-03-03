@@ -33,7 +33,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Events
             IsActive = propertyType.IsActive;
             AggregateId = propertyType.Id;
             RelatedEntities = new[] { typeof(Owner) };
-            EventDescription = $"Updated Property Type {propertyType.Name} with Id {propertyType.Id}.";
+            EventDescription = $"Updated Property Type:{propertyType.Name}:::Id:{propertyType.Id}";
         }
     }
 }
