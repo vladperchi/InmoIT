@@ -45,7 +45,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Events
             IsActive = customer.IsActive;
             AggregateId = customer.Id;
             RelatedEntities = new[] { typeof(Customer) };
-            EventDescription = $"Registered Customer {customer.Name} {customer.SurName} with Id {customer.Id}.";
+            EventDescription = $"Registered Customer:{customer.Name} {customer.SurName}:::Email:{customer.Email}:::Id:{customer.Id}";
         }
     }
 }
