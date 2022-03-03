@@ -28,7 +28,7 @@
                                 "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n  \"email\": \"{{email_user}}\",\r\n  \"password\": \"{{password_user}}\"\r\n}",
+                                    "raw": "{\r\n   \"email\": \"{{email_user}}\",\r\n   \"password\": \"{{password_user}}\"\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -37,8 +37,13 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/tokens",
-                                    "host": ["{{url}}"],
-                                    "path": ["identity", "tokens"]
+                                    "host": [
+                                        "{{url}}"
+                                    ],
+                                    "path": [
+                                        "identity",
+                                        "tokens"
+                                    ]
                                 }
                             },
                             "response": []
@@ -63,7 +68,7 @@
                                 "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+                                    "raw": "{\r\n   \"token\": \"\",\r\n   \"refreshToken\": \"\"\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -72,7 +77,9 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/tokens/refresh",
-                                    "host": ["{{url}}"],
+                                    "host": [
+                                        "{{url}}"
+                                    ],
                                     "path": [
                                         "identity",
                                         "tokens",
@@ -99,23 +106,22 @@
                 {
                     "name": "Users",
                     "item": [{
-                            "name": "get-users",
+                            "name": "get-all-user",
                             "request": {
                                 "method": "GET",
                                 "header": [],
                                 "url": {
                                     "raw": "{{url}}/identity/users",
-                                    "host": ["{{url}}"],
-                                    "path": [
-                                        "identity",
-                                        "users"
-                                    ]
+                                    "host": [
+                                        "{{url}}"
+                                    ],
+                                    "path": ["identity", "users"]
                                 }
                             },
                             "response": []
                         },
                         {
-                            "name": "get-user-id",
+                            "name": "get-id-user",
                             "request": {
                                 "method": "GET",
                                 "header": [],
@@ -140,7 +146,7 @@
                                 "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n  \"firstName\": \"Testing\",\r\n  \"lastName\": \"User\",\r\n  \"email\": \"testinguser@inmoit.com\",\r\n  \"emailConfirmed\": true,\r\n  \"userName\": \"testing.user\",\r\n  \"password\": \"@BasicP4$$w0rd#\",\r\n  \"confirmPassword\": \"@BasicP4$$w0rd#\",\r\n  \"phoneNumber\": \"0012134858927\",\r\n  \"phoneNumberConfirmed\": true\r\n}",
+                                    "raw": "{\r\n   \"firstName\": \"Testing\",\r\n   \"lastName\": \"User\",\r\n   \"email\": \"testinguser@inmoit.com\",\r\n   \"emailConfirmed\": true,\r\n   \"userName\": \"testing.user\",\r\n   \"password\": \"@BasicP4$$w0rd#\",\r\n   \"confirmPassword\": \"@BasicP4$$w0rd#\",\r\n   \"phoneNumber\": \"0012134858927\",\r\n   \"phoneNumberConfirmed\": true\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -149,11 +155,40 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/register",
-                                    "host": ["{{url}}"],
+                                    "host": [
+                                        "{{url}}"
+                                    ],
                                     "path": [
                                         "identity",
                                         "users",
                                         "register"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update-user",
+                            "request": {
+                                "method": "PUT",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n   \"id\": \"7ce402d5-4c9f-41c6-a942-d58f5d0c2f15\",\r\n   \"firstName\":\"David\",\r\n   \"lastName\":\"Vanegas\",\r\n   \"email\":\"davidvanegas@inmoit.com\",\r\n   \"phoneNumber\":\"0012934898193\",\r\n   \"currentPassword\":\"@BasicP4$$w0rd#\",\r\n   \"password\":\"@B4s1cP4ssw0rd#\",\r\n   \"confirmPassword\":\"@B4s1cP4ssw0rd#\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/identity/users",
+                                    "host": [
+                                        "{{url}}"
+                                    ],
+                                    "path": [
+                                        "identity",
+                                        "users"
                                     ]
                                 }
                             },
@@ -166,7 +201,9 @@
                                 "header": [],
                                 "url": {
                                     "raw": "{{url}}/identity/users/bc102093-2dc7-4e47-bc3a-da64e6a0ffa9",
-                                    "host": ["{{url}}"],
+                                    "host": [
+                                        "{{url}}"
+                                    ],
                                     "path": [
                                         "identity",
                                         "users",
@@ -183,7 +220,7 @@
                                     "type": "bearer",
                                     "bearer": [{
                                         "key": "token",
-                                        "value": "",
+                                        "value": "{{token}}",
                                         "type": "string"
                                     }]
                                 },
@@ -200,7 +237,9 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/forgot-password",
-                                    "host": ["{{url}}"],
+                                    "host": [
+                                        "{{url}}"
+                                    ],
                                     "path": [
                                         "identity",
                                         "users",
@@ -217,7 +256,7 @@
                                 "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n  \"email\":\"{{email_user}}\",\r\n  \"password\":\"{{new_password_user}}\",\r\n  \"token\": \"{{token}}\"\r\n}",
+                                    "raw": "{\r\n  \"email\":\"{{email_user}}\",\r\n  \"password\":\"{{password_reset}}\",\r\n  \"token\": \"\"\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -226,7 +265,9 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/reset-password",
-                                    "host": ["{{url}}"],
+                                    "host": [
+                                        "{{url}}"
+                                    ],
                                     "path": [
                                         "identity",
                                         "users",
@@ -243,7 +284,7 @@
                                 "header": [],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\r\n  \"currentPassword\":\"{{currentPassword}}\",\r\n  \"newPassword\":\"{{newPassword}}\",\r\n  \"confirmPassword\": \"{{confirmPassword}}\"\r\n}",
+                                    "raw": "{\r\n  \"currentPassword\":\"\",\r\n  \"newPassword\":\"{{password_change}}\",\r\n  \"confirmPassword\": \"{{password_change}}\"\r\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -252,7 +293,9 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/change-password",
-                                    "host": ["{{url}}"],
+                                    "host": [
+                                        "{{url}}"
+                                    ],
                                     "path": [
                                         "identity",
                                         "users",
@@ -273,7 +316,9 @@
                             "header": [],
                             "url": {
                                 "raw": "{{url}}/identity/logger",
-                                "host": ["{{url}}"],
+                                "host": [
+                                    "{{url}}"
+                                ],
                                 "path": [
                                     "identity",
                                     "logger"
@@ -383,7 +428,9 @@
                     "header": [],
                     "url": {
                         "raw": "{{url}}/dashboard",
-                        "host": ["{{url}}"],
+                        "host": [
+                            "{{url}}"
+                        ],
                         "path": ["dashboard"]
                     }
                 },
@@ -429,6 +476,14 @@
         {
             "key": "password_user",
             "value": "@SuperAdminP4$$w0rd#"
+        },
+        {
+            "key": "password_reset",
+            "value": "@S4dm1nP4$$2022#"
+        },
+        {
+            "key": "password_change",
+            "value": "@Sup3r4dm1nP4ssw0rd#"
         }
     ]
 }
