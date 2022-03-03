@@ -32,19 +32,19 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Events
 
         public Task Handle(ImageAddedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(ImageAddedEvent)} High. Added {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(ImageAddedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(ImageUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(ImageUpdatedEvent)} High. Updated {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(ImageUpdatedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(ImageRemovedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(ImageRemovedEvent)} High. Removed {notification.Id}."]);
+            _logger.LogInformation(_localizer[$"{nameof(ImageRemovedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
     }

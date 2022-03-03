@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Events
             Id = id;
             AggregateId = id;
             RelatedEntities = new[] { typeof(PropertyImage) };
-            EventDescription = "Removed Image.";
+            EventDescription = $"Removed Image:{id}";
         }
     }
 }

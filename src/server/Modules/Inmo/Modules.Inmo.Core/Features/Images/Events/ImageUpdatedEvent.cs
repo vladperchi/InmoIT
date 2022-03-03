@@ -36,7 +36,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Events
             PropertyId = propertyImage.PropertyId;
             AggregateId = propertyImage.Id;
             RelatedEntities = new[] { typeof(PropertyImage) };
-            EventDescription = $"Updated Image to PropertyId: {propertyImage.PropertyId}.";
+            EventDescription = $"Updated Image:{CodeImage}:::Url:{ImageUrl}:::PropId:{propertyImage.PropertyId}:::Id:{Id}.";
         }
     }
 }

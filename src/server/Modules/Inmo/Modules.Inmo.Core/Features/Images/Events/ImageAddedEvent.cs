@@ -7,9 +7,12 @@
 // --------------------------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Domain;
+using InmoIT.Shared.Dtos.Inmo.Images;
+
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Images.Events
 {
@@ -17,27 +20,17 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Events
     {
         public Guid Id { get; set; }
 
-        public string ImageUrl { get; set; }
-
-        public string Caption { get; set; }
-
-        public bool Enabled { get; set; }
-
-        public string CodeImage { get; set; }
-
         public Guid PropertyId { get; set; }
+
+        public List<PropertyImageRequest> PropertyImageList { get; set; }
 
         public ImageAddedEvent(PropertyImage propertyImage)
         {
             Id = propertyImage.Id;
-            ImageUrl = propertyImage.ImageUrl;
-            Caption = propertyImage.Caption;
-            Enabled = propertyImage.Enabled;
-            CodeImage = propertyImage.CodeImage;
             PropertyId = propertyImage.PropertyId;
-            AggregateId = propertyImage.Id;
+            AggregateId = propertyImage.PropertyId;
             RelatedEntities = new[] { typeof(PropertyImage) };
-            EventDescription = $"Added Image to PropertyId: {propertyImage.PropertyId}.";
+            EventDescription = $"Added Image:{PropertyImageList.ToArray()}:::PropId:{propertyImage.PropertyId}:::Id:{Id}";
         }
     }
 }
