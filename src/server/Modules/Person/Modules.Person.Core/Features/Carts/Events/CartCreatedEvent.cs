@@ -27,7 +27,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Events
            Timestamp = cart.Timestamp;
            AggregateId = cart.Id;
            RelatedEntities = new[] { typeof(Cart) };
-           EventDescription = $"Created Cart Id {cart.Id} of Customer Id {cart.CustomerId}.";
+           EventDescription = $"Created Cart:{cart.Id}:::Customer:{cart.CustomerId}";
         }
     }
 }

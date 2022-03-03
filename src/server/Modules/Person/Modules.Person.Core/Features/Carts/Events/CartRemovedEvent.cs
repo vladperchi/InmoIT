@@ -21,7 +21,7 @@ namespace InmoIT.Modules.Person.Core.Features.Carts.Events
             Id = id;
             AggregateId = id;
             RelatedEntities = new[] { typeof(Cart) };
-            EventDescription = "Removed Cart.";
+            EventDescription = $"Removed Cart:{id}";
         }
     }
 }
