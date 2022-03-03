@@ -77,7 +77,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
                     Extension = Path.GetExtension(command.FileUploadRequest.FileName),
                     UploadStorageType = UploadStorageType.PropertyType
                 };
-                string fileName = await _propertyTypeService.GenerateFileName(10);
+                string fileName = await _propertyTypeService.GenerateFileName(20);
                 fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 propertyType.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
@@ -110,7 +110,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
             string currentImageUrl = command.ImageUrl ?? string.Empty;
             if (command.DeleteCurrentImageUrl && !string.IsNullOrEmpty(currentImageUrl))
             {
-                _uploadService.Remove(UploadStorageType.PropertyType, currentImageUrl);
+                await _uploadService.RemoveFileImage(UploadStorageType.PropertyType, currentImageUrl);
                 propertyType = propertyType.ClearPathImageUrl();
                 var fileUploadRequest = new FileUploadRequest
                 {
@@ -118,7 +118,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.PropertyTypes.Commands
                     Extension = Path.GetExtension(command.FileUploadRequest.FileName),
                     UploadStorageType = UploadStorageType.PropertyType
                 };
-                string fileName = await _propertyTypeService.GenerateFileName(10);
+                string fileName = await _propertyTypeService.GenerateFileName(20);
                 fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 propertyType.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }

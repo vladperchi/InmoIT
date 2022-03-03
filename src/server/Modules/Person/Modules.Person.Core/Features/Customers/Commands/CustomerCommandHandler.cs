@@ -23,13 +23,9 @@ using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Upload;
 using MediatR;
-
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
-
-using static System.Net.WebRequestMethods;
 
 namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
 {
@@ -77,7 +73,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
                     Extension = Path.GetExtension(command.FileUploadRequest.FileName),
                     UploadStorageType = UploadStorageType.Customer
                 };
-                string fileName = await _customerService.GenerateFileName(10);
+                string fileName = await _customerService.GenerateFileName(20);
                 fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
@@ -109,7 +105,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
             string currentImageUrl = command.ImageUrl ?? string.Empty;
             if (command.DeleteCurrentImageUrl && !string.IsNullOrEmpty(currentImageUrl))
             {
-                _uploadService.Remove(UploadStorageType.Customer, currentImageUrl);
+                await _uploadService.RemoveFileImage(UploadStorageType.Customer, currentImageUrl);
                 customer = customer.ClearPathImageUrl();
                 var fileUploadRequest = new FileUploadRequest
                 {
@@ -117,7 +113,7 @@ namespace InmoIT.Modules.Person.Core.Features.Customers.Commands
                     Extension = Path.GetExtension(command.FileUploadRequest.FileName),
                     UploadStorageType = UploadStorageType.Customer
                 };
-                string fileName = await _customerService.GenerateFileName(10);
+                string fileName = await _customerService.GenerateFileName(20);
                 fileUploadRequest.FileName = $"{fileName}.{fileUploadRequest.Extension}";
                 customer.ImageUrl = await _uploadService.UploadAsync(fileUploadRequest, FileType.Image);
             }
