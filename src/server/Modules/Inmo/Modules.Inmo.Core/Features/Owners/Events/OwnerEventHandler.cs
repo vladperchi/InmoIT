@@ -32,19 +32,19 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
 
         public Task Handle(OwnerRegisteredEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(OwnerRegisteredEvent)} High. {notification.Id} Registered."]);
+            _logger.LogInformation(_localizer[$"{nameof(OwnerRegisteredEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(OwnerUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(OwnerUpdatedEvent)} High. {notification.Id} Updated."]);
+            _logger.LogInformation(_localizer[$"{nameof(OwnerUpdatedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
 
         public Task Handle(OwnerRemovedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(_localizer[$"{nameof(OwnerRemovedEvent)} High. {notification.Id} Removed."]);
+            _logger.LogInformation(_localizer[$"{nameof(OwnerRemovedEvent)} High. {notification.EventDescription}"]);
             return Task.CompletedTask;
         }
     }

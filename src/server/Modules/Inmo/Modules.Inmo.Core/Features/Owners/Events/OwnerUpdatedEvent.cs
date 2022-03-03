@@ -51,7 +51,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
             IsActive = owner.IsActive;
             AggregateId = owner.Id;
             RelatedEntities = new[] { typeof(Owner) };
-            EventDescription = $"Updated Owner {owner.Name} {owner.SurName} with Id {owner.Id}.";
+            EventDescription = $"Updated Owner:{owner.Name} {owner.SurName}:::Email:{owner.Email}:::Id:{owner.Id}";
         }
     }
 }

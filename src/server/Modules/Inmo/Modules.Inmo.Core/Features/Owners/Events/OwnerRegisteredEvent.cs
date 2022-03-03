@@ -10,6 +10,8 @@ using System;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Domain;
 
+using static InmoIT.Shared.Core.Constants.PermissionsConstant;
+
 namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
 {
     public class OwnerRegisteredEvent : Event
@@ -51,7 +53,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Events
             IsActive = owner.IsActive;
             AggregateId = owner.Id;
             RelatedEntities = new[] { typeof(Owner) };
-            EventDescription = $"Registered Owner {owner.Name} {owner.SurName} with Id {owner.Id}.";
-        }
+            EventDescription = $"Registered Owner:{owner.Name} {owner.SurName}:::Email:{owner.Email}:::Id:{owner.Id}";
+}
     }
 }
