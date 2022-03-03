@@ -8,7 +8,6 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using InmoIT.Shared.Core.Attributes;
 using InmoIT.Shared.Core.Constants;
 using InmoIT.Shared.Core.Contracts;
 using InmoIT.Shared.Core.Queries;
@@ -26,7 +25,6 @@ namespace InmoIT.Shared.Core.Features.Filters
         public bool SkipCache { get; set; }
 
         [FromQuery]
-        [SwaggerExclude]
         public string CacheKey => CacheKeys.Common.GetEntityByIdCacheKey<TEntityId, TEntity>(Id);
 
         [FromQuery]
