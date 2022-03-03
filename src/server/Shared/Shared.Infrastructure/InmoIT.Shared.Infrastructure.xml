@@ -49,11 +49,5 @@
         <member name="T:InmoIT.Shared.Infrastructure.Swagger.Filters.ReplaceVersionValueInPathFilter">
             <inheritdoc cref = "T:Swashbuckle.AspNetCore.SwaggerGen.IDocumentFilter" />
         </member>
-        <member name="T:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerExcludeFilter">
-            <inheritdoc cref = "T:Swashbuckle.AspNetCore.SwaggerGen.IOperationFilter" />
-        </member>
-        <member name="T:InmoIT.Shared.Infrastructure.Swagger.Filters.SwaggerHeaderFilter">
-            <inheritdoc cref = "T:Swashbuckle.AspNetCore.SwaggerGen.IOperationFilter" />
-        </member>
     </members>
 </doc>
