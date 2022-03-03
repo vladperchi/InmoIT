@@ -153,7 +153,7 @@ namespace InmoIT.Shared.Core.Constants
         {
             public const string View = "Permissions.Users.View";
             public const string ViewAll = "Permissions.Users.ViewAll";
-            public const string Create = "Permissions.Users.Create";
+            public const string Register = "Permissions.Users.Register";
             public const string Edit = "Permissions.Users.Edit";
             public const string Delete = "Permissions.Users.Delete";
             public const string Export = "Permissions.Users.Export";
