@@ -49,10 +49,10 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
             return await result.CountAsync();
         }
 
-        public async Task RecordTransaction(string codeInternal, string name, decimal price, decimal tax, string referenceNumber, Guid propertyId, TransactionType transactionType)
+        public async Task AddOrUpdateTrace(string codeInternal, string name, decimal price, decimal tax, string referenceNumber, Guid propertyId, TransactionType transactionType)
         {
             var propertyTransaction = new PropertyTransaction(propertyId, transactionType, referenceNumber);
-            _logger.LogInformation(string.Format(_localizer["Added property transaction reference::{0} => Id::{1}"], propertyTransaction.ReferenceNumber, propertyTransaction.Id));
+            _logger.LogInformation(string.Format(_localizer["Added Transaction Reference:{0}:::Id:{1}"], propertyTransaction.ReferenceNumber, propertyTransaction.Id));
             await _context.PropertyTransactions.AddAsync(propertyTransaction);
             var propertyTrace = _context.PropertyTraces.FirstOrDefault(x => x.PropertyId == propertyId);
 
@@ -65,7 +65,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
                 propertyTrace.TransactionType = transactionType;
                 try
                 {
-                    _logger.LogInformation(string.Format(_localizer["Updated property trace name::{0} => Id::{1}"], propertyTrace.Name, propertyTrace.Id));
+                    _logger.LogInformation(string.Format(_localizer["Updated Trace Code:{0}:::Id:{1}"], propertyTrace.Code, propertyTrace.Id));
                     _context.PropertyTraces.Update(propertyTrace);
                 }
                 catch (Exception)
@@ -87,7 +87,7 @@ namespace InmoIT.Modules.Accounting.Infrastructure.Services
                 };
                 try
                 {
-                    _logger.LogInformation(string.Format(_localizer["Added property trace name::{0} => Id::{1}"], propertyTrace.Name, propertyTrace.Id));
+                    _logger.LogInformation(string.Format(_localizer["Added Trace Code:{0}:::Id:{1}"], propertyTrace.Code, propertyTrace.Id));
                     _context.PropertyTraces.Add(propertyTrace);
                 }
                 catch (Exception)
