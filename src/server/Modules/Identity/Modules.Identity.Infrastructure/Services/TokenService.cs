@@ -190,6 +190,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
 
             var token = new JwtSecurityToken(
+               issuer: _config.Issuer,
+               audience: _config.Audience,
                claims: claims,
                expires: DateTime.UtcNow.AddMinutes(_config.TokenExpirationInMinutes),
                signingCredentials: signingCredentials);
