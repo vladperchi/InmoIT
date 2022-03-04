@@ -14,7 +14,7 @@ namespace InmoIT.Shared.Core.Integration.Accounting
 {
     public interface ITraceService
     {
-        public Task RecordTransaction(string codeInternal, string name, decimal value, decimal tax, string referenceNumber, Guid propertyId, TransactionType type);
+        public Task AddOrUpdateTrace(string codeInternal, string name, decimal value, decimal tax, string referenceNumber, Guid propertyId, TransactionType type);
 
         Task<int> GetCountSalesAsync();
 
