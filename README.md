@@ -67,35 +67,34 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] NET 5.0
 - [x] Service-Based
 - [x] Controller Registration
-- [x] Entity Framework Core - Code First
+- [x] Entity Framework Core
 - [x] Auto DB Migrations
-- [x] Seeding (Database, Identity)
-- [x] Logging
-- [x] CQRS using MediatR at API Level
+- [x] Data Seeding
+- [x] Advanced Serilog
+- [x] CQRS using MediatR
 - [x] Validation
 - [x] In-Memory Database
 - [x] AutoMapper
 - [x] Custom API Response
 - [x] Custom Errors
-- [ ] Localization
 - [x] Middlewares
 - [x] Paginated API Responses
 - [x] Specification Pattern
 - [x] Default User & Role Seeding
-- [x] Registration
 - [x] Refresh Tokens
 - [x] Claims-Based Authorization
 - [x] JWT Authentication
 - [x] HTTP Interceptor
 - [x] CRUD Operations
-- [x] Email Service
-- [x] SMS Service (Twilio Api)
-- [x] EventLogs
+- [x] Custom EventLogs
 - [x] Swagger
 - [x] API Versioning
 - [x] Hangfire
+- [x] Email Service
+- [x] SMS Service
 - [x] File Upload
 - [x] Export Excel
+- [ ] Localization
 - [ ] Document
 - [ ] Dashboard
 - [ ] Docker Support
@@ -161,7 +160,7 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 
 ### Vladimir P. CHibás
 
-- Twitter - [codewithvlad][twitter-url]
+- Twitter - [codewithvladperchi][twitter-url]
 - Linkedin - [Vladimir][linkedin-url]
 - GitHub - [vladperchi][github-url]
 
