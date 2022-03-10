@@ -23,18 +23,17 @@ namespace InmoIT.Api
             var host = CreateHostBuilder(args).Build();
             try
             {
-                // Space reserved for any initialization task
-
-                Log.Information("InmoIT.Api Starting...");
+                Log.Information("Server Starting Up...");
                 Log.Information("Welcome {Name} from thread {ThreadId}", Environment.UserName, Thread.CurrentThread.ManagedThreadId);
                 host.Run();
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Something went wrong. The application failed to start correctly");
+                Log.Fatal(ex, "Something went wrong. Server failed...");
             }
             finally
             {
+                Log.Information("Server Shutting down...");
                 Log.CloseAndFlush();
             }
         }
