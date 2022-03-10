@@ -73,7 +73,7 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
             }).GetAwaiter().GetResult();
         }
 
-        private List<T> DeserializeJson<T>(byte[] data)
-            => _jsonSerializer.Deserialize<List<T>>(Encoding.Default.GetString(data));
+        private List<T> DeserializeJson<T>(byte[] data) =>
+            _jsonSerializer.Deserialize<List<T>>(Encoding.Default.GetString(data));
     }
 }
