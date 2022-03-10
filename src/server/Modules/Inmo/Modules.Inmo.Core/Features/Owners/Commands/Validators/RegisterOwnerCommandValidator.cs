@@ -8,6 +8,8 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
+
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
@@ -23,13 +25,13 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands.Validators
                 .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
                 .NotEqual(x => x.SurName).WithMessage(localizer["{PropertyName} cannot be equal to Surname."])
                 .NotEqual(x => x.Address).WithMessage(localizer["{PropertyName} cannot be equal to Address."])
-                .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."]);
+                .Must(IsOnlyLetterAndSpace).WithMessage(localizer["{PropertyName} should be all letters."]);
             RuleFor(x => x.SurName)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(10, 100).WithMessage(localizer["{PropertyName} must have between 10 and 100 characters."])
                 .NotEqual(x => x.Name).WithMessage(localizer["{PropertyName} cannot be equal to Name."])
                 .NotEqual(x => x.Address).WithMessage(localizer["{PropertyName} cannot be equal to Address."])
-                .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."]);
+                .Must(IsOnlyLetterAndSpace).WithMessage(localizer["{PropertyName} should be all letters."]);
             RuleFor(x => x.Address)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(20, 150).WithMessage(localizer["{PropertyName} must have between 20 and 150 characters."])
@@ -48,7 +50,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands.Validators
                 .Must(YouOverMore18).WithMessage(localizer["{PropertyName} you must be of legal age to register."]);
         }
 
-        private bool IsOnlyLetter(string value) => value.All(char.IsLetter);
+        public bool IsOnlyLetterAndSpace(string value) => Regex.IsMatch(value, @"^(?! )[A-Za-z\s]+$");
 
         private bool IsOnlyNumber(string value) => value.All(char.IsNumber);
 

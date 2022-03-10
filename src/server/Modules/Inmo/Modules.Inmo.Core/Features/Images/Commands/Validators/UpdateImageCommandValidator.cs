@@ -9,6 +9,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
@@ -32,14 +34,14 @@ namespace InmoIT.Modules.Inmo.Core.Features.Images.Commands.Validators
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .Length(50, 150).WithMessage(localizer["{PropertyName} must have between 50 and 150 characters."])
                 .NotEqual(x => x.FileName).WithMessage(localizer["Cannot be equal to image file name."])
-                .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} must be only letters."]);
+                .Must(IsOnlyLetterAndSpace).WithMessage(localizer["{PropertyName} must be only letters."]);
             RuleFor(x => x.CodeImage)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .MaximumLength(10).WithMessage(localizer["{PropertyName} must have maximu 10 characters."])
                 .Must(IsLetterOrDigit).WithMessage(localizer["{PropertyName} must be only letters and numbers."]);
         }
 
-        private bool IsOnlyLetter(string value) => value.All(char.IsLetter);
+        public bool IsOnlyLetterAndSpace(string value) => Regex.IsMatch(value, @"^(?! )[A-Za-z\s]+$");
 
         private bool IsLetterOrDigit(string value) => value.All(char.IsLetterOrDigit);
 

@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using System.Linq;
+using System.Text.RegularExpressions;
 using FluentValidation;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Shared.Dtos.Identity.Users;
@@ -41,13 +42,13 @@ namespace InmoIT.Modules.Identity.Core.Validators
             RuleFor(x => x.FirstName).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .MaximumLength(100).WithMessage(localizer["{PropertyName} can have a maximum of 100 characters."])
-                .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."])
+                .Must(IsOnlyLetterAndSpace).WithMessage(localizer["{PropertyName} should be all letters."])
                 .NotEqual(x => x.LastName).WithMessage(localizer["{PropertyName} cannot be equal to LastName."]);
 
             RuleFor(x => x.LastName).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer["{PropertyName} must not be empty."])
                 .MaximumLength(100).WithMessage(localizer["{PropertyName} can have a maximum of 100 characters."])
-                .Must(IsOnlyLetter).WithMessage(localizer["{PropertyName} should be all letters."])
+                .Must(IsOnlyLetterAndSpace).WithMessage(localizer["{PropertyName} should be all letters."])
                 .NotEqual(x => x.FirstName).WithMessage(localizer["{PropertyName} cannot be equal to FirstName."]);
 
             RuleFor(x => x.Password).Cascade(CascadeMode.Stop)
@@ -59,7 +60,7 @@ namespace InmoIT.Modules.Identity.Core.Validators
                 .Equal(x => x.Password).WithMessage(localizer["{PropertyName} do not match."]);
         }
 
-        private bool IsOnlyLetter(string value) => value.All(char.IsLetter);
+        public bool IsOnlyLetterAndSpace(string value) => Regex.IsMatch(value, @"^(?! )[A-Za-z\s]+$");
 
         private bool IsOnlyNumber(string value) => value.All(char.IsNumber);
     }
