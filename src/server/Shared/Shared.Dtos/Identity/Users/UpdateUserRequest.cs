@@ -6,32 +6,24 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace InmoIT.Shared.Dtos.Identity.Users
 {
     public class UpdateUserRequest
     {
-        [Required]
         public string Id { get; set; }
 
-        [Required]
         public string FirstName { get; set; }
 
-        [Required]
         public string LastName { get; set; }
 
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
 
-        [MinLength(8)]
         public string CurrentPassword { get; set; }
 
-        [MinLength(8)]
-        public string Password { get; set; }
+        public string NewPassword { get; set; }
 
-        [Compare("Password")]
         public string ConfirmPassword { get; set; }
     }
 }

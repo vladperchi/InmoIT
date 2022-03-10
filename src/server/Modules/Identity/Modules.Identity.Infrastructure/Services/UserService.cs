@@ -55,6 +55,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly IJobService _jobService;
         private readonly IMailService _mailService;
         private readonly MailSettings _mailSettings;
+        private readonly ITemplateMailService _templateService;
+        private readonly TemplateMailSettings _templateMailSettings;
         private readonly IExcelService _excelService;
         private readonly ILoggerService _eventLog;
         private readonly ICurrentUser _currentUser;
@@ -69,8 +71,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             ISmsTwilioService smsTwilioService,
             IOptions<SmsTwilioSettings> smsTwilioSettings,
             IJobService jobService,
-            IMailService mailService,
             IOptions<MailSettings> mailSettings,
+            IMailService mailService,
+            IOptions<TemplateMailSettings> templateMailSettings,
+            ITemplateMailService templateService,
             IExcelService excelService,
             ILoggerService eventLog,
             ICurrentUser currentUser,
@@ -84,8 +88,10 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _smsTwilioSettings = smsTwilioSettings.Value;
             _smsTwilioService = smsTwilioService;
             _jobService = jobService;
-            _mailService = mailService;
             _mailSettings = mailSettings.Value;
+            _mailService = mailService;
+            _templateMailSettings = templateMailSettings.Value;
+            _templateService = templateService;
             _excelService = excelService;
             _eventLog = eventLog;
             _currentUser = currentUser;
@@ -221,14 +227,24 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     if (_mailSettings.EnableVerification)
                     {
                         string emailVerificationUri = await GetEmailVerificationUriAsync(user, origin);
-                        var mailRequest = new MailRequest
+                        TemplateRequest templateModel = new TemplateRequest()
                         {
-                            To = user.Email,
-                            Subject = _localizer["Confirm Registration"],
-                            Body = string.Format(_localizer["Please confirm your InmoIT account by <a href='{0}'>clicking here</a>."], emailVerificationUri)
+                            Email = user.Email,
+                            UserName = user.UserName.ToUpper(),
+                            Url = HtmlEncoder.Default.Encode(emailVerificationUri),
+                            Team = _templateMailSettings.TeamName,
+                            TeamUrl = _templateMailSettings.TeamUrl,
+                            Contact = _templateMailSettings.Contact,
+                            SupportUrl = _templateMailSettings.SupportUrl,
+                            SendBy = string.Format(_templateMailSettings.SendBy, user.Email)
                         };
+                        var mailRequest = new MailRequest(
+                            new List<string> { user.Email },
+                            _localizer["Confirm Registration"],
+                            await _templateService.GenerateEmailTemplate("email-confirmation", templateModel));
+
                         _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
-                        messages.Add(_localizer["Please check your Email to verify"]);
+                        messages.Add(_localizer[$"Please check your email account {user.Email} to verify."]);
                     }
 
                     if (_smsTwilioSettings.EnableVerification)
@@ -279,9 +295,9 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 await _userManager.SetPhoneNumberAsync(user, request.PhoneNumber);
             }
 
-            if (request.CurrentPassword != null && request.Password != null)
+            if (request.CurrentPassword != null && request.NewPassword != null)
             {
-                await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.Password);
+                await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
             }
 
             user.Email = request.Email;
@@ -432,17 +448,23 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 throw new IdentityCustomException(_localizer, null);
             }
 
-            string code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            string route = "api/v1/identity/reset-password";
-            var endpointUri = new Uri(string.Concat($"{origin}/", route));
-            string passwordResetUrl = QueryHelpers.AddQueryString(endpointUri.ToString(), "Token", code);
-            var mailRequest = new MailRequest
+            string passwordResetUrl = await GeneratePasswordResetTokenAsync(user, origin);
+            TemplateRequest templateModel = new TemplateRequest()
             {
-                To = request.Email,
-                Subject = _localizer["Reset Password"],
-                Body = string.Format(_localizer["Please reset your password by <a href='{0}'>clicking here</a>."], HtmlEncoder.Default.Encode(passwordResetUrl))
+                Email = user.Email,
+                UserName = user.UserName.ToUpper(),
+                Url = HtmlEncoder.Default.Encode(passwordResetUrl),
+                Team = _templateMailSettings.TeamName,
+                TeamUrl = _templateMailSettings.TeamUrl,
+                Contact = _templateMailSettings.Contact,
+                SupportUrl = _templateMailSettings.SupportUrl,
+                SendBy = string.Format(_templateMailSettings.SendBy, user.Email)
             };
+            var mailRequest = new MailRequest(
+                new List<string> { user.Email },
+                _localizer["Reset Password"],
+                await _templateService.GenerateEmailTemplate("reset-password", templateModel));
+
             _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
             _logger.LogInformation(string.Format(_localizer["Password reset mail sent account email {0} to authorized."], user.Email));
             return await Result.SuccessAsync(_localizer["Password Reset Mail has been sent to your authorized Email."]);
@@ -472,6 +494,22 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
             if (result.Succeeded)
             {
+                TemplateRequest eMailModel = new TemplateRequest()
+                {
+                    Email = user.Email,
+                    UserName = user.UserName.ToUpper(),
+                    Team = _templateMailSettings.TeamName,
+                    TeamUrl = _templateMailSettings.TeamUrl,
+                    Contact = _templateMailSettings.Contact,
+                    SupportUrl = _templateMailSettings.SupportUrl,
+                    SendBy = string.Format(_templateMailSettings.SendBy, user.Email)
+                };
+                var mailRequest = new MailRequest(
+                    new List<string> { user.Email },
+                    _localizer["Change Password"],
+                    await _templateService.GenerateEmailTemplate("change-password", eMailModel));
+
+                _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
                 _logger.LogInformation(string.Format(_localizer["User {0} changed password"], user.Email));
                 return await Result<string>.SuccessAsync(_localizer["Change Password Successful!"]);
             }
@@ -542,14 +580,23 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            string route = "api/v1/identity/confirm-email/";
+            const string route = "api/v1/identity/confirm-email/";
             var endpointUri = new Uri(string.Concat($"{origin}/", route));
-            string verificationUri = QueryHelpers.AddQueryString(endpointUri.ToString(), "userId", user.Id);
-            return QueryHelpers.AddQueryString(verificationUri, "code", code);
+            string verificationUri = QueryHelpers.AddQueryString(endpointUri.ToString(), StringKeys.UserId, user.Id);
+            return QueryHelpers.AddQueryString(verificationUri, StringKeys.Code, code);
         }
 
         private async Task<string> GetPhoneVerificationCodeAsync(InmoUser user) =>
             await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+
+        private async Task<string> GeneratePasswordResetTokenAsync(InmoUser user, string origin)
+        {
+            string code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            const string route = "api/v1/identity/reset-password/";
+            var endpointUri = new Uri(string.Concat($"{origin}/", route));
+            return QueryHelpers.AddQueryString(endpointUri.ToString(), StringKeys.Token, code);
+        }
 
         private async Task<string> GenerateFileName(int length) =>
             await Utilities.GenerateCode("S", length);
