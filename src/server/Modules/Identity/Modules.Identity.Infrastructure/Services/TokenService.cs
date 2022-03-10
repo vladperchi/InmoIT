@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -28,9 +27,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using InmoIT.Modules.Identity.Infrastructure.Extensions;
-using static InmoIT.Shared.Core.Constants.PermissionsConstant;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -40,7 +37,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         private readonly RoleManager<InmoRole> _roleManager;
         private readonly IStringLocalizer<TokenService> _localizer;
         private readonly ILogger<TokenService> _logger;
-        private readonly IDiagnosticContext _diagnosticContext;
         private readonly SmsTwilioSettings _smsTwilioSettings;
         private readonly MailSettings _mailSettings;
         private readonly JwtSettings _config;
@@ -53,7 +49,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             IOptions<JwtSettings> config,
             IStringLocalizer<TokenService> localizer,
             ILogger<TokenService> logger,
-            IDiagnosticContext diagnosticContext,
             IOptions<SmsTwilioSettings> smsTwilioSettings,
             IOptions<MailSettings> mailSettings,
             ILoggerService eventLog,
@@ -63,7 +58,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             _roleManager = roleManager;
             _localizer = localizer;
             _logger = logger;
-            _diagnosticContext = diagnosticContext;
             _smsTwilioSettings = smsTwilioSettings.Value;
             _mailSettings = mailSettings.Value;
             _config = config.Value;
@@ -133,7 +127,8 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             if (result.Succeeded)
             {
                 var response = new TokenUserResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
-                _logger.LogInformation($"{user.Email}||{user.Id}||{response.Token}||{response.RefreshToken}||{response.RefreshTokenExpiryTime}");
+                string shortToken = response.Token.Substring(response.Token.LastIndexOf("."));
+                _logger.LogInformation($"User:{user.Email}::Id:{user.Id}::Token[..{shortToken}]Sensitive Information::Refresh:[{response.RefreshToken}]::ExpiryTime:[{response.RefreshTokenExpiryTime}]");
                 return await Result<TokenUserResponse>.SuccessAsync(response);
             }
             else
@@ -190,8 +185,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             }
 
             var token = new JwtSecurityToken(
-               issuer: _config.Issuer,
-               audience: _config.Audience,
                claims: claims,
                expires: DateTime.UtcNow.AddMinutes(_config.TokenExpirationInMinutes),
                signingCredentials: signingCredentials);
