@@ -58,7 +58,7 @@ Modular Architecture is a software design in which a monolith is made better and
 ## Technology Stack
 
 - API - ASP.NET Core 5.0 WebAPI
-- Data Access - [Entity Framework Core 5.0](https://docs.microsoft.com/en-us/ef/core/)
+- Data Access - [Entity Framework Core 5.0][coredownload-url]
 - DB Providers - MSSQL SERVER
 
 ## Features & Plus
@@ -116,11 +116,11 @@ Clone this repository to your local machine.
 
 ## Prerequisites to run API
 
-1. Install the latest [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
+1. Install the latest [.NET 5 SDK][dotnetdownload-url]
 2. Install the latest DOTNET & EF CLI Tools by using this command `dotnet tool install --global dotnet-ef`
 3. Install the latest version of Visual Studio IDE 2019, preferably Visual Studio IDE 2022 (v17.0.0 and above) OR Visual Studio Code
 4. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
-5. As for quick DB Management, me love [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15)
+5. As for quick DB Management, me love [Azure Data Studio][azuredatastudio-url]
 
 ## Running the API
 
@@ -141,7 +141,7 @@ Clone this repository to your local machine.
 
 You can use these credentials to generate JWT tokens in the `api/identity/tokens` endpoint.
 
-## Docker in Windows
+<!-- ## Docker in Windows
 
 - Install Docker on Windows via `https://docs.docker.com/docker-for-windows/install/`
 - Open up Powershell on Windows and run the following
@@ -154,7 +154,7 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
   - `docker-compose -f 'docker-compose.yml' up --build`
 - This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
-- Browse to https://localhost:5005/ to use your version of InmoIT!
+- Browse to https://localhost:5002/ to use your version of InmoIT! -->
 
 ## Core Developer Contact
 
@@ -168,6 +168,9 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 
 This project is licensed with the [MIT License][license-url].
 
+[coredownload-url]: https://docs.microsoft.com/en-us/ef/core/
+[azuredatastudio-url]: https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15
+[dotnetdownload-url]: https://dotnet.microsoft.com/download/dotnet/5.0
 [structure-url]: https://github.com/vladperchi/InmoIT/blob/master/docs/Md/api-project-structure.md
 [migrations-url]: https://github.com/vladperchi/InmoIT/blob/master/docs/Md/api-migrations-guide.md
 [build-shield]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fvladperchi%2FInmoIT%2Fbadge&style=flat-square

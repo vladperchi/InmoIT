@@ -17,9 +17,9 @@ Next, set either to true in `PersistenceSettings`.
 ## Steps
 
 - Navigate to the Host folder and set the API as the startup project.
-- Open package manager console window and select the default project to perform the migration, which, in general, will always be in Modules.<Project Name>.Infrastructure.
-- Navigate to each of the Infrastructure project per module and shared(Shared.Infrastructure)
-- Run the EF commands. You can find the EF Commands below in the next section with additional steps ;)
+- Open package manager console window and select the default project to perform the migration, which, in general, will always be in Modules.`Project-Name`.Infrastructure.
+- Navigate to each of the Infrastructure project per module and shared (Shared.Infrastructure)
+- Run the EF commands. You can find the EF Commands below in the next section with additional steps
 - That's it!
 
 ### Application
@@ -57,7 +57,7 @@ Navigate terminal to Modules.Document.Infrastructure and run the following.
 Navigate terminal to Modules.Operation.Infrastructure and run the following.
 
 - `Add-Migration Initial -context OperationDbContext -o Persistence/Migrations/`
-  
+
 ### Accounting
 
 Navigate terminal to Modules.Accounting.Infrastructure and run the following.
