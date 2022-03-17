@@ -77,17 +77,13 @@ Modular Architecture is a software design in which a monolith is made better and
   <summary>Click to See More!</summary>
 - [x] Custom API Response
 - [x] Custom Errors
-- [x] Serilog
-  - [x] Sinks - File
-  - [x] Seq
+- [x] Serilog 
 - [x] In-Memory Database
 - [x] CQRS using MediatR
 - [x] Middlewares
 - [x] Paginated API Responses
 - [x] Specification Pattern
-- [x] Default Seeding
-  - [x] Users
-  - [x] Roles
+- [x] Default Seeding 
 - [x] Refresh Tokens
 - [x] Claims-Based Authorization
 - [x] JWT Authentication
