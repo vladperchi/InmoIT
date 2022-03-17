@@ -72,6 +72,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Data Seeding
 - [x] Validation
 - [x] AutoMapper
+- [x] Code Cleanup
 
 <details>
   <summary>Click to See More!</summary>
