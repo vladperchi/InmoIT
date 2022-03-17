@@ -158,8 +158,6 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 
 ## Core Developer Contact
 
-## Vladimir P. CHibás
-
 - Twitter - [codewithvladperchi][twitter-url]
 - Linkedin - [Vladimir][linkedin-url]
 - GitHub - [vladperchi][github-url]
