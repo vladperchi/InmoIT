@@ -154,7 +154,7 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
   - `docker-compose -f 'docker-compose.yml' up --build`
 - This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
-- Browse to https://localhost:5002/ to use your version of InmoIT! -->
+- Browse to https://localhost:5005/ to use your version of InmoIT! -->
 
 ## Core Developer Contact
 
@@ -164,17 +164,31 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 - Linkedin - [Vladimir][linkedin-url]
 - GitHub - [vladperchi][github-url]
 
-## Contributors
+<!-- ## Contributors
 
 Submit your PR and join the elite list!
 
 <a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
-</a>
+</a> -->
 
 ## License
 
 This project is licensed with the [MIT License][license-url].
+
+## Support
+
+Has this Project helped you learn something New? or Helped you at work?
+Here are a few ways by which you can support.
+
+- Leave a star! :star:
+- Recommend this awesome project to your colleagues
+- Do consider endorsing me on LinkedIn for ASP.NET Core - [Connect via LinkedIn][linkedin-url]
+- Or, If you want to support this project in the long run, [consider buying me a coffee][buymeacoffee-url]!
+
+<br>
+
+<a href="https://www.buymeacoffee.com/codewithvlad"><img width="250" alt="black-button" src="https://user-images.githubusercontent.com/31455818/138557309-27587d91-7b82-4cab-96bb-90f4f4e600f1.png" ></a>
 
 [coredownload-url]: https://docs.microsoft.com/en-us/ef/core/
 [azuredatastudio-url]: https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15
@@ -199,3 +213,4 @@ This project is licensed with the [MIT License][license-url].
 [blog-url]: https://www.codewithvladperchi.com
 [facebook-url]: https://www.facebook.com/codewithvladperchi
 [twitter-url]: https://www.twitter.com/codewithvlad
+[buymeacoffee-url]: https://www.buymeacoffee.com/codewithvlad
