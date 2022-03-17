@@ -61,43 +61,9 @@ Modular Architecture is a software design in which a monolith is made better and
 - Data Access - [Entity Framework Core 5.0][coredownload-url]
 - DB Providers - MSSQL SERVER
 
-## Features & Plus
+## Features & Much More
 
-- [x] Modular Architecture
-- [x] NET 5.0
-- [x] Service-Based
-- [x] Controller Registration
-- [x] Entity Framework Core
-- [x] Auto DB Migrations
-- [x] Data Seeding
-- [x] CQRS using MediatR
-- [x] Validation
-- [x] In-Memory Database
-- [x] AutoMapper
-- [x] Custom API Response
-- [x] Custom Errors
-- [x] Middlewares
-- [x] Serilog (Sinks - File, Seq)
-- [x] Paginated API Responses
-- [x] Specification Pattern
-- [x] Default User & Role Seeding
-- [x] Refresh Tokens
-- [x] Claims-Based Authorization
-- [x] JWT Authentication
-- [x] HTTP Interceptor
-- [x] CRUD Operations
-- [x] Custom EventLogs
-- [x] Swagger
-- [x] API Versioning
-- [x] Hangfire Implementation
-- [x] Email Service
-- [x] SMS Service
-- [x] File Upload
-- [x] Export Excel
-- [ ] Localization
-- [ ] Document
-- [ ] Dashboard
-- [ ] Docker Support
+All the completed and future features can be seen [here!][features-url]
 
 ## Project Structure
 
@@ -191,6 +157,7 @@ Here are a few ways by which you can support.
 [coredownload-url]: https://docs.microsoft.com/en-us/ef/core/
 [azuredatastudio-url]: https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15
 [dotnetdownload-url]: https://dotnet.microsoft.com/download/dotnet/5.0
+[features-url]: https://github.com/vladperchi/InmoIT/blob/master/docs/Md/api-project-feature.md
 [structure-url]: https://github.com/vladperchi/InmoIT/blob/master/docs/Md/api-project-structure.md
 [migrations-url]: https://github.com/vladperchi/InmoIT/blob/master/docs/Md/api-migrations-guide.md
 [build-shield]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fvladperchi%2FInmoIT%2Fbadge&style=flat-square
