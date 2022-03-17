@@ -70,7 +70,6 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Entity Framework Core
 - [x] Auto DB Migrations
 - [x] Data Seeding
-- [x] Advanced Serilog
 - [x] CQRS using MediatR
 - [x] Validation
 - [x] In-Memory Database
@@ -78,6 +77,8 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Custom API Response
 - [x] Custom Errors
 - [x] Middlewares
+- [x] Serilog Advanced
+- [x] Seq Support
 - [x] Paginated API Responses
 - [x] Specification Pattern
 - [x] Default User & Role Seeding
@@ -89,7 +90,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Custom EventLogs
 - [x] Swagger
 - [x] API Versioning
-- [x] Hangfire
+- [x] Hangfire Customized
 - [x] Email Service
 - [x] SMS Service
 - [x] File Upload
