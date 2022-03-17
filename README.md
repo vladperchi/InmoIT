@@ -61,7 +61,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - Data Access - [Entity Framework Core 5.0][coredownload-url]
 - DB Providers - MSSQL SERVER
 
-## Features
+## Features & Plus
 
 - [x] Modular Architecture
 - [x] NET 5.0
@@ -146,11 +146,21 @@ Clone this repository to your local machine.
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
 7. Browse to https://localhost:5001/ to Api InmoIT!
 
-## Default Credentials
+## Default Roles & Credentials
 
-- `SuperAdmin` - User: vlaperchiwon@inmoit.com / Pass: @SuperAdminP4$$w0rd#
-- `Admin` - User: camilosoto@inmoit.com / Pass: @AdminP4$$w0rd#
-- `Staff` - User: davidvanegas@inmoit.com / Pass: @BasicP4$$w0rd#
+As soon you build and run your application, default users and roles get added to the database.
+
+Default Roles are as follows.
+
+- `SuperAdmin`
+- `Admin`
+- `Staff`
+
+Here are the credentials for the default users.
+
+- Email - vlaperchiwon@inmoit.com / Pass: @SuperAdminP4$$w0rd#
+- Email - camilosoto@inmoit.com / Pass: @AdminP4$$w0rd#
+- Email - davidvanegas@inmoit.com / Pass: @BasicP4$$w0rd#
 
 You can use these credentials to generate JWT tokens in the `api/identity/tokens` endpoint.
 
