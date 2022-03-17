@@ -77,8 +77,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Custom API Response
 - [x] Custom Errors
 - [x] Middlewares
-- [x] Serilog Advanced
-- [x] Seq Support
+- [x] Serilog (Sinks - File, Seq)
 - [x] Paginated API Responses
 - [x] Specification Pattern
 - [x] Default User & Role Seeding
@@ -90,7 +89,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Custom EventLogs
 - [x] Swagger
 - [x] API Versioning
-- [x] Hangfire Customized
+- [x] Hangfire Implementation
 - [x] Email Service
 - [x] SMS Service
 - [x] File Upload
@@ -159,11 +158,19 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 
 ## Core Developer Contact
 
-### Vladimir P. CHibás
+## Vladimir P. CHibás
 
 - Twitter - [codewithvladperchi][twitter-url]
 - Linkedin - [Vladimir][linkedin-url]
 - GitHub - [vladperchi][github-url]
+
+## Contributors
+
+Submit your PR and join the elite list!
+
+<a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
+</a>
 
 ## License
 
