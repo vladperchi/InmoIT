@@ -98,7 +98,8 @@ Modular Architecture is a software design in which a monolith is made better and
 - [x] Custom EventLogs
 - [x] Swagger
 - [x] API Versioning
-- [x] Hangfire Implementation
+- [x] Hangfire Support
+- [x] Hangfire Secured Dashboard
 - [x] Email Service
 - [x] SMS Service
 - [x] File Upload
@@ -121,19 +122,26 @@ Modular Architecture is a software design in which a monolith is made better and
 - API - `In Progress`
 - Docker - `In Progress`
 
-## Getting Started
-
-Inmo IT is currently under development.
-
-Clone this repository to your local machine.
-
-## Prerequisites to run API
+## Prerequisites
 
 1. Install the latest [.NET 5 SDK][dotnetdownload-url]
 2. Install the latest DOTNET & EF CLI Tools by using this command `dotnet tool install --global dotnet-ef`
 3. Install the latest version of Visual Studio IDE 2019, preferably Visual Studio IDE 2022 (v17.0.0 and above) OR Visual Studio Code
 4. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
 5. As for quick DB Management, me love [Azure Data Studio][azuredatastudio-url]
+
+# Getting Started
+
+To get started, here are the avaiable three options: download, clone or fork.
+
+- Download ZIP.
+- Open GitBash, paste `https://github.com/vladperchi/InmoIT.git` and enter for clone.
+
+You would probably need to take this approach if you want to keep your source code upto date with the latest changes.
+
+- Make a fork of this repository in your Github account. Use this if you want to always keep your version up-to date with the latest changes.
+- Create your new `InmoIT` personal project by cloning the forked repository on your personal github.
+- Setup an upstream remote on your personal project pointing to your forked repository using command `git remote add upstream https://github.com/{githubuseraccount}/InmoIT` and `git remote set-url --push upstream DISABLE`
 
 ## Running the API
 
@@ -179,19 +187,25 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
 - Browse to https://localhost:5005/ to use your version of InmoIT! -->
 
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, create, and inspire. Any contribution you make is **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/IncredibleFeature`)
+3. Commit your Changes (`git commit -m 'Add some IncredibleFeature'`)
+4. Push to the Branch (`git push origin feature/IncredibleFeature`)
+5. Open a Pull Request
+
+<a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
+</a>
+
 ## Core Developer Contact
 
 - Twitter - [codewithvladperchi][twitter-url]
 - Linkedin - [Vladimir][linkedin-url]
 - GitHub - [vladperchi][github-url]
-
-<!-- ## Contributors
-
-Submit your PR and join the elite list!
-
-<a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
-</a> -->
 
 ## License
 
