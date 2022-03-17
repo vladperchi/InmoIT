@@ -61,9 +61,53 @@ Modular Architecture is a software design in which a monolith is made better and
 - Data Access - [Entity Framework Core 5.0][coredownload-url]
 - DB Providers - MSSQL SERVER
 
-## Features & Much More
+## Features
 
-All the completed and future features can be seen [here!][features-url]
+- [x] Modular Architecture
+- [x] NET 5.0
+- [x] Service-Based
+- [x] Controller Registration
+- [x] Entity Framework Core
+- [x] Auto DB Migrations
+- [x] Data Seeding
+- [x] Validation
+- [x] AutoMapper
+
+<details>
+  <summary>Click to See More!</summary>
+- [x] Custom API Response
+- [x] Custom Errors
+- [x] Serilog
+  - [x] Sinks - File
+  - [x] Seq
+- [x] In-Memory Database
+- [x] CQRS using MediatR
+- [x] Middlewares
+- [x] Paginated API Responses
+- [x] Specification Pattern
+- [x] Default Seeding
+  - [x] Users
+  - [x] Roles
+- [x] Refresh Tokens
+- [x] Claims-Based Authorization
+- [x] JWT Authentication
+- [x] HTTP Interceptor
+- [x] CRUD Operations
+- [x] Custom EventLogs
+- [x] Swagger
+- [x] API Versioning
+- [x] Hangfire Implementation
+- [x] Email Service
+- [x] SMS Service
+- [x] File Upload
+- [x] Export Excel
+- [ ] Localization
+- [ ] Document
+- [ ] Dashboard
+- [ ] Docker Support
+</details>
+
+<!--All the completed and future features can be [seen here!][features-url]-->
 
 ## Project Structure
 
