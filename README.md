@@ -197,10 +197,6 @@ Contributions are what make the open source community such an amazing place to l
 4. Push to the Branch (`git push origin feature/IncredibleFeature`)
 5. Open a Pull Request
 
-<a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
-</a>
-
 ## Core Developer Contact
 
 - Twitter - [codewithvladperchi][twitter-url]
