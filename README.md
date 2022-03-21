@@ -130,7 +130,7 @@ Modular Architecture is a software design in which a monolith is made better and
 4. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
 5. As for quick DB Management, me love [Azure Data Studio][azuredatastudio-url]
 
-# Getting Started
+## Getting Started
 
 To get started, here are the avaiable three options: download, clone or fork.
 
