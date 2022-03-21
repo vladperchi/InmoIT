@@ -197,7 +197,7 @@ Join the elite list!
 2. Create your Feature Branch (`git checkout -b feature/IncredibleFeature`)
 3. Commit your Changes (`git commit -m 'Add some IncredibleFeature'`)
 4. Push to the Branch (`git push origin feature/IncredibleFeature`)
-5. Open a [Pull Request][pr-url].
+5. Open a [Pull Request][pr-url]. ELIMINAR
 
 <a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
