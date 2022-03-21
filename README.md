@@ -197,7 +197,7 @@ Join the elite list!
 2. Create your Feature Branch (`git checkout -b feature/IncredibleFeature`)
 3. Commit your Changes (`git commit -m 'Add some IncredibleFeature'`)
 4. Push to the Branch (`git push origin feature/IncredibleFeature`)
-5. Open a [Pull Request][pr-url]. ELIMINAR
+5. Open a Pull Request.
 
 <a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
@@ -223,11 +223,10 @@ Here are a few ways by which you can support.
 - Do consider endorsing me on LinkedIn for ASP.NET Core - [Connect via LinkedIn][linkedin-url]
 - Or, If you want to support this project in the long run, [consider buying me a coffee][buymeacoffee-url]!
 
-<br>
+<br />
 
 <a href="https://www.buymeacoffee.com/codewithvlad"><img width="250" alt="black-button" src="https://user-images.githubusercontent.com/31455818/138557309-27587d91-7b82-4cab-96bb-90f4f4e600f1.png" ></a>
 
-[pr-url]: https://github.com/vladperchi/InmoIT/blob/master/.github/PULL_REQUEST_TEMPLATE/pull_request_template.md
 [coredownload-url]: https://docs.microsoft.com/en-us/ef/core/
 [azuredatastudio-url]: https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15
 [dotnetdownload-url]: https://dotnet.microsoft.com/download/dotnet/5.0
