@@ -191,11 +191,17 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 
 Contributions are what make the open source community such an amazing place to learn, create, and inspire. Any contribution you make is **greatly appreciated**.
 
+Join the elite list!
+
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/IncredibleFeature`)
 3. Commit your Changes (`git commit -m 'Add some IncredibleFeature'`)
 4. Push to the Branch (`git push origin feature/IncredibleFeature`)
 5. Open a Pull Request
+
+<a href="https://github.com/vladperchi/InmoIT/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=vladperchi/InmoIT" />
+</a>
 
 ## Core Developer Contact
 
