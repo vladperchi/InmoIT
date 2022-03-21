@@ -135,7 +135,7 @@ Modular Architecture is a software design in which a monolith is made better and
 To get started, here are the avaiable three options: download, clone or fork.
 
 - Download ZIP.
-- Open GitBash, paste `https://github.com/vladperchi/InmoIT.git` and enter for clone.
+- Open GitBash, command `git clone`, paste `https://github.com/vladperchi/InmoIT.git` and enter for clone.
 
 You would probably need to take this approach if you want to keep your source code upto date with the latest changes.
 
