@@ -28,6 +28,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 using InmoIT.Modules.Identity.Infrastructure.Extensions;
+using InmoIT.Shared.Core.Constants;
 
 namespace InmoIT.Modules.Identity.Infrastructure.Services
 {
@@ -159,10 +160,11 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
             {
                 new(ClaimTypes.NameIdentifier, user.Id),
                 new(ClaimTypes.Email, user.Email),
-                new("fullName", $"{user.FirstName} {user.LastName}"),
+                new(ClaimTypes.MobilePhone, user.PhoneNumber),
+                new(ClaimConstant.Fullname, $"{user.FirstName} {user.LastName}"),
                 new(ClaimTypes.Name, user.FirstName),
                 new(ClaimTypes.Surname, user.LastName),
-                new("ipAddress", ipAddress)
+                new(ClaimConstant.IpAddress, ipAddress)
             }
             .Union(userClaims)
             .Union(roleClaims)

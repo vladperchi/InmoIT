@@ -242,7 +242,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                             new List<string> { user.Email },
                             _localizer["Confirm Registration"],
                             await _templateService.GenerateEmailTemplate("email-confirmation", templateModel));
-
                         _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
                         messages.Add(_localizer[$"Please check your email account {user.Email} to verify."]);
                     }
@@ -464,10 +463,9 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 new List<string> { user.Email },
                 _localizer["Reset Password"],
                 await _templateService.GenerateEmailTemplate("reset-password", templateModel));
-
             _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
             _logger.LogInformation(string.Format(_localizer["Password reset mail sent account email {0} to authorized."], user.Email));
-            return await Result.SuccessAsync(_localizer["Password Reset Mail has been sent to your authorized Email."]);
+            return await Result.SuccessAsync(_localizer["Password reset email has been sent."]);
         }
 
         public async Task<IResult> ResetPasswordAsync(ResetPasswordRequest request)
@@ -508,7 +506,6 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                     new List<string> { user.Email },
                     _localizer["Change Password"],
                     await _templateService.GenerateEmailTemplate("change-password", eMailModel));
-
                 _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
                 _logger.LogInformation(string.Format(_localizer["User {0} changed password"], user.Email));
                 return await Result<string>.SuccessAsync(_localizer["Change Password Successful!"]);

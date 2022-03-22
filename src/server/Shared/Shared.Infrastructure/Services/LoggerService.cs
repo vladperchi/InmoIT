@@ -76,11 +76,7 @@ namespace InmoIT.Shared.Infrastructure.Services
             }
 
             var eventLogList = await queryable.ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            if (eventLogList == null)
-            {
-                throw new EventLogListEmptyException(_localizer);
-            }
-
+            _ = eventLogList ?? throw new EventLogListEmptyException(_localizer);
             return eventLogList;
         }
 
