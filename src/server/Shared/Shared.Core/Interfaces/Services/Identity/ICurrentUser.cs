@@ -28,6 +28,10 @@ namespace InmoIT.Shared.Core.Interfaces.Services.Identity
 
         string GetuserSurname();
 
+        string GetFullName();
+
+        string GetImageUrl();
+
         bool IsAuthenticated();
 
         bool IsInRole(string role);
