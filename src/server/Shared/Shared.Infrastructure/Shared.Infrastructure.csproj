@@ -30,7 +30,10 @@
    <PackageReference Include="EPPlus" Version="5.8.4" />
    <PackageReference Include="FluentValidation" Version="10.3.6" />
    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
-   <PackageReference Include="Hangfire" Version="1.7.27" />
+   <PackageReference Include="Hangfire" Version="1.7.28" />
+   <PackageReference Include="Hangfire.Console" Version="1.4.2" />
+   <PackageReference Include="Hangfire.Console.Extensions" Version="1.0.5" />
+   <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="5.0.0" />
    <PackageReference Include="MailKit" Version="3.0.0" />
    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.13" />
@@ -43,6 +46,7 @@
      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
    </PackageReference>
    <PackageReference Include="MimeKit" Version="3.0.0" />
+   <PackageReference Include="RazorEngineCore" Version="2022.1.2" />
    <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
      <PrivateAssets>all</PrivateAssets>
      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
