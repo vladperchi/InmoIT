@@ -7,11 +7,8 @@
         <member name="T:InmoIT.Shared.Infrastructure.Controllers.InternalControllerFeatureProvider">
             <inheritdoc cref = "T:Microsoft.AspNetCore.Mvc.Controllers.ControllerFeatureProvider" />
         </member>
-        <member name="T:InmoIT.Shared.Infrastructure.Filters.HangfireAuthorizationFilter">
+        <member name="T:InmoIT.Shared.Infrastructure.HangfireJobs.HangfireAuthorizationFilter">
             <inheritdoc cref = "T:Hangfire.Dashboard.IDashboardAuthorizationFilter" />
-        </member>
-        <member name="T:InmoIT.Shared.Infrastructure.Middlewares.ExceptionHandlerMiddleware">
-            <inheritdoc cref = "T:Microsoft.AspNetCore.Http.IMiddleware" />
         </member>
         <member name="T:InmoIT.Shared.Infrastructure.Permissions.HavePermission">
             <inheritdoc cref = "T:Microsoft.AspNetCore.Authorization.AuthorizeAttribute" />
