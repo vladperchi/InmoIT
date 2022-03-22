@@ -15,5 +15,7 @@ namespace InmoIT.Shared.Core.Settings
         public string BlazorUrl { get; set; }
 
         public string ReactUrl { get; set; }
+
+        public string VueUrl { get; set; }
     }
 }
