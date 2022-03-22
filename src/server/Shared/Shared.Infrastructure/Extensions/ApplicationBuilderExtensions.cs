@@ -9,8 +9,6 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 using InmoIT.Shared.Core.Interfaces.Services;
-using InmoIT.Shared.Infrastructure.Middlewares;
-using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
