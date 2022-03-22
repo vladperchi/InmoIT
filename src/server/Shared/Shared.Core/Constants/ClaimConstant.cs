@@ -11,5 +11,11 @@ namespace InmoIT.Shared.Core.Constants
     public static class ClaimConstant
     {
         public const string Permission = "Permission";
+
+        public const string IpAddress = "IpAddress";
+
+        public const string Fullname = "FullName";
+
+        public const string ImageUrl = "ImageUrl";
     }
 }
