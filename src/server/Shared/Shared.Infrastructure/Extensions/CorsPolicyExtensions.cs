@@ -11,11 +11,15 @@ using System;
 using InmoIT.Shared.Core.Extensions;
 using InmoIT.Shared.Core.Settings;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace InmoIT.Shared.Infrastructure.Extensions
 {
     public static class CorsPolicyExtensions
     {
+        private const string CorsPolicy = nameof(CorsPolicy);
+
         internal static IServiceCollection AddCorsPolicy(this IServiceCollection services)
         {
             var corsSettings = services.GetOptions<CorsSettings>(nameof(CorsSettings));
@@ -26,6 +30,8 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 originUrls.AddRange(corsSettings.BlazorUrl.Split('|', StringSplitOptions.RemoveEmptyEntries));
             if (corsSettings.ReactUrl is not null)
                 originUrls.AddRange(corsSettings.ReactUrl.Split('|', StringSplitOptions.RemoveEmptyEntries));
+            if (corsSettings.VueUrl is not null)
+                originUrls.AddRange(corsSettings.VueUrl.Split('|', StringSplitOptions.RemoveEmptyEntries));
             return services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
@@ -34,5 +40,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 });
             });
         }
+
+        internal static IApplicationBuilder UseCorsPolicy(this IApplicationBuilder app) => app.UseCors(CorsPolicy);
     }
 }
