@@ -16,14 +16,14 @@ using InmoIT.Shared.Core.Settings;
 using InmoIT.Shared.Infrastructure.Controllers;
 using InmoIT.Shared.Infrastructure.Logging;
 using InmoIT.Shared.Infrastructure.Interceptors;
-using InmoIT.Shared.Infrastructure.Middlewares;
 using InmoIT.Shared.Infrastructure.Persistence;
 using FluentValidation;
-using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
+using InmoIT.Shared.Infrastructure.Persistence.Connection;
+using InmoIT.Shared.Core.Interfaces.Persistence;
 
 [assembly: InternalsVisibleTo("Api")]
 
@@ -36,6 +36,8 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddPersistenceSettings(config);
+            services.AddTransient<IConnectionDbSure, ConnectionDbSure>();
+            services.AddTransient<IConnectionDbValidator, ConnectionDbValidator>();
             services
                 .AddDatabaseContext<ApplicationDbContext>()
                 .AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
@@ -59,36 +61,33 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                 });
             services.AddTransient<IValidatorInterceptor, ValidatorInterceptor>();
             services.AddApplicationLayer(config);
+            services.AddHangfireJobs(config);
+            services.AddExceptionMiddleware();
+            services.AddSwaggerDocumentation();
+            services.AddCorsPolicy();
+            services.AddApplicationSettings(config);
             services.AddLocalization(options =>
             {
                 options.ResourcesPath = "Resources";
             });
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddHangfireServer();
-            services.AddScoped<ExceptionHandlerMiddleware>();
-            services.AddSwaggerDocumentation();
-            services.AddCorsPolicy();
-            services.AddApplicationSettings(config);
             services.AddDockerSettings(config);
             return services;
         }
 
         private static IServiceCollection AddPersistenceSettings(this IServiceCollection services, IConfiguration config)
         {
-            return services
-                .Configure<PersistenceSettings>(config.GetSection(nameof(PersistenceSettings)));
+            return services.Configure<PersistenceSettings>(config.GetSection(nameof(PersistenceSettings)));
         }
 
         private static IServiceCollection AddApplicationSettings(this IServiceCollection services, IConfiguration config)
         {
-            return services
-                .Configure<ApplicationSettings>(config.GetSection(nameof(ApplicationSettings)));
+            return services.Configure<ApplicationSettings>(config.GetSection(nameof(ApplicationSettings)));
         }
 
         private static IServiceCollection AddDockerSettings(this IServiceCollection services, IConfiguration config)
         {
-            return services
-                .Configure<ContainerSettings>(config.GetSection(nameof(ContainerSettings)));
+            return services.Configure<ContainerSettings>(config.GetSection(nameof(ContainerSettings)));
         }
     }
 }
