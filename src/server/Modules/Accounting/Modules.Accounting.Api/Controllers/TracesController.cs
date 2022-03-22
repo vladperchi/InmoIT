@@ -24,7 +24,7 @@ namespace InmoIT.Modules.Accounting.Api.Controllers
         [HavePermission(PermissionsConstant.Traces.ViewAll)]
         [SwaggerOperation(
             Summary = "Get Property Trace List.",
-            Description = "List all customers in the database. This can only be done by the registered user",
+            Description = "List all properties traces in the database. This can only be done by the registered user",
             OperationId = "GetAllAsync")]
         [SwaggerResponse(200, "Return property trace list.")]
         [SwaggerResponse(204, "Property trace list not content.")]

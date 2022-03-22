@@ -35,6 +35,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             OperationId = "GetTokenAsync")]
         [SwaggerResponse(200, "Return token user.")]
         [SwaggerResponse(404, "User was not found.")]
+        [SwaggerResponse(401, "No authorization to access.")]
         public async Task<IActionResult> GetTokenAsync(TokenUserRequest request)
         {
             var response = await _tokenService.GetTokenAsync(request, IPAddressGenerate());
@@ -49,6 +50,7 @@ namespace InmoIT.Modules.Identity.Api.Controllers
             OperationId = "RefreshTokenAsync")]
         [SwaggerResponse(200, "Return recovery token user.")]
         [SwaggerResponse(404, "User was not found.")]
+        [SwaggerResponse(401, "No authorization to access.")]
         public async Task<ActionResult> RefreshAsync(RefreshTokenUserRequest request)
         {
             var response = await _tokenService.RefreshTokenAsync(request, IPAddressGenerate());

@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using InmoIT.Modules.Identity.Core.Abstractions;
 using InmoIT.Modules.Identity.Infrastructure.Extensions;
 using InmoIT.Shared.Core.Constants;
-using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Dtos.Identity.Users;
 using InmoIT.Shared.Infrastructure.Permissions;
 using Microsoft.AspNetCore.Authorization;
