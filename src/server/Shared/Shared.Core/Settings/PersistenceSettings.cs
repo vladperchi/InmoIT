@@ -14,6 +14,8 @@ namespace InmoIT.Shared.Core.Settings
 
         public bool UsePostgres { get; set; }
 
+        public bool UseOracle { get; set; }
+
         public bool UseMySql { get; set; }
 
         public PersistenceConnectionStrings ConnectionStrings { get; set; }
@@ -24,7 +26,9 @@ namespace InmoIT.Shared.Core.Settings
 
             public string Postgres { get; set; }
 
-            public string MySql { get; set; }
+            public string Oracle { get; set; }
+
+            public string MYSQL { get; set; }
         }
 
         // The most used today
