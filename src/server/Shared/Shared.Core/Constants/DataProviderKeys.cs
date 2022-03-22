@@ -11,5 +11,8 @@ namespace InmoIT.Shared.Core.Constants
     public static class DataProviderKeys
     {
         public const string SqlServer = "mssql";
+        public const string Npgsql = "postgresql";
+        public const string Oracle = "oracle";
+        public const string MySql = "mysql";
     }
 }

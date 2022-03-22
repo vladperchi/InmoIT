@@ -13,5 +13,6 @@ namespace InmoIT.Shared.Core.Constants
         public const string Code = "code";
         public const string UserId = "userId";
         public const string Token = "Token";
+        public const string HiddenValue = "*******";
     }
 }
