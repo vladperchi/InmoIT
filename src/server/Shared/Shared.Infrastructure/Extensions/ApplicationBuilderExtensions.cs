@@ -10,7 +10,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using InmoIT.Shared.Core.Interfaces.Services;
 using InmoIT.Shared.Infrastructure.Middlewares;
-using InmoIT.Shared.Infrastructure.Filters;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +27,7 @@ namespace InmoIT.Shared.Infrastructure.Extensions
     {
         public static IApplicationBuilder UseSharedInfrastructure(this IApplicationBuilder app, IConfiguration config)
         {
-            app.UseMiddleware<ExceptionHandlerMiddleware>();
+            app.UseExceptionMiddleware();
             app.UseSecurityHeaders(config);
             app.UseRouting();
 
@@ -53,14 +52,10 @@ namespace InmoIT.Shared.Infrastructure.Extensions
                     diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
                 };
             });
-            app.UseCors("CorsPolicy");
+            app.UseCorsPolicy();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseHangfireDashboard("/jobs", new DashboardOptions
-            {
-                DashboardTitle = "InmoIT Jobs",
-                Authorization = new[] { new HangfireAuthorizationFilter() },
-            });
+            app.UseHangfireDashboard(config);
             app.UseSwaggerDocumentation(config);
             app.UseEndpoints(endpoints =>
             {
