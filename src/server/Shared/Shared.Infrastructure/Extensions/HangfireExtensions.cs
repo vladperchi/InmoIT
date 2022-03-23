@@ -33,13 +33,22 @@ namespace InmoIT.Shared.Infrastructure.Extensions
             services.AddHangfireConsoleExtensions();
 
             var storageSettings = config.GetSection("HangfireSettings:Storage").Get<HangfireStorageSettings>();
-            if (string.IsNullOrEmpty(storageSettings.StorageProvider)) throw new Exception("Hangfire Storage Provider is not configured.");
-            if (string.IsNullOrEmpty(storageSettings.ConnectionString)) throw new Exception("Hangfire ConnectionString is not configured.");
+            if (string.IsNullOrEmpty(storageSettings.StorageProvider))
+            {
+                throw new Exception("Hangfire Storage Provider is not configured.");
+            }
+
+            if (string.IsNullOrEmpty(storageSettings.ConnectionString))
+            {
+                throw new Exception("Hangfire ConnectionString is not configured.");
+            }
+
             _logger.Information($"Hangfire Current Storage Provider : {storageSettings.StorageProvider.ToUpper()}");
             _logger.Information($"{storageSettings.Documentation}");
 
             services.AddSingleton<JobActivator, HangfireJobActivator>();
-            services.AddHangfire((provider, hangfireConfig) => hangfireConfig
+            services
+                .AddHangfire((provider, hangfireConfig) => hangfireConfig
                 .UseDatabase(storageSettings.StorageProvider, storageSettings.ConnectionString, config)
                 .UseFilter(new HangfireJobFilter(provider))
                 .UseFilter(new HangfireLogJobFilter())
