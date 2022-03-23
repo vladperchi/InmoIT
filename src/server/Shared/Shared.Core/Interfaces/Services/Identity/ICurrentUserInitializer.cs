@@ -6,10 +6,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
+using System.Security.Claims;
+
 namespace InmoIT.Shared.Core.Interfaces.Services.Identity
 {
     public interface ICurrentUserInitializer
     {
         void SetCurrentUserId(string userId);
+
+        void SetCurrentUser(ClaimsPrincipal user);
     }
 }
