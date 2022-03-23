@@ -29,6 +29,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Extensions
             services
                 .AddHttpContextAccessor()
                 .AddScoped<ICurrentUser, CurrentUser>()
+                .AddScoped(sp => (ICurrentUserInitializer)sp.GetRequiredService<ICurrentUser>())
                 .Configure<JwtSettings>(configuration.GetSection("JwtSettings"))
                 .AddTransient<ITokenService, TokenService>()
                 .AddTransient<IUserService, UserService>()
