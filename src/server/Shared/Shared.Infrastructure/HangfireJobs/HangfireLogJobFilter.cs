@@ -34,7 +34,7 @@ namespace InmoIT.Shared.Infrastructure.HangfireJobs
         {
             if (context.CandidateState is FailedState failedState)
             {
-                Logger.WarnFormat("Job '{0}' has been failed due to an exception {1}", context.BackgroundJob.Id, failedState.Exception);
+                Logger.ErrorFormat("Job '{0}' has been failed due to an exception {1}", context.BackgroundJob.Id, failedState.Exception);
             }
         }
 
@@ -42,6 +42,6 @@ namespace InmoIT.Shared.Infrastructure.HangfireJobs
             Logger.InfoFormat("Job {0} state was changed from {1} to {2}", context.BackgroundJob.Id, context.OldStateName, context.NewState.Name);
 
         public void OnStateUnapplied(ApplyStateContext context, IWriteOnlyTransaction transaction) =>
-            Logger.InfoFormat("Job {0} state {1} was unapplied.", context.BackgroundJob.Id, context.OldStateName);
+            Logger.WarnFormat("Job {0} state {1} was unapplied.", context.BackgroundJob.Id, context.OldStateName);
     }
 }
