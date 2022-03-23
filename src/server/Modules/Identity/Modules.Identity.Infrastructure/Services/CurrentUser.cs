@@ -79,5 +79,15 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
                 _userId = Guid.Parse(userId);
             }
         }
+
+        public void SetCurrentUser(ClaimsPrincipal user)
+        {
+            if (_user != null)
+            {
+                throw new ReservedCustomException(_localizer, null);
+            }
+
+            _user = user;
+        }
     }
 }
