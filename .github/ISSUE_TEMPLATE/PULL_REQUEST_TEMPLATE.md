@@ -60,5 +60,5 @@ _Go over all the following points, and put an `x` in all the boxes that apply. I
 
 Thanks for contributing!!!
 
-[contributing-url]: ../blob/main/.github/CONTRIBUTING.md
-[codeofconduct-url]: ../blob/main/.github/CODE_OF_CONDUCT.md
+[contributing-url]: https://github.com/vladperchi/InmoIT/blob/master/.github/CONTRIBUTING.md
+[codeofconduct-url]: https://github.com/vladperchi/InmoIT/blob/master/.github/CODE_OF_CONDUCT.md
