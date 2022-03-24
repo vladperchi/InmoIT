@@ -46,6 +46,7 @@ _What types of changes does your code introduce? Put an `x` in all the boxes tha
 
 _Go over all the following points, and put an `x` in all the boxes that apply. If you're unsure about any of these, don't hesitate to ask. We're here to help!_
 
+- [ ] I've read the [Contributing][contributing-url] and [Code of Conduct][codeofconduct-url]
 - [ ] My code follows the code style of this project.
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
@@ -58,3 +59,6 @@ _Go over all the following points, and put an `x` in all the boxes that apply. I
 - [ ] I have updated the documentation accordingly.
 
 Thanks for contributing!!!
+
+[contributing-url]: ../blob/main/.github/CONTRIBUTING.md
+[codeofconduct-url]: ../blob/main/.github/CODE_OF_CONDUCT.md
