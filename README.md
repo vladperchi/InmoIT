@@ -24,7 +24,7 @@
 
 ## About This Project
 
-In reality, there was no real need to implement microservices. InmoIT is intended to help a large Real Estate company provide information on properties in the United States. For this, a well-designed monolithic application would also work without any inconvenience, clearly taking into account that the API and the user interface would be separated to offer better opportunities in the future (Clients).
+In reality, there was no real need to implement microservices. InmoIT is intended to help a large Real Estate company provide information on properties in the United States and thus gradually increase rents and sales. For this, a well-designed monolithic application would also work without any inconvenience, clearly taking into account that the API and the user interface would be separated to offer better opportunities in the future (Clients).
 
 The API, ASP.NET Core 5.0 was my obvious choice. The WebAPI application is focused on modularity to improve the development experience. Entering the subject, I divided the application into logical modules such as flow, Identity, Documents, Leases, Sales, etc. Each of these modules contains its own `controllers / interfaces / dbContext`. As for the database providers, mssql will be used as default `appsettings`. A module cannot communicate directly with another module or modify its table. CrossCutting concerns would use `interfaces / events`. And yes, domain events are also included in the project using mediatr Handler. Each of the modules follows a clean architecture design.
 
