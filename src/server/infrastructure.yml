@@ -1,46 +1,6 @@
 version: '3.8'
 
 services:
-  api:
-    container_name: inmo_api
-    build:
-      context: .
-      dockerfile: inmo.dockerfile
-      args:
-        buildname: "InmoIT Docker Image"
-        builddate: "2022-03-24T03:44:57.853Z"
-        buildversion: 1.0.0
-    environment:
-      - "PersistenceSettings__ConnectionStrings=Server=db;Database=InmoIT;User=sa;Password=YourStrong(!)Passw0rd;MultipleActiveResultSets=true"
-      - "PersistenceSettings__UseMsSql=true"
-      - "HangfireSettings__Storage__ConnectionString=Server=db;Database=InmoIT;User=sa;Password=YourStrong(!)Passw0rd;MultipleActiveResultSets=true"
-      - "HangfireSettings__Storage__StorageProvider=mssql"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Password=YourStrong(!)Passw0rd"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx"
-    volumes:
-      - ~/.aspnet/https:/https:ro
-    ports:
-      - "5005:5005"
-      - "5006:5006"
-    networks:
-    - codewithvlad
-    depends_on:
-      - db
-      - seq
-    restart: on-failure
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-  db:
-    container_name: mssql_db
-    image: "mcr.microsoft.com/mssql/server"
-    restart: always
-    environment:
-      - "SA_PASSWORD=YourStrong(!)Passw0rd"
-      - "ACCEPT_EULA=Y"
-    networks:
-    - codewithvlad
 
   seq:
    container_name: seq_log
