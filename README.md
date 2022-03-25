@@ -131,7 +131,7 @@ Modular Architecture is a software design in which a monolith is made better and
  dotnet tool install --global dotnet-ef
 ```
 
-3. Install the latest version of Visual Studio IDE 2022(v17.0.0 and above) OR Visual Studio Code
+3. Install the latest version of Visual Studio IDE 2022(v17.0.0 and above) OR [Visual Studio Code][vscode-url].
 4. Install the latest [Docker on Windows][dockerwininstall-url]
 5. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
 6. As for quick DB Management, me love [Azure Data Studio][azuredatastudio-url]
@@ -209,6 +209,11 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
 - Browse to https://localhost:5005/ to use your version of InmoIT! -->
 
+## What HTTP requests can be sent to the API?
+
+- You can find the list of all HTTP requests in [InmoIT.Postman][postmancollection-url], file placed in the directory `InmoIT\postman`.
+- This file is compatible with [Postman][postmandownload-url] and easily edited with [Visual Studio Code][vscode-url].
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, create, and inspire. Any contribution you make is **greatly appreciated**.
@@ -249,6 +254,9 @@ Here are a few ways by which you can support.
 
 <a href="https://www.buymeacoffee.com/codewithvlad"><img width="250" alt="black-button" src="https://user-images.githubusercontent.com/31455818/138557309-27587d91-7b82-4cab-96bb-90f4f4e600f1.png" ></a>
 
+[vscode-url]: https://code.visualstudio.com
+[postmandownload-url]: https://www.postman.com/downloads/
+[postmancollection-url]: https://github.com/vladperchi/InmoIT/blob/master/postman/InmoIT.Postman.json
 [dockerwininstall-url]: https://docs.docker.com/docker-for-windows/install/
 [coredownload-url]: https://docs.microsoft.com/en-us/ef/core/
 [azuredatastudio-url]: https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15
