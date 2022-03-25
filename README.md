@@ -128,7 +128,7 @@ Modular Architecture is a software design in which a monolith is made better and
 2. Install the latest DOTNET & EF CLI Tools by using this command:
 
 ```
- `dotnet tool install --global dotnet-ef`
+ dotnet tool install --global dotnet-ef
 ```
 
 3. Install the latest version of Visual Studio IDE 2022(v17.0.0 and above) OR Visual Studio Code
@@ -144,7 +144,7 @@ To get started, here are the avaiable three options: download, clone or fork.
 - Open GitBash and execute command for clone:
 
 ```
-`git clone https://github.com/vladperchi/InmoIT.git`
+git clone https://github.com/vladperchi/InmoIT.git
 ```
 
 You would probably need to take this approach if you want to keep your source code upto date with the latest changes.
@@ -158,12 +158,14 @@ You would probably need to take this approach if you want to keep your source co
 - Open PowerShell `InmoIT/src/server` directory and execute:
 
 ```
-`docker-compose -f infrastructure.yml up -d`
+docker-compose -f infrastructure.yml up -d
 ```
 
 Note: It will start the required infrastructure in the background.
 
-- Browse to https://localhost:8081 to Seq Logs!. Then you can continue the list listed below:
+- Browse to https://localhost:8081 to Seq Logs!.
+
+Then you can continue the list listed below:
 
 1. Open up `InmoIT.sln` in Visual Studio 2019, preferably VS2022.
 2. Navigate to appSettings.json under `src/Host/Api/appsettings.json`
