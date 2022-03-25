@@ -125,8 +125,13 @@ Modular Architecture is a software design in which a monolith is made better and
 ## Prerequisites
 
 1. Install the latest [.NET 5 SDK][dotnetdownload-url]
-2. Install the latest DOTNET & EF CLI Tools by using this command `dotnet tool install --global dotnet-ef`
-3. Install the latest version of Visual Studio IDE 2019, preferably Visual Studio IDE 2022 (v17.0.0 and above) OR Visual Studio Code
+2. Install the latest DOTNET & EF CLI Tools by using this command:
+
+```
+ `dotnet tool install --global dotnet-ef`
+```
+
+3. Install the latest version of Visual Studio IDE 2022(v17.0.0 and above) OR Visual Studio Code
 4. Install the latest [Docker on Windows][dockerwininstall-url]
 5. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
 6. As for quick DB Management, me love [Azure Data Studio][azuredatastudio-url]
@@ -139,7 +144,7 @@ To get started, here are the avaiable three options: download, clone or fork.
 - Open GitBash and execute command for clone:
 
 ```
-git clone https://github.com/vladperchi/InmoIT.git
+`git clone https://github.com/vladperchi/InmoIT.git`
 ```
 
 You would probably need to take this approach if you want to keep your source code upto date with the latest changes.
@@ -153,7 +158,7 @@ You would probably need to take this approach if you want to keep your source co
 - Open PowerShell `InmoIT/src/server` directory and execute:
 
 ```
-docker-compose -f infrastructure.yml up -d
+`docker-compose -f infrastructure.yml up -d`
 ```
 
 Note: It will start the required infrastructure in the background.
