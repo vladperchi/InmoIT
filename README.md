@@ -107,7 +107,7 @@ Modular Architecture is a software design in which a monolith is made better and
 - [ ] Localization
 - [ ] Document
 - [ ] Dashboard
-- [ ] Docker Support
+- [x] Docker Support
 
 </details>
 
