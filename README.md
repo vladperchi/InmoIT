@@ -120,22 +120,27 @@ Modular Architecture is a software design in which a monolith is made better and
 ## Project Status
 
 - API - `In Progress`
-- Docker - `Coming Soon!`
+- Docker - `In Progress`
 
 ## Prerequisites
 
 1. Install the latest [.NET 5 SDK][dotnetdownload-url]
 2. Install the latest DOTNET & EF CLI Tools by using this command `dotnet tool install --global dotnet-ef`
 3. Install the latest version of Visual Studio IDE 2019, preferably Visual Studio IDE 2022 (v17.0.0 and above) OR Visual Studio Code
-4. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
-5. As for quick DB Management, me love [Azure Data Studio][azuredatastudio-url]
+4. Install the latest [Docker on Windows][dockerwininstall-url]
+5. It's recommended to use MsSql Server Database as it comes by default with InmoIT.
+6. As for quick DB Management, me love [Azure Data Studio][azuredatastudio-url]
 
 ## Getting Started
 
 To get started, here are the avaiable three options: download, clone or fork.
 
 - Download ZIP.
-- Open GitBash, command `git clone`, paste `https://github.com/vladperchi/InmoIT.git` and enter for clone.
+- Open GitBash and execute command for clone:
+
+```
+git clone https://github.com/vladperchi/InmoIT.git
+```
 
 You would probably need to take this approach if you want to keep your source code upto date with the latest changes.
 
@@ -144,6 +149,16 @@ You would probably need to take this approach if you want to keep your source co
 - Setup an upstream remote on your personal project pointing to your forked repository using command `git remote add upstream https://github.com/{githubuseraccount}/InmoIT` and `git remote set-url --push upstream DISABLE`
 
 ## Running the API
+
+- Open PowerShell `InmoIT/src/server` directory and execute:
+
+```
+docker-compose -f infrastructure.yml up -d
+```
+
+Note: It will start the required infrastructure in the background.
+
+- Browse to https://localhost:8081 to Seq Logs!. Then you can continue the list listed below:
 
 1. Open up `InmoIT.sln` in Visual Studio 2019, preferably VS2022.
 2. Navigate to appSettings.json under `src/Host/Api/appsettings.json`
@@ -172,17 +187,17 @@ Here are the credentials for the default users.
 
 You can use these credentials to generate JWT tokens in the `api/identity/tokens` endpoint.
 
-<!-- ## Docker in Windows
+<!--## Docker in Windows
 
 - Install Docker on Windows via `https://docs.docker.com/docker-for-windows/install/`
 - Open up Powershell on Windows and run the following
   - `cd c:\`
-  - `dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p securePassword123`
+  - `dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p YourStrong(!)Passw0rd`
   - `dotnet dev-certs https --trust`
-  - Note - Make sure that you use the same password that has been configured in the `docker-compose.yml` file. By default, `securePassword123` is configured.
+  - Note - Make sure that you use the same password that has been configured in the `infrastructure.yml` file. By default, `YourStrong(!)Passw0rd` is configured.
 - 5005 is the port setup to run InmoIT on Docker, so make sure that these port is free. You could also change the port in the `docker-compose.yml` and `Server\Dockerfile` files.
 - Now navigate back to the root of the InmoIT Project on your local machine and run the following via terminal
-  - `docker-compose -f 'docker-compose.yml' up --build`
+  - `docker-compose -f 'infrastructure.yml' up --build`
 - This will start pulling MSSQL Server Image from Docker Hub if you don't already have this image.
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
 - Browse to https://localhost:5005/ to use your version of InmoIT! -->
@@ -227,6 +242,7 @@ Here are a few ways by which you can support.
 
 <a href="https://www.buymeacoffee.com/codewithvlad"><img width="250" alt="black-button" src="https://user-images.githubusercontent.com/31455818/138557309-27587d91-7b82-4cab-96bb-90f4f4e600f1.png" ></a>
 
+[dockerwininstall-url]: https://docs.docker.com/docker-for-windows/install/
 [coredownload-url]: https://docs.microsoft.com/en-us/ef/core/
 [azuredatastudio-url]: https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15
 [dotnetdownload-url]: https://dotnet.microsoft.com/download/dotnet/5.0
