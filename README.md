@@ -209,7 +209,7 @@ You can use these credentials to generate JWT tokens in the `api/identity/tokens
 - That's almost everything. Once the containers are available, migrations are updated in the MSSQL DB, default data is seeded.
 - Browse to https://localhost:5005/ to use your version of InmoIT! -->
 
-## What HTTP requests can be sent to the API?
+## HTTP requests can be sent to the API?
 
 - You can find the list of all HTTP requests in [InmoIT.Postman][postmancollection-url], file placed in the directory `InmoIT\postman`.
 - This file is compatible with [Postman][postmandownload-url] and easily edited with [Visual Studio Code][vscode-url].
