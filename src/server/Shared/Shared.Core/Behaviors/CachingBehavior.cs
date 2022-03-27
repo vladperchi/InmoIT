@@ -50,7 +50,7 @@ namespace InmoIT.Shared.Core.Behaviors
             TResponse response;
             if (request.SkipCache)
             {
-                _logger.LogInformation(string.Format(_localizer["Skip Cache for -> '{0}'."], request.CacheKey));
+                _logger.LogWarning(string.Format(_localizer["Skip Cache for -> '{0}'."], request.CacheKey));
                 return await next();
             }
 
@@ -76,12 +76,12 @@ namespace InmoIT.Shared.Core.Behaviors
             if (cachedResponse != null)
             {
                 response = _jsonSerializer.Deserialize<TResponse>(Encoding.Default.GetString(cachedResponse));
-                _logger.LogInformation(string.Format(_localizer["Fetched from Cache -> '{0}'."], request.CacheKey));
+                _logger.LogWarning(string.Format(_localizer["Fetched from Cache -> '{0}'."], request.CacheKey));
             }
             else
             {
                 response = await GetResponseAndAddToCache();
-                _logger.LogInformation(string.Format(_localizer["Added to Cache -> '{0}'."], request.CacheKey));
+                _logger.LogWarning(string.Format(_localizer["Added to Cache -> '{0}'."], request.CacheKey));
             }
 
             return response;
