@@ -8,8 +8,6 @@
 
 using System.Threading.Tasks;
 
-using InmoIT.Shared.Core.Wrapper;
-
 namespace InmoIT.Shared.Core.Interfaces.Services
 {
     public interface ITemplateMailService

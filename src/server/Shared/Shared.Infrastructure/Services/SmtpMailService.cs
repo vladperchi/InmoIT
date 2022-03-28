@@ -10,19 +10,14 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using InmoIT.Shared.Core.Interfaces.Services;
-using InmoIT.Shared.Core.Interfaces.Services.Identity;
 using InmoIT.Shared.Core.Settings;
-using InmoIT.Shared.Core.Wrapper;
 using InmoIT.Shared.Dtos.Mails;
 using MailKit.Net.Smtp;
 using MailKit.Security;
-
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
-
-using static InmoIT.Shared.Core.Constants.PermissionsConstant;
 
 namespace InmoIT.Shared.Infrastructure.Services
 {
