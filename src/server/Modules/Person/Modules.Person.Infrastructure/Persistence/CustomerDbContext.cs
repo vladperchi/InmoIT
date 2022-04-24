@@ -24,7 +24,6 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
     public sealed class CustomerDbContext : ModuleDbContext, ICustomerDbContext
     {
         private readonly PersistenceSettings _persistenceOptions;
-        private readonly IJsonSerializer _jsonSerializer;
 
         protected override string Schema => SchemesConstant.Person;
 
@@ -37,7 +36,6 @@ namespace InmoIT.Modules.Person.Infrastructure.Persistence
                 : base(options, mediator, eventLogger, persistenceOptions, json)
         {
             _persistenceOptions = persistenceOptions.Value;
-            _jsonSerializer = json;
         }
 
         public DbSet<Cart> Carts { get; set; }
