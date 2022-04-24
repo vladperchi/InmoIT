@@ -37,13 +37,8 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/tokens",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
-                                    "path": [
-                                        "identity",
-                                        "tokens"
-                                    ]
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "tokens"]
                                 }
                             },
                             "response": []
@@ -77,14 +72,8 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/tokens/refresh",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
-                                    "path": [
-                                        "identity",
-                                        "tokens",
-                                        "refresh"
-                                    ]
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "tokens", "refresh"]
                                 }
                             },
                             "response": []
@@ -94,14 +83,114 @@
                 {
                     "name": "Permissions",
                     "item": [{
-
-                    }]
+                            "name": "get-current-user-permissions",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/roles/permissions",
+                                    "host": ["{{url}}"],
+                                    "path": ["roles", "permissions"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get-permissions-byrole",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/permissions/byrole/0fb306ac-3dee-420d-8793-6b2649efca58",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "permissions",
+                                        "byrole",
+                                        "0fb306ac-3dee-420d-8793-6b2649efca58"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update-permissions-byrole",
+                            "request": {
+                                "method": "PUT",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"RoleId\": \"0fb306ac-3dee-420d-8793-6b2649efca58\",\r\n    \"Permissions\": [\"Permissions.Hangfire.View\"]\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/permissions/update",
+                                    "host": ["{{url}}"],
+                                    "path": ["permissions", "update"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
                 },
                 {
                     "name": "Roles",
                     "item": [{
-
-                    }]
+                            "name": "get-all-roles",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/identity/roles",
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "roles"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get-id-role",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/identity/roles/0fb306ac-3dee-420d-8793-6b2649efca58",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "identity",
+                                        "roles",
+                                        "0fb306ac-3dee-420d-8793-6b2649efca58"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "create-role",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"name\":\"Admin\",\r\n    \"description\":\"ROL ADMIN\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/identity/roles",
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "roles"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
                 },
                 {
                     "name": "Users",
@@ -112,9 +201,7 @@
                                 "header": [],
                                 "url": {
                                     "raw": "{{url}}/identity/users",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
+                                    "host": ["{{url}}"],
                                     "path": ["identity", "users"]
                                 }
                             },
@@ -127,13 +214,29 @@
                                 "header": [],
                                 "url": {
                                     "raw": "{{url}}/identity/users/bc102093-2dc7-4e47-bc3a-da64e6a0ffa9",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
+                                    "host": ["{{url}}"],
                                     "path": [
                                         "identity",
                                         "users",
                                         "bc102093-2dc7-4e47-bc3a-da64e6a0ffa9"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get-picture-user",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/identity/users/user-picture/5391aaba-3257-46b2-a0f5-3569bef3acba",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "identity",
+                                        "users",
+                                        "user-picture",
+                                        "5391aaba-3257-46b2-a0f5-3569bef3acba"
                                     ]
                                 }
                             },
@@ -155,14 +258,8 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/register",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
-                                    "path": [
-                                        "identity",
-                                        "users",
-                                        "register"
-                                    ]
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "users", "register"]
                                 }
                             },
                             "response": []
@@ -183,13 +280,8 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
-                                    "path": [
-                                        "identity",
-                                        "users"
-                                    ]
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "users"]
                                 }
                             },
                             "response": []
@@ -201,9 +293,7 @@
                                 "header": [],
                                 "url": {
                                     "raw": "{{url}}/identity/users/bc102093-2dc7-4e47-bc3a-da64e6a0ffa9",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
+                                    "host": ["{{url}}"],
                                     "path": [
                                         "identity",
                                         "users",
@@ -237,14 +327,8 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/forgot-password",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
-                                    "path": [
-                                        "identity",
-                                        "users",
-                                        "forgot-password"
-                                    ]
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "users", "forgot-password"]
                                 }
                             },
                             "response": []
@@ -265,14 +349,8 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/reset-password",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
-                                    "path": [
-                                        "identity",
-                                        "users",
-                                        "reset-password"
-                                    ]
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "users", "reset-password"]
                                 }
                             },
                             "response": []
@@ -293,14 +371,8 @@
                                 },
                                 "url": {
                                     "raw": "{{url}}/identity/users/change-password",
-                                    "host": [
-                                        "{{url}}"
-                                    ],
-                                    "path": [
-                                        "identity",
-                                        "users",
-                                        "change-password"
-                                    ]
+                                    "host": ["{{url}}"],
+                                    "path": ["identity", "users", "change-password"]
                                 }
                             },
                             "response": []
@@ -316,13 +388,8 @@
                             "header": [],
                             "url": {
                                 "raw": "{{url}}/identity/logger",
-                                "host": [
-                                    "{{url}}"
-                                ],
-                                "path": [
-                                    "identity",
-                                    "logger"
-                                ]
+                                "host": ["{{url}}"],
+                                "path": ["identity", "logger"]
                             }
                         },
                         "response": []
@@ -359,24 +426,135 @@
             ]
         },
         {
-            "name": "Customer",
+            "name": "Person",
             "item": [{
                     "name": "Customers",
                     "item": [{
-
-                    }]
+                            "name": "get-all-customers",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/person/customers",
+                                    "host": ["{{url}}"],
+                                    "path": ["person", "customers"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get-id-customer",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/person/customers/a44866e8-7fef-4f24-aca1-2d32873f8d24",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "person",
+                                        "customers",
+                                        "a44866e8-7fef-4f24-aca1-2d32873f8d24"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get-picture-customer",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/person/customers/customer-picture/a44866e8-7fef-4f24-aca1-2d32873f8d24",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "person",
+                                        "customers",
+                                        "customer-picture",
+                                        "a44866e8-7fef-4f24-aca1-2d32873f8d24"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "register-customer",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [{
+                                        "key": "token",
+                                        "value": "{{token}}",
+                                        "type": "string"
+                                    }]
+                                },
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n   \"name\": \"Erick\",\r\n   \"surname\": \"Sandoval\",\r\n   \"gender\": \"Male\",\r\n   \"group\": \"Public\",\r\n   \"PhoneNumber\": \"00573043605913\",\r\n   \"Birthday\": \"1990-03-16T17:45:00.000Z\",\r\n   \"email\": \"ericksandoval@gmail.com\",\r\n   \"imageurl\": \"Files\\Images\\Person\\Customers\\ghost.png\",\r\n   \"isactive\": true\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/person/customers",
+                                    "host": ["{{url}}"],
+                                    "path": ["person", "customers"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update-customer",
+                            "request": {
+                                "method": "PUT",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n   \"id\": \"5cf09b6e-fb84-471e-b5a5-2a74ed6068e1\",\r\n   \"name\": \"Ruben\",\r\n   \"surname\": \"Dominguez\",\r\n   \"gender\": \"Male\",\r\n   \"group\": \"VIP\",\r\n   \"PhoneNumber\": \"00573043601013\",\r\n   \"Birthday\": \"1981-07-22T17:45:00.000Z\",\r\n   \"email\": \"orlandosilva@gmail.com\",\r\n   \"imageurl\": \"Files\\Images\\Person\\Customers\\ghost.png\",\r\n   \"isactive\": true\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{url}}/person/customers",
+                                    "host": ["{{url}}"],
+                                    "path": ["person", "customers"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "delete-customer",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{url}}/person/customers/7c8035e4-9015-48c8-9503-5764e5625e4e",
+                                    "host": ["{{url}}"],
+                                    "path": [
+                                        "person",
+                                        "customers",
+                                        "7c8035e4-9015-48c8-9503-5764e5625e4e"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
                 },
                 {
                     "name": "Carts",
-                    "item": [{
-
-                    }]
+                    "item": [{}]
                 },
                 {
                     "name": "CartItems",
-                    "item": [{
-
-                    }]
+                    "item": [{}]
                 }
             ]
         },
@@ -416,7 +594,9 @@
             "name": "Accounting",
             "item": [{
                 "name": "Traces",
-                "item": [{}]
+                "item": [{
+
+                }]
             }]
         },
         {
