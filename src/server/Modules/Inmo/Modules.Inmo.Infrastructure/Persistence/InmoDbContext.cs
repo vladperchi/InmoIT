@@ -23,7 +23,6 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
     public sealed class InmoDbContext : ModuleDbContext, IInmoDbContext
     {
         private readonly PersistenceSettings _persistenceOptions;
-        private readonly IJsonSerializer _jsonSerializer;
 
         protected override string Schema => SchemesConstant.Inmo;
 
@@ -36,7 +35,6 @@ namespace InmoIT.Modules.Inmo.Infrastructure.Persistence
                 : base(options, mediator, eventLogger, persistenceOptions, json)
         {
             _persistenceOptions = persistenceOptions.Value;
-            _jsonSerializer = json;
         }
 
         public DbSet<Owner> Owners { get; set; }
