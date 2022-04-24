@@ -9,12 +9,12 @@
 using System;
 using InmoIT.Modules.Inmo.Core.Entities;
 using InmoIT.Shared.Core.Features.Queries.Validators;
-using InmoIT.Shared.Dtos.Person.Customers;
+using InmoIT.Shared.Dtos.Inmo.Properties;
 using Microsoft.Extensions.Localization;
 
 namespace InmoIT.Modules.Inmo.Core.Features.Properties.Queries.Validators
 {
-    public class PaginatedPropertyFilterValidator : PaginatedFilterValidator<Guid, Property, PaginatedCustomerFilter>
+    public class PaginatedPropertyFilterValidator : PaginatedFilterValidator<Guid, Property, PaginatedPropertyFilter>
     {
         /// <summary>
         /// You can override the validation rules here.
