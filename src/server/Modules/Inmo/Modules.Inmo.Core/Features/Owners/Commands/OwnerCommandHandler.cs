@@ -70,7 +70,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
                 var fileUploadRequest = new FileUploadRequest
                 {
                     Data = command.FileUploadRequest?.Data,
-                    Extension = Path.GetExtension(command.FileName),
+                    Extension = Path.GetExtension(command.FileUploadRequest.FileName),
                     UploadStorageType = UploadStorageType.Owner
                 };
                 string fileName = await _ownerService.GenerateFileName(20);
@@ -125,7 +125,7 @@ namespace InmoIT.Modules.Inmo.Core.Features.Owners.Commands
                 _context.Owners.Update(owner);
                 await _context.SaveChangesAsync(cancellationToken);
                 await _cache.RemoveAsync(CacheKeys.Common.GetEntityByIdCacheKey<Guid, Owner>(command.Id), cancellationToken);
-                return await Result<Guid>.SuccessAsync(owner.Id, _localizer["Customer Updated"]);
+                return await Result<Guid>.SuccessAsync(owner.Id, _localizer["Owner Updated"]);
             }
             catch (Exception)
             {
