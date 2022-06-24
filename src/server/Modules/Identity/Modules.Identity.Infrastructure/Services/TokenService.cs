@@ -117,7 +117,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (_config.RefreshTokenExpirationInDays == 0)
             {
-                throw new UnauthorizedException(_localizer["There is no RefreshTokenExpirationInDays value defined in the JwtSettings configuration."]);
+                throw new InvalidOperationException(_localizer["There is no RefreshTokenExpirationInDays value defined in the JwtSettings configuration."]);
             }
 
             string token = await GenerateJwtAsync(user, ipAddress);
@@ -198,7 +198,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (string.IsNullOrEmpty(_config.Key))
             {
-                throw new UnauthorizedException(_localizer["There is no key value defined in the JwtSettings configuration."]);
+                throw new InvalidOperationException(_localizer["There is no key value defined in the JwtSettings configuration."]);
             }
 
             var tokenValidationParameters = new TokenValidationParameters
@@ -226,7 +226,7 @@ namespace InmoIT.Modules.Identity.Infrastructure.Services
         {
             if (string.IsNullOrEmpty(_config.Key))
             {
-                throw new UnauthorizedException("There is no key value defined in the JwtSettings configuration.");
+                throw new InvalidOperationException("There is no key value defined in the JwtSettings configuration.");
             }
 
             byte[] key = Encoding.UTF8.GetBytes(_config.Key);
