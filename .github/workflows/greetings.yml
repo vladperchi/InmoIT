@@ -12,5 +12,20 @@ jobs:
     - uses: actions/first-interaction@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: 'Message that will be displayed on users first issue'
-        pr-message: 'Message that will be displayed on users first pull request'
+        issue-message: |
+            👋 Hello @${{ github.actor }}, thank you for your interest in InmoIT 🚀!. If this is a 🐛 Bug Report, please provide screenshots and **minimum viable code to reproduce your issue**, otherwise we can not help you.
+            If this is a custom training ❓ Question, please provide as much information as possible, including dataset images, training logs, screenshots. For business inquiries or professional support requests email Vladperchi at codewithvladperchi@outlook.com.
+
+        pr-message: |
+            👋 Hello @${{ github.actor }}, thank you for submitting a 🚀 PR! To allow your work to be integrated as seamlessly as possible, we advise you to:
+            - ✅ Verify your PR is **up-to-date with upstream/master.** If your PR is behind upstream/master an automatic [GitHub actions](https://github.com/vladperchi/InmoIT/blob/master/.github/workflows/rebase.yml) rebase may be attempted by including the /rebase command in a comment body, or by running the following code, replacing 'feature' with the name of your local branch:
+            ```bash
+            git remote add upstream https://github.com/vladperchi/InmoIT.git
+            git fetch upstream
+            git checkout feature  # <----- replace 'feature' with local branch name
+            git merge upstream/master
+            git push -u origin -f
+            ```
+            - ✅ Verify all Continuous Integration (CI) **checks are passing**.
+            - ✅ Reduce changes to the absolute **minimum** required for your bug fix or feature addition.
+
