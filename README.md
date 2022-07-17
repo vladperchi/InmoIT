@@ -164,18 +164,17 @@ docker-compose -f infrastructure.yml up -d
 
 Note: It will start the required infrastructure in the background.
 
-- Browse to https://localhost:8081 to Seq Logs!.
-
 Then you can continue the list listed below:
 
-1. Open up `InmoIT.sln` in Visual Studio 2019, preferably VS2022.
+1. Open up `InmoIT.sln` in Visual Studio 2022, preferably.
 2. Navigate to appSettings.json under `src/Host/Api/appsettings.json`
 3. Add you MsSql connection string under `PersistenceSettings`. The default connection string:
    `"mssql": "Data Source=.;Initial Catalog=InmoIT;Integrated Security=True;MultipleActiveResultSets=True"`
 4. That is all you need to configure the API. Just create and run the API project.
 5. By default, the database is migrated. Take a look at the [migrations][migrations-url] of the solution
 6. Some default data is also included in this database, such as roles, users, owners, properties, images etc.
-7. Browse to https://localhost:5001/ to Api InmoIT!
+7. Browse to http://localhost:5341/ to Seq Logs!.
+8. Browse to https://localhost:5001/ to Api InmoIT!
 
 ## Default Roles & Credentials
 
